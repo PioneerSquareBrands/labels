@@ -21,8 +21,11 @@
           </div>
         </div> 
         <div class="sidebar__fields">
-          <h1>UPC Label Generator</h1>
-          <form class="labelinator">
+          <h1 class="sidebar__title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-text"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 8h8"/><path d="M7 12h10"/><path d="M7 16h6"/></svg>
+            UPC Label
+          </h1>
+          <form class="sidebar__form sidebar__form--active labelinator">
             <fieldset>
               <div class="field" data-highlight=".print__header h1, .label__brand, .label__install-site, .label__qr, .qrlink__base, .download__name">
                 <label for="brand">
@@ -36,20 +39,22 @@
                 </select>
               </div>
 
-              <div class="field" data-highlight=".label__item-master, .label__install-sku, .label__qr, #qr_path">
-                <label for="item_master">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-barcode"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M8 7v10"/><path d="M12 7v10"/><path d="M17 7v10"/></svg>
-                  Item Master
-                </label>
-                <input type="text" id="item_master" placeholder="1050">
-              </div>
-          
-              <div class="field" data-highlight=".label__item-sku, .label__datamatrix, .download__name">
-                <label for="sku">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
-                  SKU
-                </label>
-                <input type="text" id="sku" placeholder="1050001">
+              <div class="sidebar__group">
+                <div class="field" data-highlight=".label__item-master, .label__install-sku, .label__qr, #qr_path">
+                  <label for="item_master">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-barcode"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M8 7v10"/><path d="M12 7v10"/><path d="M17 7v10"/></svg>
+                    Item Master
+                  </label>
+                  <input type="text" id="item_master" placeholder="1050">
+                </div>
+            
+                <div class="field" data-highlight=".label__item-sku, .label__datamatrix, .download__name">
+                  <label for="sku">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
+                    SKU
+                  </label>
+                  <input type="text" id="sku" placeholder="1050001">
+                </div>
               </div>
 
               <div class="field" data-highlight=".label__upc">
@@ -57,7 +62,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-barcode"><path d="M3 5v14"/><path d="M8 5v14"/><path d="M12 5v14"/><path d="M17 5v14"/><path d="M21 5v14"/></svg>
                   Item UPC
                 </label>
-                <input type="text" id="item_upc" placeholder="000000000000">
+                <input type="text" id="item_upc" placeholder="730791105003">
               </div>
           
               <div class="field" data-highlight=".label__description">
@@ -80,11 +85,15 @@
               </div>
 
               <div class="field" data-highlight=".label__quantity">
-                <label for="content">
+                <label for="pb_content">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
                   Content
                 </label>
-                <input type="text" id="content" placeholder="Qty: 1">
+                <div class="quantity">
+                  <input type="text" id="pb_content" placeholder="Qty: 1">
+                  <input type="text" id="mc_content" placeholder="MC Qty: 1">
+                  <input type="text" id="ic_content" placeholder="IC Qty: 1">
+                </div>
               </div>
           
               <div class="field" data-highlight=".label__qr, .label__install-link">
@@ -115,6 +124,41 @@
                   </button>
                 </div>
                 <div class="color-picker"></div>
+              </div>
+            </fieldset>
+          </form>
+          <h1 class="sidebar__title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-container"><path d="M22 7.7c0-.6-.4-1.2-.8-1.5l-6.3-3.9a1.72 1.72 0 0 0-1.7 0l-10.3 6c-.5.2-.9.8-.9 1.4v6.6c0 .5.4 1.2.8 1.5l6.3 3.9a1.72 1.72 0 0 0 1.7 0l10.3-6c.5-.3.9-1 .9-1.5Z"/><path d="M10 21.9V14L2.1 9.1"/><path d="m10 14 11.9-6.9"/><path d="M14 19.8v-8.1"/><path d="M18 17.5V9.4"/></svg>
+            Shipping Marks
+          </h1>
+          <form class="sidebar__form shippinator">
+            <fieldset>
+              <div class="field" data-highlight=".print__header h1, .label__brand, .label__install-site, .label__qr, .qrlink__base, .download__name">
+                <label for="brand">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                  Brand
+                </label>
+                <select name="brand" id="brand2">
+                  <option value="brenthaven">Brenthaven</option>
+                  <option value="gumdrop">Gumdrop</option>
+                  <option value="vault">Vault</option>
+                </select>
+              </div>
+
+              <div class="field" data-highlight=".label__item-master, .label__install-sku, .label__qr, #qr_path">
+                <label for="item_master">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-barcode"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M8 7v10"/><path d="M12 7v10"/><path d="M17 7v10"/></svg>
+                  Item Master
+                </label>
+                <input type="text" id="item_master2" placeholder="1050">
+              </div>
+          
+              <div class="field" data-highlight=".label__item-sku, .label__datamatrix, .download__name">
+                <label for="sku">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
+                  SKU
+                </label>
+                <input type="text" id="sku2" placeholder="1050001">
               </div>
             </fieldset>
           </form>

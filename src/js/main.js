@@ -1,13 +1,12 @@
-
-console.log('Script Start!');
 let DEBUG = false;
+if (DEBUG) console.log('Debug mode enabled');
 let iconSize = 60;
 
 const defaultinator = () => {
   if (DEBUG) console.log('Labelinator defaults');
 
   const brandField = document.querySelector('#brand').value;
-  let logoSrc, headerText, linkText, itemMaster, sku, description;
+  let logoSrc, headerText, linkText, itemMaster, sku, upc, description;
 
   switch (brandField) {
     case 'brenthaven':
@@ -16,6 +15,7 @@ const defaultinator = () => {
       linkText = 'https://brenthaven.com';
       itemMaster = '1050';
       sku = '1050001';
+      upc = '730791105003';
       description = 'Edge Smart Connect Keyboard';
       break;
     case 'gumdrop':
@@ -24,6 +24,7 @@ const defaultinator = () => {
       linkText = 'https://www.gumdropcases.com';
       itemMaster =  '01D015';
       sku = '01D015E01-20';
+      upc = '818090026011';
       description = 'DropTech for Dell Latitude 3340 (2-in-1)';
       break;
     default:
@@ -32,10 +33,11 @@ const defaultinator = () => {
       linkText = 'https://byvault.com';
       itemMaster =  '12A001';
       sku = '12A001E01-20';
+      upc = '818090025960';
       description = 'Simplicity Stand for iPad';
   }
   
-  return { brandField, logoSrc, headerText, linkText, itemMaster, sku, description };
+  return { brandField, logoSrc, headerText, linkText, itemMaster, sku, upc, description };
 }
 
 const selectinator = () => {
@@ -217,7 +219,7 @@ const labelinator = () => {
     let fieldDescription = form.querySelector('#description');
     let fieldUPC = form.querySelector('#item_upc');
     let fieldQrLink = form.querySelector('#qr_path');
-    let fieldContent = form.querySelector('#content');
+    let fieldContent = form.querySelector('#pb_content');
 
     // Function to trigger the event listeners
     const triggerEventListeners = () => {
@@ -274,9 +276,11 @@ const labelinator = () => {
     document.querySelector('#item_master').placeholder = defaults.itemMaster;
     document.querySelector('#qr_path').placeholder = defaults.itemMaster;
     document.querySelector('#sku').placeholder = defaults.sku;
+    document.querySelector('#item_upc').placeholder = defaults.upc;
     document.querySelector('#description').placeholder = defaults.description;
 
     _qrURL();
+    _upcUpdate();
   }
 
   const _itemMasterUpdate = () => {
@@ -328,8 +332,10 @@ const labelinator = () => {
 
   const _upcUpdate = () => {
     if (DEBUG) console.log('Labelinator upc update');
+    const defaults = defaultinator();
+
     const barcodeElements = document.querySelectorAll('.label__upc svg');
-    const upcField = document.querySelector('#item_upc').value || '000000000000';
+    const upcField = document.querySelector('#item_upc').value || defaults.upc;
 
     if (upcField.length == 12) {
       barcodeElements.forEach(barcodeElement => {
@@ -459,7 +465,7 @@ const labelinator = () => {
   const _contentUpdate = () => {
     if (DEBUG) console.log('Labelinator content update');
 
-    const contentField = document.querySelector('#content').value || 'Qty: 1';
+    const contentField = document.querySelector('#pb_content').value || 'Qty: 1';
     const labelQuantities = document.querySelectorAll('.label__quantity');
 
     labelQuantities.forEach((labelQuantity) => {
@@ -580,30 +586,36 @@ const controlinator = () => {
 }
 
 const colorinator = () => {
-  let colorPicker = new iro.ColorPicker('.color-picker', {
-    width: 160,
-    color: "#ffffff",
-    layoutDirection: 'horizontal',
-    sliderSize: 8
-  });
+  let colorPicker; // Declare colorPicker here to make it accessible to all inner functions
 
-  const currentIndicator= document.querySelector('.color-current');
+  const _init = () => {
+    colorPicker = new iro.ColorPicker('.color-picker', {
+      width: 160,
+      color: "#ffffff",
+      layoutDirection: 'horizontal',
+      sliderSize: 8
+    });
+  
+    const currentIndicator = document.querySelector('.color-current');
+  
+    document.querySelector('#color').addEventListener('input', function() {
+      colorPicker.color.set(this.value);
+      currentIndicator.style.backgroundColor = this.value;
+      _colorChanger();
+    });
+  
+    colorPicker.on('color:change', function(color) {
+      document.querySelector('#color').value = color.hexString;
+      currentIndicator.style.backgroundColor = color.hexString;
+      _colorChanger();
+    });
+  
+    document.querySelector('.color-reset').addEventListener('click', function() {
+      colorPicker.reset();
+    });
 
-  document.querySelector('#color').addEventListener('input', function() {
-    colorPicker.color.set(this.value);
-    currentIndicator.style.backgroundColor = this.value;
-    _colorChanger();
-  });
-
-  colorPicker.on('color:change', function(color) {
-    document.querySelector('#color').value = color.hexString;
-    currentIndicator.style.backgroundColor = color.hexString;
-    _colorChanger();
-  });
-
-  document.querySelector('.color-reset').addEventListener('click', function() {
-    colorPicker.reset();
-  });
+    _colorToggle();
+  }
 
   const _colorChanger = () => {
     const rgb = colorPicker.color.rgb;
@@ -624,7 +636,47 @@ const colorinator = () => {
       }
     });
   }
+  
+  const _colorToggle = () => {
+    const colorToggle = document.querySelector('.color-current');
+    const picker = document.querySelector('.color-picker');
+
+    colorToggle.addEventListener('click', () => {
+      picker.classList.toggle('color-picker--active');
+    });
+
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!picker.contains(target) && !colorToggle.contains(target)) {
+        picker.classList.remove('color-picker--active');
+      }
+    });
+  }
+
+  _init();
 }
+
+const scalinator = () => {
+  const parentDivs = document.querySelectorAll('.page--carton');
+
+  parentDivs.forEach(parentDiv => {
+    const print = parentDiv.querySelector('.scaler');
+
+    const resizeObserver = new ResizeObserver(entries => {
+      for (let entry of entries) {
+        const parentDivWidth = entry.contentRect.width;
+
+        const printWidth = print.offsetWidth;
+
+        const scale = parentDivWidth / printWidth;
+
+        print.style.transform = `scale(${scale})`;
+      }
+    });
+
+    resizeObserver.observe(parentDiv);
+  });
+};
 
 const outlininator = () => {
   const fields = document.querySelectorAll('.sidebar__fields input, .sidebar__fields select, .sidebar__fields textarea');
@@ -774,33 +826,22 @@ const misc = () => {
     });
   }
 
+  const _sidebarAccordion = () => {
+    const accordionToggle = document.querySelectorAll('.sidebar__fields h1');
+    
+    accordionToggle.forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const form = toggle.nextElementSibling;
+        if (form) {
+          form.classList.toggle('sidebar__form--active');
+        }
+      });
+    });
+  }
+
+  _sidebarAccordion();
   _qrToggle();
 }
-
-const test = () => {
-  const parentDivs = document.querySelectorAll('.page--carton');
-
-  parentDivs.forEach(parentDiv => {
-    const print = parentDiv.querySelector('.scaler');
-
-    const resizeObserver = new ResizeObserver(entries => {
-      for (let entry of entries) {
-        const parentDivWidth = entry.contentRect.width;
-
-        const printWidth = print.offsetWidth;
-
-        const scale = parentDivWidth / printWidth;
-
-        print.style.transform = `scale(${scale})`;
-      }
-    });
-
-    resizeObserver.observe(parentDiv);
-  });
-};
-
-test();
-
 
 //===================
 selectinator();
@@ -809,4 +850,5 @@ labelinator();
 controlinator(); 
 outlininator();
 pdfinator();
+scalinator();
 misc();
