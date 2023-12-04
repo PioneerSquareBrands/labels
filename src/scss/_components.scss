@@ -534,6 +534,16 @@ button,
   }
 }
 
+// Shipping Mark (Front) Specific Styles
+.page[data-type="shipping-front"] {
+  &::before { content: 'Shipping Mark (Front)'; }
+}
+
+// Shipping Mark (Side) Specific Styles
+.page[data-type="shipping-side"] {
+  &::before { content: 'Shipping Mark (Side)'; }
+}
+
 .outlininator {
   outline: 4px solid rgba(0, 242, 255, 0.5);
   outline-offset: 2px;

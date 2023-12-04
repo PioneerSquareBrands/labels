@@ -687,8 +687,6 @@ const pdfinator = () => {
         scale: 4
       });
 
-      console.log(content);
-
       if (DEBUG) { 
         const existingCanvas = content.nextElementSibling;
         if (existingCanvas && existingCanvas.tagName === 'CANVAS') {
