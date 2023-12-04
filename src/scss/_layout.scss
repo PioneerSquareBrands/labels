@@ -226,7 +226,7 @@ body > main {
     color: #9197A5;
     opacity: 0.8;
 
-    @media (min-width: 768px) {
+    @media (max-width: 1000px) {
       display: none;
     }
   }
@@ -260,8 +260,4 @@ body > main {
   align-items: center;
   overflow: auto;
   padding-bottom: 20px;
-
-  &--expanded { 
-    opacity: 1; 
-  }
 }

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=PT+Mono&display=swap");
 *,
 ::before,
@@ -379,7 +380,7 @@ body > main {
   color: #9197A5;
   opacity: 0.8;
 }
-@media (min-width: 768px) {
+@media (max-width: 1000px) {
   .preview__controls .download__name {
     display: none;
   }
@@ -423,9 +424,6 @@ body > main {
           align-items: center;
   overflow: auto;
   padding-bottom: 20px;
-}
-.preview__content--expanded {
-  opacity: 1;
 }
 
 .button-group {
@@ -648,42 +646,7 @@ input:checked + .button svg {
           box-shadow: rgb(255, 255, 255) 0px 0px 0px 0px, rgba(51, 65, 85, 0.1) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 0px 20px 25px -5px, rgba(0, 0, 0, 0.05) 0px 8px 10px -6px;
   -webkit-transition: padding 0.3s, margin 0.3s, opacity 0.2s;
   transition: padding 0.3s, margin 0.3s, opacity 0.2s;
-}
-.page main {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-.preview__content--expanded .page {
-  margin: 40px 40px 0;
   background-color: #ffffff;
-  padding: 40px;
-}
-.preview__content--expanded .page--a4 {
-  width: 210mm;
-  height: 297mm;
-}
-.preview__content--condensed .page {
-  margin: 20px;
-  padding: 12px;
-  background-color: #ffffff;
-}
-.page--carton {
-  display: block;
-  position: relative;
-  -webkit-transform-origin: top left;
-          transform-origin: top left;
-  padding: 0 !important;
-  width: calc(100% - 80px);
-}
-.page--carton .test-carton {
-  -webkit-transform-origin: top left;
-          transform-origin: top left;
-  width: 381mm;
-  height: 228.6mm;
 }
 .page::before {
   content: "";
@@ -698,6 +661,63 @@ input:checked + .button svg {
 }
 .page--hidden {
   display: none;
+}
+.page--carton {
+  display: block;
+  position: relative;
+  height: 0;
+}
+.preview__content--expanded .page {
+  margin: 40px 40px 0;
+  padding: 40px;
+}
+.preview__content--expanded .page--a4 {
+  width: 210mm;
+  height: 297mm;
+}
+.preview__content--expanded .page--carton {
+  padding: 0 0 50%;
+}
+.preview__content--expanded .page--carton-side {
+  width: 61.1111111111%;
+}
+.preview__content--expanded .page--carton-front {
+  width: 83.3333333333%;
+}
+.preview__content--condensed .page {
+  margin: 20px;
+  padding: 12px;
+}
+.preview__content--condensed .page--carton {
+  padding: 0 0 30%;
+}
+.preview__content--condensed .page--carton-side {
+  width: 36.6666666667%;
+}
+.preview__content--condensed .page--carton-front {
+  width: 50%;
+}
+.page--carton .scaler {
+  -webkit-transform-origin: top left;
+          transform-origin: top left;
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.page--carton-front .scaler {
+  width: 15in;
+  height: 9in;
+}
+.page--carton-side .scaler {
+  width: 11in;
+  height: 9in;
 }
 @-webkit-keyframes scaleAndExplode {
   0%, 10% {
@@ -761,13 +781,17 @@ input:checked + .button svg {
   color: magenta;
   margin: 2px 0 8px;
 }
-.print__content {
+
+.label {
   width: 3.2in;
   height: 3.8in;
   border: 1px solid magenta;
-}
-
-.label {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -971,6 +995,38 @@ input:checked + .button svg {
   background-color: transparent;
 }
 
+.shipping-mark {
+  width: 10in;
+  height: 7in;
+  padding: 0.5in 0.5in 0.5in 1.5in;
+  border: 1px solid magenta;
+  position: relative;
+}
+.shipping-mark .label {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 0.3in;
+  right: 0.3in;
+}
+.shipping-mark__content {
+  width: 5in;
+}
+.shipping-mark__logo {
+  height: 60px;
+}
+.shipping-mark__item {
+  font-size: 36px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0.1in 0;
+}
+.shipping-mark__meta > div {
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 2em;
+}
+
 .preview--brenthaven .label__item-master:before {
   content: "Item: ";
 }
@@ -1039,11 +1095,11 @@ input:checked + .button svg {
 }
 
 .page[data-type=shipping-front]::before {
-  content: "Shipping Mark (Front)";
+  content: "Shipping Mark (Front) – Scaled";
 }
 
 .page[data-type=shipping-side]::before {
-  content: "Shipping Mark (Side)";
+  content: "Shipping Mark (Side) - Scaled";
 }
 
 .outlininator {

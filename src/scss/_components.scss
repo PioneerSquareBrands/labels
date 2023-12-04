@@ -167,50 +167,7 @@ button,
   border-radius: $border-radius;
   box-shadow: $paper;
   transition: padding 0.3s, margin 0.3s, opacity 0.2s;
-
-  main {
-    align-items: center;
-    justify-content: center;
-  }
-
-  .preview__content--expanded & {
-    margin: 40px 40px 0;
-    background-color: #ffffff;
-    padding: 40px;
-  }
-
-  .preview__content--expanded &--a4 {
-    width: 210mm;
-    height: 297mm;
-  }
-
-  .preview__content--condensed & {
-    margin: 20px;
-    padding: 12px;
-    background-color: #ffffff;
-  }
-
-  &--carton {
-    display: block;
-    position: relative;
-    transform-origin: top left;
-    padding: 0 !important;
-    width: calc(100% - 80px);
-
-    &-side {
-      //width: 279.4mm; // 11in
-    }
-  
-    &-front {
-      //width: 381mm; // 15in
-    }
-
-    .test-carton {
-      transform-origin: top left;
-      width: 381mm;
-      height: 228.6mm;
-    }
-  }
+  background-color: #ffffff;
 
   &::before {
     content: '';
@@ -225,8 +182,58 @@ button,
   }
 
   &--hidden {
-    //animation: scaleAndExplode 0.3s ease-in-out forwards;
     display: none;
+  }
+
+  // CHANGE SHIPPING MARK CARTON SIZE HERE
+  $carton-expanded: 50%;
+  $carton-condensed: 30%;
+
+  &--carton {
+    display: block;
+    position: relative;
+    height: 0;
+  }
+
+  .preview__content--expanded & {
+    margin: 40px 40px 0;
+    padding: 40px;
+
+    &--a4 {
+      width: 210mm;
+      height: 297mm;
+    }
+
+    &--carton { padding: 0 0 $carton-expanded; }
+    &--carton-side { width: calc($carton-expanded * (11 / 9)); }
+    &--carton-front { width: calc($carton-expanded * (15 / 9)); }
+  }
+
+  .preview__content--condensed & {
+    margin: 20px;
+    padding: 12px;
+
+    &--carton { padding: 0 0 $carton-condensed; }
+    &--carton-side { width: calc($carton-condensed * (11 / 9)); }
+    &--carton-front { width: calc($carton-condensed * (15 / 9)); }
+  }
+
+  &--carton .scaler {
+    transform-origin: top left;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &--carton-front .scaler {
+    width: 15in;
+    height: 9in;
+  }
+
+  &--carton-side .scaler {
+    width: 11in;
+    height: 9in;
   }
 
   @keyframes scaleAndExplode {
@@ -275,15 +282,14 @@ button,
     color: magenta;
     margin: 2px 0 8px;
   }
-
-  &__content {
-    width: 3.2in;
-    height: 3.8in;
-    border: 1px solid magenta;
-  }
 }
 
 .label {
+  width: 3.2in;
+  height: 3.8in;
+  border: 1px solid magenta;
+  align-items: center;
+  justify-content: center;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -470,6 +476,44 @@ button,
   }
 }
 
+
+.shipping-mark {
+  width: 10in;
+  height: 7in;
+  padding: 0.5in 0.5in 0.5in 1.5in;
+  border: 1px solid magenta;
+  position: relative;
+
+  .label {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0.3in;
+    right: 0.3in;
+  }
+
+  &__content {
+    width: 5in;
+  }
+
+  &__logo {
+    height: 60px;
+  }
+
+  &__item {
+    font-size: 36px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0.1in 0;
+  }
+
+  &__meta > div {
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 2em;
+  }
+}
+
 // Brenthaven Specific Styles
 .preview--brenthaven {
   .label__item-master:before { content: "Item: "; }
@@ -536,12 +580,12 @@ button,
 
 // Shipping Mark (Front) Specific Styles
 .page[data-type="shipping-front"] {
-  &::before { content: 'Shipping Mark (Front)'; }
+  &::before { content: 'Shipping Mark (Front) – Scaled'; }
 }
 
 // Shipping Mark (Side) Specific Styles
 .page[data-type="shipping-side"] {
-  &::before { content: 'Shipping Mark (Side)'; }
+  &::before { content: 'Shipping Mark (Side) - Scaled'; }
 }
 
 .outlininator {

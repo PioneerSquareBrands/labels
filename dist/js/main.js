@@ -778,29 +778,28 @@ const misc = () => {
 }
 
 const test = () => {
-  const parentDiv = document.querySelector('.page--carton');
-  const testCarton = document.querySelector('.test-carton');
+  const parentDivs = document.querySelectorAll('.page--carton');
 
-  const resizeObserver = new ResizeObserver(entries => {
-    for (let entry of entries) {
-      const parentDivWidth = entry.contentRect.width;
-      
-      // Get the original width of testCarton
-      const testCartonWidth = testCarton.offsetWidth;
+  parentDivs.forEach(parentDiv => {
+    const print = parentDiv.querySelector('.scaler');
 
-      const scale = parentDivWidth / testCartonWidth;
+    const resizeObserver = new ResizeObserver(entries => {
+      for (let entry of entries) {
+        const parentDivWidth = entry.contentRect.width;
 
-      // Applying the scale and adjusting the transform-origin
-      testCarton.style.transform = `scale(${scale})`;
-      testCarton.style.transformOrigin = 'top left';
-    }
+        const printWidth = print.offsetWidth;
+
+        const scale = parentDivWidth / printWidth;
+
+        print.style.transform = `scale(${scale})`;
+      }
+    });
+
+    resizeObserver.observe(parentDiv);
   });
-
-  resizeObserver.observe(parentDiv);
 };
 
-//test();
-
+test();
 
 
 //===================
