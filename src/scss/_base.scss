@@ -1,0 +1,56 @@
+@use 'variables' as *;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=PT+Mono&display=swap');
+
+@font-face {
+  font-family: 'OCRB';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/dist/fonts/ocrb.woff2) format('woff2');
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #F0F2F5;
+  color: $text;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+.main {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(15 23 42 / 0.04)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+}
+
+input, textarea, select {
+  border: 1px solid $lines;
+  background-color: #ffffff;
+  padding: 7px 8px;
+  outline: 0;
+  width: 100%;
+  margin: 0;
+  border-radius: $border-radius;
+  color: #666666;
+  font-size: 12px;
+  line-height: 16px;
+  transition: border-color 0.2s;
+
+  &:focus {
+    border-color: rgba(0,0,0,0.4);
+  }
+}
+
+fieldset {
+  max-width: 100%;
+}
+
+label {
+  font-size: 12px;
+  padding-left: 4px;
+  font-weight: 600;
+}
+
+textarea {
+  box-sizing: border-box;
+  width: 100% !important;
+}

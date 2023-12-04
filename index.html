@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23141518' stroke='%23ffffff' stroke-width='8' /%3E%3C/svg%3E" type="image/svg+xml">
+
+  <title>UPC Label Generator</title>
+
+  <link rel="stylesheet" href="dist/css/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <main class="root">
+    <div class="template">
+      <div class="sidebar">
+        <div class="sidebar__logo">
+          <div class="sidebar__logo-container">
+            <img src="/dist/img/psb-logo-only_min.png">
+          </div>
+          <div class="sidebar__logo-title">
+            Pioneer Square Brands
+          </div>
+        </div> 
+        <div class="sidebar__fields">
+          <h1>UPC Label Generator</h1>
+          <form class="labelinator">
+            <fieldset>
+              <div class="field" data-highlight=".print__header h1, .label__brand, .label__install-site, .label__qr, .qrlink__base, .download__name">
+                <label for="brand">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                  Brand
+                </label>
+                <select name="brand" id="brand">
+                  <option value="brenthaven">Brenthaven</option>
+                  <option value="gumdrop">Gumdrop</option>
+                  <option value="vault">Vault</option>
+                </select>
+              </div>
+
+              <div class="field" data-highlight=".label__item-master, .label__install-sku, .label__qr, #qr_path">
+                <label for="item_master">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-barcode"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M8 7v10"/><path d="M12 7v10"/><path d="M17 7v10"/></svg>
+                  Item Master
+                </label>
+                <input type="text" id="item_master" placeholder="1050">
+              </div>
+          
+              <div class="field" data-highlight=".label__item-sku, .label__datamatrix, .download__name">
+                <label for="sku">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
+                  SKU
+                </label>
+                <input type="text" id="sku" placeholder="1050001">
+              </div>
+
+              <div class="field" data-highlight=".label__upc">
+                <label for="item_upc">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-barcode"><path d="M3 5v14"/><path d="M8 5v14"/><path d="M12 5v14"/><path d="M17 5v14"/><path d="M21 5v14"/></svg>
+                  Item UPC
+                </label>
+                <input type="text" id="item_upc" placeholder="000000000000">
+              </div>
+          
+              <div class="field" data-highlight=".label__description">
+                <label for="description">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-text"><path d="M17 6.1H3"/><path d="M21 12.1H3"/><path d="M15.1 18H3"/></svg>
+                  Description
+                </label>
+                <textarea id="description" rows="5" placeholder="Edge Smart Connect Keyboard"></textarea>
+              </div>
+
+              <div class="field" data-highlight=".label__country">
+                <label for="source">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plane-takeoff"><path d="M2 22h20"/><path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z"/></svg>
+                  Source
+                </label>
+                <select name="brand" id="source">
+                  <option value="china">China</option>
+                  <option value="america">America</option>
+                </select>
+              </div>
+
+              <div class="field" data-highlight=".label__quantity">
+                <label for="content">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                  Content
+                </label>
+                <input type="text" id="content" placeholder="Qty: 1">
+              </div>
+          
+              <div class="field" data-highlight=".label__qr, .label__install-link">
+                <label for="qr_path">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-qr-code"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
+                  QR Link
+                </label>
+                <div class="qrlink">
+                  <div class="qrlink__base">https://brenthaven.com/</div>
+                  <input type="text" id="qr_path" placeholder="1050" disabled>
+                </div>
+                <input type="text" id="qr_link" placeholder="https://brenthaven.com/1050">
+                <button class="qr__toggle">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                </button>
+              </div>
+
+              <div class="field" data-highlight=".label__internal">
+                <label for="color">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-palette"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+                  Color
+                </label>
+                <div class="color-control">
+                  <input type="text" id="color" placeholder="#ffffff">
+                  <div class="color-current"></div>
+                  <button class="color-reset">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                  </button>
+                </div>
+                <div class="color-picker"></div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+
+      <div class="main preview">
+        <div class="topbar preview__controls">
+          <form class="layout__form">
+            <fieldset class="preview__layout layout button-group">
+              <legend class="visually-hidden">Layout Options</legend>
+
+              <input type="radio" id="expanded" name="layout" value="expanded" aria-labelledby="label-expanded" class="visually-hidden">
+              <label for="expanded" id="label-expanded" class="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-scan"><path d="M20 10V7.5L14.5 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h4.5"/><polyline points="14 2 14 8 20 8"/><path d="M16 22a2 2 0 0 1-2-2"/><path d="M20 22a2 2 0 0 0 2-2"/><path d="M20 14a2 2 0 0 1 2 2"/><path d="M16 14a2 2 0 0 0-2 2"/></svg>
+                <span class="visually-hidden">View Pages</span>
+              </label>
+
+              <input type="radio" id="condensed" name="layout" value="condensed" aria-labelledby="label-condensed" class="visually-hidden" checked>
+              <label for="condensed" id="label-condensed" class="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-qr-code"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
+                <span class="visually-hidden">View Labels Only</span>
+              </label>
+            </fieldset>
+          </form>
+
+          <form class="visibility__form">
+            <fieldset class="preview__visibility visibility button-group">
+              <legend class="visually-hidden">Page Visibility</legend>
+              
+              <input type="checkbox" id="polybag" class="checkbox-container visually-hidden"  aria-labelledby="label-polybag" checked>
+              <label for="polybag" id="label-polybag" class="visibility__polybag button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                <span class="visually-hidden">Show Polybag</span>
+              </label>
+            
+              <input type="checkbox" id="master" class="checkbox-container visually-hidden"  aria-labelledby="label-master" checked>
+              <label for="master" id="label-master" class="visibility__master button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-open"><path d="M20.91 8.84 8.56 2.23a1.93 1.93 0 0 0-1.81 0L3.1 4.13a2.12 2.12 0 0 0-.05 3.69l12.22 6.93a2 2 0 0 0 1.94 0L21 12.51a2.12 2.12 0 0 0-.09-3.67Z"/><path d="m3.09 8.84 12.35-6.61a1.93 1.93 0 0 1 1.81 0l3.65 1.9a2.12 2.12 0 0 1 .1 3.69L8.73 14.75a2 2 0 0 1-1.94 0L3 12.51a2.12 2.12 0 0 1 .09-3.67Z"/><line x1="12" x2="12" y1="22" y2="13"/><path d="M20 13.5v3.37a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13.5"/></svg>
+                <span class="visually-hidden">Show Master Carton</span>
+              </label>
+            
+              <input type="checkbox" id="inner" class="checkbox-container visually-hidden"  aria-labelledby="label-inner" checked>
+              <label for="inner" id="label-inner" class="visibility__inner button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                <span class="visually-hidden">Show Inner Carton</span>
+              </label>
+            </fieldset>
+          </form>
+
+          <div class="download">
+            <div class="download__name">
+              BH.1050001 PB.MC.IC Label.pdf
+            </div>
+            <button class="button download__button" title="Download PDF">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-down"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></svg>
+              Download PDF
+            </button>
+          </div>
+        </div>
+
+        <div class="preview__content preview__content--expanded">
+
+          <div class="page page--a4" data-type="polybag">
+            <div class="page__content print">
+
+              <header class="print__header">
+                <h1>Brenthaven</h1>
+                <h2>Polybag UPC Label</h2>
+                <h3>Label size 3.8" tall x 3.2" wide</h3>
+                <span class="print__magenta">Magenta die line represents die cut of label &amp; does not print</span>
+              </header>
+
+              <main class="print__content label">
+                <div class="label__brand">
+                  <img class="label__logo" src="/dist/img/brenthaven_min.png">
+                </div>
+                
+                <div class="label__description">
+                  Edge Smart Connect Keyboard
+                </div>
+                
+                <div class="label__upc">
+                  <svg class="barcode">
+                  </svg>
+                </div>
+                
+                <div class="label__source">
+                  Made in <span class="label__country">China</span>
+                </div>
+
+                <div class="label__info">
+                  <span class="label__item">
+                    <span class="label__item-master">1050</span>
+                    <span class="label__item-sku">1050001</span>
+                  </span>
+                  <span class="label__quantity">Qty: 1</span>
+                </div>
+
+                <div class="label__install">
+                  <span class="label__install-img">
+                    <span class="label__install-svg">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wrench"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    </span>
+                  </span>
+                  <div class="label__install-text">
+                    <div class="label__install-header">Installation Instructions</div>
+                    <div>Scan the QR code, or visit:</div>
+                    <div class="label__install-link"><span class="label__install-site">brenthaven.com</span>/<span class="label__install-sku">1050</span></div>
+                    <div>Thanks for helping reduce paper waste</div>
+                  </div>
+                  <div class="label__qr">QR</div>
+                </div>
+
+                <div class="label__internal">
+                  <div class="label__datamatrix">Data Matrix</div>
+                  <div class="label__internal-text">For PSB internal use only</div>
+                </div>
+              </main>
+
+            </div>
+          </div>
+          
+          <div class="page page--a4" data-type="master">
+            <div class="page__content print">
+
+              <header class="print__header">
+                <h1>Brenthaven</h1>
+                <h2>Master Carton UPC Label</h2>
+                <h3>Label size 3.8" tall x 3.2" wide</h3>
+                <span class="print__magenta">Magenta die line represents die cut of label &amp; does not print</span>
+              </header>
+
+              <main class="print__content label">
+                <div class="label__brand">
+                  <img class="label__logo" src="/dist/img/brenthaven_logo_min.png">
+                </div>
+                
+                <div class="label__description">
+                  Edge Smart Connect Keyboard
+                </div>
+                
+                <div class="label__upc">
+                  <svg class="barcode">
+                  </svg>
+                </div>
+                
+                <div class="label__source">
+                  Made in <span class="label__country">China</span>
+                </div>
+
+                <div class="label__info">
+                  <span class="label__item">
+                    <span class="label__item-master">1050</span>
+                    <span class="label__item-sku">1050001</span>
+                  </span>
+                  <span class="label__quantity">Qty: 1</span>
+                </div>
+
+                <div class="label__install">
+                  <span class="label__install-img">
+                    <span class="label__install-svg">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wrench"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    </span>
+                  </span>
+                  <div class="label__install-text">
+                    <div class="label__install-header">Installation Instructions</div>
+                    <div>Scan the QR code, or visit:</div>
+                    <div class="label__install-link"><span class="label__install-site">brenthaven.com</span>/<span class="label__install-sku">1050</span></div>
+                    <div>Thanks for helping reduce paper waste</div>
+                  </div>
+                  <div class="label__qr">QR</div>
+                </div>
+
+                <div class="label__internal">
+                  <div class="label__datamatrix">Data Matrix</div>
+                  <div class="label__internal-text">For PSB internal use only</div>
+                </div>
+              </main>
+
+            </div>
+          </div>
+
+          <div class="page page--a4" data-type="inner">
+            <div class="page__content print">
+
+              <header class="print__header">
+                <h1>Brenthaven</h1>
+                <h2>Inner Carton UPC Label</h2>
+                <h3>Label size 3.8" tall x 3.2" wide</h3>
+                <span class="print__magenta">Magenta die line represents die cut of label &amp; does not print</span>
+              </header>
+
+              <main class="print__content label">
+                <div class="label__brand">
+                  <img class="label__logo" src="/dist/img/brenthaven_logo_min.png">
+                </div>
+                
+                <div class="label__description">
+                  Edge Smart Connect Keyboard
+                </div>
+                
+                <div class="label__upc">
+                  <svg class="barcode">
+                  </svg>
+                </div>
+                
+                <div class="label__source">
+                  Made in <span class="label__country">China</span>
+                </div>
+
+                <div class="label__info">
+                  <span class="label__item">
+                    <span class="label__item-master">1050</span>
+                    <span class="label__item-sku">1050001</span>
+                  </span>
+                  <span class="label__quantity">Qty: 1</span>
+                </div>
+
+                <div class="label__install">
+                  <span class="label__install-img">
+                    <span class="label__install-svg">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wrench"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    </span>
+                  </span>
+                  <div class="label__install-text">
+                    <div class="label__install-header">Installation Instructions</div>
+                    <div>Scan the QR code, or visit:</div>
+                    <div class="label__install-link"><span class="label__install-site">brenthaven.com</span>/<span class="label__install-sku">1050</span></div>
+                    <div>Thanks for helping reduce paper waste</div>
+                  </div>
+                  <div class="label__qr">QR</div>
+                </div>
+
+                <div class="label__internal">
+                  <div class="label__datamatrix">Data Matrix</div>
+                  <div class="label__internal-text">For PSB internal use only</div>
+                </div>
+              </main>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="/dist/js/vendors.2.js"></script>
+  <script src="/dist/js/main.js"></script>
+</body>
+</html>

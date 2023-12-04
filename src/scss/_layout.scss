@@ -1,0 +1,263 @@
+@use 'variables' as *;
+
+body > main {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.template {
+  position: relative;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  height: 100vh;
+  width: 100vw;
+  min-width: 1000px;
+}
+
+.sidebar {
+  background-color: #F7F8F9;
+  border-right: 1px solid #E8E9EA;
+  padding: 12px 20px;
+  height: 100vh;
+  overflow: auto;
+
+  &__logo {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    gap: 8px;
+    justify-content: center;
+  }
+
+    &__logo-container {
+      background-color: #292A2F;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+
+      img {
+        width: 100%;
+        filter: invert(100%); 
+      }
+    }
+    
+    &__logo-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #292A2F;
+    }
+
+  label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2px;
+
+    svg {
+      width: 14px;
+      height: 14px;
+      margin-right: 4px;
+      stroke: #9197A5;
+    }
+  }
+
+  .field {
+    display: grid;
+    font-size: 14px;
+    margin: 0 0 8px;
+    position: relative;
+  }
+
+  fieldset {
+    margin: 0 0 20px;
+  }
+
+  &__fields {
+    margin-top: 0px;
+
+    h1 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #292A2F;
+      margin: 12px -20px;
+      padding: 4px 20px 4px 28px;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+  }
+
+  textarea {
+    height: 44px;
+  }
+
+  .qrlink {
+    display: flex;
+    align-items: stretch;
+
+    &__base {
+      display: flex;
+      align-items: center;
+      font-size: 11px;
+      border: 1px solid $lines;
+      border-right: 0;
+      padding: 7px 8px 7px 8px;
+      border-radius: $border-radius 0 0 $border-radius;
+      background-color: rgba(0, 0, 0, 0.04);
+      color: rgba(0, 0, 0, 0.6)
+    }
+
+    #qr_path {
+      border-radius: 0 $border-radius $border-radius 0;
+      background-color: #ffffff;
+      color: #666666;
+      transition: all 0.1s;
+
+      &[disabled] {
+        background-color: rgba(0, 0, 0, 0.02);
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+
+    & + #qr_link {
+      margin-top: 4px;
+      display: none;
+    }
+  }
+
+  .qr__toggle {
+    display: inline-block;
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    padding: 0 4px;
+    background-color: transparent;
+    border: 0;
+
+    svg {
+      width: 14px;
+      height: 14px;
+      stroke: #9197A5;
+    }
+  }
+
+  .color-picker {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .color-control {
+    display: grid;
+    grid-template-columns: 1fr 34px;
+    gap: 4px;
+  }
+
+  .color-current {
+    border: 1px solid $lines;
+    border-radius: $border-radius;
+    background-color: #ffffff;
+  }
+
+  .color-reset {
+    position: absolute;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    top: 4px;
+    right: 10px;
+
+    svg {
+      width: 14px;
+      height: 14px;
+      stroke: #9197A5;
+    }
+  }
+}
+
+.preview {
+  display: block;
+  overflow: hidden;
+}
+
+.preview__controls {
+  background-color: #FFFFFF;
+  border: 1px solid #E8E9EA;
+  border-radius: 4px;
+  margin: 12px 20px;
+  padding: 4px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 16px;
+
+  svg {
+    pointer-events: none;
+  }
+
+  input:checked + button, input:checked + .button {
+    background-color: #656E81;
+    border-color: rgba(0, 0, 0, 0.3)
+  }
+
+  .button {
+    box-shadow: inset 0 1px 0 0 #fff3;
+  }
+
+  .visibility__form {
+    margin: 0 auto 0 20px;
+  }
+
+  .download {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .download__name {
+    font-size: 10px;
+    font-weight: 500;
+    font-style: italic;
+    color: #9197A5;
+    opacity: 0.8;
+  }
+
+  .download__button {
+    display: flex;
+    align-items: center;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    background-color: #1B3E5D;
+    color: #ffffff;
+    font-size: 12px;
+    gap: 8px;
+    line-height: 20px;
+    padding: 6px 24px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      stroke: #ffffff;
+    }
+  }
+}
+
+.preview__content {
+  display: flex;
+  justify-content: center;
+  overflow: scroll;
+  height: calc(100vh - 80px);
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  overflow: auto;
+  padding-bottom: 20px;
+
+  &--expanded { 
+    opacity: 1; 
+  }
+}

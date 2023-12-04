@@ -1,0 +1,84 @@
+@use 'variables' as *;
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+// Text Utilities
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+.text-uppercase { text-transform: uppercase; }
+.text-lowercase { text-transform: lowercase; }
+.text-capitalize { text-transform: capitalize; }
+.font-bold { font-weight: bold; }
+.font-italic { font-style: italic; }
+
+// Display Utilities
+.d-block { display: block; }
+.d-inline { display: inline; }
+.d-inline-block { display: inline-block; }
+.d-flex { display: flex; }
+.d-grid { display: grid; }
+.d-none { display: none; }
+
+// Flex Utilities
+.flex-row { flex-direction: row; }
+.flex-column { flex-direction: column; }
+.justify-content-center { justify-content: center; }
+.align-items-center { align-items: center; }
+
+// Width and Height Utilities
+.w-100 { width: 100%; }
+.h-100 { height: 100%; }
+
+// Border Utilities
+.border { border: 1px solid #000; }
+.border-top { border-top: 1px solid #000; }
+.border-bottom { border-bottom: 1px solid #000; }
+.border-left { border-left: 1px solid #000; }
+.border-right { border-right: 1px solid #000; }
+.border-0 { border: 0; }
+.border-radius { border-radius: $border-radius; }
+
+// Position Utilities
+.position-relative { position: relative; }
+.position-absolute { position: absolute; }
+.position-fixed { position: fixed; }
+.position-sticky { position: sticky; }
+
+// Overflow Utilities
+.overflow-hidden { overflow: hidden; }
+.overflow-scroll { overflow: scroll; }
+.overflow-auto { overflow: auto; }
+
+// Float Utilities
+.float-left { float: left; }
+.float-right { float: right; }
+.float-none { float: none; }
+
+// Opacity Utilities
+.opacity-100 { opacity: 1; }
+.opacity-75 { opacity: 0.75; }
+.opacity-50 { opacity: 0.5; }
+.opacity-25 { opacity: 0.25; }
+.opacity-0 { opacity: 0; }
+
+// Cursor Utilities
+.cursor-pointer { cursor: pointer; }
+.cursor-default { cursor: default; }
+
+// Others
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
