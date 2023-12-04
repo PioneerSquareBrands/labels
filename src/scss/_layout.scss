@@ -3,7 +3,7 @@
 body > main {
   display: grid;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .template {
@@ -225,6 +225,10 @@ body > main {
     font-style: italic;
     color: #9197A5;
     opacity: 0.8;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
   }
 
   .download__button {

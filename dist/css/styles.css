@@ -135,9 +135,9 @@ body > main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .template {
@@ -378,6 +378,11 @@ body > main {
   font-style: italic;
   color: #9197A5;
   opacity: 0.8;
+}
+@media (min-width: 768px) {
+  .preview__controls .download__name {
+    display: none;
+  }
 }
 .preview__controls .download__button {
   display: -webkit-box;
