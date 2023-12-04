@@ -11,7 +11,7 @@ const defaultinator = () => {
 
   switch (brandField) {
     case 'brenthaven':
-      logoSrc = '/dist/img/brenthaven_min.png';
+      logoSrc = 'dist/img/brenthaven_min.png';
       headerText = 'Brenthaven';
       linkText = 'https://brenthaven.com';
       itemMaster = '1050';
@@ -19,7 +19,7 @@ const defaultinator = () => {
       description = 'Edge Smart Connect Keyboard';
       break;
     case 'gumdrop':
-      logoSrc = '/dist/img/gumdrop_min.png';
+      logoSrc = 'dist/img/gumdrop_min.png';
       headerText = 'Gumdrop';
       linkText = 'https://www.gumdropcases.com';
       itemMaster =  '01D015';
@@ -27,7 +27,7 @@ const defaultinator = () => {
       description = 'DropTech for Dell Latitude 3340 (2-in-1)';
       break;
     default:
-      logoSrc = '/dist/img/vault_min.png';
+      logoSrc = 'dist/img/vault_min.png';
       headerText = 'Vault';
       linkText = 'https://byvault.com';
       itemMaster =  '12A001';
