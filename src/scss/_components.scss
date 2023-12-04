@@ -186,6 +186,9 @@ button,
   }
 
   // CHANGE SHIPPING MARK CARTON SIZE HERE
+  $carton-width: 15; // Inches
+  $carton-length: 11; // Inches
+  $carton-height: 9; // Inches
   $carton-expanded: 50%;
   $carton-condensed: 30%;
 
@@ -205,8 +208,8 @@ button,
     }
 
     &--carton { padding: 0 0 $carton-expanded; }
-    &--carton-side { width: calc($carton-expanded * (11 / 9)); }
-    &--carton-front { width: calc($carton-expanded * (15 / 9)); }
+    &--carton-side { width: calc($carton-expanded * ($carton-length / $carton-height)); }
+    &--carton-front { width: calc($carton-expanded * ($carton-width / $carton-height)); }
   }
 
   .preview__content--condensed & {
@@ -214,8 +217,8 @@ button,
     padding: 12px;
 
     &--carton { padding: 0 0 $carton-condensed; }
-    &--carton-side { width: calc($carton-condensed * (11 / 9)); }
-    &--carton-front { width: calc($carton-condensed * (15 / 9)); }
+    &--carton-side { width: calc($carton-condensed * ($carton-length / $carton-height)); }
+    &--carton-front { width: calc($carton-condensed * ($carton-width / $carton-height)); }
   }
 
   &--carton .scaler {
@@ -227,13 +230,13 @@ button,
   }
 
   &--carton-front .scaler {
-    width: 15in;
-    height: 9in;
+    width: #{$carton-width}in;
+    height: #{$carton-height}in;
   }
 
   &--carton-side .scaler {
-    width: 11in;
-    height: 9in;
+    width: #{$carton-length}in;
+    height: #{$carton-height}in;
   }
 
   @keyframes scaleAndExplode {
