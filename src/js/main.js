@@ -738,7 +738,7 @@ const pdfinator = () => {
     });
 
     window.onload = () => _pdfName();
-    document.querySelector('#brand').addEventListener('input', _pdfName);
+    document.querySelector('#brand').addEventListener('change', _pdfName);
     document.querySelector('#sku').addEventListener('input', _pdfName);
     document.querySelector('.layout__form').addEventListener('change', _pdfName);
     document.querySelector('.visibility__form').addEventListener('change', _pdfName);
