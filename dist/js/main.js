@@ -276,9 +276,9 @@ const labelinator = () => {
     document.querySelectorAll('.label__logo').forEach(logo => logo.src = defaults.logoSrc);
     document.querySelectorAll('.print__header h1').forEach(header => header.textContent = defaults.headerText);
     document.querySelectorAll('.label__install-site').forEach(link => link.textContent = defaults.linkText);
-    document.querySelectorAll('.label__install-sku').forEach(sku => sku.textContent = document.querySelector('#item_master').value || defaults.itemMaster);
-    document.querySelectorAll('.label__item-master').forEach(itemMaster => itemMaster.textContent = document.querySelector('#item_master').value || defaults.itemMaster);
-    document.querySelectorAll('.label__item-sku').forEach(sku => sku.textContent = document.querySelector('#sku').value || defaults.sku);
+    document.querySelectorAll('.label__install-sku').forEach(sku => sku.textContent = document.querySelector('#item_master').value.toUpperCase() || defaults.itemMaster);
+    document.querySelectorAll('.label__item-master').forEach(itemMaster => itemMaster.textContent = document.querySelector('#item_master').value.toUpperCase() || defaults.itemMaster);
+    document.querySelectorAll('.label__item-sku').forEach(sku => sku.textContent = document.querySelector('#sku').value.toUpperCase() || defaults.sku);
     document.querySelectorAll('.label__description').forEach(description => description.textContent = document.querySelector('#description').value ||  defaults.description);
 
     // Update input field placeholders with defaults
@@ -293,6 +293,7 @@ const labelinator = () => {
   }
 
   const _itemMasterUpdate = () => {
+    // TODO: Refactor for DRY
     if (DEBUG) console.log('Labelinator item master update');
     const defaults = defaultinator();
 
@@ -300,14 +301,14 @@ const labelinator = () => {
     const labelItemMasters = document.querySelectorAll('.label__item-master');
     const qrItemMasters = document.querySelectorAll('.label__install-sku');
 
-    document.querySelector('#qr_path').placeholder = itemMasterField.value || defaults.itemMaster;
+    document.querySelector('#qr_path').placeholder = itemMasterField.value.toUpperCase() || defaults.itemMaster;
 
     labelItemMasters.forEach((labelItemMaster) => {
-      labelItemMaster.textContent = itemMasterField.value || defaults.itemMaster;
+      labelItemMaster.textContent = itemMasterField.value.toUpperCase() || defaults.itemMaster;
     });
 
     qrItemMasters.forEach((qrItemMaster) => {
-      qrItemMaster.textContent = itemMasterField.value || defaults.itemMaster;
+      qrItemMaster.textContent = itemMasterField.value.toUpperCase() || defaults.itemMaster;
     });
 
     _qrURL();
@@ -321,7 +322,7 @@ const labelinator = () => {
     const labelSkus = document.querySelectorAll('.label__item-sku');
 
     labelSkus.forEach((labelSku) => {
-      labelSku.textContent = skuField.value || defaults.sku;
+      labelSku.textContent = skuField.value.toUpperCase() || defaults.sku;
     });
 
     _dataMatrixUpdate();
@@ -381,7 +382,7 @@ const labelinator = () => {
     if (DEBUG) console.log('Labelinator qr url update');
 
     const defaults = defaultinator();
-    const itemMasterField = document.querySelector('#item_master').value || defaults.itemMaster;
+    const itemMasterField = document.querySelector('#item_master').value.toUpperCase() || defaults.itemMaster;
     let brandUrl, qrURL;
 
     switch (defaults.brandField) {
@@ -412,7 +413,7 @@ const labelinator = () => {
 
     const defaults = defaultinator();
 
-    const qrPath = document.querySelector('#qr_path').value || document.querySelector('#item_master').value || defaults.itemMaster;
+    const qrPath = document.querySelector('#qr_path').value || document.querySelector('#item_master').value.toUpperCase() || defaults.itemMaster;
     const qrInstallSku = document.querySelectorAll('.label__install-sku');
 
     qrInstallSku.forEach((sku) => {
@@ -453,7 +454,7 @@ const labelinator = () => {
 
     const defaults = defaultinator();
 
-    const itemMasterValue = document.querySelector('#sku').value || defaults.sku;
+    const itemMasterValue = document.querySelector('#sku').value.toUpperCase() || defaults.sku;
     const dataMatrixContainers = document.querySelectorAll('.label__datamatrix');
 
     dataMatrixContainers.forEach(dm => {
@@ -780,7 +781,7 @@ const pdfinator = () => {
     
     if (!DEBUG) { 
       // Save the PDF
-      const sku = document.querySelector('#sku').value || 'SKU';
+      const sku = document.querySelector('#sku').value.toUpperCase() || 'SKU';
       const visiblePages = document.querySelectorAll('.page:not(.page--hidden)');
       let labelTypes = Array.from(visiblePages).map(page => page.getAttribute('data-type')).join('.');
 
@@ -802,7 +803,7 @@ const pdfinator = () => {
     const defaults = defaultinator();
 
     let brand = document.querySelector('#brand').value ;
-    const sku = document.querySelector('#sku').value || defaults.sku;
+    const sku = document.querySelector('#sku').value.toUpperCase() || defaults.sku;
     const visiblePages = document.querySelectorAll('.page:not(.page--hidden)');
     let labelTypes = Array.from(visiblePages).map(page => page.getAttribute('data-type')).join('.');
 

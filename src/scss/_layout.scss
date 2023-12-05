@@ -75,7 +75,7 @@ body > main {
   }
 
   &__form {
-    margin: 12px 0 20px;
+    margin: 12px 0 8px;
     display: none;
   
     &--active {
@@ -116,6 +116,10 @@ body > main {
       margin-right: 8px;
       stroke: $icons;
     }
+  }
+
+  #sku, #item_master {
+    text-transform: uppercase;
   }
 
   textarea {
@@ -266,14 +270,6 @@ body > main {
       z-index: -1;
     }
 
-    &__input:focus + .file__label .file__visual {
-      box-shadow: $input-focus;
-    }
-
-    &__input:focus + .file__label .file__visual .file__text {
-      border-color:rgba(0, 123, 255, 0.5)
-    }
-
     &__visual {
       background-color: #ffffff;
       padding: 8px 8px ;
@@ -283,32 +279,47 @@ body > main {
       font-weight: 400;
       margin-left: -4px;
       cursor: pointer;
+      transition: box-shadow 0.2s;
     }
 
     &__text {
       font-size: 12px;
       font-weight: 600;
       color: $text;
-      padding: 40px 20px;
-      border: 1px dashed $icons;
+      padding: 32px 20px;
+      border: 1px dashed rgba($icons, 0.5);
       border-radius: $border-radius;
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      transition: border-color 0.2s;
     }
 
     &__text svg {
       width: 40px;
       height: 40px;
       stroke: $icons;
+      transition: stroke 0.2s;
     }
 
     &__text span {
       font-size: 10px;
       font-weight: 400;
       color: $text;
+    }
+
+    &__input:focus + .file__label .file__visual {
+      box-shadow: $input-focus;
+    }
+
+    &__input:focus + .file__label .file__visual .file__text {
+      border-color:rgba(0, 123, 255, 0.5)
+    }
+
+    &__input:focus + .file__label .file__visual svg {
+      stroke:rgba(0, 123, 255, 0.5)
     }
   }
 }
