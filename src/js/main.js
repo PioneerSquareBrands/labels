@@ -47,10 +47,15 @@ const selectinator = () => {
       selectinatorDiv.className = 'selectinator';
       selectinatorDiv.id = `selectinator-${index + 1}`;
       selectinatorDiv.innerHTML = `
-        <input class="selectinator-input" type="text">
+        <input class="selectinator-input" type="text" id="selectinator_input_${index + 1}">
         <button class="selectinator-button" aria-hidden="true" tabindex="-1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-up-down"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg></button>
         <div class="selectinator-options"></div>`;
       select.after(selectinatorDiv);
+
+      const selectinatorLabelSibling = select.previousElementSibling;
+      if (selectinatorLabelSibling && selectinatorLabelSibling.tagName === 'LABEL') {
+        selectinatorLabelSibling.setAttribute('for', `selectinator_input_${index + 1}`);
+      }
 
       const selectinatorInput = selectinatorDiv.querySelector('.selectinator-input');
       const selectinatorButton = selectinatorDiv.querySelector('.selectinator-button');
@@ -219,7 +224,9 @@ const labelinator = () => {
     let fieldDescription = form.querySelector('#description');
     let fieldUPC = form.querySelector('#item_upc');
     let fieldQrLink = form.querySelector('#qr_path');
-    let fieldContent = form.querySelector('#pb_content');
+    let fieldPbContent = form.querySelector('#pb_content');
+    let fieldMcContent = form.querySelector('#mc_content');
+    let fieldIcContent = form.querySelector('#ic_content');
 
     // Function to trigger the event listeners
     const triggerEventListeners = () => {
@@ -241,7 +248,9 @@ const labelinator = () => {
     fieldUPC.addEventListener('input', _upcUpdate);
     fieldSource.addEventListener('change', _sourceUpdate);
     fieldQrLink.addEventListener('input', _qrCustomUpdate);
-    fieldContent.addEventListener('input', _contentUpdate);
+    fieldPbContent.addEventListener('input', _contentUpdate);
+    fieldMcContent.addEventListener('input', _contentUpdate);
+    fieldIcContent.addEventListener('input', _contentUpdate);
 
     // Trigger event listeners on page load
     window.addEventListener('load', triggerEventListeners);
@@ -465,12 +474,17 @@ const labelinator = () => {
   const _contentUpdate = () => {
     if (DEBUG) console.log('Labelinator content update');
 
-    const contentField = document.querySelector('#pb_content').value || 'Qty: 1';
-    const labelQuantities = document.querySelectorAll('.label__quantity');
+    const pBcontentField = document.querySelector('#pb_content').value || 'Qty: 1';
+    const mCcontentField = document.querySelector('#mc_content').value || 'Qty: 1';
+    const iCcontentField = document.querySelector('#ic_content').value || 'Qty: 1';
+    
+    const polybagQuantities = document.querySelectorAll('[data-type="polybag"] .label__quantity');
+    const masterQuantities = document.querySelectorAll('[data-type="master"] .label__quantity');
+    const innerQuantities = document.querySelectorAll('[data-type="inner"] .label__quantity');
 
-    labelQuantities.forEach((labelQuantity) => {
-      labelQuantity.textContent = contentField;
-    });
+    polybagQuantities.forEach((qty) => qty.textContent = pBcontentField );
+    masterQuantities.forEach((qty) => qty.textContent = mCcontentField );
+    innerQuantities.forEach((qty) => qty.textContent = iCcontentField );
   }
 
   _labelInitializer();
@@ -692,7 +706,7 @@ const outlininator = () => {
   });
 
   const _handleHighlight = (field, action) => {
-    const ancestorField = field.closest('.field');
+    const ancestorField = field.closest('[data-highlight]');
     if (ancestorField && ancestorField.dataset.highlight) {
       const sections = ancestorField.dataset.highlight.split(',');
   
@@ -820,6 +834,7 @@ const misc = () => {
 
     qrToggle.addEventListener('click', () => {
       qrPath.disabled = !qrPath.disabled;
+      qrToggle.classList.toggle('qr__toggle--active');
       if (!qrPath.disabled) {
         qrPath.focus();
       }

@@ -57,7 +57,6 @@ body > main {
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
-    color: #292A2F;
     margin: 0 -20px;
     padding: 8px 20px 8px 28px;
     border-bottom: 1px solid rgba(0,0,0,0.1);
@@ -69,9 +68,9 @@ body > main {
     color: $text;
     
     svg {
-      width: 14px;
-      height: 14px;
-      stroke: #9197A5;
+      width: 15px;
+      height: 15px;
+      stroke: $icons;
     }
   }
 
@@ -84,70 +83,104 @@ body > main {
     }
   }
 
-  &__group {
-    display: flex;
-    gap: 8px;
+  .field {
+    display: grid;
+    font-size: 14px;
+    margin: 0 0 10px;
+    position: relative;
+
+    &__group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    &__insert {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      font-size: 12px;
+      color: $icons;
+    }
   }
 
-  label {
+  .field__label {
     display: flex;
     align-items: center;
     margin-bottom: 2px;
+    font-weight: 600;  
 
     svg {
       width: 14px;
       height: 14px;
-      margin-right: 4px;
-      stroke: #9197A5;
+      margin-right: 8px;
+      stroke: $icons;
     }
-  }
-
-  .field {
-    display: grid;
-    font-size: 14px;
-    margin: 0 0 8px;
-    position: relative;
-  }
-
-  &__fields {
-    margin-top: 0px;
   }
 
   textarea {
     height: 48px;
   }
 
-  .quantity {
+  .field__button {
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    padding: 0;
+    position: absolute;
+    top: 0px;
+    right: 7px;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border: 0;
+    transition-duration: 0.2s;
+
+    &:focus-visible {
+      outline: 1px solid rgba(0, 123, 255, 0.5);
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+      stroke: #9197A5;
+    }
+
+    &:active svg { stroke:rgba(0, 123, 255, 0.5) };
   }
 
   .qrlink {
     display: flex;
     align-items: stretch;
+    border-radius: $border-radius;
+    box-shadow: $inputs;
 
     &__base {
       display: flex;
       align-items: center;
       font-size: 11px;
-      border: 1px solid $lines;
       border-right: 0;
       padding: 7px 8px 7px 8px;
       border-radius: $border-radius 0 0 $border-radius;
-      background-color: rgba(0, 0, 0, 0.04);
-      color: rgba(0, 0, 0, 0.6)
+      background-color: rgba(0, 0, 0, 0.02);
+      box-shadow: rgba(51, 65, 85, 0.05) 0px 0px 0px 1px;
+      color: rgba($text, 0.6);
     }
 
     #qr_path {
       border-radius: 0 $border-radius $border-radius 0;
       background-color: #ffffff;
-      color: #666666;
+      border-left: 1px solid #E8EAEB;
+      box-shadow: none;
+      padding: 8px 8px 8px 12px;
       transition: all 0.1s;
 
+      &:focus {
+        box-shadow: $input-focus;
+      }
+
       &[disabled] {
-        background-color: rgba(0, 0, 0, 0.02);
-        color: rgba(0, 0, 0, 0.6);
+        color: rgba($text, 0.6);
       }
     }
 
@@ -158,19 +191,15 @@ body > main {
   }
 
   .qr__toggle {
-    display: inline-block;
-    position: absolute;
-    top: 4px;
-    right: 6px;
-    padding: 0 4px;
-    background-color: transparent;
-    border: 0;
+    svg:last-child { display: none; stroke:rgba(0, 123, 255, 0.5); }
+    &--active svg:first-child { display: none; }
+    &--active svg:last-child { display: block; }
+  }
 
-    svg {
-      width: 14px;
-      height: 14px;
-      stroke: #9197A5;
-    }
+  .quantity {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   .color-control {
@@ -184,21 +213,6 @@ body > main {
     border-radius: $border-radius;
     background-color: #ffffff;
     cursor: pointer;
-  }
-
-  .color-reset {
-    position: absolute;
-    padding: 0;
-    background-color: transparent;
-    border: 0;
-    top: 4px;
-    right: 10px;
-
-    svg {
-      width: 14px;
-      height: 14px;
-      stroke: #9197A5;
-    }
   }
 
   .color-picker {
@@ -219,7 +233,7 @@ body > main {
     opacity: 0;
     transform-origin: top right;
     transform: scale(0);
-    transition: top 0s 0.4s, opacity 0.2s, transform 0.2s;
+    transition: top 0s 0.4s, opacity 0.2s, transform 0.1s;
 
     &::before {
       content: '';
@@ -239,7 +253,63 @@ body > main {
     opacity: 1;
     transform: scale(1);
 
-    transition: top 0s, opacity 0.1s, transform 0.2s;
+    transition: top 0s, opacity 0.1s, transform 0.1s;
+  }
+
+  .file {
+    &__input {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
+
+    &__input:focus + .file__label .file__visual {
+      box-shadow: $input-focus;
+    }
+
+    &__input:focus + .file__label .file__visual .file__text {
+      border-color:rgba(0, 123, 255, 0.5)
+    }
+
+    &__visual {
+      background-color: #ffffff;
+      padding: 8px 8px ;
+      box-shadow: $inputs;
+      border-radius: $border-radius;
+      display: flex; 
+      font-weight: 400;
+      margin-left: -4px;
+      cursor: pointer;
+    }
+
+    &__text {
+      font-size: 12px;
+      font-weight: 600;
+      color: $text;
+      padding: 40px 20px;
+      border: 1px dashed $icons;
+      border-radius: $border-radius;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    &__text svg {
+      width: 40px;
+      height: 40px;
+      stroke: $icons;
+    }
+
+    &__text span {
+      font-size: 10px;
+      font-weight: 400;
+      color: $text;
+    }
   }
 }
 

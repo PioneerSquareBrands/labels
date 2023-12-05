@@ -15,20 +15,21 @@ body {
 }
 
 input, textarea, select {
-  border: 1px solid $lines;
   background-color: #ffffff;
-  padding: 7px 8px;
+  padding: 8px 8px;
   outline: 0;
   width: 100%;
   margin: 0;
   border-radius: $border-radius;
-  color: #666666;
+  color: $text;
   font-size: 12px;
   line-height: 16px;
-  transition: border-color 0.2s;
+  transition: box-shadow 0.2s;
+  //border: 1px solid $lines;
+  box-shadow: $inputs;
 
   &:focus {
-    border-color: rgba(0,0,0,0.4);
+    box-shadow: $input-focus;
   }
 }
 
@@ -45,4 +46,8 @@ label {
 textarea {
   box-sizing: border-box;
   width: 100% !important;
+}
+
+svg {
+  transform: translate(-0.5px, -.5px);
 }
