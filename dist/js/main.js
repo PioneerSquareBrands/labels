@@ -2,7 +2,7 @@ let DEBUG = false;
 if (DEBUG) console.log('Debug mode enabled');
 let iconSize = 60;
 
-const defaultinator = () => {
+const brandDefaults = () => {
   if (DEBUG) console.log('Labelinator defaults');
 
   const brandField = document.querySelector('#brand').value;
@@ -213,20 +213,31 @@ const selectinator = () => {
 };
 
 const labelinator = () => { 
-  const _labelInitializer = () => {
+  const _labelinatorInit = () => {
     if (DEBUG) console.log('Labelinator initialized');
 
-    let form = document.querySelector('.labelinator');
-    let fieldBrand = form.querySelector('#brand');
-    let fieldItemMaster = form.querySelector('#item_master');
-    let fieldSku = form.querySelector('#sku');
-    let fieldSource = form.querySelector('#source');
-    let fieldDescription = form.querySelector('#description');
-    let fieldUPC = form.querySelector('#item_upc');
-    let fieldQrLink = form.querySelector('#qr_path');
-    let fieldPbContent = form.querySelector('#pb_content');
-    let fieldMcContent = form.querySelector('#mc_content');
-    let fieldIcContent = form.querySelector('#ic_content');
+    let upcForm = document.querySelector('#upc_form');
+    let shipForm = document.querySelector('#shipping_form');
+
+    let brand = upcForm.querySelector('#brand');
+    let itemMaster = upcForm.querySelector('#item_master');
+    let sku = upcForm.querySelector('#sku');
+    let source = upcForm.querySelector('#source');
+    let description = upcForm.querySelector('#description');
+    let upc = upcForm.querySelector('#item_upc');
+    let qrLink = upcForm.querySelector('#qr_path');
+    let pbContent = upcForm.querySelector('#pb_content');
+    let mcContent = upcForm.querySelector('#mc_content');
+    let icContent = upcForm.querySelector('#ic_content');
+
+    let dimWidth = shipForm.querySelector('#shipping_width');
+    let dimLength = shipForm.querySelector('#shipping_length');
+    let dimHeight = shipForm.querySelector('#shipping_height');
+    let boxQty = shipForm.querySelector('#shipping_quantity');
+    let gWeight = shipForm.querySelector('#shipping_gross');
+    let nWeight = shipForm.querySelector('#shipping_net');
+    let purchaseOrder = shipForm.querySelector('#shipping_po');
+    let tihi = shipForm.querySelector('#shipping_tihi');
 
     // Function to trigger the event listeners
     const triggerEventListeners = () => {
@@ -238,32 +249,44 @@ const labelinator = () => {
       _sourceUpdate();
       _qrCodeUpdate();
       _contentUpdate();
+      _dimUpdate();
+      _qtyUpdate();
+      _weightUpdate();
+      _poUpdate();
+      _tihiUpdate();
     };
 
     // Event listeners for field changes
-    fieldBrand.addEventListener('change', _brandUpdate);
-    fieldItemMaster.addEventListener('input', _itemMasterUpdate);
-    fieldSku.addEventListener('input', _skuUpdate);
-    fieldDescription.addEventListener('input', _descriptionUpdate);
-    fieldUPC.addEventListener('input', _upcUpdate);
-    fieldSource.addEventListener('change', _sourceUpdate);
-    fieldQrLink.addEventListener('input', _qrCustomUpdate);
-    fieldPbContent.addEventListener('input', _contentUpdate);
-    fieldMcContent.addEventListener('input', _contentUpdate);
-    fieldIcContent.addEventListener('input', _contentUpdate);
+    brand.addEventListener('change', _brandUpdate);
+    itemMaster.addEventListener('input', _itemMasterUpdate);
+    sku.addEventListener('input', _skuUpdate);
+    description.addEventListener('input', _descriptionUpdate);
+    upc.addEventListener('input', _upcUpdate);
+    source.addEventListener('change', _sourceUpdate);
+    qrLink.addEventListener('input', _qrCustomUpdate);
+    pbContent.addEventListener('input', _contentUpdate);
+    mcContent.addEventListener('input', _contentUpdate);
+    icContent.addEventListener('input', _contentUpdate);
+
+    dimWidth.addEventListener('input', _dimUpdate);
+    dimLength.addEventListener('input', _dimUpdate);
+    dimHeight.addEventListener('input', _dimUpdate);
+    boxQty.addEventListener('input', _qtyUpdate);
+    gWeight.addEventListener('input', _weightUpdate);
+    nWeight.addEventListener('input', _weightUpdate);
+    purchaseOrder.addEventListener('input', _poUpdate);
+    tihi.addEventListener('change', _tihiUpdate);
 
     // Trigger event listeners on page load
     window.addEventListener('load', triggerEventListeners);
 
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-    });
+    upcForm.addEventListener('submit', (event) => event.preventDefault() );
   }
 
   const _brandUpdate = () => {
     if (DEBUG) console.log('Labelinator brand update');
 
-    const defaults = defaultinator();
+    const defaults = brandDefaults();
 
     const previewContent = document.querySelector('.preview');
 
@@ -293,56 +316,48 @@ const labelinator = () => {
   }
 
   const _itemMasterUpdate = () => {
-    // TODO: Refactor for DRY
     if (DEBUG) console.log('Labelinator item master update');
-    const defaults = defaultinator();
+    const defaults = brandDefaults();
 
     const itemMasterField = document.querySelector('#item_master');
     const labelItemMasters = document.querySelectorAll('.label__item-master');
     const qrItemMasters = document.querySelectorAll('.label__install-sku');
+    const iTemMasterVal = itemMasterField.value.toUpperCase()  || defaults.itemMaster;
 
-    document.querySelector('#qr_path').placeholder = itemMasterField.value.toUpperCase() || defaults.itemMaster;
-
-    labelItemMasters.forEach((labelItemMaster) => {
-      labelItemMaster.textContent = itemMasterField.value.toUpperCase() || defaults.itemMaster;
-    });
-
-    qrItemMasters.forEach((qrItemMaster) => {
-      qrItemMaster.textContent = itemMasterField.value.toUpperCase() || defaults.itemMaster;
-    });
+    document.querySelector('#qr_path').placeholder = iTemMasterVal;
+    labelItemMasters.forEach((labelItemMaster) => labelItemMaster.textContent = iTemMasterVal );
+    qrItemMasters.forEach((qrItemMaster) => qrItemMaster.textContent = iTemMasterVal );
 
     _qrURL();
   }
 
   const _skuUpdate = () => {
     if (DEBUG) console.log('Labelinator sku update');
-    const defaults = defaultinator();
+    const defaults = brandDefaults();
 
     const skuField = document.querySelector('#sku');
     const labelSkus = document.querySelectorAll('.label__item-sku');
+    const skuVal = skuField.value.toUpperCase() || defaults.sku;
 
-    labelSkus.forEach((labelSku) => {
-      labelSku.textContent = skuField.value.toUpperCase() || defaults.sku;
-    });
+    labelSkus.forEach((labelSku) => labelSku.textContent = skuVal );
 
     _dataMatrixUpdate();
   }
 
   const _descriptionUpdate = () => {
     if (DEBUG) console.log('Labelinator description update');
-    const defaults = defaultinator();
+    const defaults = brandDefaults();
 
     const descriptionField = document.querySelector('#description');
     const labelDescriptions = document.querySelectorAll('.label__description');
+    const descriptionVal = descriptionField.value || defaults.description;
 
-    labelDescriptions.forEach((labelDescription) => {
-      labelDescription.textContent = descriptionField.value || defaults.description;
-    });
+    labelDescriptions.forEach((labelDescription) => labelDescription.textContent = descriptionVal );
   }
 
   const _upcUpdate = () => {
     if (DEBUG) console.log('Labelinator upc update');
-    const defaults = defaultinator();
+    const defaults = brandDefaults();
 
     const barcodeElements = document.querySelectorAll('.label__upc svg');
     const upcField = document.querySelector('#item_upc').value || defaults.upc;
@@ -370,18 +385,16 @@ const labelinator = () => {
 
   const _sourceUpdate = () => {
     if (DEBUG) console.log('Labelinator source update');
-    const sourceField = document.querySelector('#source').value || 'China';
     const labelSources = document.querySelectorAll('.label__country');
-
-    labelSources.forEach((labelSource) => {
-      labelSource.textContent = sourceField;
-    });
+    const sourceVal = document.querySelector('#source').value || 'China';
+    
+    labelSources.forEach((labelSource) => labelSource.textContent = sourceVal );
   }
 
   const _qrURL = () => {
     if (DEBUG) console.log('Labelinator qr url update');
 
-    const defaults = defaultinator();
+    const defaults = brandDefaults();
     const itemMasterField = document.querySelector('#item_master').value.toUpperCase() || defaults.itemMaster;
     let brandUrl, qrURL;
 
@@ -411,15 +424,12 @@ const labelinator = () => {
     if (DEBUG) console.log('Labelinator custom qr update');
     console.log('custom qr update');
 
-    const defaults = defaultinator();
+    const defaults = brandDefaults();
 
     const qrPath = document.querySelector('#qr_path').value || document.querySelector('#item_master').value.toUpperCase() || defaults.itemMaster;
     const qrInstallSku = document.querySelectorAll('.label__install-sku');
 
-    qrInstallSku.forEach((sku) => {
-      sku.textContent = qrPath;
-    });
-
+    qrInstallSku.forEach((sku) => sku.textContent = qrPath );
     document.querySelector('#qr_link').value = document.querySelector('.qrlink__base').textContent + qrPath; // Update Hidden QR Link
 
     // Update QR Code
@@ -452,7 +462,7 @@ const labelinator = () => {
   const _dataMatrixUpdate = () => {
     if (DEBUG) console.log('Labelinator data matrix update');
 
-    const defaults = defaultinator();
+    const defaults = brandDefaults();
 
     const itemMasterValue = document.querySelector('#sku').value.toUpperCase() || defaults.sku;
     const dataMatrixContainers = document.querySelectorAll('.label__datamatrix');
@@ -488,7 +498,46 @@ const labelinator = () => {
     innerQuantities.forEach((qty) => qty.textContent = iCcontentField );
   }
 
-  _labelInitializer();
+  const _dimUpdate = () => {
+    console.log("Size Updated!");
+  }
+
+  const _qtyUpdate = () => {
+    console.log("Qty Updated!");
+  }
+
+  const _weightUpdate = () => {
+    console.log("Weight Updated!");
+  }
+
+  const _poUpdate = () => {
+    console.log("PO# Updated!");
+  }
+
+  const _tihiUpdate = () => {
+    console.log("Tihi Updated!");
+  }
+
+  _labelinatorInit();
+}
+
+const shippinator = () => {
+  const _init = () => {
+    if (DEBUG) console.log('Shippinator initialized');
+
+    let form = document.querySelector('.shippinator');
+    let fieldSize = form.querySelector('#brand');
+    let fieldQuantity = form.querySelector('#item_master');
+    let fieldSku = form.querySelector('#sku');
+    let fieldSource = form.querySelector('#source');
+    let fieldDescription = form.querySelector('#description');
+
+    const defaults = brandDefaults();
+  }
+
+  
+
+  _init();
 }
 
 const controlinator = () => {
@@ -800,7 +849,7 @@ const pdfinator = () => {
   }
 
   const _namer = () => {
-    const defaults = defaultinator();
+    const defaults = brandDefaults();
 
     let brand = document.querySelector('#brand').value ;
     const sku = document.querySelector('#sku').value.toUpperCase() || defaults.sku;

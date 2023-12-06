@@ -890,10 +890,10 @@ input:checked + .button svg {
   padding: 0 0 50%;
 }
 .preview__content--expanded .page--carton-side {
-  width: 61.1111111111%;
+  width: 41.7910447761%;
 }
 .preview__content--expanded .page--carton-front {
-  width: 83.3333333333%;
+  width: 68.2835820896%;
 }
 .preview__content--condensed .page {
   margin: 20px;
@@ -903,10 +903,10 @@ input:checked + .button svg {
   padding: 0 0 30%;
 }
 .preview__content--condensed .page--carton-side {
-  width: 36.6666666667%;
+  width: 25.0746268657%;
 }
 .preview__content--condensed .page--carton-front {
-  width: 50%;
+  width: 40.9701492537%;
 }
 .page--carton .scaler {
   -webkit-transform-origin: top left;
@@ -923,12 +923,12 @@ input:checked + .button svg {
           justify-content: center;
 }
 .page--carton-front .scaler {
-  width: 15in;
-  height: 9in;
+  width: 18.3in;
+  height: 13.4in;
 }
 .page--carton-side .scaler {
-  width: 11in;
-  height: 9in;
+  width: 11.2in;
+  height: 13.4in;
 }
 @-webkit-keyframes scaleAndExplode {
   0%, 10% {
@@ -967,6 +967,11 @@ input:checked + .button svg {
 
 .print {
   display: block;
+}
+.page--carton .print {
+  width: 100%;
+  height: 100%;
+  padding: 0.5in;
 }
 .print__header {
   text-align: center;
@@ -1208,35 +1213,77 @@ input:checked + .button svg {
 }
 
 .shipping-mark {
-  width: 10in;
-  height: 7in;
-  padding: 0.5in 0.5in 0.5in 1.5in;
+  padding: 0.3in;
   border: 1px solid magenta;
   position: relative;
-}
-.shipping-mark .label {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  position: absolute;
-  top: 0.3in;
-  right: 0.3in;
+  font-size: 1.2in;
+  height: 100%;
 }
 .shipping-mark__content {
-  width: 5in;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 100%;
 }
-.shipping-mark__logo {
-  height: 60px;
+.shipping-mark__sku::before {
+  content: "SKU: ";
+  font-size: 60%;
+  margin-right: 2%;
 }
-.shipping-mark__item {
-  font-size: 36px;
+.page[data-type=shipping-front] .shipping-mark__sku::before {
+  font-size: 100%;
+}
+.shipping-mark__quantity::before {
+  content: "Qty per carton: ";
+}
+.shipping-mark__gweight::before {
+  content: "Gross Weight lbs: ";
+}
+.shipping-mark__nweight::before {
+  content: "Net Weight lbs: ";
+}
+.shipping-mark__dims::before {
+  content: "Carton Dims (LxWxH in): ";
+}
+.shipping-mark__source::before {
+  content: "Made in: ";
+}
+.shipping-mark__po::before {
+  content: "PO #: ";
+}
+.shipping-mark__item-master::before {
+  content: "Item Master: ";
+}
+.shipping-mark__sku {
+  font-size: 80%;
   font-weight: 700;
-  text-transform: uppercase;
-  margin: 0.1in 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 }
-.shipping-mark__meta > div {
-  font-size: 24px;
+.shipping-mark__sku .sku__part {
+  border: 2px solid #000000;
+  border-right-width: 0;
+  padding: 1%;
+}
+.shipping-mark__sku .sku__part:last-child {
+  border-right-width: 2px;
+}
+.shipping-mark__meta, .shipping-mark__item-master {
+  font-size: 40%;
+}
+.shipping-mark__description {
   font-weight: 700;
-  text-transform: uppercase;
-  line-height: 2em;
 }
 
 .preview--brenthaven .label__item-master:before {

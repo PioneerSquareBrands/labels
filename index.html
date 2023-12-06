@@ -25,7 +25,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-text"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 8h8"/><path d="M7 12h10"/><path d="M7 16h6"/></svg>
             UPC Label
           </h1>
-          <form class="sidebar__form sidebar__form--active labelinator">
+          <form id="upc_form" class="sidebar__form sidebar__form--active labelinator">
             <fieldset>
               <div class="field" data-highlight=".print__header h1, .label__brand, .label__install-site, .label__qr, .qrlink__base, .download__name">
                 <label class="field__label" for="brand">
@@ -135,7 +135,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-truck"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"/><circle cx="7" cy="18" r="2"/><path d="M15 18H9"/><circle cx="17" cy="18" r="2"/></svg>
             Shipping Marks
           </h1>
-          <form class="sidebar__form sidebar__form--active shippinator">
+          <form id="shipping_form" class="sidebar__form sidebar__form--active shippinator">
             <fieldset>
               <div class="field">
                 <label class="field__label" for="shipping_width">
@@ -189,8 +189,8 @@
               </div>
 
               <div class="field">
-                <input type="file" id="tihi_upload" class="file__input" accept=".png,.jpg,.jpeg,.gif">
-                <label for="tihi_upload" class="file__label">
+                <input type="file" id="shipping_tihi" class="file__input" accept=".png,.jpg,.jpeg,.gif">
+                <label for="shipping_tihi" class="file__label">
                   <div class="field__label">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-boxes"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg>
                     Ti-Hi
@@ -272,22 +272,22 @@
               <div class="page__content print">
                 <main class="print__content shipping-mark">
                   <div class="shipping-mark__content">
-                    <div class="shipping-mark__brand">
-                      <img class="shipping-mark__logo" src="dist/img/brenthaven_min.png">
-                    </div>
-                    <div class="shipping-mark__item">
-                      <div class="shipping-mark__item-master">Item: </div>
-                      <div class="shipping-mark__sku">SKU: </div>
+                    <div class="shipping-mark__sku">
+                      <span class="sku__part sku__family">01D</span>
+                      <span class="sku__part sku__item">015</span>
+                      <span class="sku__part sku__edition">E01</span>
+                      <span class="sku__part sku__version">-20</span>
                     </div>
                     <div class="shipping-mark__meta">
-                      <div class="shipping-mark__description">Description: </div>
-                      <div class="shipping-mark__po">PO#: </div>
-                      <div class="shipping-mark__gweight">Gross Weight: </div>
-                      <div class="shipping-mark__nweight">Net Weight:</div>
-                      <div class="shipping-mark__dims">Carton DIMS (LxWxH, cm): </div>
-                      <div class="shipping-mark__carton-number">Carton #:</div>
-                      <div class="shipping-mark__source">Made in: </div>
+                      <div class="shipping-mark__description">DropTech for Dell Latitude 3340 2-in-1</div>
+                      <div class="shipping-mark__quantity">20 pcs</div>
+                      <div class="shipping-mark__gweight">21.17 lbs</div>
+                      <div class="shipping-mark__nweight">20.06 lbs</div>
+                      <div class="shipping-mark__dims">18.3" x 11.2" x 13.4"</div>
+                      <div class="shipping-mark__source">China</div>
+                      <div class="shipping-mark__po">123456</div>
                     </div>
+                    <div class="shipping-mark__item-master">01D015</div>
                   </div>
                 </main>
               </div>
@@ -297,7 +297,26 @@
           <div class="page page--carton page--carton-side" data-type="shipping-side">
             <div class="scaler">
               <div class="page__content print">
-                <h2>Brenthaven</h2>
+                <main class="print__content shipping-mark">
+                  <div class="shipping-mark__content">
+                    <div class="shipping-mark__sku">
+                      <span class="sku__part sku__family">01D</span>
+                      <span class="sku__part sku__item">015</span>
+                      <span class="sku__part sku__edition">E01</span>
+                      <span class="sku__part sku__version">-20</span>
+                    </div>
+                    <div class="shipping-mark__meta">
+                      <div class="shipping-mark__description">DropTech for Dell Latitude 3340 2-in-1</div>
+                      <div class="shipping-mark__quantity">20 pcs</div>
+                      <div class="shipping-mark__gweight">21.17 lbs</div>
+                      <div class="shipping-mark__nweight">20.06 lbs</div>
+                      <div class="shipping-mark__dims">18.3" x 11.2" x 13.4"</div>
+                      <div class="shipping-mark__source">China</div>
+                      <div class="shipping-mark__po">123456</div>
+                    </div>
+                    <div class="shipping-mark__item-master">01D015</div>
+                  </div>
+                </main>
               </div>
             </div>
           </div>

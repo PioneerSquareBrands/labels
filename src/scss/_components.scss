@@ -142,7 +142,6 @@ button,
     top: -9999%;
     margin-top: 4px;
     background-color: #ffffff;
-    //border: 1px solid $lines;
     box-shadow: $paper;
     width: 100%;
     border-radius: $border-radius;
@@ -196,9 +195,9 @@ button,
   }
 
   // CHANGE SHIPPING MARK CARTON SIZE HERE
-  $carton-width: 15; // Inches
-  $carton-length: 11; // Inches
-  $carton-height: 9; // Inches
+  $carton-width: 18.3; // Inches
+  $carton-length: 11.2; // Inches
+  $carton-height: 13.4; // Inches
   $carton-expanded: 50%;
   $carton-condensed: 30%;
 
@@ -267,6 +266,12 @@ button,
 
 .print {
   display: block;
+
+  .page--carton & {
+    width: 100%;
+    height: 100%;
+    padding: 0.5in;
+  }
 
   &__header {
     text-align: center;
@@ -490,42 +495,59 @@ button,
   }
 }
 
-
 .shipping-mark {
-  width: 10in;
-  height: 7in;
-  padding: 0.5in 0.5in 0.5in 1.5in;
+  padding: 0.3in;
   border: 1px solid magenta;
   position: relative;
+  font-size: 1.2in;
+  height: 100%;
 
-  .label {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    position: absolute;
-    top: 0.3in;
-    right: 0.3in;
+  .page[data-type="shipping-front"] & {
+    //width: 13in;
+    //height: 7in;
+  }
+
+  .page[data-type="shipping-side"] & {
+    //width: 13in;
   }
 
   &__content {
-    width: 5in;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
   }
 
-  &__logo {
-    height: 60px;
-  }
+  &__sku::before { content: "SKU: "; font-size: 60%; margin-right: 2% }
+  .page[data-type="shipping-front"] &__sku::before { font-size: 100%; }
+  &__quantity::before { content: "Qty per carton: "; }
+  &__gweight::before { content: "Gross Weight lbs: "; }
+  &__nweight::before { content: "Net Weight lbs: "; }
+  &__dims::before { content: "Carton Dims (LxWxH in): "; }
+  &__source::before { content: "Made in: "; }
+  &__po::before { content: "PO #: "; }
+  &__item-master::before { content: "Item Master: "; }
 
-  &__item {
-    font-size: 36px;
+  &__sku {
+    font-size: 80%;
     font-weight: 700;
-    text-transform: uppercase;
-    margin: 0.1in 0;
+    display: flex;
+    align-items: flex-end;
+
+    .sku__part {
+      border: 2px solid #000000;
+      border-right-width: 0;
+      padding: 1%;
+    }
+
+    .sku__part:last-child { border-right-width: 2px; }
   }
 
-  &__meta > div {
-    font-size: 24px;
-    font-weight: 700;
-    text-transform: uppercase;
-    line-height: 2em;
+  &__meta, &__item-master {
+    font-size: 40%;
   }
+
+  &__description { font-weight: 700; }
 }
 
 // Brenthaven Specific Styles
