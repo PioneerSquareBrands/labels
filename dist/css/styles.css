@@ -524,14 +524,14 @@ body > main {
   font-weight: 400;
   color: #656E81;
 }
-.sidebar .file__input:focus + .file__label .file__visual {
+.dragging .sidebar .file__label .file__visual, .sidebar .file__input:focus + .file__label .file__visual, .sidebar .file__label:hover .file__visual {
   -webkit-box-shadow: rgba(0, 123, 255, 0.5) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 0px 6px 8px 0px, rgba(0, 0, 0, 0.04) 0px 3px 4px 0px;
           box-shadow: rgba(0, 123, 255, 0.5) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 0px 6px 8px 0px, rgba(0, 0, 0, 0.04) 0px 3px 4px 0px;
 }
-.sidebar .file__input:focus + .file__label .file__visual .file__text {
+.dragging .sidebar .file__label .file__visual .file__text, .sidebar .file__input:focus + .file__label .file__visual .file__text, .sidebar .file__label:hover .file__visual .file__text {
   border-color: rgba(0, 123, 255, 0.5);
 }
-.sidebar .file__input:focus + .file__label .file__visual svg {
+.dragging .sidebar .file__label .file__visual svg, .sidebar .file__input:focus + .file__label .file__visual svg, .sidebar .file__label:hover .file__visual svg {
   stroke: rgba(0, 123, 255, 0.5);
 }
 .sidebar .field--error::before {
@@ -904,6 +904,7 @@ input:checked + .button svg {
   display: block;
   position: relative;
   height: 0;
+  overflow: hidden;
 }
 .preview__content--expanded .page {
   margin: 40px 40px 0;
@@ -950,8 +951,6 @@ input:checked + .button svg {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
 }
 .page--carton-front .scaler {
   width: 18.3in;
@@ -1245,10 +1244,11 @@ input:checked + .button svg {
 
 .shipping-mark {
   padding: 0.3in;
-  border: 1px solid magenta;
+  border: 3px solid magenta;
   position: relative;
   font-size: 1.2in;
   height: 100%;
+  overflow: hidden;
 }
 .shipping-mark__content {
   display: -webkit-box;
@@ -1268,6 +1268,9 @@ input:checked + .button svg {
 }
 .page[data-type=shipping-side] .shipping-mark__content {
   font-size: 80%;
+}
+.page[data-type=shipping-front] .shipping-mark {
+  padding-right: 4.2in;
 }
 .shipping-mark__sku::before {
   content: "SKU: ";
@@ -1351,6 +1354,9 @@ input:checked + .button svg {
   height: 3.2in;
   margin-top: 0.6in;
   overflow: hidden;
+}
+.shipping-mark__tihi img {
+  cursor: pointer;
 }
 .shipping-mark .tihi-active {
   border: 0;

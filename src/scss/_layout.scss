@@ -325,15 +325,21 @@ body > main {
       color: $text;
     }
 
-    &__input:focus + .file__label .file__visual {
+    .dragging &__label .file__visual,
+    &__input:focus + .file__label .file__visual,
+    &__label:hover .file__visual {
       box-shadow: $input-focus;
     }
 
-    &__input:focus + .file__label .file__visual .file__text {
+    .dragging &__label .file__visual .file__text,
+    &__input:focus + .file__label .file__visual .file__text,
+    &__label:hover .file__visual .file__text {
       border-color:rgba(0, 123, 255, 0.5)
     }
 
-    &__input:focus + .file__label .file__visual svg {
+    .dragging &__label .file__visual svg,
+    &__input:focus + .file__label .file__visual svg,
+    &__label:hover .file__visual svg {
       stroke:rgba(0, 123, 255, 0.5)
     }
   }

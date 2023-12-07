@@ -205,6 +205,8 @@ button,
     display: block;
     position: relative;
     height: 0;
+    //transition: all 0.5s;
+    overflow: hidden;
   }
 
   .preview__content--expanded & {
@@ -236,7 +238,6 @@ button,
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.5s;
   }
 
   &--carton-front .scaler {
@@ -499,10 +500,11 @@ button,
 
 .shipping-mark {
   padding: 0.3in;
-  border: 1px solid magenta;
+  border: 3px solid magenta;
   position: relative;
   font-size: 1.2in;
   height: 100%;
+  overflow: hidden;
 
   &__content {
     display: flex;
@@ -517,6 +519,10 @@ button,
     .page[data-type="shipping-side"] & {
       font-size: 80%;
     }
+  }
+
+  .page[data-type="shipping-front"] & {
+    padding-right: 4.2in;
   }
 
   &__sku::before { content: "SKU: "; font-size: 80%; margin-right: 2% }
@@ -594,6 +600,10 @@ button,
     height: 3.2in;
     margin-top: 0.6in;
     overflow: hidden;
+
+    img {
+      cursor: pointer;
+    }
   }
 
   .tihi-active {

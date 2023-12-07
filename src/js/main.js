@@ -213,9 +213,13 @@ const selectinator = () => {
 };
 
 const labelinator = () => { 
+  let dragCounter = 0;
+
   const sidebar = document.querySelector('.sidebar__fields');
   const upcForm = sidebar.querySelector('#upc_form');
   const shipForm = sidebar.querySelector('#shipping_form');
+  const upcLabel = document.querySelector('#upc_title');
+  const shipLabel = document.querySelector('#shipping_title');
   const preview = document.querySelector('.preview');
 
   // UPC Label Fields
@@ -241,6 +245,7 @@ const labelinator = () => {
   let nWeight = shipForm.querySelector('#shipping_net');
   let purchaseOrder = shipForm.querySelector('#shipping_po');
   let tihi = shipForm.querySelector('#shipping_tihi');
+  let tihiLabel = shipForm.querySelector('#shipping_tihi_label');
 
   // Print "Sections"
   const printHeaders = preview.querySelectorAll('.print-header');
@@ -310,12 +315,15 @@ const labelinator = () => {
     gWeight.addEventListener('input', _weightUpdate);
     nWeight.addEventListener('input', _weightUpdate);
     purchaseOrder.addEventListener('input', _poUpdate);
+    
+    upcForm.addEventListener('submit', (event) => event.preventDefault() );
     tihi.addEventListener('change', _tihiUpdate);
+    tihiLabel.addEventListener('drop', _tihiDragDrop);
+
+    _dragDropHandler();
 
     // Trigger event listeners on page load
     window.addEventListener('load', triggerEventListeners);
-
-    upcForm.addEventListener('submit', (event) => event.preventDefault() );
   }
 
   const _updateTextContent = (nodeList, value) => {
@@ -537,12 +545,17 @@ const labelinator = () => {
     let condensed = 30;
     let expanded = 50;
 
-    const defaultFontSize = 1.2; // in inches
-    const defaultHeight = 13.4; // in inches
+    const defaultFontSize = 1.4; // in inches
+    const defaultArea = 13.4 * 18.3; // Default area in square inches
     let length = dimLength.value || 18.3;
     let width = dimWidth.value || 11.2;
     let height = dimHeight.value || 13.4;
-    let fontSize = (height / defaultHeight) * defaultFontSize;
+
+    const minFontSize = 0.8; // Minimum font size in inches
+    const maxFontSize = 1.2; // Maximum font size in inches
+    const area = Math.min(length * width, height * height);
+    let fontSize = defaultFontSize * Math.sqrt(area / defaultArea);
+    fontSize = Math.max(minFontSize, Math.min(fontSize, maxFontSize));
 
     if (previewContent.classList.contains('preview__content--condensed')) {
       cartonFront.style.width = `${condensed * (length/height)}%`;
@@ -590,6 +603,7 @@ const labelinator = () => {
 
       let img = document.createElement('img');
       img.src = reader.result;
+      img.addEventListener('click', _resetImage);
 
       if (printTihi.querySelector('img')) {
         printTihi.querySelector('img').remove();
@@ -601,19 +615,82 @@ const labelinator = () => {
     reader.readAsDataURL(tihiFile);
   }
 
+  const _tihiDragDrop = (event) => {
+    event.preventDefault();
+    event.stopPropagation(); 
+    if (event.dataTransfer.items) {
+      const droppedFile = event.dataTransfer.items[0].getAsFile();
+      const changeEvent = {
+        target: {
+          files: [droppedFile]
+        }
+      };
+      _tihiUpdate(changeEvent);
+    }
+    dragCounter = 0;
+    document.body.classList.remove('dragging');
+  }
+
   const _tihiOnload = () => {
     let imageData = localStorage.getItem('uploadedImage');
 
     if (imageData) {
       let img = document.createElement('img');
       img.src = imageData;
+      img.addEventListener('click', _resetImage);
 
       if (printTihi.querySelector('img')) {
         printTihi.querySelector('img').remove();
       }
       printTihi.classList.add('tihi-active');
       printTihi.appendChild(img);
+    } else {
+      // If there's no image data in localStorage, add the event listener to the existing image
+      let existingImage = printTihi.querySelector('img');
+      if (existingImage) {
+        existingImage.addEventListener('click', _resetImage);
+      }
     }
+  }
+
+  const _resetImage = () => {
+    if (printTihi.querySelector('img')) {
+      printTihi.querySelector('img').remove();
+    }
+    printTihi.classList.remove('tihi-active');
+    localStorage.removeItem('uploadedImage');
+  }
+
+  const _dragDropHandler = () => {
+    document.addEventListener('dragenter', (event) => { 
+      dragCounter++; 
+      if (dragCounter === 1) { 
+        document.body.classList.add('dragging'); 
+        upcLabel.classList.remove('sidebar__title--active');
+        upcForm.classList.remove('sidebar__form--active');
+        
+        if (!shipForm.classList.contains('sidebar__form--active')) {
+          shipLabel.classList.add('sidebar__title--active');
+          shipForm.classList.add('sidebar__form--active');
+        }
+      } 
+    });
+    
+    document.addEventListener('dragleave', (event) => {
+      dragCounter--;
+      if (dragCounter === 0) { 
+        document.body.classList.remove('dragging'); 
+      }
+    });
+    
+    document.addEventListener('drop', (event) => {
+      event.preventDefault();
+      dragCounter = 0 
+    });
+
+    document.addEventListener('dragover', (event) => {
+      event.preventDefault();
+    });
   }
 
   _labelinatorInit();
@@ -644,7 +721,7 @@ const validator = () => {
         const allowedKeys = ['Delete', 'Backspace', 'Tab', 'Escape', 'Enter', '.', 'Shift', 'Control', 'Alt', 'Meta'];
         const isAllowedKey = allowedKeys.includes(event.key) ||
           (['a', 'c', 'x', 'v', 'r'].includes(event.key.toLowerCase()) && (event.ctrlKey || event.metaKey)) ||
-          (['Home', 'End', 'ArrowLeft', 'ArrowRight'].includes(event.key));
+          (['Home', 'End', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key));
         const isNumber = !event.shiftKey && ((event.key >= '0' && event.key <= '9') || (event.key >= 'Numpad0' && event.key <= 'Numpad9'));
   
         if (!isAllowedKey && !isNumber) {
@@ -684,6 +761,17 @@ const validator = () => {
 
   _validateInit();
 }
+
+const throttlinator = (func, limit) => {
+  let inThrottle;
+  return (...args) => {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  };
+};
 
 const controlinator = () => {
   const _initializeControls = () => {
@@ -870,17 +958,28 @@ const scalinator = () => {
 
   parentDivs.forEach(parentDiv => {
     const print = parentDiv.querySelector('.scaler');
+    const originalTransition = print.style.transition;
+    let isTransitioning = false;
 
     const resizeObserver = new ResizeObserver(entries => {
+      if (isTransitioning) return;
+
       for (let entry of entries) {
         const parentDivWidth = entry.contentRect.width;
-
         const printWidth = print.offsetWidth;
-
         const scale = parentDivWidth / printWidth;
-
         print.style.transform = `scale(${scale})`;
       }
+    });
+
+    print.addEventListener('transitionstart', () => {
+      isTransitioning = true;
+      resizeObserver.disconnect();
+    });
+
+    print.addEventListener('transitionend', () => {
+      isTransitioning = false;
+      resizeObserver.observe(parentDiv);
     });
 
     resizeObserver.observe(parentDiv);
@@ -1022,9 +1121,18 @@ const misc = () => {
     const qrToggle = document.querySelector('.qr__toggle');
     const qrPath = document.querySelector('#qr_path');
 
+    // Load the initial state from localStorage
+    const initialState = localStorage.getItem('qrPathDisabled') === 'true';
+    qrPath.disabled = initialState;
+    qrToggle.classList.toggle('qr__toggle--active', !initialState);
+
     qrToggle.addEventListener('click', () => {
       qrPath.disabled = !qrPath.disabled;
-      qrToggle.classList.toggle('qr__toggle--active');
+      qrToggle.classList.toggle('qr__toggle--active', !qrPath.disabled);
+
+      // Save the current state to localStorage
+      localStorage.setItem('qrPathDisabled', qrPath.disabled.toString());
+
       if (!qrPath.disabled) {
         qrPath.focus();
       }

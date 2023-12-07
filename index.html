@@ -21,7 +21,7 @@
           </div>
         </div> 
         <div class="sidebar__fields">
-          <h1 class="sidebar__title sidebar__title--active">
+          <h1 id="upc_title" class="sidebar__title sidebar__title--active">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-text"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 8h8"/><path d="M7 12h10"/><path d="M7 16h6"/></svg>
             UPC Label
           </h1>
@@ -131,7 +131,7 @@
               </div>
             </fieldset>
           </form>
-          <h1 class="sidebar__title sidebar__title--active">
+          <h1 id="shipping_title" class="sidebar__title sidebar__title--active">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-truck"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"/><circle cx="7" cy="18" r="2"/><path d="M15 18H9"/><circle cx="17" cy="18" r="2"/></svg>
             Shipping Marks
           </h1>
@@ -143,15 +143,15 @@
                   Box Size
                 </label>
                 <div class="field__group">
-                  <input type="number" min="0" max="30" id="shipping_length" placeholder="Length" data-highlight=".print-dim-length">
+                  <input type="number" min="11" max="30" id="shipping_length" placeholder="Length" data-highlight=".print-dim-length">
                   <span class="field__insert">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                   </span>
-                  <input type="number" min="0" max="30" id="shipping_width" placeholder="Width" data-highlight=".print-dim-width">
+                  <input type="number" min="11" max="30" id="shipping_width" placeholder="Width" data-highlight=".print-dim-width">
                   <span class="field__insert">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                   </span>
-                  <input type="number" min="0" max="30" id="shipping_height" placeholder="Height" data-highlight=".print-dim-height">
+                  <input type="number" min="9" max="30" id="shipping_height" placeholder="Height" data-highlight=".print-dim-height">
                   <span class="field__insert">in.</span>
                 </div>
               </div>
@@ -190,7 +190,7 @@
 
               <div class="field">
                 <input type="file" id="shipping_tihi" class="file__input" accept=".png,.jpg,.jpeg,.gif">
-                <label for="shipping_tihi" class="file__label">
+                <label for="shipping_tihi" id="shipping_tihi_label" class="file__label">
                   <div class="field__label">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-boxes"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg>
                     Ti-Hi
@@ -323,8 +323,9 @@
                   <div class="shipping-mark__upc">
                     UPC LABEL
                   </div>
-                  <div class="shipping-mark__tihi print-tihi">
+                  <div class="shipping-mark__tihi print-tihi tihi-active">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-boxes"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg>
+                    <img src="/dist/img/default-tihi.jpg" />
                   </div>
                 </main>
               </div>
