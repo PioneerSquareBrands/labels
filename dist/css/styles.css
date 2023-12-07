@@ -216,6 +216,8 @@ body > main {
   padding: 8px 20px 8px 28px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -229,6 +231,14 @@ body > main {
   width: 15px;
   height: 15px;
   stroke: #9197A5;
+  -webkit-transition: stroke 0.2s;
+  transition: stroke 0.2s;
+}
+.sidebar__title--active {
+  color: rgb(0, 123, 255);
+}
+.sidebar__title--active svg {
+  stroke: rgb(0, 123, 255);
 }
 .sidebar__form {
   margin: 12px 0 8px;
@@ -285,6 +295,11 @@ body > main {
 }
 .sidebar textarea {
   height: 48px;
+}
+.sidebar input[type=number] {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+          appearance: textfield;
 }
 .sidebar .field__button {
   display: -webkit-box;
@@ -518,6 +533,18 @@ body > main {
 }
 .sidebar .file__input:focus + .file__label .file__visual svg {
   stroke: rgba(0, 123, 255, 0.5);
+}
+.sidebar .field--error::before {
+  content: attr(data-error);
+  position: absolute;
+  font-size: 11px;
+  right: 0px;
+  font-style: italic;
+  color: rgba(220, 0, 0, 0.5);
+}
+.sidebar .field--error .input--error {
+  -webkit-box-shadow: rgba(220, 0, 0, 0.5) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 0px 6px 8px 0px, rgba(0, 0, 0, 0.04) 0px 3px 4px 0px;
+          box-shadow: rgba(220, 0, 0, 0.5) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 0px 6px 8px 0px, rgba(0, 0, 0, 0.04) 0px 3px 4px 0px;
 }
 
 .preview {
@@ -888,12 +915,14 @@ input:checked + .button svg {
 }
 .preview__content--expanded .page--carton {
   padding: 0 0 50%;
-}
-.preview__content--expanded .page--carton-side {
-  width: 41.7910447761%;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 .preview__content--expanded .page--carton-front {
   width: 68.2835820896%;
+}
+.preview__content--expanded .page--carton-side {
+  width: 41.7910447761%;
 }
 .preview__content--condensed .page {
   margin: 20px;
@@ -902,11 +931,11 @@ input:checked + .button svg {
 .preview__content--condensed .page--carton {
   padding: 0 0 30%;
 }
-.preview__content--condensed .page--carton-side {
-  width: 25.0746268657%;
-}
 .preview__content--condensed .page--carton-front {
   width: 40.9701492537%;
+}
+.preview__content--condensed .page--carton-side {
+  width: 25.0746268657%;
 }
 .page--carton .scaler {
   -webkit-transform-origin: top left;
@@ -921,6 +950,8 @@ input:checked + .button svg {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 .page--carton-front .scaler {
   width: 18.3in;
@@ -971,7 +1002,7 @@ input:checked + .button svg {
 .page--carton .print {
   width: 100%;
   height: 100%;
-  padding: 0.5in;
+  padding: 0.2in;
 }
 .print__header {
   text-align: center;
@@ -1232,34 +1263,19 @@ input:checked + .button svg {
           justify-content: space-between;
   height: 100%;
 }
+.page[data-type=shipping-front] .shipping-mark__content {
+  font-size: 100%;
+}
+.page[data-type=shipping-side] .shipping-mark__content {
+  font-size: 80%;
+}
 .shipping-mark__sku::before {
   content: "SKU: ";
-  font-size: 60%;
+  font-size: 80%;
   margin-right: 2%;
 }
 .page[data-type=shipping-front] .shipping-mark__sku::before {
   font-size: 100%;
-}
-.shipping-mark__quantity::before {
-  content: "Qty per carton: ";
-}
-.shipping-mark__gweight::before {
-  content: "Gross Weight lbs: ";
-}
-.shipping-mark__nweight::before {
-  content: "Net Weight lbs: ";
-}
-.shipping-mark__dims::before {
-  content: "Carton Dims (LxWxH in): ";
-}
-.shipping-mark__source::before {
-  content: "Made in: ";
-}
-.shipping-mark__po::before {
-  content: "PO #: ";
-}
-.shipping-mark__item-master::before {
-  content: "Item Master: ";
 }
 .shipping-mark__sku {
   font-size: 80%;
@@ -1271,6 +1287,11 @@ input:checked + .button svg {
       -ms-flex-align: end;
           align-items: flex-end;
 }
+.page[data-type=shipping-front] .shipping-mark__sku {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
 .shipping-mark__sku .sku__part {
   border: 2px solid #000000;
   border-right-width: 0;
@@ -1279,11 +1300,63 @@ input:checked + .button svg {
 .shipping-mark__sku .sku__part:last-child {
   border-right-width: 2px;
 }
-.shipping-mark__meta, .shipping-mark__item-master {
-  font-size: 40%;
+.shipping-mark__middle, .shipping-mark__bottom {
+  font-size: 50%;
+  font-weight: 400;
+}
+.shipping-mark__meta {
+  line-height: 170%;
 }
 .shipping-mark__description {
   font-weight: 700;
+}
+.shipping-mark__source {
+  text-transform: capitalize;
+}
+.shipping-mark__upc, .shipping-mark__tihi {
+  border: 2px dashed rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 50%;
+  right: 0.5in;
+  border-radius: 0.08in;
+  width: 3.2in;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 0.2in;
+  font-weight: 700;
+  color: #B2B2B2;
+}
+.shipping-mark__upc svg, .shipping-mark__tihi svg {
+  stroke: #B2B2B2;
+  width: 1in;
+  height: 1in;
+}
+.shipping-mark__upc {
+  height: 3.8in;
+  margin-top: -3.9in;
+}
+.shipping-mark__po {
+  display: inline-block;
+  border-bottom: 0.04in solid #000000;
+  min-width: 3.5in;
+}
+.shipping-mark__tihi {
+  height: 3.2in;
+  margin-top: 0.6in;
+  overflow: hidden;
+}
+.shipping-mark .tihi-active {
+  border: 0;
+}
+.shipping-mark .tihi-active svg {
+  display: none;
 }
 
 .preview--brenthaven .label__item-master:before {

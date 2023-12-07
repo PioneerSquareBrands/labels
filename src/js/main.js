@@ -3,7 +3,7 @@ if (DEBUG) console.log('Debug mode enabled');
 let iconSize = 60;
 
 const brandDefaults = () => {
-  if (DEBUG) console.log('Labelinator defaults');
+  if (DEBUG) console.log('defaults');
 
   const brandField = document.querySelector('#brand').value;
   let logoSrc, headerText, linkText, itemMaster, sku, upc, description;
@@ -213,31 +213,62 @@ const selectinator = () => {
 };
 
 const labelinator = () => { 
+  const sidebar = document.querySelector('.sidebar__fields');
+  const upcForm = sidebar.querySelector('#upc_form');
+  const shipForm = sidebar.querySelector('#shipping_form');
+  const preview = document.querySelector('.preview');
+
+  // UPC Label Fields
+  let brand = upcForm.querySelector('#brand');
+  let itemMaster = upcForm.querySelector('#item_master');
+  let sku = upcForm.querySelector('#sku');
+  let source = upcForm.querySelector('#source');
+  let description = upcForm.querySelector('#description');
+  let upc = upcForm.querySelector('#item_upc');
+  let qrLink = upcForm.querySelector('#qr_link');
+  let qrBase = upcForm.querySelector('.qrlink__base');
+  let qrPath = upcForm.querySelector('#qr_path');
+  let pbContent = upcForm.querySelector('#pb_content');
+  let mcContent = upcForm.querySelector('#mc_content');
+  let icContent = upcForm.querySelector('#ic_content');
+
+  // Shipping Mark Fields
+  let dimLength = shipForm.querySelector('#shipping_length');
+  let dimWidth = shipForm.querySelector('#shipping_width');
+  let dimHeight = shipForm.querySelector('#shipping_height');
+  let boxQty = shipForm.querySelector('#shipping_quantity');
+  let gWeight = shipForm.querySelector('#shipping_gross');
+  let nWeight = shipForm.querySelector('#shipping_net');
+  let purchaseOrder = shipForm.querySelector('#shipping_po');
+  let tihi = shipForm.querySelector('#shipping_tihi');
+
+  // Print "Sections"
+  const printHeaders = preview.querySelectorAll('.print-header');
+  
+  const labels = preview.querySelectorAll('.label');
+  
+  const printLogos = preview.querySelectorAll('.print-logo');
+  const printItemMasters = preview.querySelectorAll('.print-item-master');
+  const printBoxSkus = preview.querySelectorAll('.print-box-sku');
+  const printSkus = preview.querySelectorAll('.print-sku');
+  const printCountries = preview.querySelectorAll('.print-country');
+  const printDescriptions = preview.querySelectorAll('.print-description');
+  const printInstallBases = preview.querySelectorAll('.print-install-base');
+  const printInstallPaths = preview.querySelectorAll('.print-install-path');
+  const printPolybagQty = preview.querySelectorAll('[data-type="polybag"] .label__quantity');
+  const printMasterQty = preview.querySelectorAll('[data-type="master"] .label__quantity');
+  const printInnerQty = preview.querySelectorAll('[data-type="inner"] .label__quantity');
+  const printDimLengths = preview.querySelectorAll('.print-dim-length');
+  const printDimWidths = preview.querySelectorAll('.print-dim-width');
+  const printDimHeights = preview.querySelectorAll('.print-dim-height');
+  const printBoxQty = preview.querySelectorAll('.print-box-qty');
+  const printGrossWgt = preview.querySelectorAll('.print-gross-weight');
+  const printNetWgt = preview.querySelectorAll('.print-net-weight');
+  const printPurchaseOrders = preview.querySelectorAll('.print-purchase-order');
+  const printTihi = preview.querySelector('.print-tihi');
+
   const _labelinatorInit = () => {
-    if (DEBUG) console.log('Labelinator initialized');
-
-    let upcForm = document.querySelector('#upc_form');
-    let shipForm = document.querySelector('#shipping_form');
-
-    let brand = upcForm.querySelector('#brand');
-    let itemMaster = upcForm.querySelector('#item_master');
-    let sku = upcForm.querySelector('#sku');
-    let source = upcForm.querySelector('#source');
-    let description = upcForm.querySelector('#description');
-    let upc = upcForm.querySelector('#item_upc');
-    let qrLink = upcForm.querySelector('#qr_path');
-    let pbContent = upcForm.querySelector('#pb_content');
-    let mcContent = upcForm.querySelector('#mc_content');
-    let icContent = upcForm.querySelector('#ic_content');
-
-    let dimWidth = shipForm.querySelector('#shipping_width');
-    let dimLength = shipForm.querySelector('#shipping_length');
-    let dimHeight = shipForm.querySelector('#shipping_height');
-    let boxQty = shipForm.querySelector('#shipping_quantity');
-    let gWeight = shipForm.querySelector('#shipping_gross');
-    let nWeight = shipForm.querySelector('#shipping_net');
-    let purchaseOrder = shipForm.querySelector('#shipping_po');
-    let tihi = shipForm.querySelector('#shipping_tihi');
+    if (DEBUG) console.log('initialized');
 
     // Function to trigger the event listeners
     const triggerEventListeners = () => {
@@ -250,10 +281,11 @@ const labelinator = () => {
       _qrCodeUpdate();
       _contentUpdate();
       _dimUpdate();
+      _canvasUpdate();
       _qtyUpdate();
       _weightUpdate();
       _poUpdate();
-      _tihiUpdate();
+      _tihiOnload();
     };
 
     // Event listeners for field changes
@@ -263,7 +295,7 @@ const labelinator = () => {
     description.addEventListener('input', _descriptionUpdate);
     upc.addEventListener('input', _upcUpdate);
     source.addEventListener('change', _sourceUpdate);
-    qrLink.addEventListener('input', _qrCustomUpdate);
+    qrPath.addEventListener('input', _qrCustomUpdate);
     pbContent.addEventListener('input', _contentUpdate);
     mcContent.addEventListener('input', _contentUpdate);
     icContent.addEventListener('input', _contentUpdate);
@@ -271,6 +303,9 @@ const labelinator = () => {
     dimWidth.addEventListener('input', _dimUpdate);
     dimLength.addEventListener('input', _dimUpdate);
     dimHeight.addEventListener('input', _dimUpdate);
+    dimWidth.addEventListener('change', _canvasUpdate);
+    dimLength.addEventListener('change', _canvasUpdate);
+    dimHeight.addEventListener('change', _canvasUpdate);
     boxQty.addEventListener('input', _qtyUpdate);
     gWeight.addEventListener('input', _weightUpdate);
     nWeight.addEventListener('input', _weightUpdate);
@@ -283,94 +318,108 @@ const labelinator = () => {
     upcForm.addEventListener('submit', (event) => event.preventDefault() );
   }
 
+  const _updateTextContent = (nodeList, value) => {
+    nodeList.forEach((node) => node.textContent = value);
+  };
+
   const _brandUpdate = () => {
-    if (DEBUG) console.log('Labelinator brand update');
+    if (DEBUG) console.log('brand update');
 
     const defaults = brandDefaults();
 
-    const previewContent = document.querySelector('.preview');
+    // Update Preview class
+    const classesToRemove = ['preview--brenthaven', 'preview--gumdrop', 'preview--vault'];
+    classesToRemove.forEach((className) => preview.classList.remove(className));
+    preview.classList.add(`preview--${defaults.brandField}`);
 
-    previewContent.classList.remove('preview--brenthaven');
-    previewContent.classList.remove('preview--gumdrop');
-    previewContent.classList.remove('preview--vault');
+    labels.forEach(label => label.classList.add(`label--${defaults.brandField}`));
+    printLogos.forEach(printLogo => printLogo.src = defaults.logoSrc);
 
-    previewContent.classList.add(`preview--${defaults.brandField}`);
-    document.querySelectorAll('.print__content.label').forEach(label => label.classList.add(`label--${defaults.brandField}`));
-    document.querySelectorAll('.label__logo').forEach(logo => logo.src = defaults.logoSrc);
-    document.querySelectorAll('.print__header h1').forEach(header => header.textContent = defaults.headerText);
-    document.querySelectorAll('.label__install-site').forEach(link => link.textContent = defaults.linkText);
-    document.querySelectorAll('.label__install-sku').forEach(sku => sku.textContent = document.querySelector('#item_master').value.toUpperCase() || defaults.itemMaster);
-    document.querySelectorAll('.label__item-master').forEach(itemMaster => itemMaster.textContent = document.querySelector('#item_master').value.toUpperCase() || defaults.itemMaster);
-    document.querySelectorAll('.label__item-sku').forEach(sku => sku.textContent = document.querySelector('#sku').value.toUpperCase() || defaults.sku);
-    document.querySelectorAll('.label__description').forEach(description => description.textContent = document.querySelector('#description').value ||  defaults.description);
+    _updateTextContent(printHeaders, defaults.headerText);
+    _updateTextContent(printDescriptions, description.value ||  defaults.description);
+    _updateTextContent(printItemMasters, itemMaster.value.toUpperCase() || defaults.itemMaster);
+    _updateTextContent(printSkus, sku.value.toUpperCase() || defaults.sku);
+    _updateTextContent(printInstallBases, defaults.linkText);
+    _updateTextContent(printInstallPaths, itemMaster.value.toUpperCase() || defaults.itemMaster);
 
     // Update input field placeholders with defaults
-    document.querySelector('#item_master').placeholder = defaults.itemMaster;
-    document.querySelector('#qr_path').placeholder = defaults.itemMaster;
-    document.querySelector('#sku').placeholder = defaults.sku;
-    document.querySelector('#item_upc').placeholder = defaults.upc;
-    document.querySelector('#description').placeholder = defaults.description;
+    itemMaster.placeholder = defaults.itemMaster;
+    qrPath.placeholder = defaults.itemMaster;
+    sku.placeholder = defaults.sku;
+    upc.placeholder = defaults.upc;
+    description.placeholder = defaults.description;
 
+    _skuUpdate();
     _qrURL();
     _upcUpdate();
   }
 
   const _itemMasterUpdate = () => {
-    if (DEBUG) console.log('Labelinator item master update');
+    if (DEBUG) console.log('item master update');
     const defaults = brandDefaults();
 
-    const itemMasterField = document.querySelector('#item_master');
-    const labelItemMasters = document.querySelectorAll('.label__item-master');
-    const qrItemMasters = document.querySelectorAll('.label__install-sku');
-    const iTemMasterVal = itemMasterField.value.toUpperCase()  || defaults.itemMaster;
+    const iTemMasterVal = itemMaster.value.toUpperCase()  || defaults.itemMaster;
 
-    document.querySelector('#qr_path').placeholder = iTemMasterVal;
-    labelItemMasters.forEach((labelItemMaster) => labelItemMaster.textContent = iTemMasterVal );
-    qrItemMasters.forEach((qrItemMaster) => qrItemMaster.textContent = iTemMasterVal );
+    qrPath.placeholder = iTemMasterVal;
+    _updateTextContent(printItemMasters, iTemMasterVal);
+    _updateTextContent(printInstallPaths, iTemMasterVal);
 
     _qrURL();
   }
 
   const _skuUpdate = () => {
-    if (DEBUG) console.log('Labelinator sku update');
+    if (DEBUG) console.log('sku update');
     const defaults = brandDefaults();
 
-    const skuField = document.querySelector('#sku');
-    const labelSkus = document.querySelectorAll('.label__item-sku');
-    const skuVal = skuField.value.toUpperCase() || defaults.sku;
+    const skuValue = sku.value.toUpperCase() || defaults.sku;
 
-    labelSkus.forEach((labelSku) => labelSku.textContent = skuVal );
+    let formattedSku = '';
+    let isNumericThirdChar = skuValue.length > 2 && /[0-9]/.test(skuValue[2]);
+    let section = '';
 
+    for (let i = 0; i < skuValue.length; i++) {
+      section += skuValue[i];
+
+      let shouldEndSection = isNumericThirdChar
+        ? (i === 3 || (i > 3 && (i - 3) % 3 === 0) && i < skuValue.length - 1 && i < 7)
+        : ((i + 1) % 3 === 0 && i < skuValue.length - 1 && i < 12);
+
+      if (shouldEndSection || i === skuValue.length - 1) {
+        formattedSku += `<span class="sku__part">${section}</span>`;
+        section = ''; // Reset section for next group
+      }
+    }
+
+    printBoxSkus.forEach((printBoxSkus) => {
+      printBoxSkus.innerHTML = formattedSku;
+    });
+    _updateTextContent(printSkus, skuValue);
     _dataMatrixUpdate();
   }
 
   const _descriptionUpdate = () => {
-    if (DEBUG) console.log('Labelinator description update');
+    if (DEBUG) console.log('description update');
     const defaults = brandDefaults();
 
-    const descriptionField = document.querySelector('#description');
-    const labelDescriptions = document.querySelectorAll('.label__description');
-    const descriptionVal = descriptionField.value || defaults.description;
-
-    labelDescriptions.forEach((labelDescription) => labelDescription.textContent = descriptionVal );
+    _updateTextContent(printDescriptions, description.value || defaults.description);
   }
 
   const _upcUpdate = () => {
-    if (DEBUG) console.log('Labelinator upc update');
+    if (DEBUG) console.log('upc update');
     const defaults = brandDefaults();
 
-    const barcodeElements = document.querySelectorAll('.label__upc svg');
-    const upcField = document.querySelector('#item_upc').value || defaults.upc;
+    const barcodes = preview.querySelectorAll('.label__upc svg');
+    const upcField = upc.value || defaults.upc;
 
     if (upcField.length == 12) {
-      barcodeElements.forEach(barcodeElement => {
-        JsBarcode(barcodeElement, upcField, {
+      barcodes.forEach(barcode => {
+        JsBarcode(barcode, upcField, {
           format: 'upc',
           height: 50,
           font: 'OCRB'
         });
 
-        barcodeElement.innerHTML += `<style>
+        barcode.innerHTML += `<style>
         @font-face {
           font-family: 'OCRB';
           font-style: normal;
@@ -384,66 +433,51 @@ const labelinator = () => {
   }
 
   const _sourceUpdate = () => {
-    if (DEBUG) console.log('Labelinator source update');
-    const labelSources = document.querySelectorAll('.label__country');
-    const sourceVal = document.querySelector('#source').value || 'China';
-    
-    labelSources.forEach((labelSource) => labelSource.textContent = sourceVal );
+    if (DEBUG) console.log('source update');
+    _updateTextContent(printCountries, source.value || 'China');
   }
 
   const _qrURL = () => {
-    if (DEBUG) console.log('Labelinator qr url update');
+    if (DEBUG) console.log('qr url update');
 
     const defaults = brandDefaults();
-    const itemMasterField = document.querySelector('#item_master').value.toUpperCase() || defaults.itemMaster;
-    let brandUrl, qrURL;
+    const itemMasterField = itemMaster.value.toUpperCase() || defaults.itemMaster;
 
-    switch (defaults.brandField) {
-      case 'brenthaven':
-        brandUrl = `https://brenthaven.com/`;
-        qrURL = `https://brenthaven.com/${itemMasterField}`;
-        break;
-      case 'gumdrop':
-        brandUrl = `https://www.gumdropcases.com/`;
-        qrURL = `https://www.gumdropcases.com/${itemMasterField}`;
-        break;
-      default:
-        brandUrl = `https://byvault.com/`;
-        qrURL = `https://byvault.com/${itemMasterField}`;
-    }
+    const brandUrls = {
+      'brenthaven': 'https://brenthaven.com/',
+      'gumdrop': 'https://www.gumdropcases.com/',
+      'default': 'https://byvault.com/'
+    };
 
-    document.querySelector('.qrlink__base').textContent = brandUrl; // Update QR Link Base div
-    document.querySelector('#qr_path').value = `${itemMasterField}`; // Update Hidden QR Path
-    document.querySelector('#qr_link').value = qrURL; // Update Hidden QR Link
+    const brandUrl = brandUrls[defaults.brandField] || brandUrls.default;
+    const qrURL = `${brandUrl}${itemMasterField}`;
 
-    // Update QR Code
+    qrBase.textContent = brandUrl; // Update QR Link Base div
+    qrPath.value = `${itemMasterField}`; // Update Hidden QR Path
+    qrLink.value = qrURL; // Update Hidden QR Link
+
     _qrCodeUpdate();
   }
 
   const _qrCustomUpdate = () => {
-    if (DEBUG) console.log('Labelinator custom qr update');
-    console.log('custom qr update');
-
+    if (DEBUG) console.log('custom qr update');
     const defaults = brandDefaults();
 
-    const qrPath = document.querySelector('#qr_path').value || document.querySelector('#item_master').value.toUpperCase() || defaults.itemMaster;
-    const qrInstallSku = document.querySelectorAll('.label__install-sku');
+    const qrPathValue = qrPath.value.toUpperCase() || itemMaster.value.toUpperCase() || defaults.itemMaster;
+    
+    _updateTextContent(printInstallPaths, qrPathValue);
+    qrLink.value = qrBase.textContent + qrPathValue; // Update Hidden QR Link
 
-    qrInstallSku.forEach((sku) => sku.textContent = qrPath );
-    document.querySelector('#qr_link').value = document.querySelector('.qrlink__base').textContent + qrPath; // Update Hidden QR Link
-
-    // Update QR Code
     _qrCodeUpdate();
   }
 
   const _qrCodeUpdate = () => {
-    if (DEBUG) console.log('Labelinator qr code update');
+    if (DEBUG) console.log('qr code update');
 
-    const qrLinkValue = document.querySelector('#qr_link').value;
-    const qrCodeContainers = document.querySelectorAll('.label__qr');
+    const qrLinkValue = qrLink.value;
+    const qrCodeContainers = preview.querySelectorAll('.label__qr');
 
     qrCodeContainers.forEach(qr => {
-      // Create a new QR code for each container
       let qrCode = QRCode({
         msg: qrLinkValue,
         dim: iconSize,
@@ -454,18 +488,17 @@ const labelinator = () => {
       qr.classList.add('label__qr--active');
       qr.innerHTML = '';
 
-      // Append the new QR code to the container
       qr.appendChild(qrCode);
     });
   }
 
   const _dataMatrixUpdate = () => {
-    if (DEBUG) console.log('Labelinator data matrix update');
+    if (DEBUG) console.log('data matrix update');
 
     const defaults = brandDefaults();
 
-    const itemMasterValue = document.querySelector('#sku').value.toUpperCase() || defaults.sku;
-    const dataMatrixContainers = document.querySelectorAll('.label__datamatrix');
+    const itemMasterValue = sku.value.toUpperCase() || defaults.sku;
+    const dataMatrixContainers = preview.querySelectorAll('.label__datamatrix');
 
     dataMatrixContainers.forEach(dm => {
       let dataMatrix = DATAMatrix({
@@ -483,61 +516,173 @@ const labelinator = () => {
   }
 
   const _contentUpdate = () => {
-    if (DEBUG) console.log('Labelinator content update');
+    if (DEBUG) console.log('content update');
 
-    const pBcontentField = document.querySelector('#pb_content').value || 'Qty: 1';
-    const mCcontentField = document.querySelector('#mc_content').value || 'Qty: 1';
-    const iCcontentField = document.querySelector('#ic_content').value || 'Qty: 1';
-    
-    const polybagQuantities = document.querySelectorAll('[data-type="polybag"] .label__quantity');
-    const masterQuantities = document.querySelectorAll('[data-type="master"] .label__quantity');
-    const innerQuantities = document.querySelectorAll('[data-type="inner"] .label__quantity');
-
-    polybagQuantities.forEach((qty) => qty.textContent = pBcontentField );
-    masterQuantities.forEach((qty) => qty.textContent = mCcontentField );
-    innerQuantities.forEach((qty) => qty.textContent = iCcontentField );
+    _updateTextContent(printPolybagQty, pbContent.value || 'Qty: 1');
+    _updateTextContent(printMasterQty, mcContent.value || 'Qty: 1');
+    _updateTextContent(printInnerQty, icContent.value || 'Qty: 1');
   }
 
   const _dimUpdate = () => {
-    console.log("Size Updated!");
+    _updateTextContent(printDimLengths, `${dimLength.value || 18.3}"`);
+    _updateTextContent(printDimWidths, `${dimWidth.value || 11.2}"`);
+    _updateTextContent(printDimHeights, `${dimHeight.value || 13.4}"`);
+  }
+
+  const _canvasUpdate = () => {
+    let previewContent = preview.querySelector('.preview__content');
+    let cartonFront = preview.querySelector('.page--carton-front');
+    let cartonSide = preview.querySelector('.page--carton-side');
+
+    let condensed = 30;
+    let expanded = 50;
+
+    const defaultFontSize = 1.2; // in inches
+    const defaultHeight = 13.4; // in inches
+    let length = dimLength.value || 18.3;
+    let width = dimWidth.value || 11.2;
+    let height = dimHeight.value || 13.4;
+    let fontSize = (height / defaultHeight) * defaultFontSize;
+
+    if (previewContent.classList.contains('preview__content--condensed')) {
+      cartonFront.style.width = `${condensed * (length/height)}%`;
+      cartonSide.style.width = `${condensed * (width/height)}%`;
+      console.log(`${condensed} * (${length}/${height})`, `${condensed * (length/height)}%`);
+      console.log(`${condensed} * (${width}/${height})`, `${condensed * (width/height)}%`);
+    } else if (previewContent.classList.contains('preview__content--expanded')) {
+      cartonFront.style.width = `${expanded * (length/height)}%`;
+      cartonSide.style.width = `${expanded * (width/height)}%`;
+      console.log(`${expanded} * (${length}/${height})`, `${expanded * (length/height)}%`);
+      console.log(`${expanded} * (${width}/${height})`, `${expanded * (width/height)}%`);
+    }
+
+    cartonFront.querySelector('.scaler').style.width = `${length}in`;
+    cartonFront.querySelector('.scaler').style.height = `${height}in`;
+
+    cartonSide.querySelector('.scaler').style.width = `${width}in`;
+    cartonSide.querySelector('.scaler').style.height = `${height}in`;
+
+    previewContent.querySelectorAll('.shipping-mark').forEach((content) => {
+      content.style.fontSize = `${fontSize}in`;
+    });
   }
 
   const _qtyUpdate = () => {
-    console.log("Qty Updated!");
+    _updateTextContent(printBoxQty, boxQty.value || '20');
   }
 
   const _weightUpdate = () => {
-    console.log("Weight Updated!");
+    _updateTextContent(printGrossWgt, `${gWeight.value || '21.17'} lbs.`);
+    _updateTextContent(printNetWgt, `${nWeight.value || '20.06'} lbs.`);
   }
 
   const _poUpdate = () => {
-    console.log("PO# Updated!");
+    _updateTextContent(printPurchaseOrders, purchaseOrder.value || '');
   }
 
-  const _tihiUpdate = () => {
-    console.log("Tihi Updated!");
+  const _tihiUpdate = (event) => {
+    let tihiFile = event.target.files[0];
+
+    let reader = new FileReader();
+    reader.onloadend = function() {
+      // Store the image data in localStorage
+      localStorage.setItem('uploadedImage', reader.result);
+
+      let img = document.createElement('img');
+      img.src = reader.result;
+
+      if (printTihi.querySelector('img')) {
+        printTihi.querySelector('img').remove();
+      }
+      printTihi.classList.add('tihi-active');
+      printTihi.appendChild(img);
+    }
+
+    reader.readAsDataURL(tihiFile);
+  }
+
+  const _tihiOnload = () => {
+    let imageData = localStorage.getItem('uploadedImage');
+
+    if (imageData) {
+      let img = document.createElement('img');
+      img.src = imageData;
+
+      if (printTihi.querySelector('img')) {
+        printTihi.querySelector('img').remove();
+      }
+      printTihi.classList.add('tihi-active');
+      printTihi.appendChild(img);
+    }
   }
 
   _labelinatorInit();
 }
 
-const shippinator = () => {
-  const _init = () => {
-    if (DEBUG) console.log('Shippinator initialized');
+const validator = () => {
+  const sidebar = document.querySelector('.sidebar');
+  let numberInputs = sidebar.querySelectorAll('input[type="number"]');
 
-    let form = document.querySelector('.shippinator');
-    let fieldSize = form.querySelector('#brand');
-    let fieldQuantity = form.querySelector('#item_master');
-    let fieldSku = form.querySelector('#sku');
-    let fieldSource = form.querySelector('#source');
-    let fieldDescription = form.querySelector('#description');
-
-    const defaults = brandDefaults();
+  const _validateInit = () => {
+    _numberInputs();
   }
 
-  
+  const _validateInput = (input, isValid, message) => {
+    input.classList.toggle('input--error', !isValid);
+    const field = input.closest('.field');
+    field.classList.toggle('field--error', !isValid);
+    if (!isValid) {
+      field.setAttribute('data-error', message || 'Invalid input');
+    } else {
+      field.removeAttribute('data-error');
+    }
+  };
 
-  _init();
+  const _numberInputs = () => {
+    numberInputs.forEach((input) => {
+      input.addEventListener('keydown', (event) => {
+        const allowedKeys = ['Delete', 'Backspace', 'Tab', 'Escape', 'Enter', '.', 'Shift', 'Control', 'Alt', 'Meta'];
+        const isAllowedKey = allowedKeys.includes(event.key) ||
+          (['a', 'c', 'x', 'v', 'r'].includes(event.key.toLowerCase()) && (event.ctrlKey || event.metaKey)) ||
+          (['Home', 'End', 'ArrowLeft', 'ArrowRight'].includes(event.key));
+        const isNumber = !event.shiftKey && ((event.key >= '0' && event.key <= '9') || (event.key >= 'Numpad0' && event.key <= 'Numpad9'));
+  
+        if (!isAllowedKey && !isNumber) {
+          event.preventDefault();
+          _validateInput(input, false, 'Please use numbers only');
+        } else {
+          _validateInput(input, true);
+        }
+      });
+  
+      input.addEventListener('input', (event) => {
+        const minValue = parseFloat(input.min);
+        const maxValue = parseFloat(input.max);
+        let value = input.value;
+  
+        if (value.includes('.') && value.split('.')[1].length > 1) {
+          // If the input value has a decimal point and more than one digit after it, do not parse it as a float
+          return;
+        }
+  
+        let numericValue = value;
+  
+        if (numericValue < minValue) {
+          numericValue = minValue;
+          _validateInput(input, false, `Minimum value is ${minValue}`);
+        } else if (numericValue > maxValue) {
+          numericValue = maxValue;
+          _validateInput(input, false, `Maximum value is ${maxValue}`);
+        }
+  
+        if (value !== numericValue.toString()) {
+          input.value = numericValue.toString();
+        }
+      });
+    });
+  }
+
+  _validateInit();
 }
 
 const controlinator = () => {
@@ -746,13 +891,8 @@ const outlininator = () => {
   const fields = document.querySelectorAll('.sidebar__fields input, .sidebar__fields select, .sidebar__fields textarea');
 
   fields.forEach((field) => {
-    field.addEventListener('focus', () => {
-      _handleHighlight(field, 'add');
-    });
-
-    field.addEventListener('blur', () => {
-      _handleHighlight(field, 'remove');
-    });
+    field.addEventListener('focus', () => _handleHighlight(field, 'add'));
+    field.addEventListener('blur', () => _handleHighlight(field, 'remove'));
   });
 
   const _handleHighlight = (field, action) => {
@@ -892,12 +1032,13 @@ const misc = () => {
   }
 
   const _sidebarAccordion = () => {
-    const accordionToggle = document.querySelectorAll('.sidebar__fields h1');
+    const accordionToggle = document.querySelectorAll('.sidebar__title');
     
     accordionToggle.forEach(toggle => {
       toggle.addEventListener('click', () => {
         const form = toggle.nextElementSibling;
         if (form) {
+          toggle.classList.toggle('sidebar__title--active');
           form.classList.toggle('sidebar__form--active');
         }
       });
@@ -911,6 +1052,7 @@ const misc = () => {
 //===================
 selectinator();
 colorinator();
+validator(); // Should always be before labelinator
 labelinator();
 controlinator(); 
 outlininator();

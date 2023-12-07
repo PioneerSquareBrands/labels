@@ -61,6 +61,7 @@ body > main {
     padding: 8px 20px 8px 28px;
     border-bottom: 1px solid rgba(0,0,0,0.1);
     cursor: pointer;
+    transition: color 0.2s;
 
     display: flex;
     align-items: center;
@@ -71,6 +72,15 @@ body > main {
       width: 15px;
       height: 15px;
       stroke: $icons;
+      transition: stroke 0.2s;
+    }
+
+    &--active {
+      color: rgba(0, 123, 255, 1);
+
+      svg {
+        stroke:rgba(0, 123, 255, 1)
+      }
     }
   }
 
@@ -124,6 +134,11 @@ body > main {
 
   textarea {
     height: 48px;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
   }
 
   .field__button {
@@ -320,6 +335,21 @@ body > main {
 
     &__input:focus + .file__label .file__visual svg {
       stroke:rgba(0, 123, 255, 0.5)
+    }
+  }
+
+  .field--error {
+    &::before {
+      content: attr(data-error);
+      position: absolute;
+      font-size: 11px;
+      right: 0px;
+      font-style: italic;
+      color: $error;
+    }
+
+    .input--error {
+      box-shadow: $input-error;
     }
   }
 }
