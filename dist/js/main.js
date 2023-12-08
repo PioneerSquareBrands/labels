@@ -2,6 +2,63 @@ let DEBUG = false;
 if (DEBUG) console.log('Debug mode enabled');
 let iconSize = 60;
 
+const sidebar = document.querySelector('.sidebar__fields');
+const upcForm = sidebar.querySelector('#upc_form');
+const shipForm = sidebar.querySelector('#shipping_form');
+const upcLabel = document.querySelector('#upc_title');
+const shipLabel = document.querySelector('#shipping_title');
+const preview = document.querySelector('.preview');
+
+// UPC Label Fields
+let brand = upcForm.querySelector('#brand');
+let itemMaster = upcForm.querySelector('#item_master');
+let sku = upcForm.querySelector('#sku');
+let source = upcForm.querySelector('#source');
+let description = upcForm.querySelector('#description');
+let upc = upcForm.querySelector('#item_upc');
+let qrLink = upcForm.querySelector('#qr_link');
+let qrBase = upcForm.querySelector('.qrlink__base');
+let qrPath = upcForm.querySelector('#qr_path');
+let pbContent = upcForm.querySelector('#pb_content');
+let mcContent = upcForm.querySelector('#mc_content');
+let icContent = upcForm.querySelector('#ic_content');
+
+// Shipping Mark Fields
+let dimLength = shipForm.querySelector('#shipping_length');
+let dimWidth = shipForm.querySelector('#shipping_width');
+let dimHeight = shipForm.querySelector('#shipping_height');
+let boxQty = shipForm.querySelector('#shipping_quantity');
+let gWeight = shipForm.querySelector('#shipping_gross');
+let nWeight = shipForm.querySelector('#shipping_net');
+let purchaseOrder = shipForm.querySelector('#shipping_po');
+let tihi = shipForm.querySelector('#shipping_tihi');
+let tihiLabel = shipForm.querySelector('#shipping_tihi_label');
+
+// Print "Sections"
+const printHeaders = preview.querySelectorAll('.print-header');
+
+const labels = preview.querySelectorAll('.label');
+
+const printLogos = preview.querySelectorAll('.print-logo');
+const printItemMasters = preview.querySelectorAll('.print-item-master');
+const printBoxSkus = preview.querySelectorAll('.print-box-sku');
+const printSkus = preview.querySelectorAll('.print-sku');
+const printCountries = preview.querySelectorAll('.print-country');
+const printDescriptions = preview.querySelectorAll('.print-description');
+const printInstallBases = preview.querySelectorAll('.print-install-base');
+const printInstallPaths = preview.querySelectorAll('.print-install-path');
+const printPolybagQty = preview.querySelectorAll('[data-type="polybag"] .label__quantity');
+const printMasterQty = preview.querySelectorAll('[data-type="master"] .label__quantity');
+const printInnerQty = preview.querySelectorAll('[data-type="inner"] .label__quantity');
+const printDimLengths = preview.querySelectorAll('.print-dim-length');
+const printDimWidths = preview.querySelectorAll('.print-dim-width');
+const printDimHeights = preview.querySelectorAll('.print-dim-height');
+const printBoxQty = preview.querySelectorAll('.print-box-qty');
+const printGrossWgt = preview.querySelectorAll('.print-gross-weight');
+const printNetWgt = preview.querySelectorAll('.print-net-weight');
+const printPurchaseOrders = preview.querySelectorAll('.print-purchase-order');
+const printTihi = preview.querySelector('.print-tihi');
+
 const brandDefaults = () => {
   if (DEBUG) console.log('defaults');
 
@@ -215,63 +272,6 @@ const selectinator = () => {
 const labelinator = () => { 
   let dragCounter = 0;
 
-  const sidebar = document.querySelector('.sidebar__fields');
-  const upcForm = sidebar.querySelector('#upc_form');
-  const shipForm = sidebar.querySelector('#shipping_form');
-  const upcLabel = document.querySelector('#upc_title');
-  const shipLabel = document.querySelector('#shipping_title');
-  const preview = document.querySelector('.preview');
-
-  // UPC Label Fields
-  let brand = upcForm.querySelector('#brand');
-  let itemMaster = upcForm.querySelector('#item_master');
-  let sku = upcForm.querySelector('#sku');
-  let source = upcForm.querySelector('#source');
-  let description = upcForm.querySelector('#description');
-  let upc = upcForm.querySelector('#item_upc');
-  let qrLink = upcForm.querySelector('#qr_link');
-  let qrBase = upcForm.querySelector('.qrlink__base');
-  let qrPath = upcForm.querySelector('#qr_path');
-  let pbContent = upcForm.querySelector('#pb_content');
-  let mcContent = upcForm.querySelector('#mc_content');
-  let icContent = upcForm.querySelector('#ic_content');
-
-  // Shipping Mark Fields
-  let dimLength = shipForm.querySelector('#shipping_length');
-  let dimWidth = shipForm.querySelector('#shipping_width');
-  let dimHeight = shipForm.querySelector('#shipping_height');
-  let boxQty = shipForm.querySelector('#shipping_quantity');
-  let gWeight = shipForm.querySelector('#shipping_gross');
-  let nWeight = shipForm.querySelector('#shipping_net');
-  let purchaseOrder = shipForm.querySelector('#shipping_po');
-  let tihi = shipForm.querySelector('#shipping_tihi');
-  let tihiLabel = shipForm.querySelector('#shipping_tihi_label');
-
-  // Print "Sections"
-  const printHeaders = preview.querySelectorAll('.print-header');
-  
-  const labels = preview.querySelectorAll('.label');
-  
-  const printLogos = preview.querySelectorAll('.print-logo');
-  const printItemMasters = preview.querySelectorAll('.print-item-master');
-  const printBoxSkus = preview.querySelectorAll('.print-box-sku');
-  const printSkus = preview.querySelectorAll('.print-sku');
-  const printCountries = preview.querySelectorAll('.print-country');
-  const printDescriptions = preview.querySelectorAll('.print-description');
-  const printInstallBases = preview.querySelectorAll('.print-install-base');
-  const printInstallPaths = preview.querySelectorAll('.print-install-path');
-  const printPolybagQty = preview.querySelectorAll('[data-type="polybag"] .label__quantity');
-  const printMasterQty = preview.querySelectorAll('[data-type="master"] .label__quantity');
-  const printInnerQty = preview.querySelectorAll('[data-type="inner"] .label__quantity');
-  const printDimLengths = preview.querySelectorAll('.print-dim-length');
-  const printDimWidths = preview.querySelectorAll('.print-dim-width');
-  const printDimHeights = preview.querySelectorAll('.print-dim-height');
-  const printBoxQty = preview.querySelectorAll('.print-box-qty');
-  const printGrossWgt = preview.querySelectorAll('.print-gross-weight');
-  const printNetWgt = preview.querySelectorAll('.print-net-weight');
-  const printPurchaseOrders = preview.querySelectorAll('.print-purchase-order');
-  const printTihi = preview.querySelector('.print-tihi');
-
   const _labelinatorInit = () => {
     if (DEBUG) console.log('initialized');
 
@@ -308,9 +308,9 @@ const labelinator = () => {
     dimWidth.addEventListener('input', _dimUpdate);
     dimLength.addEventListener('input', _dimUpdate);
     dimHeight.addEventListener('input', _dimUpdate);
-    dimWidth.addEventListener('change', _canvasUpdate);
-    dimLength.addEventListener('change', _canvasUpdate);
-    dimHeight.addEventListener('change', _canvasUpdate);
+    dimWidth.addEventListener('change', canvasUpdate);
+    dimLength.addEventListener('change', canvasUpdate);
+    dimHeight.addEventListener('change', canvasUpdate);
     boxQty.addEventListener('input', _qtyUpdate);
     gWeight.addEventListener('input', _weightUpdate);
     nWeight.addEventListener('input', _weightUpdate);
@@ -537,49 +537,6 @@ const labelinator = () => {
     _updateTextContent(printDimHeights, `${dimHeight.value || 13.4}"`);
   }
 
-  const _canvasUpdate = () => {
-    let previewContent = preview.querySelector('.preview__content');
-    let cartonFront = preview.querySelector('.page--carton-front');
-    let cartonSide = preview.querySelector('.page--carton-side');
-
-    let condensed = 30;
-    let expanded = 50;
-
-    const defaultFontSize = 1.4; // in inches
-    const defaultArea = 13.4 * 18.3; // Default area in square inches
-    let length = dimLength.value || 18.3;
-    let width = dimWidth.value || 11.2;
-    let height = dimHeight.value || 13.4;
-
-    const minFontSize = 0.8; // Minimum font size in inches
-    const maxFontSize = 1.2; // Maximum font size in inches
-    const area = Math.min(length * width, height * height);
-    let fontSize = defaultFontSize * Math.sqrt(area / defaultArea);
-    fontSize = Math.max(minFontSize, Math.min(fontSize, maxFontSize));
-
-    if (previewContent.classList.contains('preview__content--condensed')) {
-      cartonFront.style.width = `${condensed * (length/height)}%`;
-      cartonSide.style.width = `${condensed * (width/height)}%`;
-      console.log(`${condensed} * (${length}/${height})`, `${condensed * (length/height)}%`);
-      console.log(`${condensed} * (${width}/${height})`, `${condensed * (width/height)}%`);
-    } else if (previewContent.classList.contains('preview__content--expanded')) {
-      cartonFront.style.width = `${expanded * (length/height)}%`;
-      cartonSide.style.width = `${expanded * (width/height)}%`;
-      console.log(`${expanded} * (${length}/${height})`, `${expanded * (length/height)}%`);
-      console.log(`${expanded} * (${width}/${height})`, `${expanded * (width/height)}%`);
-    }
-
-    cartonFront.querySelector('.scaler').style.width = `${length}in`;
-    cartonFront.querySelector('.scaler').style.height = `${height}in`;
-
-    cartonSide.querySelector('.scaler').style.width = `${width}in`;
-    cartonSide.querySelector('.scaler').style.height = `${height}in`;
-
-    previewContent.querySelectorAll('.shipping-mark').forEach((content) => {
-      content.style.fontSize = `${fontSize}in`;
-    });
-  }
-
   const _qtyUpdate = () => {
     _updateTextContent(printBoxQty, boxQty.value || '20');
   }
@@ -762,31 +719,16 @@ const validator = () => {
   _validateInit();
 }
 
-const throttlinator = (func, limit) => {
-  let inThrottle;
-  return (...args) => {
-    if (!inThrottle) {
-      func.apply(this, args);
-      inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
-    }
-  };
-};
-
 const controlinator = () => {
   const _initializeControls = () => {
     let previewLayout = document.querySelector('.layout__form');
     let previewVisibility = document.querySelector('.visibility__form');
 
-    previewLayout.addEventListener('change', function(event){
-      if (event.target.tagName.toLowerCase() === 'input' && event.target.type === 'radio') {
-        _pageLayout();
-      }
-    });
+    previewLayout.addEventListener('change', _pageLayout);
     previewVisibility.addEventListener('change', _pageVisibility);
 
-    previewLayout.addEventListener('submit', function(event){event.preventDefault();});
-    previewVisibility.addEventListener('submit', function(event){event.preventDefault();});
+    previewLayout.addEventListener('submit', (event) => event.preventDefault());
+    previewVisibility.addEventListener('submit', (event) => event.preventDefault());
     
     _pageLayout();
     _pageVisibility();
@@ -828,21 +770,22 @@ const controlinator = () => {
   };
 
   const _pageLayout = () => {
-    let radioButton = document.querySelector('.preview__layout input[name="layout"]:checked');
+    let checkbox = document.querySelector('.preview__layout #expanded');
     let pagePreview = document.querySelector('.preview__content');
 
     const firstRect = pagePreview.getBoundingClientRect();
     const wasHidden = pagePreview.classList.contains('preview__content--hidden');
 
-    if (radioButton && radioButton.value === 'condensed') {
-      pagePreview.classList.remove('preview__content--expanded');
-      pagePreview.classList.add('preview__content--condensed');
-    } else if (radioButton && radioButton.value === 'expanded') {
+    if (checkbox && checkbox.checked) {
       pagePreview.classList.remove('preview__content--condensed');
       pagePreview.classList.add('preview__content--expanded');
+    } else {
+      pagePreview.classList.remove('preview__content--expanded');
+      pagePreview.classList.add('preview__content--condensed');
     }
 
     _applyAnimation(pagePreview, firstRect, wasHidden);
+    canvasUpdate();
   };
 
   const _pageVisibility = () => {
@@ -880,6 +823,47 @@ const controlinator = () => {
   };
 
   _initializeControls();
+}
+
+const canvasUpdate = () => {
+  let previewContent = preview.querySelector('.preview__content');
+  let cartonFront = preview.querySelector('.page--carton-front');
+  let cartonSide = preview.querySelector('.page--carton-side');
+
+  let condensed = 30;
+  let expanded = 50;
+
+  const defaultFontSize = 1.4; // in inches
+  const defaultArea = 13.4 * 18.3; // Default area in square inches
+  let length = dimLength.value || 18.3;
+  let width = dimWidth.value || 11.2;
+  let height = dimHeight.value || 13.4;
+
+  const minFontSize = 0.8; // Minimum font size in inches
+  const maxFontSize = 1.2; // Maximum font size in inches
+  const area = Math.min(length * width, height * height);
+  let fontSize = defaultFontSize * Math.sqrt(area / defaultArea);
+  fontSize = Math.max(minFontSize, Math.min(fontSize, maxFontSize));
+
+  if (previewContent.classList.contains('preview__content--condensed')) {
+    console.log('Condensed');
+    cartonFront.style.width = `${condensed * (length/height)}%`;
+    cartonSide.style.width = `${condensed * (width/height)}%`;
+  } else if (previewContent.classList.contains('preview__content--expanded')) {
+    console.log('Expanded');
+    cartonFront.style.width = `${expanded * (length/height)}%`;
+    cartonSide.style.width = `${expanded * (width/height)}%`;
+  }
+
+  cartonFront.querySelector('.scaler').style.width = `${length}in`;
+  cartonFront.querySelector('.scaler').style.height = `${height}in`;
+
+  cartonSide.querySelector('.scaler').style.width = `${width}in`;
+  cartonSide.querySelector('.scaler').style.height = `${height}in`;
+
+  previewContent.querySelectorAll('.shipping-mark').forEach((content) => {
+    content.style.fontSize = `${fontSize}in`;
+  });
 }
 
 const colorinator = () => {
