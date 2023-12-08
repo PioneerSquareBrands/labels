@@ -344,6 +344,43 @@ body > main {
     }
   }
 
+  span[data-tooltip] {
+    &:focus-within {
+      z-index: 10;
+    }
+    &:focus-within::before,
+    &:focus-within::after {
+      visibility: visible;
+      opacity: 1;
+      z-index: 999;
+    }
+    
+    &:focus-within::before {
+      transition-delay: 0.05s;
+      transform: translate(-50%, -5px) scale(1);
+    }
+    
+    &:focus-within::after {
+      transition-delay: 0.2s;
+      transition-duration: 0.1s;
+      transform: translateX(-50%) scaleY(1);
+    }
+
+    &[data-tooltip-location="left"] {
+      &:focus-within::before { transform: translate(-5px, 50%) scale(1); }
+      &:focus-within::after { transform: translateY(50%) scaleX(1); }
+    }
+
+    &[data-tooltip-location="right"] {
+      &:focus-within::before { transform: translate(5px, 50%) scale(1); }
+      &:focus-within::after { transform: translateY(50%) scaleX(1); }
+    }
+
+    &[data-tooltip-location="bottom"] {
+      &:focus-within::before { transform: translate(-50%, 5px) scale(1); }
+    }
+  }
+
   .field--error {
     &::before {
       content: attr(data-error);
@@ -367,7 +404,7 @@ body > main {
 
 .preview__controls {
   background-color: #FFFFFF;
-  border: 1px solid #E8E9EA;
+  box-shadow: $paper;
   border-radius: 4px;
   margin: 12px 20px;
   padding: 4px 4px;
@@ -381,9 +418,17 @@ body > main {
     pointer-events: none;
   }
 
+  input + button, input + .button{
+    position: relative;
+    border: 1px solid rgba(51, 65, 85, 0.2);
+    box-shadow: rgba(0, 0, 0, 0.03) 0px 4px 6px -1px, rgba(0, 0, 0, 0.03) 0px 2px 3px -1px;
+    z-index: 8;
+  }
+
   input:checked + button, input:checked + .button {
-    background-color: #656E81;
-    border-color: rgba(0, 0, 0, 0.3)
+    background-color: rgb(0, 123, 255);
+    border-color: rgba(51, 65, 85, 0.6);
+    z-index: 9;
   }
 
   .button {
@@ -392,7 +437,15 @@ body > main {
 
   .visibility__form {
     margin: 0 auto 0 20px;
+    display: flex;
+    gap: 12px;
   }
+
+  .preview__layout [data-tooltip]::before {content: 'Maximize'; }
+  .preview__layout input:checked + [data-tooltip]::before { content: 'Minimize'; }
+
+  .visibility__form [data-tooltip]::before { content: 'Show ' attr(data-tooltip); }
+  .visibility__form input:checked + [data-tooltip]::before { content: 'Hide ' attr(data-tooltip); }
 
   .download {
     display: flex;

@@ -66,9 +66,12 @@ const brandUpdate = () => {
   el.preview.classList.add(`preview--${defaults.brandField}`);
 
   el.labels.forEach(label => label.classList.add(`label--${defaults.brandField}`));
+  el.printHeaders.forEach(printHeader => {
+    printHeader.querySelector('img').src = defaults.logoSrc
+  });
   el.printLogos.forEach(printLogo => printLogo.src = defaults.logoSrc);
 
-  updateTextContent(el.printHeaders, defaults.headerText);
+  //updateTextContent(el.printHeaders, defaults.headerText);
   updateTextContent(el.printDescriptions, el.description.value ||  defaults.description);
   updateTextContent(el.printItemMasters, el.itemMaster.value.toUpperCase() || defaults.itemMaster);
   updateTextContent(el.printSkus, el.sku.value.toUpperCase() || defaults.sku);

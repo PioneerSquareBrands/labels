@@ -385,9 +385,12 @@ const brandUpdate = () => {
   _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].preview.classList.add(`preview--${defaults.brandField}`);
 
   _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].labels.forEach(label => label.classList.add(`label--${defaults.brandField}`));
+  _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].printHeaders.forEach(printHeader => {
+    printHeader.querySelector('img').src = defaults.logoSrc
+  });
   _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].printLogos.forEach(printLogo => printLogo.src = defaults.logoSrc);
 
-  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].printHeaders, defaults.headerText);
+  //updateTextContent(el.printHeaders, defaults.headerText);
   updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].printDescriptions, _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].description.value ||  defaults.description);
   updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].printItemMasters, _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].itemMaster.value.toUpperCase() || defaults.itemMaster);
   updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].printSkus, _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].sku.value.toUpperCase() || defaults.sku);
@@ -724,10 +727,28 @@ const brandDefaults = () => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   canvasUpdate: function() { return /* binding */ canvasUpdate; }
+/* harmony export */   canvasUpdate: function() { return /* binding */ canvasUpdate; },
+/* harmony export */   scaler: function() { return /* binding */ scaler; }
 /* harmony export */ });
 /* harmony import */ var _domElements_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
 
+console.log('test');
+
+const SCALER = '.scaler';
+const CANVAS_SCALED = 'canvas-scaled';
+const CANVAS_FULL = 'canvas-full';
+
+const setDimensions = (element, width, height) => {
+  const scaler = element.querySelector(SCALER);
+  scaler.style.width = `${width}in`;
+  scaler.style.height = `${height}in`;
+};
+
+const setFontSize = (element, fontSize) => {
+  element.querySelectorAll('.shipping-mark').forEach((content) => {
+    content.style.fontSize = `${fontSize}in`;
+  });
+};
 
 const canvasUpdate = () => {
   let previewContent = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].preview.querySelector('.preview__content');
@@ -739,6 +760,7 @@ const canvasUpdate = () => {
 
   const defaultFontSize = 1.4; // in inches
   const defaultArea = 13.4 * 18.3; // Default area in square inches
+  
   let length = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].dimLength.value || 18.3;
   let width = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].dimWidth.value || 11.2;
   let height = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].dimHeight.value || 13.4;
@@ -749,68 +771,83 @@ const canvasUpdate = () => {
   let fontSize = defaultFontSize * Math.sqrt(area / defaultArea);
   fontSize = Math.max(minFontSize, Math.min(fontSize, maxFontSize));
 
-  if (previewContent.classList.contains('preview__content--condensed')) {
-    cartonFront.style.width = `${condensed * (length/height)}%`;
-    cartonSide.style.width = `${condensed * (width/height)}%`;
-  } else if (previewContent.classList.contains('preview__content--expanded')) {
-    cartonFront.style.width = `${expanded * (length/height)}%`;
-    cartonSide.style.width = `${expanded * (width/height)}%`;
+  const widthPercentage = previewContent.classList.contains('preview__content--condensed') ? condensed : expanded;
+  let computedFrontWidth = widthPercentage * (length/height);
+  let computedSideWidth = widthPercentage * (width/height);
+
+  if (computedFrontWidth > 90 || computedSideWidth > 90) {
+    console.log(computedFrontWidth, computedSideWidth);
+
+    if (computedFrontWidth > computedSideWidth) {
+      cartonFront.style.width = `90%`;
+      cartonSide.style.width = `${(width/length) * 90}%`;
+      cartonFront.style.paddingBottom = `${(90*50)/computedFrontWidth}%`;
+      cartonSide.style.paddingBottom = `${(90*50)/computedFrontWidth}%`;
+    } else if (computedFrontWidth < computedSideWidth) {
+      cartonFront.style.width = `${(length/width) * 90}%`;
+      cartonSide.style.width = `90%`;
+      cartonFront.style.paddingBottom = `${(90*50)/computedSideWidth}%`;
+      cartonSide.style.paddingBottom = `${(90*50)/computedSideWidth}%`;
+    } else { // when computedFrontWidth and computedSideWidth are equal
+      cartonFront.style.width = `90%`;
+      cartonSide.style.width = `90%`;
+      cartonFront.style.paddingBottom = `${(90*50)/computedFrontWidth}%`;
+      cartonSide.style.paddingBottom = `${(90*50)/computedFrontWidth}%`;
+    }
+  } else {
+    cartonFront.style.width = `${widthPercentage * (length/height)}%`;
+    cartonSide.style.width = `${widthPercentage * (width/height)}%`;
+    cartonFront.style.paddingBottom = `${widthPercentage}%`;
+    cartonSide.style.paddingBottom = `${widthPercentage}%`;
   }
 
-  cartonFront.querySelector('.scaler').style.width = `${length}in`;
-  cartonFront.querySelector('.scaler').style.height = `${height}in`;
+  scaler();
 
-  cartonSide.querySelector('.scaler').style.width = `${width}in`;
-  cartonSide.querySelector('.scaler').style.height = `${height}in`;
-
-  previewContent.querySelectorAll('.shipping-mark').forEach((content) => {
-    content.style.fontSize = `${fontSize}in`;
-  });
+  setDimensions(cartonFront, length, height);
+  setDimensions(cartonSide, width, height);
+  setFontSize(previewContent, fontSize);
 }
 
-/***/ }),
-/* 7 */
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   scaler: function() { return /* binding */ scaler; }
-/* harmony export */ });
 const scaler = () => {
-  const parentDivs = document.querySelectorAll('.page--carton');
+  const parentDivs = document.querySelectorAll('.page');
 
   parentDivs.forEach(parentDiv => {
-    const print = parentDiv.querySelector('.scaler');
-    const originalTransition = print.style.transition;
-    let isTransitioning = false;
+    if (parentDiv.querySelector(SCALER)) {
+      const print = parentDiv.querySelector(SCALER);
+      const originalTransition = print.style.transition;
+      let isTransitioning = false;
 
-    const resizeObserver = new ResizeObserver(entries => {
-      if (isTransitioning) return;
+      const resizeObserver = new ResizeObserver(entries => {
+        if (isTransitioning) return;
 
-      for (let entry of entries) {
-        const parentDivWidth = entry.contentRect.width;
-        const printWidth = print.offsetWidth;
-        const scale = parentDivWidth / printWidth;
-        print.style.transform = `scale(${scale})`;
-      }
-    });
+        for (let entry of entries) {
+          const parentDivWidth = entry.contentRect.width;
+          const printWidth = print.offsetWidth;
+          const scale = parentDivWidth / printWidth;
+          print.style.transform = `scale(${scale})`;
 
-    print.addEventListener('transitionstart', () => {
-      isTransitioning = true;
-      resizeObserver.disconnect();
-    });
+          parentDiv.classList.toggle(CANVAS_SCALED, scale < 1);
+          parentDiv.classList.toggle(CANVAS_FULL, scale >= 1);
+        }
+      });
 
-    print.addEventListener('transitionend', () => {
-      isTransitioning = false;
+      print.addEventListener('transitionstart', () => {
+        isTransitioning = true;
+        resizeObserver.disconnect();
+      });
+
+      print.addEventListener('transitionend', () => {
+        isTransitioning = false;
+        resizeObserver.observe(parentDiv);
+      });
+
       resizeObserver.observe(parentDiv);
-    });
-
-    resizeObserver.observe(parentDiv);
+    }
   });
 };
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -888,7 +925,7 @@ const outlineHighlight = (field, action) => {
 };
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -965,7 +1002,7 @@ const colorToggle = () => {
 
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1049,7 +1086,9 @@ const pageVisibility = () => {
   const visibilityStates = {
     polybag: shouldShow('#polybag'),
     master: shouldShow('#master'),
-    inner: shouldShow('#inner')
+    inner: shouldShow('#inner'),
+    'shipping-front': shouldShow('#shipping_mark_front'),
+    'shipping-side': shouldShow('#shipping_mark_side'),
   };
 
   const toggleVisibility = (element, type) => {
@@ -1141,10 +1180,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_select_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _modules_validate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _modules_labelHandler_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
-/* harmony import */ var _modules_scaler_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
-/* harmony import */ var _modules_misc_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(8);
-/* harmony import */ var _modules_colorHandler_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(9);
-/* harmony import */ var _modules_toolBar_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10);
+/* harmony import */ var _modules_canvasUpdate_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
+/* harmony import */ var _modules_misc_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7);
+/* harmony import */ var _modules_colorHandler_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8);
+/* harmony import */ var _modules_toolBar_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9);
 
 
 
@@ -1155,9 +1194,9 @@ __webpack_require__.r(__webpack_exports__);
 
 (0,_modules_select_js__WEBPACK_IMPORTED_MODULE_0__.selectInit)();
 (0,_modules_validate_js__WEBPACK_IMPORTED_MODULE_1__.validateNumbers)();
+(0,_modules_canvasUpdate_js__WEBPACK_IMPORTED_MODULE_3__.scaler)();
 (0,_modules_labelHandler_js__WEBPACK_IMPORTED_MODULE_2__.labelInit)();
 (0,_modules_toolBar_js__WEBPACK_IMPORTED_MODULE_6__.controlInit)();
-(0,_modules_scaler_js__WEBPACK_IMPORTED_MODULE_3__.scaler)();
 (0,_modules_misc_js__WEBPACK_IMPORTED_MODULE_4__.outline)();
 (0,_modules_colorHandler_js__WEBPACK_IMPORTED_MODULE_5__.colorInit)();
 (0,_modules_misc_js__WEBPACK_IMPORTED_MODULE_4__.qrToggle)();

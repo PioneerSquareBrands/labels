@@ -74,7 +74,9 @@ const pageVisibility = () => {
   const visibilityStates = {
     polybag: shouldShow('#polybag'),
     master: shouldShow('#master'),
-    inner: shouldShow('#inner')
+    inner: shouldShow('#inner'),
+    'shipping-front': shouldShow('#shipping_mark_front'),
+    'shipping-side': shouldShow('#shipping_mark_side'),
   };
 
   const toggleVisibility = (element, type) => {
