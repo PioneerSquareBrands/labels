@@ -1,9 +1,10 @@
-import { elements } from './domElements.js';
+import { default as el } from './domElements.js';
+import { brandDefaults } from './brandDefaults.js';
 import { canvasUpdate } from './canvasUpdate.js';
 
 let dragCounter = 0;
+let iconSize = 60;
 
-// Function to trigger the event listeners
 const triggerEventListeners = () => {
   brandUpdate();
   itemMasterUpdate();
@@ -14,96 +15,92 @@ const triggerEventListeners = () => {
   qrCodeUpdate();
   contentUpdate();
   dimUpdate();
-  canvasUpdate();
   qtyUpdate();
   weightUpdate();
   poUpdate();
   tihiOnload();
 };
 
-// Event listeners for field changes
-brand.addEventListener('change', _brandUpdate);
-itemMaster.addEventListener('input', _itemMasterUpdate);
-sku.addEventListener('input', _skuUpdate);
-description.addEventListener('input', _descriptionUpdate);
-upc.addEventListener('input', _upcUpdate);
-source.addEventListener('change', _sourceUpdate);
-qrPath.addEventListener('input', _qrCustomUpdate);
-pbContent.addEventListener('input', _contentUpdate);
-mcContent.addEventListener('input', _contentUpdate);
-icContent.addEventListener('input', _contentUpdate);
+export const labelInit = () => {
+  el.brand.addEventListener('change', brandUpdate);
+  el.itemMaster.addEventListener('input', itemMasterUpdate);
+  el.sku.addEventListener('input', skuUpdate);
+  el.description.addEventListener('input', descriptionUpdate);
+  el.upc.addEventListener('input', upcUpdate);
+  el.source.addEventListener('change', sourceUpdate);
+  el.qrPath.addEventListener('input', qrCustomUpdate);
+  el.pbContent.addEventListener('input', contentUpdate);
+  el.mcContent.addEventListener('input', contentUpdate);
+  el.icContent.addEventListener('input', contentUpdate);
 
-dimWidth.addEventListener('input', _dimUpdate);
-dimLength.addEventListener('input', _dimUpdate);
-dimHeight.addEventListener('input', _dimUpdate);
-dimWidth.addEventListener('change', canvasUpdate);
-dimLength.addEventListener('change', canvasUpdate);
-dimHeight.addEventListener('change', canvasUpdate);
-boxQty.addEventListener('input', _qtyUpdate);
-gWeight.addEventListener('input', _weightUpdate);
-nWeight.addEventListener('input', _weightUpdate);
-purchaseOrder.addEventListener('input', _poUpdate);
+  el.dimWidth.addEventListener('input', dimUpdate);
+  el.dimLength.addEventListener('input', dimUpdate);
+  el.dimHeight.addEventListener('input', dimUpdate);
+  el.dimWidth.addEventListener('change', canvasUpdate);
+  el.dimLength.addEventListener('change', canvasUpdate);
+  el.dimHeight.addEventListener('change', canvasUpdate);
+  el.boxQty.addEventListener('input', qtyUpdate);
+  el.gWeight.addEventListener('input', weightUpdate);
+  el.nWeight.addEventListener('input', weightUpdate);
+  el.purchaseOrder.addEventListener('input', poUpdate);
 
-upcForm.addEventListener('submit', (event) => event.preventDefault() );
-tihi.addEventListener('change', _tihiUpdate);
-tihiLabel.addEventListener('drop', _tihiDragDrop);
+  el.upcForm.addEventListener('submit', (event) => event.preventDefault() );
+  el.shipForm.addEventListener('submit', (event) => event.preventDefault() );
 
-dragDropHandler();
+  el.tihi.addEventListener('change', tihiUpdate);
+  el.tihiLabel.addEventListener('drop', tihiDragDrop);
+  dragDropHandler();
 
-// Trigger event listeners on page load
-window.addEventListener('load', triggerEventListeners);
+  window.addEventListener('load', triggerEventListeners);
+}
 
-const updateTextContent = (nodeList, value) => {
-  nodeList.forEach((node) => node.textContent = value);
-};
+  const updateTextContent = (nodeList, value) => {
+    nodeList.forEach((node) => node.textContent = value);
+  };
 
 const brandUpdate = () => {
-
   const defaults = brandDefaults();
-
   // Update Preview class
   const classesToRemove = ['preview--brenthaven', 'preview--gumdrop', 'preview--vault'];
-  classesToRemove.forEach((className) => preview.classList.remove(className));
-  preview.classList.add(`preview--${defaults.brandField}`);
+  classesToRemove.forEach((className) => el.preview.classList.remove(className));
+  el.preview.classList.add(`preview--${defaults.brandField}`);
 
-  labels.forEach(label => label.classList.add(`label--${defaults.brandField}`));
-  printLogos.forEach(printLogo => printLogo.src = defaults.logoSrc);
+  el.labels.forEach(label => label.classList.add(`label--${defaults.brandField}`));
+  el.printLogos.forEach(printLogo => printLogo.src = defaults.logoSrc);
 
-  updateTextContent(printHeaders, defaults.headerText);
-  updateTextContent(printDescriptions, description.value ||  defaults.description);
-  updateTextContent(printItemMasters, itemMaster.value.toUpperCase() || defaults.itemMaster);
-  updateTextContent(printSkus, sku.value.toUpperCase() || defaults.sku);
-  updateTextContent(printInstallBases, defaults.linkText);
-  updateTextContent(printInstallPaths, itemMaster.value.toUpperCase() || defaults.itemMaster);
+  updateTextContent(el.printHeaders, defaults.headerText);
+  updateTextContent(el.printDescriptions, el.description.value ||  defaults.description);
+  updateTextContent(el.printItemMasters, el.itemMaster.value.toUpperCase() || defaults.itemMaster);
+  updateTextContent(el.printSkus, el.sku.value.toUpperCase() || defaults.sku);
+  updateTextContent(el.printInstallBases, defaults.linkText);
+  updateTextContent(el.printInstallPaths, el.itemMaster.value.toUpperCase() || defaults.itemMaster);
 
   // Update input field placeholders with defaults
-  itemMaster.placeholder = defaults.itemMaster;
-  qrPath.placeholder = defaults.itemMaster;
-  sku.placeholder = defaults.sku;
-  upc.placeholder = defaults.upc;
-  description.placeholder = defaults.description;
+  el.itemMaster.placeholder = defaults.itemMaster;
+  el.qrPath.placeholder = defaults.itemMaster;
+  el.sku.placeholder = defaults.sku;
+  el.upc.placeholder = defaults.upc;
+  el.description.placeholder = defaults.description;
 
-  _skuUpdate();
-  _qrURL();
-  _upcUpdate();
+  skuUpdate();
+  qrURL();
+  upcUpdate();
 }
 
 const itemMasterUpdate = () => {
   const defaults = brandDefaults();
+  const iTemMasterVal = el.itemMaster.value.toUpperCase()  || defaults.itemMaster;
 
-  const iTemMasterVal = itemMaster.value.toUpperCase()  || defaults.itemMaster;
+  el.qrPath.placeholder = iTemMasterVal;
+  updateTextContent(el.printItemMasters, iTemMasterVal);
+  updateTextContent(el.printInstallPaths, iTemMasterVal);
 
-  qrPath.placeholder = iTemMasterVal;
-  updateTextContent(printItemMasters, iTemMasterVal);
-  updateTextContent(printInstallPaths, iTemMasterVal);
-
-  _qrURL();
+  qrURL();
 }
 
 const skuUpdate = () => {
   const defaults = brandDefaults();
-
-  const skuValue = sku.value.toUpperCase() || defaults.sku;
+  const skuValue = el.sku.value.toUpperCase() || defaults.sku;
 
   let formattedSku = '';
   let isNumericThirdChar = skuValue.length > 2 && /[0-9]/.test(skuValue[2]);
@@ -122,24 +119,22 @@ const skuUpdate = () => {
     }
   }
 
-  printBoxSkus.forEach((printBoxSkus) => {
+  el.printBoxSkus.forEach((printBoxSkus) => {
     printBoxSkus.innerHTML = formattedSku;
   });
-  updateTextContent(printSkus, skuValue);
-  _dataMatrixUpdate();
+  updateTextContent(el.printSkus, skuValue);
+  dataMatrixUpdate();
 }
 
 const descriptionUpdate = () => {
   const defaults = brandDefaults();
-
-  updateTextContent(printDescriptions, description.value || defaults.description);
+  updateTextContent(el.printDescriptions, el.description.value || defaults.description);
 }
 
 const upcUpdate = () => {
   const defaults = brandDefaults();
-
-  const barcodes = preview.querySelectorAll('.label__upc svg');
-  const upcField = upc.value || defaults.upc;
+  const barcodes = el.preview.querySelectorAll('.label__upc svg');
+  const upcField = el.upc.value || defaults.upc;
 
   if (upcField.length == 12) {
     barcodes.forEach(barcode => {
@@ -163,13 +158,12 @@ const upcUpdate = () => {
 }
 
 const sourceUpdate = () => {
-  updateTextContent(printCountries, source.value || 'China');
+  updateTextContent(el.printCountries, el.source.value || 'China');
 }
 
 const qrURL = () => {
-
   const defaults = brandDefaults();
-  const itemMasterField = itemMaster.value.toUpperCase() || defaults.itemMaster;
+  const itemMasterField = el.itemMaster.value.toUpperCase() || defaults.itemMaster;
 
   const brandUrls = {
     'brenthaven': 'https://brenthaven.com/',
@@ -180,28 +174,26 @@ const qrURL = () => {
   const brandUrl = brandUrls[defaults.brandField] || brandUrls.default;
   const qrURL = `${brandUrl}${itemMasterField}`;
 
-  qrBase.textContent = brandUrl; // Update QR Link Base div
-  qrPath.value = `${itemMasterField}`; // Update Hidden QR Path
-  qrLink.value = qrURL; // Update Hidden QR Link
+  el.qrBase.textContent = brandUrl; // Update QR Link Base div
+  el.qrPath.value = `${itemMasterField}`; // Update Hidden QR Path
+  el.qrLink.value = qrURL; // Update Hidden QR Link
 
-  _qrCodeUpdate();
+  qrCodeUpdate();
 }
 
 const qrCustomUpdate = () => {
   const defaults = brandDefaults();
-
-  const qrPathValue = qrPath.value.toUpperCase() || itemMaster.value.toUpperCase() || defaults.itemMaster;
+  const qrPathValue = el.qrPath.value.toUpperCase() || el.itemMaster.value.toUpperCase() || defaults.itemMaster;
   
-  updateTextContent(printInstallPaths, qrPathValue);
-  qrLink.value = qrBase.textContent + qrPathValue; // Update Hidden QR Link
+  updateTextContent(el.printInstallPaths, qrPathValue);
+  el.qrLink.value = el.qrBase.textContent + qrPathValue; // Update Hidden QR Link
 
-  _qrCodeUpdate();
+  qrCodeUpdate();
 }
 
 const qrCodeUpdate = () => {
-
-  const qrLinkValue = qrLink.value;
-  const qrCodeContainers = preview.querySelectorAll('.label__qr');
+  const qrLinkValue = el.qrLink.value;
+  const qrCodeContainers = el.preview.querySelectorAll('.label__qr');
 
   qrCodeContainers.forEach(qr => {
     let qrCode = QRCode({
@@ -219,11 +211,9 @@ const qrCodeUpdate = () => {
 }
 
 const dataMatrixUpdate = () => {
-
   const defaults = brandDefaults();
-
-  const itemMasterValue = sku.value.toUpperCase() || defaults.sku;
-  const dataMatrixContainers = preview.querySelectorAll('.label__datamatrix');
+  const itemMasterValue = el.sku.value.toUpperCase() || defaults.sku;
+  const dataMatrixContainers = el.preview.querySelectorAll('.label__datamatrix');
 
   dataMatrixContainers.forEach(dm => {
     let dataMatrix = DATAMatrix({
@@ -241,29 +231,28 @@ const dataMatrixUpdate = () => {
 }
 
 const contentUpdate = () => {
-
-  updateTextContent(printPolybagQty, pbContent.value || 'Qty: 1');
-  updateTextContent(printMasterQty, mcContent.value || 'Qty: 1');
-  updateTextContent(printInnerQty, icContent.value || 'Qty: 1');
+  updateTextContent(el.printPolybagQty, el.pbContent.value || 'Qty: 1');
+  updateTextContent(el.printMasterQty, el.mcContent.value || 'Qty: 1');
+  updateTextContent(el.printInnerQty, el.icContent.value || 'Qty: 1');
 }
 
 const dimUpdate = () => {
-  updateTextContent(printDimLengths, `${dimLength.value || 18.3}"`);
-  updateTextContent(printDimWidths, `${dimWidth.value || 11.2}"`);
-  updateTextContent(printDimHeights, `${dimHeight.value || 13.4}"`);
+  updateTextContent(el.printDimLengths, `${el.dimLength.value || 18.3}"`);
+  updateTextContent(el.printDimWidths, `${el.dimWidth.value || 11.2}"`);
+  updateTextContent(el.printDimHeights, `${el.dimHeight.value || 13.4}"`);
 }
 
 const qtyUpdate = () => {
-  updateTextContent(printBoxQty, boxQty.value || '20');
+  updateTextContent(el.printBoxQty, el.boxQty.value || '20');
 }
 
 const weightUpdate = () => {
-  updateTextContent(printGrossWgt, `${gWeight.value || '21.17'} lbs.`);
-  updateTextContent(printNetWgt, `${nWeight.value || '20.06'} lbs.`);
+  updateTextContent(el.printGrossWgt, `${el.gWeight.value || '21.17'} lbs.`);
+  updateTextContent(el.printNetWgt, `${el.nWeight.value || '20.06'} lbs.`);
 }
 
 const poUpdate = () => {
-  updateTextContent(printPurchaseOrders, purchaseOrder.value || '');
+  updateTextContent(el.printPurchaseOrders, el.purchaseOrder.value || '');
 }
 
 const tihiUpdate = (event) => {
@@ -276,13 +265,13 @@ const tihiUpdate = (event) => {
 
     let img = document.createElement('img');
     img.src = reader.result;
-    img.addEventListener('click', _resetImage);
+    img.addEventListener('click', resetImage);
 
-    if (printTihi.querySelector('img')) {
-      printTihi.querySelector('img').remove();
+    if (el.printTihi.querySelector('img')) {
+      el.printTihi.querySelector('img').remove();
     }
-    printTihi.classList.add('tihi-active');
-    printTihi.appendChild(img);
+    el.printTihi.classList.add('tihi-active');
+    el.printTihi.appendChild(img);
   }
 
   reader.readAsDataURL(tihiFile);
@@ -298,7 +287,7 @@ const tihiDragDrop = (event) => {
         files: [droppedFile]
       }
     };
-    _tihiUpdate(changeEvent);
+    tihiUpdate(changeEvent);
   }
   dragCounter = 0;
   document.body.classList.remove('dragging');
@@ -310,27 +299,27 @@ const tihiOnload = () => {
   if (imageData) {
     let img = document.createElement('img');
     img.src = imageData;
-    img.addEventListener('click', _resetImage);
+    img.addEventListener('click', resetImage);
 
-    if (printTihi.querySelector('img')) {
-      printTihi.querySelector('img').remove();
+    if (el.printTihi.querySelector('img')) {
+      el.printTihi.querySelector('img').remove();
     }
-    printTihi.classList.add('tihi-active');
-    printTihi.appendChild(img);
+    el.printTihi.classList.add('tihi-active');
+    el.printTihi.appendChild(img);
   } else {
     // If there's no image data in localStorage, add the event listener to the existing image
-    let existingImage = printTihi.querySelector('img');
+    let existingImage = el.printTihi.querySelector('img');
     if (existingImage) {
-      existingImage.addEventListener('click', _resetImage);
+      existingImage.addEventListener('click', resetImage);
     }
   }
 }
 
 const resetImage = () => {
-  if (printTihi.querySelector('img')) {
-    printTihi.querySelector('img').remove();
+  if (el.printTihi.querySelector('img')) {
+    el.printTihi.querySelector('img').remove();
   }
-  printTihi.classList.remove('tihi-active');
+  el.printTihi.classList.remove('tihi-active');
   localStorage.removeItem('uploadedImage');
 }
 
@@ -339,12 +328,12 @@ const dragDropHandler = () => {
     dragCounter++; 
     if (dragCounter === 1) { 
       document.body.classList.add('dragging'); 
-      upcLabel.classList.remove('sidebar__title--active');
-      upcForm.classList.remove('sidebar__form--active');
+      el.upcLabel.classList.remove('sidebar__title--active');
+      el.upcForm.classList.remove('sidebar__form--active');
       
-      if (!shipForm.classList.contains('sidebar__form--active')) {
-        shipLabel.classList.add('sidebar__title--active');
-        shipForm.classList.add('sidebar__form--active');
+      if (!el.shipForm.classList.contains('sidebar__form--active')) {
+        el.shipLabel.classList.add('sidebar__title--active');
+        el.shipForm.classList.add('sidebar__form--active');
       }
     } 
   });

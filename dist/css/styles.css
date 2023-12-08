@@ -904,7 +904,6 @@ input:checked + .button svg {
   display: block;
   position: relative;
   height: 0;
-  overflow: hidden;
 }
 .preview__content--expanded .page {
   margin: 40px 40px 0;
@@ -951,6 +950,7 @@ input:checked + .button svg {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  overflow: hidden;
 }
 .page--carton-front .scaler {
   width: 18.3in;

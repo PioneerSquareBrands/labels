@@ -206,7 +206,7 @@ button,
     position: relative;
     height: 0;
     //transition: all 0.5s;
-    overflow: hidden;
+    //overflow: hidden;
   }
 
   .preview__content--expanded & {
@@ -238,6 +238,7 @@ button,
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
   }
 
   &--carton-front .scaler {

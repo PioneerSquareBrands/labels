@@ -1,18 +1,18 @@
-import { elements } from './domElements.js';
+import { default as el } from './domElements.js';
 
-export default canvasUpdate = () => {
-  let previewContent = elements.preview.querySelector('.preview__content');
-  let cartonFront = elements.preview.querySelector('.page--carton-front');
-  let cartonSide = elements.preview.querySelector('.page--carton-side');
+export const canvasUpdate = () => {
+  let previewContent = el.preview.querySelector('.preview__content');
+  let cartonFront = el.preview.querySelector('.page--carton-front');
+  let cartonSide = el.preview.querySelector('.page--carton-side');
 
   let condensed = 30;
   let expanded = 50;
 
   const defaultFontSize = 1.4; // in inches
   const defaultArea = 13.4 * 18.3; // Default area in square inches
-  let length = elements.dimLength.value || 18.3;
-  let width = elements.dimWidth.value || 11.2;
-  let height = elements.dimHeight.value || 13.4;
+  let length = el.dimLength.value || 18.3;
+  let width = el.dimWidth.value || 11.2;
+  let height = el.dimHeight.value || 13.4;
 
   const minFontSize = 0.8; // Minimum font size in inches
   const maxFontSize = 1.2; // Maximum font size in inches
@@ -24,7 +24,6 @@ export default canvasUpdate = () => {
     cartonFront.style.width = `${condensed * (length/height)}%`;
     cartonSide.style.width = `${condensed * (width/height)}%`;
   } else if (previewContent.classList.contains('preview__content--expanded')) {
-    console.log('Expanded');
     cartonFront.style.width = `${expanded * (length/height)}%`;
     cartonSide.style.width = `${expanded * (width/height)}%`;
   }
