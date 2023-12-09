@@ -1,5 +1,205 @@
 @use 'variables' as *;
 
+[data-tooltip] {
+  position: relative;
+  z-index: 9;
+
+  /* Positioning and visibility settings of the tooltip */
+  &::before,
+  &::after {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 5px);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition: 0.1s;
+    will-change: transform;
+  }
+
+  /* The actual tooltip with a dynamic width */
+  &::before {
+    content: attr(data-tooltip);
+
+    width: max-content;
+    width: -moz-max-content;
+
+    padding: 2px 8px;
+    border-radius: $border-radius;
+    background-color: rgba(50, 50, 50, 0.8);
+    outline: 1px solid rgba(0, 0, 0, 0.2);
+    outline-offset: -1px;
+    box-shadow: var(--default-box-shadow);
+
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+    text-transform: none;
+    white-space: pre-wrap;
+
+    transform: translate(-50%, -5px) scale(0.5);
+  }
+  
+  // Tooltip arrow
+  &::after {
+    content: '';
+    border-style: solid;
+    border-width: 5px 5px 0 5px;
+    border-color: rgba(50, 50, 50, 0.8) transparent transparent transparent;
+
+    transform-origin: top;
+    transition-duration: 0s;
+    transform: translateX(-50%) scaleY(0);
+  }
+
+  @media (hover: hover) {
+    &:hover::before,
+    &:hover::after {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    &:hover::before {
+      transition-delay: 0.05s;
+      transform: translate(-50%, -5px) scale(1);
+    }
+    
+    &:hover::after {
+      transition-delay: 0.2s;
+      transition-duration: 0.1s;
+      transform: translateX(-50%) scaleY(1);
+    }
+  }
+
+  &.tooltip-open::before,
+  &.tooltip-open::after {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  &.tooltip-open::before {
+    transition-delay: 0.1s;
+    transform: translate(-50%, -5px) scale(1);
+  }
+  
+  &.tooltip-open::after {
+    transition-delay: 0.4s;
+    transition-duration: 0.2s;
+    transform: translateX(-50%) scaleY(1);
+  }
+}
+
+[data-tooltip-location="left"] {
+  opacity: 1;
+
+  &::before,
+  &::after {
+    left: auto;
+    bottom: 50%;
+    right: calc(100% + 5px);
+  }
+  /* Tooltip */
+  &::before {
+    transform: translate(-5px, 50%) scale(0.5);
+  }
+  
+  @media (hover: hover) {
+    &:hover::before {
+      transform: translate(-5px, 50%) scale(1);
+    }
+  }
+  &.tooltip-open::before {
+    transform: translate(-5px, 50%) scale(1);
+  }
+  /* Arrow */
+  &::after {
+    border-width: 5px 0 5px 5px;
+    border-color: transparent transparent transparent rgba(50, 50, 50, 1);
+    transform-origin: left;
+    transform: translateY(50%) scaleX(0);
+  }
+
+  @media (hover: hover) {
+    &:hover::after {
+      transform: translateY(50%) scaleX(1);
+    }
+  }
+
+  &.tooltip-open::after {
+    transform: translateY(50%) scaleX(1);
+  }
+}
+
+[data-tooltip-location="right"] {
+  &::before,
+  &::after {
+    bottom: 50%;
+    left: calc(100% + 5px);
+  }
+  &::before {
+    transform: translate(5px, 50%) scale(0.5);
+  }
+
+  @media (hover: hover) {
+    &:hover::before {
+      transform: translate(5px, 50%) scale(1);
+    }
+  }
+
+  &.tooltip-open::before {
+    transform: translate(5px, 50%) scale(1);
+  }
+
+  &::after {
+    border-width: 5px 5px 5px 0;
+    border-color: transparent rgba(50, 50, 50, 1) transparent transparent;
+    transform-origin: right;
+    transform: translateY(50%) scaleX(0);
+  }
+
+  @media (hover: hover) {
+    &:hover::after {
+      transform: translateY(50%) scaleX(1);
+    }
+  }
+  
+  &.tooltip-open::after {
+    transform: translateY(50%) scaleX(1);
+  }
+}
+
+[data-tooltip-location="bottom"] {
+  &::before,
+  &::after {
+    top: calc(100% + 5px);
+    bottom: auto;
+  }
+
+  &::before {
+    transform: translate(-50%, 5px) scale(0.5);
+  }
+
+  @media (hover: hover) {
+    &:hover::before {
+      transform: translate(-50%, 5px) scale(1);
+    }
+  }
+
+  &.tooltip-open::before {
+    transform: translate(-50%, 5px) scale(1);
+  }
+
+  &::after {
+    transform-origin: bottom;
+    border-width: 0 5px 5px 5px;
+    border-color: transparent transparent rgba(50, 50, 50, 1) transparent;
+  }
+}
+
 .button-group {
   display: flex;
   align-items: center;
@@ -41,7 +241,7 @@ button,
   }
 
   input:checked + & {
-    background-color: $accent;
+    background-color: rgb(0, 123, 255);
     border-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
   
@@ -61,6 +261,7 @@ button,
 
   &.active {
     box-shadow: $input-focus;
+    z-index: 11;
   }
 
   &-input {
@@ -161,8 +362,18 @@ button,
 
   &-option:hover,
   &-option.highlighted {
-    background-color: $accent;
+    background-color: rgb(0, 123, 255);
     color: #ffffff;
+  }
+}
+
+.carton-separator {
+  display: none;
+
+  .page:not(.page--hidden) + .page + .page + &,
+  .page:not(.page--hidden) + .page + &,
+  .page:not(.page--hidden) + & {
+    display: block;
   }
 }
 
@@ -190,14 +401,9 @@ button,
     text-transform: uppercase;
   }
 
-  &--hidden {
-    display: none;
-  }
-
-  // CHANGE SHIPPING MARK CARTON SIZE HERE
-  $carton-length: 18.3; // Inches
-  $carton-width: 11.2; // Inches
-  $carton-height: 13.4; // Inches
+  $carton-length: 18.3; // Change default size of carton
+  $carton-width: 11.2;  // Remember to change the default 
+  $carton-height: 13.4; // sizes the canvasUpdate.js
   $carton-expanded: 50%;
   $carton-condensed: 30%;
 
@@ -205,8 +411,6 @@ button,
     display: block;
     position: relative;
     height: 0;
-    //transition: all 0.5s;
-    overflow: hidden;
   }
 
   .preview__content--expanded & {
@@ -218,7 +422,7 @@ button,
       height: 297mm;
     }
 
-    &--carton { padding: 0 0 $carton-expanded; transition: all 0.5s; }
+    &--carton { padding: 0 0 $carton-expanded; }
     &--carton-front { width: calc($carton-expanded * ($carton-length / $carton-height)); }
     &--carton-side { width: calc($carton-expanded * ($carton-width / $carton-height)); }
   }
@@ -232,12 +436,32 @@ button,
     &--carton-side { width: calc($carton-condensed * ($carton-width / $carton-height)); }
   }
 
+  &--carton .scaler-wrapper { 
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; 
+  }
+
   &--carton .scaler {
     transform-origin: top left;
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    //display: none;
+
+    &.rendering {
+      transform: scale(1) !important;
+      opacity: 0;
+    }
+
+    canvas {
+      position: absolute;
+      width: 100% !important;
+      height: auto !important;
+    }
   }
 
   &--carton-front .scaler {
@@ -251,19 +475,11 @@ button,
 
   }
 
-  @keyframes scaleAndExplode {
-    0%, 10% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(0.95);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(1.1);
-      opacity: 0;
-    }
+  &--hidden {
+    opacity: 0 !important;
+    position: absolute;
+    overflow: hidden;
+    top: -100%;
   }
 }
 
@@ -287,7 +503,10 @@ button,
   h1 {
     font-size: 0.3in;
     font-weight: 800;
+    display: flex;
+    justify-content: center;;
   }
+
   h2 {
     font-size: 0.16in;
     font-weight: 700;
@@ -296,6 +515,10 @@ button,
     font-size: 0.14in;
     font-weight: 700;
   } 
+
+  h1 img {
+    height: 48px;
+  }
 
   &__magenta {
     display: block;
@@ -517,7 +740,7 @@ button,
     }
   
     .page[data-type="shipping-side"] & {
-      font-size: 80%;
+      font-size: 90%;
     }
   }
 
@@ -612,6 +835,31 @@ button,
   .tihi-active svg {
     display: none;
   }
+
+  &__recycling {
+    position: absolute;
+    border: 4px solid #000000;
+    width: 3.5in;
+    bottom: 0.3in;
+    right: 0.3in;
+    border-radius: 0.2in;
+    padding: 0.2in;
+
+    font-size: 0.2in;
+    font-weight: 700;
+    text-align: right;
+    text-transform: uppercase;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.1in;
+
+    svg {
+      width: 0.8in;
+      height: 0.8in;
+    }
+  }
 }
 
 // Brenthaven Specific Styles
@@ -681,6 +929,9 @@ button,
 // Shipping Mark (Front) Specific Styles
 .page[data-type="shipping-front"] {
   &::before { content: 'Shipping Mark (Front) – Scaled'; }
+
+  //&.canvas-scaled::before { content: 'Shipping Mark (Front) – Scaled'; }
+  //&.canvas-full::before { content: 'Shipping Mark (Front) – Full Size'; }
 }
 
 // Shipping Mark (Side) Specific Styles
