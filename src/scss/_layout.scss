@@ -436,9 +436,9 @@ body > main {
   }
 
   .visibility__form {
-    margin: 0 auto 0 20px;
+    margin: 0 auto 0 8px;
     display: flex;
-    gap: 12px;
+    gap: 8px;
   }
 
   .preview__layout [data-tooltip]::before {content: 'Maximize'; }
@@ -450,7 +450,7 @@ body > main {
   .download {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 8px;
   }
 
   .download__name {
@@ -459,10 +459,21 @@ body > main {
     font-style: italic;
     color: #9197A5;
     opacity: 0.8;
+    
+    &--animate {
+      animation: fadeInOut 2s linear forwards;
+    }
 
     @media (max-width: 1000px) {
       display: none;
     }
+  }
+
+  @keyframes fadeInOut {
+    0% {opacity: 0;}
+    10% {opacity: 0.8;}
+    90% {opacity: 0.8;}
+    100% {opacity: 0;}
   }
 
   .download__button {
@@ -474,13 +485,24 @@ body > main {
     font-size: 12px;
     gap: 8px;
     line-height: 20px;
-    padding: 6px 24px;
+    padding: 6px 16px;
+    transition: background-color 0.2s;
 
     svg {
       width: 16px;
       height: 16px;
       stroke: #ffffff;
     }
+  }
+  
+  .download__button:disabled {
+    background-color: #E3E5E8;
+    color: #9197A5;
+    box-shadow: none;
+    cursor: not-allowed;
+    pointer-events: none;
+
+    svg { stroke: #9197A5; }
   }
 }
 

@@ -1,4 +1,13 @@
+import { default as el } from './domElements.js';
+import { namer } from './misc.js';
 import { canvasUpdate } from './canvasUpdate.js';
+
+const { jsPDF } = globalThis.jspdf;
+let DEBUG = false;
+const upcToggles = el.controls.querySelectorAll('.visibility--upc input[type="checkbox"]');
+const shippingToggles = el.controls.querySelectorAll('.visibility--shipping input[type="checkbox"]');
+const upcButton = el.controls.querySelector('.download__button--upc');
+const shippingButton = el.controls.querySelector('.download__button--shipping');
 
 export const controlInit = () => {
   let previewLayout = document.querySelector('.layout__form');
@@ -103,3 +112,109 @@ const pageVisibility = () => {
     applyAnimation(element, firstRects[index].rect, firstRects[index].wasHidden);
   });
 };
+
+export const pdfInit = () => {
+  const downloadButton = document.querySelector('.download__button');
+  downloadButton.addEventListener('click', () => {
+    if (DEBUG) { console.log('Download button Clicked'); }
+    pdfGenerator();
+  });
+}
+
+const generatePDF = async (elements) => {
+  const pdf = new jsPDF('p', 'in', 'a4');
+  const pages = document.querySelectorAll(`${elements}:not(.page--hidden) .print`);
+  let pageType;
+
+  for (const page of pages) {
+    if (page.closest('.scaler')) page.closest('.scaler').classList.add('rendering');
+    const canvas = await html2canvas(page, {
+      allowTaint: true,
+      scale: 4
+    });
+    if (page.closest('.scaler')) page.closest('.scaler').classList.remove('rendering');
+
+    // const existingCanvas = page.nextElementSibling;
+    // if (existingCanvas && existingCanvas.tagName === 'CANVAS') {
+    //   existingCanvas.remove();
+    // }
+    // page.insertAdjacentElement('afterend', canvas);
+
+    const originalWidth = page.offsetWidth;
+    const originalHeight = page.offsetHeight;
+
+    const imgWidth = pixelToInch(originalWidth);
+    const imgHeight = pixelToInch(originalHeight);
+    
+    if (imgWidth > 8.3 || imgHeight > 11.7) {
+      const imgData = canvas.toDataURL('image/png');
+      const orientation = imgWidth > imgHeight ? 'landscape' : 'portrait';
+      pageType = 'shipping';
+
+      pdf.addPage([imgWidth, imgHeight], orientation);
+      pdf.addImage(imgData, 'png', 0, 0, imgWidth, imgHeight);
+      
+      if (page === pages[pages.length - 1]) {
+        pdf.deletePage(1);
+      }
+    } else {
+      const x = (8.3 - imgWidth) / 2;
+      const y = (11.7 - imgHeight) / 2;
+      pageType = 'packaging';
+
+      const imgData = canvas.toDataURL('image/png');
+
+      pdf.addImage(imgData, 'png', x, y, imgWidth, imgHeight);
+      if (page !== pages[pages.length - 1]) {
+        pdf.addPage();
+      }
+    }
+  };
+  return { pdf, pageType };
+}
+
+const savePDF = async (elements) => {
+  const { pdf, pageType } = await generatePDF(elements);
+  pdf.save(namer(pageType));
+}
+
+export const pdfButtons = () => {
+  window.onload = () => buttonBuilder();
+  document.querySelector('#brand').addEventListener('change', buttonBuilder);
+  document.querySelector('#sku').addEventListener('input', buttonBuilder);
+  document.querySelector('.layout__form').addEventListener('change', buttonBuilder);
+  document.querySelector('.visibility__form').addEventListener('change', buttonBuilder);
+
+  // window.onload = () => {
+  //   generatePDF('.page');
+  // };
+  upcButton.addEventListener('click', () => savePDF('.page--a4'));
+  shippingButton.addEventListener('click', () => savePDF('.page--carton'));
+}
+
+const pixelToInch = (pixels) => {
+  const dpi = 96; // Assuming a standard DPI of 96
+  return parseFloat((pixels / dpi).toFixed(2));
+}
+
+const pixelToMm = (pixels) => {
+  const dpi = 96; // Assuming a standard DPI of 96
+  const mmPerInch = 25.4; // Millimeters per inch
+  return parseFloat(((pixels / dpi) * mmPerInch).toFixed(2));
+}
+
+const buttonBuilder = () => {
+  upcButton.setAttribute('data-tooltip', namer('packaging'));
+  upcButton.setAttribute('data-tooltip-location', 'bottom');
+  shippingButton.setAttribute('data-tooltip', namer('shipping'));
+  shippingButton.setAttribute('data-tooltip-location', 'bottom');
+
+  disableButtonIfAllUnchecked(upcToggles, upcButton);
+  disableButtonIfAllUnchecked(shippingToggles, shippingButton);
+}
+
+const disableButtonIfAllUnchecked = (toggles, button) => {
+  const allUnchecked = Array.from(toggles).every(toggle => !toggle.checked);
+  button.disabled = allUnchecked;
+}
+

@@ -227,7 +227,7 @@
           </form>
 
           <form class="visibility__form">
-            <fieldset class="preview__visibility visibility button-group">
+            <fieldset class="preview__visibility visibility visibility--upc button-group">
               <legend class="visually-hidden">UPC Label Visibility</legend>
               
               <input type="checkbox" id="polybag" class="checkbox-container visually-hidden"  aria-labelledby="label-polybag" checked>
@@ -249,7 +249,7 @@
               </label>
             </fieldset>
 
-            <fieldset class="preview__visibility visibility button-group">
+            <fieldset class="preview__visibility visibility visibility--shipping button-group">
               <legend class="visually-hidden">Shipping Mark Visibility</legend>
               
               <input type="checkbox" id="shipping_mark_front" class="checkbox-container visually-hidden"  aria-labelledby="label-polybag">
@@ -270,9 +270,13 @@
             <div class="download__name">
               BH.1050001 PB.MC.IC Label.pdf
             </div>
-            <button class="button download__button" title="Download PDF">
+            <button class="button download__button download__button--shipping">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down-square"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 8v8"/><path d="m8 12 4 4 4-4"/></svg>
+              Download Shipping Marks
+            </button>
+            <button class="button download__button download__button--upc">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-down"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></svg>
-              Download PDF
+              Download UPC Labels
             </button>
           </div>
         </div>
@@ -468,130 +472,134 @@
           <div class="carton-separator" style="width: 100%;"></div>
 
           <div class="page page--carton page--carton-front" data-type="shipping-front">
-            <div class="scaler">
-              <div class="page__content print">
-                <main class="print__content shipping-mark">
-                  <div class="shipping-mark__content">
-                    <div class="shipping-mark__top shipping-mark__sku print-box-sku">
-                      <span class="sku__part">01D</span>
-                      <span class="sku__part">015</span>
-                      <span class="sku__part">E01</span>
-                      <span class="sku__part">-20</span>
+            <div class="scaler-wrapper">
+              <div class="scaler">
+                <div class="page__content print">
+                  <main class="print__content shipping-mark">
+                    <div class="shipping-mark__content">
+                      <div class="shipping-mark__top shipping-mark__sku print-box-sku">
+                        <span class="sku__part">01D</span>
+                        <span class="sku__part">015</span>
+                        <span class="sku__part">E01</span>
+                        <span class="sku__part">-20</span>
+                      </div>
+                      <div class="shipping-mark__middle">
+                        <div class="shipping-mark__meta">
+                          <span class="shipping-mark__description print-description">
+                            DropTech for Dell Latitude 3340 2-in-1
+                          </span>
+                        </div>
+                        <div class="shipping-mark__meta">
+                          <span class="shipping-mark__label">Qty per carton: </span>
+                          <span class="shipping-mark__quantity print-box-qty" data-field="#sku">20</span> pcs
+                        </div>
+                        <div class="shipping-mark__meta">
+                          <span class="shipping-mark__label">Gross Weight lbs: </span>
+                          <span class="shipping-mark__gweight print-gross-weight">21.17 lbs</span>
+                        </div>
+                        <div class="shipping-mark__meta">
+                          <span class="shipping-mark__label">Net Weight lbs: </span>
+                          <span class="shipping-mark__nweight print-net-weight">20.06 lbs</span>
+                        </div>
+                        <div class="shipping-mark__meta">
+                          <span class="shipping-mark__label">Carton Dims (LxWxH in): </span>
+                          <span class="shipping-mark__length print-dim-length">18.3"</span>
+                          <span class="shipping_mark__insert">x</span>
+                          <span class="shipping-mark__width print-dim-width">11.2"</span>
+                          <span class="shipping_mark__insert">x</span>
+                          <span class="shipping-mark__height print-dim-height">13.4</span>
+                        </div>
+                        <div class="shipping-mark__meta">
+                          <span class="shipping-mark__label">Made in: </span>
+                          <span class="shipping-mark__source print-country">China</span>
+                        </div>
+                        <div class="shipping-mark__meta">
+                          <span class="shipping-mark__label">PO #: </span>
+                          <span class="shipping-mark__po print-purchase-order">123456</span>
+                        </div>
+                      </div>
+                      <div class="shipping-mark__bottom">
+                        <div class="shipping-mark__meta">
+                          <span class="shipping-mark__label">Item Master: </span>
+                          <span class="shipping-mark__item-master print-item-master">01D015</span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="shipping-mark__middle">
-                      <div class="shipping-mark__meta">
-                        <span class="shipping-mark__description print-description">
-                          DropTech for Dell Latitude 3340 2-in-1
-                        </span>
-                      </div>
-                      <div class="shipping-mark__meta">
-                        <span class="shipping-mark__label">Qty per carton: </span>
-                        <span class="shipping-mark__quantity print-box-qty" data-field="#sku">20</span> pcs
-                      </div>
-                      <div class="shipping-mark__meta">
-                        <span class="shipping-mark__label">Gross Weight lbs: </span>
-                        <span class="shipping-mark__gweight print-gross-weight">21.17 lbs</span>
-                      </div>
-                      <div class="shipping-mark__meta">
-                        <span class="shipping-mark__label">Net Weight lbs: </span>
-                        <span class="shipping-mark__nweight print-net-weight">20.06 lbs</span>
-                      </div>
-                      <div class="shipping-mark__meta">
-                        <span class="shipping-mark__label">Carton Dims (LxWxH in): </span>
-                        <span class="shipping-mark__length print-dim-length">18.3"</span>
-                        <span class="shipping_mark__insert">x</span>
-                        <span class="shipping-mark__width print-dim-width">11.2"</span>
-                        <span class="shipping_mark__insert">x</span>
-                        <span class="shipping-mark__height print-dim-height">13.4</span>
-                      </div>
-                      <div class="shipping-mark__meta">
-                        <span class="shipping-mark__label">Made in: </span>
-                        <span class="shipping-mark__source print-country">China</span>
-                      </div>
-                      <div class="shipping-mark__meta">
-                        <span class="shipping-mark__label">PO #: </span>
-                        <span class="shipping-mark__po print-purchase-order">123456</span>
-                      </div>
+                    <div class="shipping-mark__upc">
+                      UPC LABEL
                     </div>
-                    <div class="shipping-mark__bottom">
-                      <div class="shipping-mark__meta">
-                        <span class="shipping-mark__label">Item Master: </span>
-                        <span class="shipping-mark__item-master print-item-master">01D015</span>
-                      </div>
+                    <div class="shipping-mark__tihi print-tihi tihi-active">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-boxes"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg>
+                      <img src="dist/img/default-tihi.jpg" />
                     </div>
-                  </div>
-                  <div class="shipping-mark__upc">
-                    UPC LABEL
-                  </div>
-                  <div class="shipping-mark__tihi print-tihi tihi-active">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-boxes"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg>
-                    <img src="dist/img/default-tihi.jpg" />
-                  </div>
-                </main>
+                  </main>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="page page--carton page--carton-side" data-type="shipping-side">
-            <div class="scaler">
-              <div class="page__content print">
-                <main class="print__content shipping-mark">
-                  <div class="shipping-mark__content">
-                    <div class="shipping-mark__top shipping-mark__sku print-box-sku">
-                      <span class="sku__part">01D</span>
-                      <span class="sku__part">015</span>
-                      <span class="sku__part">E01</span>
-                      <span class="sku__part">-20</span>
+            <div class="scaler-wrapper">
+              <div class="scaler">
+                <div class="page__content print">
+                  <main class="print__content shipping-mark">
+                    <div class="shipping-mark__content">
+                      <div class="shipping-mark__top shipping-mark__sku print-box-sku">
+                        <span class="sku__part">01D</span>
+                        <span class="sku__part">015</span>
+                        <span class="sku__part">E01</span>
+                        <span class="sku__part">-20</span>
+                      </div>
+                      <div class="shipping-mark__middle">
+                        <div class="shipping-mark__meta">
+                          <span class="shipping-mark__description print-description">
+                            DropTech for Dell Latitude 3340 2-in-1
+                          </span>
+                        </div>
+                        <div class="shipping-mark__meta">
+                          <span class="shipping-mark__label">Qty per carton: </span>
+                          <span class="shipping-mark__quantity print-box-qty">20</span>pcs
+                        </div>
+                        <div class="shipping-mark__meta">
+                          <span class="shipping-mark__label">Gross Weight lbs: </span>
+                          <span class="shipping-mark__gweight print-gross-weight">21.17 lbs</span>
+                        </div>
+                        <div class="shipping-mark__meta">
+                          <span class="shipping-mark__label">Net Weight lbs: </span>
+                          <span class="shipping-mark__nweight print-net-weight">20.06 lbs</span>
+                        </div>
+                        <div class="shipping-mark__meta">
+                          <span class="shipping-mark__label">Carton Dims (LxWxH in): </span>
+                          <span class="shipping-mark__length print-dim-length">18.3"</span>
+                          <span class="shipping_mark__insert">x</span>
+                          <span class="shipping-mark__width print-dim-width">11.2"</span>
+                          <span class="shipping_mark__insert">x</span>
+                          <span class="shipping-mark__height print-dim-height">13.4</span>
+                        </div>
+                        <div class="shipping-mark__meta">
+                          <span class="shipping-mark__label">Made in: </span>
+                          <span class="shipping-mark__source print-country">China</span>
+                        </div>
+                        <div class="shipping-mark__meta">
+                          <span class="shipping-mark__label">PO #: </span>
+                          <span class="shipping-mark__po print-purchase-order">123456</span>
+                        </div>
+                      </div>
+                      <div class="shipping-mark__bottom">
+                        <div class="shipping-mark__meta">
+                          <span class="shipping-mark__label">Item Master: </span>
+                          <span class="shipping-mark__item-master print-item-master">01D015</span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="shipping-mark__middle">
-                      <div class="shipping-mark__meta">
-                        <span class="shipping-mark__description print-description">
-                          DropTech for Dell Latitude 3340 2-in-1
-                        </span>
-                      </div>
-                      <div class="shipping-mark__meta">
-                        <span class="shipping-mark__label">Qty per carton: </span>
-                        <span class="shipping-mark__quantity print-box-qty">20</span>pcs
-                      </div>
-                      <div class="shipping-mark__meta">
-                        <span class="shipping-mark__label">Gross Weight lbs: </span>
-                        <span class="shipping-mark__gweight print-gross-weight">21.17 lbs</span>
-                      </div>
-                      <div class="shipping-mark__meta">
-                        <span class="shipping-mark__label">Net Weight lbs: </span>
-                        <span class="shipping-mark__nweight print-net-weight">20.06 lbs</span>
-                      </div>
-                      <div class="shipping-mark__meta">
-                        <span class="shipping-mark__label">Carton Dims (LxWxH in): </span>
-                        <span class="shipping-mark__length print-dim-length">18.3"</span>
-                        <span class="shipping_mark__insert">x</span>
-                        <span class="shipping-mark__width print-dim-width">11.2"</span>
-                        <span class="shipping_mark__insert">x</span>
-                        <span class="shipping-mark__height print-dim-height">13.4</span>
-                      </div>
-                      <div class="shipping-mark__meta">
-                        <span class="shipping-mark__label">Made in: </span>
-                        <span class="shipping-mark__source print-country">China</span>
-                      </div>
-                      <div class="shipping-mark__meta">
-                        <span class="shipping-mark__label">PO #: </span>
-                        <span class="shipping-mark__po print-purchase-order">123456</span>
-                      </div>
+                    <div class="shipping-mark__recycling">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-leaf"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                      This carton is<br />
+                      made with <br />
+                      recycled content
                     </div>
-                    <div class="shipping-mark__bottom">
-                      <div class="shipping-mark__meta">
-                        <span class="shipping-mark__label">Item Master: </span>
-                        <span class="shipping-mark__item-master print-item-master">01D015</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="shipping-mark__recycling">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-leaf"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
-                    This carton is<br />
-                    made with <br />
-                    recycled content
-                  </div>
-                </main>
+                  </main>
+                </div>
               </div>
             </div>
           </div>

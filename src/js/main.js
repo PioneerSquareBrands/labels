@@ -4,7 +4,7 @@ import { labelInit } from './modules/labelHandler.js';
 import { canvasUpdate, scaler } from './modules/canvasUpdate.js';
 import { qrToggle, sidebarAccordion, outline } from './modules/misc.js';
 import { colorInit } from './modules/colorHandler.js';
-import { controlInit } from './modules/toolBar.js';
+import { controlInit, pdfInit, pdfButtons } from './modules/toolBar.js';
 
 selectInit();
 validateNumbers();
@@ -15,3 +15,4 @@ outline();
 colorInit();
 qrToggle();
 sidebarAccordion();
+pdfButtons();

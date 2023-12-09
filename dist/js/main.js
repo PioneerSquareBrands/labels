@@ -280,6 +280,7 @@ const domElements = {
   purchaseOrder: document.querySelector('#shipping_po'),
   tihi: document.querySelector('#shipping_tihi'),
   tihiLabel: document.querySelector('#shipping_tihi_label'),
+  controls: document.querySelector('.preview__controls'),
   printHeaders: document.querySelectorAll('.print-header'),
   labels: document.querySelectorAll('.label'),
   printLogos: document.querySelectorAll('.print-logo'),
@@ -852,11 +853,14 @@ const scaler = () => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   namer: function() { return /* binding */ namer; },
 /* harmony export */   outline: function() { return /* binding */ outline; },
 /* harmony export */   qrToggle: function() { return /* binding */ qrToggle; },
 /* harmony export */   sidebarAccordion: function() { return /* binding */ sidebarAccordion; }
 /* harmony export */ });
 /* harmony import */ var _domElements_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _brandDefaults_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
+
 
 
 const qrToggle = () => {
@@ -923,6 +927,47 @@ const outlineHighlight = (field, action) => {
     });
   }
 };
+
+const namer = (type) => {
+  const defaults = (0,_brandDefaults_js__WEBPACK_IMPORTED_MODULE_1__.brandDefaults)();
+
+  let brand = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].brand.value;
+  const sku = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].sku.value.toUpperCase() || defaults.sku;
+  const visiblePages = document.querySelectorAll('.page:not(.page--hidden)');
+  let labelTypes = Array.from(visiblePages).map(page => page.getAttribute('data-type'));
+
+  const packagingTypes = ['polybag', 'master', 'inner'];
+  const shippingTypes = ['shipping-front', 'shipping-side'];
+
+  let packagingLabelTypes = labelTypes.filter(type => packagingTypes.includes(type)).join('.');
+  let shippingLabelTypes = labelTypes.filter(type => shippingTypes.includes(type)).join('.');
+
+  packagingLabelTypes = packagingLabelTypes.replace(/polybag/g, 'PB');
+  packagingLabelTypes = packagingLabelTypes.replace(/master/g, 'MC');
+  packagingLabelTypes = packagingLabelTypes.replace(/inner/g, 'IC');
+
+  if (shippingLabelTypes.includes('shipping-front') && shippingLabelTypes.includes('shipping-side')) {
+    shippingLabelTypes = 'Shipping Marks';
+  } else {
+    shippingLabelTypes = shippingLabelTypes.replace(/shipping-front/g, 'Shipping Marks - Front');
+    shippingLabelTypes = shippingLabelTypes.replace(/shipping-side/g, 'Shipping Marks - Side');
+  }
+
+  brand = brand.replace(/brenthaven/g, 'BH');
+  brand = brand.replace(/gumdrop/g, 'GD');
+  brand = brand.replace(/vault/g, 'VT');
+
+  const packagingName = `${brand} ${sku} ${packagingLabelTypes} Label.pdf`;
+  const shippingName = `${brand} ${sku} ${shippingLabelTypes} Label.pdf`;
+
+  if (type === 'packaging') {
+    return packagingName;
+  } else if (type === 'shipping') {
+    return shippingName;
+  }
+
+  return null;
+}
 
 /***/ }),
 /* 8 */
@@ -1007,10 +1052,23 @@ const colorToggle = () => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   controlInit: function() { return /* binding */ controlInit; }
+/* harmony export */   controlInit: function() { return /* binding */ controlInit; },
+/* harmony export */   pdfButtons: function() { return /* binding */ pdfButtons; },
+/* harmony export */   pdfInit: function() { return /* binding */ pdfInit; }
 /* harmony export */ });
-/* harmony import */ var _canvasUpdate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+/* harmony import */ var _domElements_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _misc_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
+/* harmony import */ var _canvasUpdate_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
 
+
+
+
+const { jsPDF } = globalThis.jspdf;
+let DEBUG = false;
+const upcToggles = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].controls.querySelectorAll('.visibility--upc input[type="checkbox"]');
+const shippingToggles = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].controls.querySelectorAll('.visibility--shipping input[type="checkbox"]');
+const upcButton = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].controls.querySelector('.download__button--upc');
+const shippingButton = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].controls.querySelector('.download__button--shipping');
 
 const controlInit = () => {
   let previewLayout = document.querySelector('.layout__form');
@@ -1077,7 +1135,7 @@ const pageLayout = () => {
   }
 
   applyAnimation(pagePreview, firstRect, wasHidden);
-  (0,_canvasUpdate_js__WEBPACK_IMPORTED_MODULE_0__.canvasUpdate)();
+  (0,_canvasUpdate_js__WEBPACK_IMPORTED_MODULE_2__.canvasUpdate)();
 };
 
 const pageVisibility = () => {
@@ -1115,6 +1173,113 @@ const pageVisibility = () => {
     applyAnimation(element, firstRects[index].rect, firstRects[index].wasHidden);
   });
 };
+
+const pdfInit = () => {
+  const downloadButton = document.querySelector('.download__button');
+  downloadButton.addEventListener('click', () => {
+    if (DEBUG) { console.log('Download button Clicked'); }
+    pdfGenerator();
+  });
+}
+
+const generatePDF = async (elements) => {
+  const pdf = new jsPDF('p', 'in', 'a4');
+  const pages = document.querySelectorAll(`${elements}:not(.page--hidden) .print`);
+  let pageType;
+
+  for (const page of pages) {
+    if (page.closest('.scaler')) page.closest('.scaler').classList.add('rendering');
+    const canvas = await html2canvas(page, {
+      allowTaint: true,
+      scale: 4
+    });
+    if (page.closest('.scaler')) page.closest('.scaler').classList.remove('rendering');
+
+    // const existingCanvas = page.nextElementSibling;
+    // if (existingCanvas && existingCanvas.tagName === 'CANVAS') {
+    //   existingCanvas.remove();
+    // }
+    // page.insertAdjacentElement('afterend', canvas);
+
+    const originalWidth = page.offsetWidth;
+    const originalHeight = page.offsetHeight;
+
+    const imgWidth = pixelToInch(originalWidth);
+    const imgHeight = pixelToInch(originalHeight);
+    
+    if (imgWidth > 8.3 || imgHeight > 11.7) {
+      const imgData = canvas.toDataURL('image/png');
+      const orientation = imgWidth > imgHeight ? 'landscape' : 'portrait';
+      pageType = 'shipping';
+
+      pdf.addPage([imgWidth, imgHeight], orientation);
+      pdf.addImage(imgData, 'png', 0, 0, imgWidth, imgHeight);
+      
+      if (page === pages[pages.length - 1]) {
+        pdf.deletePage(1);
+      }
+    } else {
+      const x = (8.3 - imgWidth) / 2;
+      const y = (11.7 - imgHeight) / 2;
+      pageType = 'packaging';
+
+      const imgData = canvas.toDataURL('image/png');
+
+      pdf.addImage(imgData, 'png', x, y, imgWidth, imgHeight);
+      if (page !== pages[pages.length - 1]) {
+        pdf.addPage();
+      }
+    }
+  };
+  return { pdf, pageType };
+}
+
+const savePDF = async (elements) => {
+  const { pdf, pageType } = await generatePDF(elements);
+  pdf.save((0,_misc_js__WEBPACK_IMPORTED_MODULE_1__.namer)(pageType));
+}
+
+const pdfButtons = () => {
+  window.onload = () => buttonBuilder();
+  document.querySelector('#brand').addEventListener('change', buttonBuilder);
+  document.querySelector('#sku').addEventListener('input', buttonBuilder);
+  document.querySelector('.layout__form').addEventListener('change', buttonBuilder);
+  document.querySelector('.visibility__form').addEventListener('change', buttonBuilder);
+
+  // window.onload = () => {
+  //   generatePDF('.page');
+  // };
+  upcButton.addEventListener('click', () => savePDF('.page--a4'));
+  shippingButton.addEventListener('click', () => savePDF('.page--carton'));
+}
+
+const pixelToInch = (pixels) => {
+  const dpi = 96; // Assuming a standard DPI of 96
+  return parseFloat((pixels / dpi).toFixed(2));
+}
+
+const pixelToMm = (pixels) => {
+  const dpi = 96; // Assuming a standard DPI of 96
+  const mmPerInch = 25.4; // Millimeters per inch
+  return parseFloat(((pixels / dpi) * mmPerInch).toFixed(2));
+}
+
+const buttonBuilder = () => {
+  upcButton.setAttribute('data-tooltip', (0,_misc_js__WEBPACK_IMPORTED_MODULE_1__.namer)('packaging'));
+  upcButton.setAttribute('data-tooltip-location', 'bottom');
+  shippingButton.setAttribute('data-tooltip', (0,_misc_js__WEBPACK_IMPORTED_MODULE_1__.namer)('shipping'));
+  shippingButton.setAttribute('data-tooltip-location', 'bottom');
+
+  disableButtonIfAllUnchecked(upcToggles, upcButton);
+  disableButtonIfAllUnchecked(shippingToggles, shippingButton);
+}
+
+const disableButtonIfAllUnchecked = (toggles, button) => {
+  const allUnchecked = Array.from(toggles).every(toggle => !toggle.checked);
+  button.disabled = allUnchecked;
+}
+
+
 
 /***/ })
 /******/ 	]);
@@ -1201,6 +1366,7 @@ __webpack_require__.r(__webpack_exports__);
 (0,_modules_colorHandler_js__WEBPACK_IMPORTED_MODULE_5__.colorInit)();
 (0,_modules_misc_js__WEBPACK_IMPORTED_MODULE_4__.qrToggle)();
 (0,_modules_misc_js__WEBPACK_IMPORTED_MODULE_4__.sidebarAccordion)();
+(0,_modules_toolBar_js__WEBPACK_IMPORTED_MODULE_6__.pdfButtons)();
 
 }();
 /******/ })()

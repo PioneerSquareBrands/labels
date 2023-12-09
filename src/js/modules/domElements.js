@@ -26,6 +26,7 @@ const domElements = {
   purchaseOrder: document.querySelector('#shipping_po'),
   tihi: document.querySelector('#shipping_tihi'),
   tihiLabel: document.querySelector('#shipping_tihi_label'),
+  controls: document.querySelector('.preview__controls'),
   printHeaders: document.querySelectorAll('.print-header'),
   labels: document.querySelectorAll('.label'),
   printLogos: document.querySelectorAll('.print-logo'),
