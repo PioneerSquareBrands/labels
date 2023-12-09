@@ -368,7 +368,6 @@ button,
 }
 
 .carton-separator {
-  width: 100%;
   display: none;
 
   .page:not(.page--hidden) + .page + .page + &,
@@ -402,10 +401,9 @@ button,
     text-transform: uppercase;
   }
 
-  // CHANGE SHIPPING MARK CARTON SIZE HERE
-  $carton-length: 18.3; // Inches
-  $carton-width: 11.2; // Inches
-  $carton-height: 13.4; // Inches
+  $carton-length: 18.3; // Change default size of carton
+  $carton-width: 11.2;  // Remember to change the default 
+  $carton-height: 13.4; // sizes the canvasUpdate.js
   $carton-expanded: 50%;
   $carton-condensed: 30%;
 
@@ -477,27 +475,11 @@ button,
 
   }
 
-  &--hiding {
-    animation: scaleAndExplode 0.2s forwards;
-  }
-
   &--hidden {
-    display: none;
-  }
-
-  @keyframes scaleAndExplode {
-    0%, 10% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(0.95);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(1.1);
-      opacity: 0;
-    }
+    opacity: 0 !important;
+    position: absolute;
+    overflow: hidden;
+    top: -100%;
   }
 }
 

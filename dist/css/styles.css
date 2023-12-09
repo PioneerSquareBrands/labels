@@ -1172,7 +1172,6 @@ input:checked + .button svg {
 }
 
 .carton-separator {
-  width: 100%;
   display: none;
 }
 .page:not(.page--hidden) + .page + .page + .carton-separator, .page:not(.page--hidden) + .page + .carton-separator, .page:not(.page--hidden) + .carton-separator {
@@ -1287,46 +1286,11 @@ input:checked + .button svg {
   width: 11.2in;
   height: 13.4in;
 }
-.page--hiding {
-  -webkit-animation: scaleAndExplode 0.2s forwards;
-          animation: scaleAndExplode 0.2s forwards;
-}
 .page--hidden {
-  display: none;
-}
-@-webkit-keyframes scaleAndExplode {
-  0%, 10% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    -webkit-transform: scale(0.95);
-            transform: scale(0.95);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-    opacity: 0;
-  }
-}
-@keyframes scaleAndExplode {
-  0%, 10% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    -webkit-transform: scale(0.95);
-            transform: scale(0.95);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-    opacity: 0;
-  }
+  opacity: 0 !important;
+  position: absolute;
+  overflow: hidden;
+  top: -100%;
 }
 
 .print {

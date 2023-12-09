@@ -1084,7 +1084,7 @@ const controlInit = () => {
   pageVisibility();
 }
 
-const applyAnimation = (element, firstRect, wasHidden) => {
+const applyAnimation = (element, firstRect, wasHidden, isHiding) => {
   const last = element.getBoundingClientRect();
 
   const deltaX = firstRect.left - last.left;
@@ -1093,6 +1093,7 @@ const applyAnimation = (element, firstRect, wasHidden) => {
   const deltaH = last.height === 0 ? 1 : firstRect.height / last.height;
 
   if (wasHidden) {
+    // Animate to show up from the center
     element.animate([{
       transformOrigin: 'center',
       transform: 'scale(0)'
@@ -1105,6 +1106,7 @@ const applyAnimation = (element, firstRect, wasHidden) => {
       fill: 'both'
     });
   } else {
+    // Animate to move to the new position
     element.animate([{
       transformOrigin: 'top left',
       transform: `translate(${deltaX}px, ${deltaY}px) scale(${deltaW}, ${deltaH})`
@@ -1119,28 +1121,8 @@ const applyAnimation = (element, firstRect, wasHidden) => {
   }
 };
 
-const pageLayout = () => {
-  let checkbox = document.querySelector('.preview__layout #expanded');
-  let pagePreview = document.querySelector('.preview__content');
-
-  const firstRect = pagePreview.getBoundingClientRect();
-  const wasHidden = pagePreview.classList.contains('preview__content--hidden');
-
-  if (checkbox && checkbox.checked) {
-    pagePreview.classList.remove('preview__content--condensed');
-    pagePreview.classList.add('preview__content--expanded');
-  } else {
-    pagePreview.classList.remove('preview__content--expanded');
-    pagePreview.classList.add('preview__content--condensed');
-  }
-
-  applyAnimation(pagePreview, firstRect, wasHidden);
-  (0,_canvasUpdate_js__WEBPACK_IMPORTED_MODULE_2__.canvasUpdate)();
-};
-
 const pageVisibility = () => {
   const shouldShow = checkboxId => document.querySelector(checkboxId).checked;
-
   const visibilityStates = {
     polybag: shouldShow('#polybag'),
     master: shouldShow('#master'),
@@ -1170,8 +1152,27 @@ const pageVisibility = () => {
   });
 
   elements.forEach((element, index) => {
-    applyAnimation(element, firstRects[index].rect, firstRects[index].wasHidden);
+    applyAnimation(element, firstRects[index].rect, firstRects[index].wasHidden, firstRects[index].isHiding);
   });
+};
+
+const pageLayout = () => {
+  let checkbox = document.querySelector('.preview__layout #expanded');
+  let pagePreview = document.querySelector('.preview__content');
+
+  const firstRect = pagePreview.getBoundingClientRect();
+  const wasHidden = pagePreview.classList.contains('preview__content--hidden');
+
+  if (checkbox && checkbox.checked) {
+    pagePreview.classList.remove('preview__content--condensed');
+    pagePreview.classList.add('preview__content--expanded');
+  } else {
+    pagePreview.classList.remove('preview__content--expanded');
+    pagePreview.classList.add('preview__content--condensed');
+  }
+
+  applyAnimation(pagePreview, firstRect, wasHidden);
+  (0,_canvasUpdate_js__WEBPACK_IMPORTED_MODULE_2__.canvasUpdate)();
 };
 
 const pdfInit = () => {
