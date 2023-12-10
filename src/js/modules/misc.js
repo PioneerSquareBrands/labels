@@ -106,3 +106,14 @@ export const namer = (type) => {
 
   return null;
 }
+
+export const pixelToInch = (pixels) => {
+  const dpi = 96; // Assuming a standard DPI of 96
+  return parseFloat((pixels / dpi).toFixed(2));
+}
+
+export const pixelToMm = (pixels) => {
+  const dpi = 96; // Assuming a standard DPI of 96
+  const mmPerInch = 25.4; // Millimeters per inch
+  return parseFloat(((pixels / dpi) * mmPerInch).toFixed(2));
+}

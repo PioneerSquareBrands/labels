@@ -1,9 +1,10 @@
-import { jsPDF } from "jspdf";
+import { jsPDF } from 'jspdf';
 import * as htmlToImage from 'html-to-image';
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 import { default as el } from './domElements.js';
 import { namer } from './misc.js';
 import { canvasUpdate } from './canvasUpdate.js';
+import { pixelToInch } from './misc.js';
 
 let DEBUG = false;
 const upcToggles = el.controls.querySelectorAll('.visibility--upc input[type="checkbox"]');
@@ -15,15 +16,53 @@ export const controlInit = () => {
   let previewLayout = document.querySelector('.layout__form');
   let previewVisibility = document.querySelector('.visibility__form');
 
-  previewLayout.addEventListener('change', pageLayout);
-  previewVisibility.addEventListener('change', pageVisibility);
-
   previewLayout.addEventListener('submit', (event) => event.preventDefault());
   previewVisibility.addEventListener('submit', (event) => event.preventDefault());
   
+  previewLayout.addEventListener('change', pageLayout);
+  previewVisibility.addEventListener('change', pageVisibility);
+
   pageLayout();
   pageVisibility();
+
+  toggleAll('#upc-select-all', ['#polybag', '#master', '#inner']);
+  toggleAll('#shipping-select-all', ['#shipping_mark_front', '#shipping_mark_side']);
+
+  pdfButtons();
 }
+
+const toggleAll = (buttonId, checkboxes) => {
+  const button = document.querySelector(buttonId);
+
+  const updateButtonClass = (allChecked) => {
+    if (allChecked) {
+      button.classList.remove('select-all--unchecked');
+      button.classList.add('select-all--checked');
+    } else {
+      button.classList.remove('select-all--checked');
+      button.classList.add('select-all--unchecked');
+    }
+  };
+
+  const checkInitialStatus = () => {
+    const allChecked = checkboxes.every(id => document.querySelector(id).checked);
+    updateButtonClass(allChecked);
+  };
+
+  const toggleCheckboxes = () => {
+    const allChecked = checkboxes.every(id => document.querySelector(id).checked);
+    checkboxes.forEach(id => {
+      const checkbox = document.querySelector(id);
+      checkbox.checked = !allChecked;
+    });
+    updateButtonClass(!allChecked);
+    document.querySelector('.visibility__form').dispatchEvent(new Event('change'));
+  };
+
+  checkInitialStatus();
+
+  button.addEventListener('click', toggleCheckboxes);
+};
 
 const applyAnimation = (element, firstRect, wasHidden, isHiding) => {
   const last = element.getBoundingClientRect();
@@ -32,10 +71,11 @@ const applyAnimation = (element, firstRect, wasHidden, isHiding) => {
   const deltaY = firstRect.top - last.top;
   const deltaW = last.width === 0 ? 1 : firstRect.width / last.width;
   const deltaH = last.height === 0 ? 1 : firstRect.height / last.height;
+  let animation;
 
   if (wasHidden) {
     // Animate to show up from the center
-    element.animate([{
+    animation = element.animate([{
       transformOrigin: 'center',
       transform: 'scale(0)'
     }, {
@@ -48,7 +88,7 @@ const applyAnimation = (element, firstRect, wasHidden, isHiding) => {
     });
   } else {
     // Animate to move to the new position
-    element.animate([{
+    animation = element.animate([{
       transformOrigin: 'top left',
       transform: `translate(${deltaX}px, ${deltaY}px) scale(${deltaW}, ${deltaH})`
     }, {
@@ -64,6 +104,7 @@ const applyAnimation = (element, firstRect, wasHidden, isHiding) => {
 
 const pageVisibility = () => {
   const shouldShow = checkboxId => document.querySelector(checkboxId).checked;
+
   const visibilityStates = {
     polybag: shouldShow('#polybag'),
     master: shouldShow('#master'),
@@ -76,7 +117,7 @@ const pageVisibility = () => {
     element.classList.toggle('page--hidden', !visibilityStates[type]);
   };
 
-  const elements = document.querySelectorAll('.preview__content .page');
+  const elements = document.querySelectorAll(`.preview__content .page`);
 
   let firstRects = Array.from(elements).map(element => {
     return {
@@ -94,6 +135,13 @@ const pageVisibility = () => {
 
   elements.forEach((element, index) => {
     applyAnimation(element, firstRects[index].rect, firstRects[index].wasHidden, firstRects[index].isHiding);
+
+    // I probably could put this anywhere, but I'm putting it here for now
+    if (index === elements.length - 1) {
+      setTimeout(() => {
+        document.body.classList.remove('canvas-animating');
+      }, 250);
+    }
   });
 };
 
@@ -116,11 +164,19 @@ const pageLayout = () => {
   canvasUpdate();
 };
 
-export const pdfInit = () => {
-  const downloadButton = document.querySelector('.download__button');
-  downloadButton.addEventListener('click', () => {
-    pdfGenerator();
-  });
+export const pdfButtons = () => {
+  window.onload = () => buttonBuilder();
+  document.querySelector('#brand').addEventListener('change', buttonBuilder);
+  document.querySelector('#sku').addEventListener('input', buttonBuilder);
+  document.querySelector('.layout__form').addEventListener('change', buttonBuilder);
+  document.querySelector('.visibility__form').addEventListener('change', buttonBuilder);
+
+  if (!DEBUG) {
+    upcButton.addEventListener('click', () => savePDF('.page--a4'));
+    shippingButton.addEventListener('click', () => savePDF('.page--carton'));
+  } else{
+    window.onload = () => generatePDF('.page');
+  }
 }
 
 const generatePDF = async (elements) => {
@@ -185,21 +241,6 @@ const savePDF = async (elements) => {
   pdf.save(namer(pageType));
 }
 
-export const pdfButtons = () => {
-  window.onload = () => buttonBuilder();
-  document.querySelector('#brand').addEventListener('change', buttonBuilder);
-  document.querySelector('#sku').addEventListener('input', buttonBuilder);
-  document.querySelector('.layout__form').addEventListener('change', buttonBuilder);
-  document.querySelector('.visibility__form').addEventListener('change', buttonBuilder);
-
-  if (!DEBUG) {
-    upcButton.addEventListener('click', () => savePDF('.page--a4'));
-    shippingButton.addEventListener('click', () => savePDF('.page--carton'));
-  } else{
-    window.onload = () => generatePDF('.page');
-  }
-}
-
 const buttonBuilder = () => {
   upcButton.setAttribute('data-tooltip', namer('packaging'));
   upcButton.setAttribute('data-tooltip-location', 'bottom');
@@ -213,15 +254,4 @@ const buttonBuilder = () => {
 const disableButtonIfAllUnchecked = (toggles, button) => {
   const allUnchecked = Array.from(toggles).every(toggle => !toggle.checked);
   button.disabled = allUnchecked;
-}
-
-const pixelToInch = (pixels) => {
-  const dpi = 96; // Assuming a standard DPI of 96
-  return parseFloat((pixels / dpi).toFixed(2));
-}
-
-const pixelToMm = (pixels) => {
-  const dpi = 96; // Assuming a standard DPI of 96
-  const mmPerInch = 25.4; // Millimeters per inch
-  return parseFloat(((pixels / dpi) * mmPerInch).toFixed(2));
 }

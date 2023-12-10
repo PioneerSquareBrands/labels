@@ -4387,131 +4387,9 @@ const scaler = () => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   namer: function() { return /* binding */ namer; },
-/* harmony export */   outline: function() { return /* binding */ outline; },
-/* harmony export */   qrToggle: function() { return /* binding */ qrToggle; },
-/* harmony export */   sidebarAccordion: function() { return /* binding */ sidebarAccordion; }
-/* harmony export */ });
-/* harmony import */ var _domElements_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var _brandDefaults_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(55);
-
-
-
-const qrToggle = () => {
-  const qrToggle = document.querySelector('.qr__toggle');
-  const qrPath = document.querySelector('#qr_path');
-
-  // Load the initial state from localStorage
-  const initialState = localStorage.getItem('qrPathDisabled') === 'true';
-  qrPath.disabled = initialState;
-  qrToggle.classList.toggle('qr__toggle--active', !initialState);
-
-  qrToggle.addEventListener('click', () => {
-    qrPath.disabled = !qrPath.disabled;
-    qrToggle.classList.toggle('qr__toggle--active', !qrPath.disabled);
-
-    // Save the current state to localStorage
-    localStorage.setItem('qrPathDisabled', qrPath.disabled.toString());
-
-    if (!qrPath.disabled) {
-      qrPath.focus();
-    }
-  });
-}
-
-const sidebarAccordion = () => {
-  const accordionToggle = document.querySelectorAll('.sidebar__title');
-  
-  accordionToggle.forEach(toggle => {
-    toggle.addEventListener('click', () => {
-      const form = toggle.nextElementSibling;
-      if (form) {
-        toggle.classList.toggle('sidebar__title--active');
-        form.classList.toggle('sidebar__form--active');
-      }
-    });
-  });
-}
-
-const outline = () => {
-  const fields = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].sidebar.querySelectorAll('input, select, textarea');
-
-  fields.forEach((field) => {
-    field.addEventListener('focus', () => outlineHighlight(field, 'add'));
-    field.addEventListener('blur', () => outlineHighlight(field, 'remove'));
-  });
-};
-
-const outlineHighlight = (field, action) => {
-  const ancestorField = field.closest('[data-highlight]');
-  if (ancestorField && ancestorField.dataset.highlight) {
-    const sections = ancestorField.dataset.highlight.split(',');
-
-    sections.forEach((section) => {
-      if (section) {
-        const trimmedSection = section.trim();
-        const targetSections = document.querySelectorAll(trimmedSection);
-
-        targetSections.forEach(targetSection => {
-          if (targetSection) {
-            targetSection.classList[action]('outlininator');
-          }
-        });
-      }
-    });
-  }
-};
-
-const namer = (type) => {
-  const defaults = (0,_brandDefaults_js__WEBPACK_IMPORTED_MODULE_1__.brandDefaults)();
-
-  let brand = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].brand.value;
-  const sku = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].sku.value.toUpperCase() || defaults.sku;
-  const visiblePages = document.querySelectorAll('.page:not(.page--hidden)');
-  let labelTypes = Array.from(visiblePages).map(page => page.getAttribute('data-type'));
-
-  const packagingTypes = ['polybag', 'master', 'inner'];
-  const shippingTypes = ['shipping-front', 'shipping-side'];
-
-  let packagingLabelTypes = labelTypes.filter(type => packagingTypes.includes(type)).join('.');
-  let shippingLabelTypes = labelTypes.filter(type => shippingTypes.includes(type)).join('.');
-
-  packagingLabelTypes = packagingLabelTypes.replace(/polybag/g, 'PB');
-  packagingLabelTypes = packagingLabelTypes.replace(/master/g, 'MC');
-  packagingLabelTypes = packagingLabelTypes.replace(/inner/g, 'IC');
-
-  if (shippingLabelTypes.includes('shipping-front') && shippingLabelTypes.includes('shipping-side')) {
-    shippingLabelTypes = 'Shipping Marks';
-  } else {
-    shippingLabelTypes = shippingLabelTypes.replace(/shipping-front/g, 'Shipping Marks - Front');
-    shippingLabelTypes = shippingLabelTypes.replace(/shipping-side/g, 'Shipping Marks - Side');
-  }
-
-  brand = brand.replace(/brenthaven/g, 'BH');
-  brand = brand.replace(/gumdrop/g, 'GD');
-  brand = brand.replace(/vault/g, 'VT');
-
-  const packagingName = `${brand}.${sku} ${packagingLabelTypes} Label.pdf`;
-  const shippingName = `${brand}.${sku} ${shippingLabelTypes} Label.pdf`;
-
-  if (type === 'packaging') {
-    return packagingName;
-  } else if (type === 'shipping') {
-    return shippingName;
-  }
-
-  return null;
-}
-
-/***/ }),
-/* 58 */
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   colorInit: function() { return /* binding */ colorInit; }
 /* harmony export */ });
-/* harmony import */ var _jaames_iro__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(59);
+/* harmony import */ var _jaames_iro__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(58);
 
 let colorPicker;
 
@@ -4582,7 +4460,7 @@ const colorToggle = () => {
 
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -6368,20 +6246,20 @@ var iro$1 = iro;
 
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   controlInit: function() { return /* binding */ controlInit; },
-/* harmony export */   pdfButtons: function() { return /* binding */ pdfButtons; },
-/* harmony export */   pdfInit: function() { return /* binding */ pdfInit; }
+/* harmony export */   pdfButtons: function() { return /* binding */ pdfButtons; }
 /* harmony export */ });
-/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(61);
-/* harmony import */ var html_to_image__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(64);
+/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(60);
+/* harmony import */ var html_to_image__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(63);
 /* harmony import */ var _domElements_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _misc_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(57);
+/* harmony import */ var _misc_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(73);
 /* harmony import */ var _canvasUpdate_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(56);
+
 
 
 
@@ -6399,15 +6277,53 @@ const controlInit = () => {
   let previewLayout = document.querySelector('.layout__form');
   let previewVisibility = document.querySelector('.visibility__form');
 
-  previewLayout.addEventListener('change', pageLayout);
-  previewVisibility.addEventListener('change', pageVisibility);
-
   previewLayout.addEventListener('submit', (event) => event.preventDefault());
   previewVisibility.addEventListener('submit', (event) => event.preventDefault());
   
+  previewLayout.addEventListener('change', pageLayout);
+  previewVisibility.addEventListener('change', pageVisibility);
+
   pageLayout();
   pageVisibility();
+
+  toggleAll('#upc-select-all', ['#polybag', '#master', '#inner']);
+  toggleAll('#shipping-select-all', ['#shipping_mark_front', '#shipping_mark_side']);
+
+  pdfButtons();
 }
+
+const toggleAll = (buttonId, checkboxes) => {
+  const button = document.querySelector(buttonId);
+
+  const updateButtonClass = (allChecked) => {
+    if (allChecked) {
+      button.classList.remove('select-all--unchecked');
+      button.classList.add('select-all--checked');
+    } else {
+      button.classList.remove('select-all--checked');
+      button.classList.add('select-all--unchecked');
+    }
+  };
+
+  const checkInitialStatus = () => {
+    const allChecked = checkboxes.every(id => document.querySelector(id).checked);
+    updateButtonClass(allChecked);
+  };
+
+  const toggleCheckboxes = () => {
+    const allChecked = checkboxes.every(id => document.querySelector(id).checked);
+    checkboxes.forEach(id => {
+      const checkbox = document.querySelector(id);
+      checkbox.checked = !allChecked;
+    });
+    updateButtonClass(!allChecked);
+    document.querySelector('.visibility__form').dispatchEvent(new Event('change'));
+  };
+
+  checkInitialStatus();
+
+  button.addEventListener('click', toggleCheckboxes);
+};
 
 const applyAnimation = (element, firstRect, wasHidden, isHiding) => {
   const last = element.getBoundingClientRect();
@@ -6416,10 +6332,11 @@ const applyAnimation = (element, firstRect, wasHidden, isHiding) => {
   const deltaY = firstRect.top - last.top;
   const deltaW = last.width === 0 ? 1 : firstRect.width / last.width;
   const deltaH = last.height === 0 ? 1 : firstRect.height / last.height;
+  let animation;
 
   if (wasHidden) {
     // Animate to show up from the center
-    element.animate([{
+    animation = element.animate([{
       transformOrigin: 'center',
       transform: 'scale(0)'
     }, {
@@ -6432,7 +6349,7 @@ const applyAnimation = (element, firstRect, wasHidden, isHiding) => {
     });
   } else {
     // Animate to move to the new position
-    element.animate([{
+    animation = element.animate([{
       transformOrigin: 'top left',
       transform: `translate(${deltaX}px, ${deltaY}px) scale(${deltaW}, ${deltaH})`
     }, {
@@ -6448,6 +6365,7 @@ const applyAnimation = (element, firstRect, wasHidden, isHiding) => {
 
 const pageVisibility = () => {
   const shouldShow = checkboxId => document.querySelector(checkboxId).checked;
+
   const visibilityStates = {
     polybag: shouldShow('#polybag'),
     master: shouldShow('#master'),
@@ -6460,7 +6378,7 @@ const pageVisibility = () => {
     element.classList.toggle('page--hidden', !visibilityStates[type]);
   };
 
-  const elements = document.querySelectorAll('.preview__content .page');
+  const elements = document.querySelectorAll(`.preview__content .page`);
 
   let firstRects = Array.from(elements).map(element => {
     return {
@@ -6478,6 +6396,13 @@ const pageVisibility = () => {
 
   elements.forEach((element, index) => {
     applyAnimation(element, firstRects[index].rect, firstRects[index].wasHidden, firstRects[index].isHiding);
+
+    // I probably could put this anywhere, but I'm putting it here for now
+    if (index === elements.length - 1) {
+      setTimeout(() => {
+        document.body.classList.remove('canvas-animating');
+      }, 250);
+    }
   });
 };
 
@@ -6500,11 +6425,19 @@ const pageLayout = () => {
   (0,_canvasUpdate_js__WEBPACK_IMPORTED_MODULE_4__.canvasUpdate)();
 };
 
-const pdfInit = () => {
-  const downloadButton = document.querySelector('.download__button');
-  downloadButton.addEventListener('click', () => {
-    pdfGenerator();
-  });
+const pdfButtons = () => {
+  window.onload = () => buttonBuilder();
+  document.querySelector('#brand').addEventListener('change', buttonBuilder);
+  document.querySelector('#sku').addEventListener('input', buttonBuilder);
+  document.querySelector('.layout__form').addEventListener('change', buttonBuilder);
+  document.querySelector('.visibility__form').addEventListener('change', buttonBuilder);
+
+  if (!DEBUG) {
+    upcButton.addEventListener('click', () => savePDF('.page--a4'));
+    shippingButton.addEventListener('click', () => savePDF('.page--carton'));
+  } else{
+    window.onload = () => generatePDF('.page');
+  }
 }
 
 const generatePDF = async (elements) => {
@@ -6524,8 +6457,8 @@ const generatePDF = async (elements) => {
           const originalWidth = page.offsetWidth;
           const originalHeight = page.offsetHeight;
 
-          const imgWidth = pixelToInch(originalWidth);
-          const imgHeight = pixelToInch(originalHeight);
+          const imgWidth = (0,_misc_js__WEBPACK_IMPORTED_MODULE_3__.pixelToInch)(originalWidth);
+          const imgHeight = (0,_misc_js__WEBPACK_IMPORTED_MODULE_3__.pixelToInch)(originalHeight);
           
           if (imgWidth > 8.3 || imgHeight > 11.7) { // When the image is larger than A4
             const imgData = dataUrl;
@@ -6569,21 +6502,6 @@ const savePDF = async (elements) => {
   pdf.save((0,_misc_js__WEBPACK_IMPORTED_MODULE_3__.namer)(pageType));
 }
 
-const pdfButtons = () => {
-  window.onload = () => buttonBuilder();
-  document.querySelector('#brand').addEventListener('change', buttonBuilder);
-  document.querySelector('#sku').addEventListener('input', buttonBuilder);
-  document.querySelector('.layout__form').addEventListener('change', buttonBuilder);
-  document.querySelector('.visibility__form').addEventListener('change', buttonBuilder);
-
-  if (!DEBUG) {
-    upcButton.addEventListener('click', () => savePDF('.page--a4'));
-    shippingButton.addEventListener('click', () => savePDF('.page--carton'));
-  } else{
-    window.onload = () => generatePDF('.page');
-  }
-}
-
 const buttonBuilder = () => {
   upcButton.setAttribute('data-tooltip', (0,_misc_js__WEBPACK_IMPORTED_MODULE_3__.namer)('packaging'));
   upcButton.setAttribute('data-tooltip-location', 'bottom');
@@ -6599,19 +6517,8 @@ const disableButtonIfAllUnchecked = (toggles, button) => {
   button.disabled = allUnchecked;
 }
 
-const pixelToInch = (pixels) => {
-  const dpi = 96; // Assuming a standard DPI of 96
-  return parseFloat((pixels / dpi).toFixed(2));
-}
-
-const pixelToMm = (pixels) => {
-  const dpi = 96; // Assuming a standard DPI of 96
-  const mmPerInch = 25.4; // Millimeters per inch
-  return parseFloat(((pixels / dpi) * mmPerInch).toFixed(2));
-}
-
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -6633,8 +6540,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   TilingPattern: function() { return /* binding */ M; },
 /* harmony export */   jsPDF: function() { return /* binding */ E; }
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
-/* harmony import */ var fflate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(63);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(61);
+/* harmony import */ var fflate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(62);
 /** @license
  *
  * jsPDF - PDF Document creation from JavaScript
@@ -6969,7 +6876,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -6987,7 +6894,7 @@ function _typeof(o) {
 }
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -8836,7 +8743,7 @@ function unzipSync(data) {
 
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -8849,11 +8756,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   toPng: function() { return /* binding */ toPng; },
 /* harmony export */   toSvg: function() { return /* binding */ toSvg; }
 /* harmony export */ });
-/* harmony import */ var _clone_node__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(65);
-/* harmony import */ var _embed_images__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(70);
-/* harmony import */ var _apply_style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(72);
-/* harmony import */ var _embed_webfonts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(73);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(67);
+/* harmony import */ var _clone_node__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(64);
+/* harmony import */ var _embed_images__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69);
+/* harmony import */ var _apply_style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71);
+/* harmony import */ var _embed_webfonts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(72);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(66);
 
 
 
@@ -8915,17 +8822,17 @@ async function getFontEmbedCSS(node, options = {}) {
 }
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   cloneNode: function() { return /* binding */ cloneNode; }
 /* harmony export */ });
-/* harmony import */ var _clone_pseudos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(66);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67);
-/* harmony import */ var _mimes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(68);
-/* harmony import */ var _dataurl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(69);
+/* harmony import */ var _clone_pseudos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(65);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(66);
+/* harmony import */ var _mimes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(67);
+/* harmony import */ var _dataurl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(68);
 
 
 
@@ -9107,14 +9014,14 @@ async function cloneNode(node, options, isRoot) {
 }
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   clonePseudoElements: function() { return /* binding */ clonePseudoElements; }
 /* harmony export */ });
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(66);
 
 function formatCSSText(style) {
     const content = style.getPropertyValue('content');
@@ -9159,7 +9066,7 @@ function clonePseudoElements(nativeNode, clonedNode) {
 }
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9356,7 +9263,7 @@ const isInstanceOfElement = (node, instance) => {
 };
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9388,7 +9295,7 @@ function getMimeType(url) {
 }
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9475,17 +9382,17 @@ async function resourceToDataURL(resourceUrl, contentType, options) {
 }
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   embedImages: function() { return /* binding */ embedImages; }
 /* harmony export */ });
-/* harmony import */ var _embed_resources__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(71);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67);
-/* harmony import */ var _dataurl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(69);
-/* harmony import */ var _mimes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(68);
+/* harmony import */ var _embed_resources__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(66);
+/* harmony import */ var _dataurl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(68);
+/* harmony import */ var _mimes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(67);
 
 
 
@@ -9550,7 +9457,7 @@ async function embedImages(clonedNode, options) {
 }
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9560,9 +9467,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   parseURLs: function() { return /* binding */ parseURLs; },
 /* harmony export */   shouldEmbed: function() { return /* binding */ shouldEmbed; }
 /* harmony export */ });
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67);
-/* harmony import */ var _mimes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(68);
-/* harmony import */ var _dataurl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(69);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(66);
+/* harmony import */ var _mimes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67);
+/* harmony import */ var _dataurl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(68);
 
 
 
@@ -9630,7 +9537,7 @@ async function embedResources(cssText, baseUrl, options) {
 }
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9658,7 +9565,7 @@ function applyStyle(node, options) {
 }
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9666,9 +9573,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   embedWebFonts: function() { return /* binding */ embedWebFonts; },
 /* harmony export */   getWebFontCSS: function() { return /* binding */ getWebFontCSS; }
 /* harmony export */ });
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67);
-/* harmony import */ var _dataurl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69);
-/* harmony import */ var _embed_resources__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(66);
+/* harmony import */ var _dataurl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(68);
+/* harmony import */ var _embed_resources__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(70);
 
 
 
@@ -9851,6 +9758,141 @@ async function embedWebFonts(clonedNode, options) {
 }
 
 /***/ }),
+/* 73 */
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   namer: function() { return /* binding */ namer; },
+/* harmony export */   outline: function() { return /* binding */ outline; },
+/* harmony export */   pixelToInch: function() { return /* binding */ pixelToInch; },
+/* harmony export */   pixelToMm: function() { return /* binding */ pixelToMm; },
+/* harmony export */   qrToggle: function() { return /* binding */ qrToggle; },
+/* harmony export */   sidebarAccordion: function() { return /* binding */ sidebarAccordion; }
+/* harmony export */ });
+/* harmony import */ var _domElements_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _brandDefaults_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(55);
+
+
+
+const qrToggle = () => {
+  const qrToggle = document.querySelector('.qr__toggle');
+  const qrPath = document.querySelector('#qr_path');
+
+  // Load the initial state from localStorage
+  const initialState = localStorage.getItem('qrPathDisabled') === 'true';
+  qrPath.disabled = initialState;
+  qrToggle.classList.toggle('qr__toggle--active', !initialState);
+
+  qrToggle.addEventListener('click', () => {
+    qrPath.disabled = !qrPath.disabled;
+    qrToggle.classList.toggle('qr__toggle--active', !qrPath.disabled);
+
+    // Save the current state to localStorage
+    localStorage.setItem('qrPathDisabled', qrPath.disabled.toString());
+
+    if (!qrPath.disabled) {
+      qrPath.focus();
+    }
+  });
+}
+
+const sidebarAccordion = () => {
+  const accordionToggle = document.querySelectorAll('.sidebar__title');
+  
+  accordionToggle.forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const form = toggle.nextElementSibling;
+      if (form) {
+        toggle.classList.toggle('sidebar__title--active');
+        form.classList.toggle('sidebar__form--active');
+      }
+    });
+  });
+}
+
+const outline = () => {
+  const fields = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].sidebar.querySelectorAll('input, select, textarea');
+
+  fields.forEach((field) => {
+    field.addEventListener('focus', () => outlineHighlight(field, 'add'));
+    field.addEventListener('blur', () => outlineHighlight(field, 'remove'));
+  });
+};
+
+const outlineHighlight = (field, action) => {
+  const ancestorField = field.closest('[data-highlight]');
+  if (ancestorField && ancestorField.dataset.highlight) {
+    const sections = ancestorField.dataset.highlight.split(',');
+
+    sections.forEach((section) => {
+      if (section) {
+        const trimmedSection = section.trim();
+        const targetSections = document.querySelectorAll(trimmedSection);
+
+        targetSections.forEach(targetSection => {
+          if (targetSection) {
+            targetSection.classList[action]('outlininator');
+          }
+        });
+      }
+    });
+  }
+};
+
+const namer = (type) => {
+  const defaults = (0,_brandDefaults_js__WEBPACK_IMPORTED_MODULE_1__.brandDefaults)();
+
+  let brand = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].brand.value;
+  const sku = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].sku.value.toUpperCase() || defaults.sku;
+  const visiblePages = document.querySelectorAll('.page:not(.page--hidden)');
+  let labelTypes = Array.from(visiblePages).map(page => page.getAttribute('data-type'));
+
+  const packagingTypes = ['polybag', 'master', 'inner'];
+  const shippingTypes = ['shipping-front', 'shipping-side'];
+
+  let packagingLabelTypes = labelTypes.filter(type => packagingTypes.includes(type)).join('.');
+  let shippingLabelTypes = labelTypes.filter(type => shippingTypes.includes(type)).join('.');
+
+  packagingLabelTypes = packagingLabelTypes.replace(/polybag/g, 'PB');
+  packagingLabelTypes = packagingLabelTypes.replace(/master/g, 'MC');
+  packagingLabelTypes = packagingLabelTypes.replace(/inner/g, 'IC');
+
+  if (shippingLabelTypes.includes('shipping-front') && shippingLabelTypes.includes('shipping-side')) {
+    shippingLabelTypes = 'Shipping Marks';
+  } else {
+    shippingLabelTypes = shippingLabelTypes.replace(/shipping-front/g, 'Shipping Marks - Front');
+    shippingLabelTypes = shippingLabelTypes.replace(/shipping-side/g, 'Shipping Marks - Side');
+  }
+
+  brand = brand.replace(/brenthaven/g, 'BH');
+  brand = brand.replace(/gumdrop/g, 'GD');
+  brand = brand.replace(/vault/g, 'VT');
+
+  const packagingName = `${brand}.${sku} ${packagingLabelTypes} Label.pdf`;
+  const shippingName = `${brand}.${sku} ${shippingLabelTypes} Label.pdf`;
+
+  if (type === 'packaging') {
+    return packagingName;
+  } else if (type === 'shipping') {
+    return shippingName;
+  }
+
+  return null;
+}
+
+const pixelToInch = (pixels) => {
+  const dpi = 96; // Assuming a standard DPI of 96
+  return parseFloat((pixels / dpi).toFixed(2));
+}
+
+const pixelToMm = (pixels) => {
+  const dpi = 96; // Assuming a standard DPI of 96
+  const mmPerInch = 25.4; // Millimeters per inch
+  return parseFloat(((pixels / dpi) * mmPerInch).toFixed(2));
+}
+
+/***/ }),
 /* 74 */
 /***/ (function(module) {
 
@@ -9987,9 +10029,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_validate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _modules_labelHandler_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var _modules_canvasUpdate_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(56);
-/* harmony import */ var _modules_misc_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(57);
-/* harmony import */ var _modules_colorHandler_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(58);
-/* harmony import */ var _modules_toolBar_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(60);
+/* harmony import */ var _modules_colorHandler_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(57);
+/* harmony import */ var _modules_toolBar_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(59);
+/* harmony import */ var _modules_misc_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(73);
 
 
 
@@ -9999,15 +10041,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 (0,_modules_select_js__WEBPACK_IMPORTED_MODULE_0__.selectInit)();
-(0,_modules_validate_js__WEBPACK_IMPORTED_MODULE_1__.validateNumbers)();
-(0,_modules_canvasUpdate_js__WEBPACK_IMPORTED_MODULE_3__.scaler)();
+(0,_modules_validate_js__WEBPACK_IMPORTED_MODULE_1__.validateNumbers)(); // Always before labelInit
 (0,_modules_labelHandler_js__WEBPACK_IMPORTED_MODULE_2__.labelInit)();
-(0,_modules_toolBar_js__WEBPACK_IMPORTED_MODULE_6__.controlInit)();
-(0,_modules_misc_js__WEBPACK_IMPORTED_MODULE_4__.outline)();
-(0,_modules_colorHandler_js__WEBPACK_IMPORTED_MODULE_5__.colorInit)();
-(0,_modules_misc_js__WEBPACK_IMPORTED_MODULE_4__.qrToggle)();
-(0,_modules_misc_js__WEBPACK_IMPORTED_MODULE_4__.sidebarAccordion)();
-(0,_modules_toolBar_js__WEBPACK_IMPORTED_MODULE_6__.pdfButtons)();
+(0,_modules_colorHandler_js__WEBPACK_IMPORTED_MODULE_4__.colorInit)();
+(0,_modules_toolBar_js__WEBPACK_IMPORTED_MODULE_5__.controlInit)();
+(0,_modules_canvasUpdate_js__WEBPACK_IMPORTED_MODULE_3__.scaler)();
+(0,_modules_misc_js__WEBPACK_IMPORTED_MODULE_6__.qrToggle)();
+(0,_modules_misc_js__WEBPACK_IMPORTED_MODULE_6__.outline)();
+(0,_modules_misc_js__WEBPACK_IMPORTED_MODULE_6__.sidebarAccordion)();
 }();
 /******/ })()
 ;

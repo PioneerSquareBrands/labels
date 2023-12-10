@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="dist/css/styles.css">
 </head>
 
-<body>
+<body class="canvas-animating">
   <main class="root">
     <div class="template">
       <div class="sidebar">
@@ -425,6 +425,9 @@
           <form class="visibility__form">
             <fieldset class="preview__visibility visibility visibility--upc button-group">
               <legend class="visually-hidden">UPC Label Visibility</legend>
+              <button class="select-all" id="upc-select-all" data-tooltip="All" data-tooltip-location="bottom">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-eye"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M5 12s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5"/></svg>
+              </button>
 
               <input type="checkbox" id="polybag" class="checkbox-container visually-hidden"
                 aria-labelledby="label-polybag" checked>
@@ -477,6 +480,10 @@
 
             <fieldset class="preview__visibility visibility visibility--shipping button-group">
               <legend class="visually-hidden">Shipping Mark Visibility</legend>
+
+              <button class="select-all" id="shipping-select-all" data-tooltip="All" data-tooltip-location="bottom">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-eye"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M5 12s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5"/></svg>
+              </button>
 
               <input type="checkbox" id="shipping_mark_front" class="checkbox-container visually-hidden"
                 aria-labelledby="label-polybag">
@@ -906,7 +913,7 @@
       </div>
     </div>
   </main>
-  
+
   <script src="dist/js/vendors.js"></script>
   <script type="module" src="dist/js/main.js"></script>
 </body>
