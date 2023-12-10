@@ -1,9 +1,11 @@
+import { jsPDF } from "jspdf";
+import * as htmlToImage from 'html-to-image';
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 import { default as el } from './domElements.js';
 import { namer } from './misc.js';
 import { canvasUpdate } from './canvasUpdate.js';
 
 let DEBUG = false;
-const { jsPDF } = globalThis.jspdf;
 const upcToggles = el.controls.querySelectorAll('.visibility--upc input[type="checkbox"]');
 const shippingToggles = el.controls.querySelectorAll('.visibility--shipping input[type="checkbox"]');
 const upcButton = el.controls.querySelector('.download__button--upc');
@@ -123,56 +125,58 @@ export const pdfInit = () => {
 
 const generatePDF = async (elements) => {
   const pdf = new jsPDF('p', 'in', 'a4');
-  const pages = document.querySelectorAll(`${elements}:not(.page--hidden) .print`);
+  const pages = Array.from(document.querySelectorAll(`${elements}:not(.page--hidden) .print`));
   let pageType;
 
   for (const page of pages) {
     if (page.closest('.scaler-wrapper')) page.closest('.scaler-wrapper').classList.add('rendering');
-    await new Promise(resolve => setTimeout(resolve, 100));
-    const canvas = await html2canvas(page, {
-      allowTaint: true,
-      scale: 4
-    });
-    if (page.closest('.scaler-wrapper')) page.closest('.scaler-wrapper').classList.remove('rendering');
 
-    if (!DEBUG) {
-      const originalWidth = page.offsetWidth;
-      const originalHeight = page.offsetHeight;
+    await htmlToImage.toPng(page)
+      .then(function (dataUrl) {
+        var img = new Image();
+        img.src = dataUrl;
 
-      const imgWidth = pixelToInch(originalWidth);
-      const imgHeight = pixelToInch(originalHeight);
-      
-      if (imgWidth > 8.3 || imgHeight > 11.7) { // When the image is larger than A4
-        const imgData = canvas.toDataURL('image/png');
-        const orientation = imgWidth > imgHeight ? 'landscape' : 'portrait';
-        pageType = 'shipping';
+        if (!DEBUG) {
+          const originalWidth = page.offsetWidth;
+          const originalHeight = page.offsetHeight;
 
-        pdf.addPage([imgWidth, imgHeight], orientation);
-        pdf.addImage(imgData, 'png', 0, 0, imgWidth, imgHeight);
-        
-        if (page === pages[pages.length - 1]) {
-          pdf.deletePage(1);
+          const imgWidth = pixelToInch(originalWidth);
+          const imgHeight = pixelToInch(originalHeight);
+          
+          if (imgWidth > 8.3 || imgHeight > 11.7) { // When the image is larger than A4
+            const imgData = dataUrl;
+            const orientation = imgWidth > imgHeight ? 'landscape' : 'portrait';
+            pageType = 'shipping';
+
+            pdf.addPage([imgWidth, imgHeight], orientation);
+            pdf.addImage(imgData, 'png', 0, 0, imgWidth, imgHeight);
+            
+            if (page === pages[pages.length - 1]) {
+              pdf.deletePage(1);
+            }
+          } else { // When the image is smaller than A4
+            const x = (8.3 - imgWidth) / 2;
+            const y = (11.7 - imgHeight) / 2;
+            pageType = 'packaging';
+
+            const imgData = dataUrl;
+
+            pdf.addImage(imgData, 'png', x, y, imgWidth, imgHeight);
+            if (page !== pages[pages.length - 1]) {
+              pdf.addPage();
+            }
+          }
+        } else {
+          page.insertAdjacentElement('afterend', img);
         }
-      } else { // When the image is smaller than A4
-        const x = (8.3 - imgWidth) / 2;
-        const y = (11.7 - imgHeight) / 2;
-        pageType = 'packaging';
 
-        const imgData = canvas.toDataURL('image/png');
+        if (page.closest('.scaler-wrapper')) page.closest('.scaler-wrapper').classList.remove('rendering');
+      })
+      .catch(function (error) {
+        console.error('oops, something went wrong!', error);
+      });
+  }
 
-        pdf.addImage(imgData, 'png', x, y, imgWidth, imgHeight);
-        if (page !== pages[pages.length - 1]) {
-          pdf.addPage();
-        }
-      }
-    } else { // Debugging
-      const existingCanvas = page.nextElementSibling;
-      if (existingCanvas && existingCanvas.tagName === 'CANVAS') {
-        existingCanvas.remove();
-      }
-      page.insertAdjacentElement('afterend', canvas);
-    }
-  };
   if (!DEBUG) return { pdf, pageType };
 }
 

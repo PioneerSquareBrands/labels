@@ -1,0 +1,11 @@
+{
+  "name": "upc-label-generator",
+  "version": "1.0.0",
+  "description": "Just a simple UPC and Shipping Mark label generator",
+  "dependencies": {
+    "@jaames/iro": "5.5.2",
+    "html-to-image": "1.11.11",
+    "jsbarcode": "3.11.6",
+    "jspdf": "2.5.1"
+  }
+}

@@ -490,7 +490,7 @@ button,
     overflow: hidden;
     transition: opacity 0.2s, transform 0s 0s;
 
-    canvas {
+    & > canvas, & > img {
       position: absolute;
       width: 100% !important;
       height: auto !important;

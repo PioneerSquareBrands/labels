@@ -1,4 +1,4 @@
-
+import iro from '@jaames/iro';
 let colorPicker;
 
 export const colorInit = () => {

@@ -1,5 +1,4 @@
 import { default as el } from './domElements.js';
-console.log('test');
 
 const SCALER = '.scaler';
 const CANVAS_SCALED = 'canvas-scaled';
