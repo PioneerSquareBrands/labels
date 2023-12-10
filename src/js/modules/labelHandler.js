@@ -1,3 +1,4 @@
+import JsBarcode from 'jsbarcode';
 import { default as el } from './domElements.js';
 import { brandDefaults } from './brandDefaults.js';
 import { canvasUpdate } from './canvasUpdate.js';

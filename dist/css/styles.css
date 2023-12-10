@@ -1322,7 +1322,7 @@ input:checked + .button svg {
   transition: opacity 0.2s, transform 0s 0s;
   transition: opacity 0.2s, transform 0s 0s, -webkit-transform 0s 0s;
 }
-.page .scaler canvas {
+.page .scaler > canvas, .page .scaler > img {
   position: absolute;
   width: 100% !important;
   height: auto !important;
