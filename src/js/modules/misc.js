@@ -95,8 +95,8 @@ export const namer = (type) => {
   brand = brand.replace(/gumdrop/g, 'GD');
   brand = brand.replace(/vault/g, 'VT');
 
-  const packagingName = `${brand} ${sku} ${packagingLabelTypes} Label.pdf`;
-  const shippingName = `${brand} ${sku} ${shippingLabelTypes} Label.pdf`;
+  const packagingName = `${brand}.${sku} ${packagingLabelTypes} Label.pdf`;
+  const shippingName = `${brand}.${sku} ${shippingLabelTypes} Label.pdf`;
 
   if (type === 'packaging') {
     return packagingName;

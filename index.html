@@ -27,7 +27,7 @@
           </h1>
           <form id="upc_form" class="sidebar__form sidebar__form--active labelinator">
             <fieldset>
-              <div class="field" data-highlight=".print-header, .label__brand, .print-install-base, .label__qr, .qrlink__base, .download__name">
+              <div class="field" data-highlight=".print-header, .label__brand, .print-install-base, .label__qr, .qrlink__base">
                 <label class="field__label" for="brand">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
                   Brand
@@ -48,7 +48,7 @@
                   <input type="text" id="item_master" placeholder="1050">
                 </div>
             
-                <div class="field" data-highlight=".label__item-sku, .label__datamatrix, .download__name">
+                <div class="field" data-highlight=".label__item-sku, .label__datamatrix">
                   <label class="field__label" for="sku">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
                     SKU
@@ -267,9 +267,6 @@
           </form>
 
           <div class="download">
-            <div class="download__name">
-              BH.1050001 PB.MC.IC Label.pdf
-            </div>
             <button class="button download__button download__button--shipping">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down-square"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 8v8"/><path d="m8 12 4 4 4-4"/></svg>
               Download Shipping Marks

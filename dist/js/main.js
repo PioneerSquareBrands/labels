@@ -957,8 +957,8 @@ const namer = (type) => {
   brand = brand.replace(/gumdrop/g, 'GD');
   brand = brand.replace(/vault/g, 'VT');
 
-  const packagingName = `${brand} ${sku} ${packagingLabelTypes} Label.pdf`;
-  const shippingName = `${brand} ${sku} ${shippingLabelTypes} Label.pdf`;
+  const packagingName = `${brand}.${sku} ${packagingLabelTypes} Label.pdf`;
+  const shippingName = `${brand}.${sku} ${shippingLabelTypes} Label.pdf`;
 
   if (type === 'packaging') {
     return packagingName;
@@ -1063,8 +1063,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const { jsPDF } = globalThis.jspdf;
 let DEBUG = false;
+const { jsPDF } = globalThis.jspdf;
 const upcToggles = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].controls.querySelectorAll('.visibility--upc input[type="checkbox"]');
 const shippingToggles = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].controls.querySelectorAll('.visibility--shipping input[type="checkbox"]');
 const upcButton = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].controls.querySelector('.download__button--upc');
@@ -1178,7 +1178,6 @@ const pageLayout = () => {
 const pdfInit = () => {
   const downloadButton = document.querySelector('.download__button');
   downloadButton.addEventListener('click', () => {
-    if (DEBUG) { console.log('Download button Clicked'); }
     pdfGenerator();
   });
 }
@@ -1196,43 +1195,45 @@ const generatePDF = async (elements) => {
     });
     if (page.closest('.scaler')) page.closest('.scaler').classList.remove('rendering');
 
-    // const existingCanvas = page.nextElementSibling;
-    // if (existingCanvas && existingCanvas.tagName === 'CANVAS') {
-    //   existingCanvas.remove();
-    // }
-    // page.insertAdjacentElement('afterend', canvas);
+    if (!DEBUG) {
+      const originalWidth = page.offsetWidth;
+      const originalHeight = page.offsetHeight;
 
-    const originalWidth = page.offsetWidth;
-    const originalHeight = page.offsetHeight;
-
-    const imgWidth = pixelToInch(originalWidth);
-    const imgHeight = pixelToInch(originalHeight);
-    
-    if (imgWidth > 8.3 || imgHeight > 11.7) {
-      const imgData = canvas.toDataURL('image/png');
-      const orientation = imgWidth > imgHeight ? 'landscape' : 'portrait';
-      pageType = 'shipping';
-
-      pdf.addPage([imgWidth, imgHeight], orientation);
-      pdf.addImage(imgData, 'png', 0, 0, imgWidth, imgHeight);
+      const imgWidth = pixelToInch(originalWidth);
+      const imgHeight = pixelToInch(originalHeight);
       
-      if (page === pages[pages.length - 1]) {
-        pdf.deletePage(1);
-      }
-    } else {
-      const x = (8.3 - imgWidth) / 2;
-      const y = (11.7 - imgHeight) / 2;
-      pageType = 'packaging';
+      if (imgWidth > 8.3 || imgHeight > 11.7) { // When the image is larger than A4
+        const imgData = canvas.toDataURL('image/png');
+        const orientation = imgWidth > imgHeight ? 'landscape' : 'portrait';
+        pageType = 'shipping';
 
-      const imgData = canvas.toDataURL('image/png');
+        pdf.addPage([imgWidth, imgHeight], orientation);
+        pdf.addImage(imgData, 'png', 0, 0, imgWidth, imgHeight);
+        
+        if (page === pages[pages.length - 1]) {
+          pdf.deletePage(1);
+        }
+      } else { // When the image is smaller than A4
+        const x = (8.3 - imgWidth) / 2;
+        const y = (11.7 - imgHeight) / 2;
+        pageType = 'packaging';
 
-      pdf.addImage(imgData, 'png', x, y, imgWidth, imgHeight);
-      if (page !== pages[pages.length - 1]) {
-        pdf.addPage();
+        const imgData = canvas.toDataURL('image/png');
+
+        pdf.addImage(imgData, 'png', x, y, imgWidth, imgHeight);
+        if (page !== pages[pages.length - 1]) {
+          pdf.addPage();
+        }
       }
+    } else { // Debugging
+      const existingCanvas = page.nextElementSibling;
+      if (existingCanvas && existingCanvas.tagName === 'CANVAS') {
+        existingCanvas.remove();
+      }
+      page.insertAdjacentElement('afterend', canvas);
     }
   };
-  return { pdf, pageType };
+  if (!DEBUG) return { pdf, pageType };
 }
 
 const savePDF = async (elements) => {
@@ -1247,22 +1248,12 @@ const pdfButtons = () => {
   document.querySelector('.layout__form').addEventListener('change', buttonBuilder);
   document.querySelector('.visibility__form').addEventListener('change', buttonBuilder);
 
-  // window.onload = () => {
-  //   generatePDF('.page');
-  // };
-  upcButton.addEventListener('click', () => savePDF('.page--a4'));
-  shippingButton.addEventListener('click', () => savePDF('.page--carton'));
-}
-
-const pixelToInch = (pixels) => {
-  const dpi = 96; // Assuming a standard DPI of 96
-  return parseFloat((pixels / dpi).toFixed(2));
-}
-
-const pixelToMm = (pixels) => {
-  const dpi = 96; // Assuming a standard DPI of 96
-  const mmPerInch = 25.4; // Millimeters per inch
-  return parseFloat(((pixels / dpi) * mmPerInch).toFixed(2));
+  if (!DEBUG) {
+    upcButton.addEventListener('click', () => savePDF('.page--a4'));
+    shippingButton.addEventListener('click', () => savePDF('.page--carton'));
+  } else{
+    window.onload = () => generatePDF('.page');
+  }
 }
 
 const buttonBuilder = () => {
@@ -1280,7 +1271,16 @@ const disableButtonIfAllUnchecked = (toggles, button) => {
   button.disabled = allUnchecked;
 }
 
+const pixelToInch = (pixels) => {
+  const dpi = 96; // Assuming a standard DPI of 96
+  return parseFloat((pixels / dpi).toFixed(2));
+}
 
+const pixelToMm = (pixels) => {
+  const dpi = 96; // Assuming a standard DPI of 96
+  const mmPerInch = 25.4; // Millimeters per inch
+  return parseFloat(((pixels / dpi) * mmPerInch).toFixed(2));
+}
 
 /***/ })
 /******/ 	]);

@@ -400,120 +400,120 @@ body > main {
 .preview {
   display: block;
   overflow: hidden;
-}
 
-.preview__controls {
-  background-color: #FFFFFF;
-  box-shadow: $paper;
-  border-radius: 4px;
-  margin: 12px 20px;
-  padding: 4px 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  line-height: 16px;
-
-  svg {
-    pointer-events: none;
-  }
-
-  input + button, input + .button{
-    position: relative;
-    border: 1px solid rgba(51, 65, 85, 0.2);
-    box-shadow: rgba(0, 0, 0, 0.03) 0px 4px 6px -1px, rgba(0, 0, 0, 0.03) 0px 2px 3px -1px;
-    z-index: 8;
-  }
-
-  input:checked + button, input:checked + .button {
-    background-color: rgb(0, 123, 255);
-    border-color: rgba(51, 65, 85, 0.6);
-    z-index: 9;
-  }
-
-  .button {
-    box-shadow: inset 0 1px 0 0 #fff3;
-  }
-
-  .visibility__form {
-    margin: 0 auto 0 8px;
-    display: flex;
-    gap: 8px;
-  }
-
-  .preview__layout [data-tooltip]::before {content: 'Maximize'; }
-  .preview__layout input:checked + [data-tooltip]::before { content: 'Minimize'; }
-
-  .visibility__form [data-tooltip]::before { content: 'Show ' attr(data-tooltip); }
-  .visibility__form input:checked + [data-tooltip]::before { content: 'Hide ' attr(data-tooltip); }
-
-  .download {
+  &__controls {
+    background-color: #FFFFFF;
+    box-shadow: $paper;
+    border-radius: 4px;
+    margin: 12px 20px;
+    padding: 4px 4px;
     display: flex;
     align-items: center;
-    gap: 8px;
-  }
-
-  .download__name {
-    font-size: 10px;
-    font-weight: 500;
-    font-style: italic;
-    color: #9197A5;
-    opacity: 0.8;
-    
-    &--animate {
-      animation: fadeInOut 2s linear forwards;
-    }
-
-    @media (max-width: 1000px) {
-      display: none;
-    }
-  }
-
-  @keyframes fadeInOut {
-    0% {opacity: 0;}
-    10% {opacity: 0.8;}
-    90% {opacity: 0.8;}
-    100% {opacity: 0;}
-  }
-
-  .download__button {
-    display: flex;
-    align-items: center;
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
-    background-color: #1B3E5D;
-    color: #ffffff;
-    font-size: 12px;
-    gap: 8px;
-    line-height: 20px;
-    padding: 6px 16px;
-    transition: background-color 0.2s;
-
+    justify-content: center;
+    font-size: 14px;
+    line-height: 16px;
+  
     svg {
-      width: 16px;
-      height: 16px;
-      stroke: #ffffff;
+      pointer-events: none;
+    }
+  
+    input + button, input + .button{
+      position: relative;
+      border: 1px solid rgba(51, 65, 85, 0.2);
+      box-shadow: rgba(0, 0, 0, 0.03) 0px 4px 6px -1px, rgba(0, 0, 0, 0.03) 0px 2px 3px -1px;
+      z-index: 8;
+    }
+  
+    input:checked + button, input:checked + .button {
+      background-color: rgb(0, 123, 255);
+      border-color: rgba(51, 65, 85, 0.6);
+      z-index: 9;
+    }
+  
+    .button {
+      box-shadow: inset 0 1px 0 0 #fff3;
+    }
+  
+    .visibility__form {
+      margin: 0 auto 0 8px;
+      display: flex;
+      gap: 8px;
+    }
+  
+    .preview__layout [data-tooltip]::before {content: 'Maximize'; }
+    .preview__layout input:checked + [data-tooltip]::before { content: 'Minimize'; }
+  
+    .visibility__form [data-tooltip]::before { content: 'Show ' attr(data-tooltip); }
+    .visibility__form input:checked + [data-tooltip]::before { content: 'Hide ' attr(data-tooltip); }
+  
+    .download {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  
+    .download__name {
+      font-size: 10px;
+      font-weight: 500;
+      font-style: italic;
+      color: #9197A5;
+      opacity: 0.8;
+      
+      &--animate {
+        animation: fadeInOut 2s linear forwards;
+      }
+  
+      @media (max-width: 1000px) {
+        display: none;
+      }
+    }
+  
+    @keyframes fadeInOut {
+      0% {opacity: 0;}
+      10% {opacity: 0.8;}
+      90% {opacity: 0.8;}
+      100% {opacity: 0;}
+    }
+  
+    .download__button {
+      display: flex;
+      align-items: center;
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+      background-color: #1B3E5D;
+      color: #ffffff;
+      font-size: 12px;
+      gap: 8px;
+      line-height: 20px;
+      padding: 6px 16px;
+      transition: background-color 0.2s;
+  
+      svg {
+        width: 16px;
+        height: 16px;
+        stroke: #ffffff;
+      }
+    }
+    
+    .download__button:disabled {
+      background-color: #E3E5E8;
+      color: #9197A5;
+      box-shadow: none;
+      cursor: not-allowed;
+      pointer-events: none;
+  
+      svg { stroke: #9197A5; }
     }
   }
   
-  .download__button:disabled {
-    background-color: #E3E5E8;
-    color: #9197A5;
-    box-shadow: none;
-    cursor: not-allowed;
-    pointer-events: none;
-
-    svg { stroke: #9197A5; }
+  &__content {
+    display: flex;
+    justify-content: center;
+    overflow: scroll;
+    height: calc(100vh - 80px);
+    width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    overflow: auto;
+    padding-bottom: 20px;
   }
-}
-
-.preview__content {
-  display: flex;
-  justify-content: center;
-  overflow: scroll;
-  height: calc(100vh - 80px);
-  width: 100%;
-  flex-wrap: wrap;
-  align-items: center;
-  overflow: auto;
-  padding-bottom: 20px;
 }
