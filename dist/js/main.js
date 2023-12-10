@@ -1188,12 +1188,13 @@ const generatePDF = async (elements) => {
   let pageType;
 
   for (const page of pages) {
-    if (page.closest('.scaler')) page.closest('.scaler').classList.add('rendering');
+    if (page.closest('.scaler-wrapper')) page.closest('.scaler-wrapper').classList.add('rendering');
+    await new Promise(resolve => setTimeout(resolve, 100));
     const canvas = await html2canvas(page, {
       allowTaint: true,
       scale: 4
     });
-    if (page.closest('.scaler')) page.closest('.scaler').classList.remove('rendering');
+    if (page.closest('.scaler-wrapper')) page.closest('.scaler-wrapper').classList.remove('rendering');
 
     if (!DEBUG) {
       const originalWidth = page.offsetWidth;

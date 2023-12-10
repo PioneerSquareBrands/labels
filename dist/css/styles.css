@@ -1169,13 +1169,6 @@ input:checked + .button svg {
   color: #ffffff;
 }
 
-.carton-separator {
-  display: none;
-}
-.page:not(.page--hidden) + .page + .page + .carton-separator, .page:not(.page--hidden) + .page + .carton-separator, .page:not(.page--hidden) + .carton-separator {
-  display: block;
-}
-
 .page {
   color: #000000;
   display: -webkit-box;
@@ -1210,11 +1203,6 @@ input:checked + .button svg {
   color: rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
 }
-.page--carton {
-  display: block;
-  position: relative;
-  height: 0;
-}
 .preview__content--expanded .page {
   margin: 40px 40px 0;
   padding: 40px;
@@ -1245,13 +1233,77 @@ input:checked + .button svg {
 .preview__content--condensed .page--carton-side {
   width: 25.0746268657%;
 }
-.page--carton .scaler-wrapper {
+.page--carton {
+  display: block;
+  position: relative;
+  height: 0;
+}
+.page .scaler-wrapper {
   position: absolute;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  border-radius: 4px;
+  /* HTML: <div class="loader"></div> */
 }
-.page--carton .scaler {
+.page .scaler-wrapper.rendering .scaler {
+  -webkit-transition: opacity 0.2s, -webkit-transform 0s 0.2s;
+  transition: opacity 0.2s, -webkit-transform 0s 0.2s;
+  transition: opacity 0.2s, transform 0s 0.2s;
+  transition: opacity 0.2s, transform 0s 0.2s, -webkit-transform 0s 0.2s;
+  -webkit-transform: scale(1) !important;
+          transform: scale(1) !important;
+  opacity: 0;
+}
+@-webkit-keyframes loading {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes loading {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.page .scaler-wrapper.rendering:before {
+  content: "";
+  display: block;
+  width: 36px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  aspect-ratio: 1;
+  --_g: no-repeat radial-gradient(farthest-side, rgba(101, 110, 129, 0.3) 94%,#0000);
+  background: var(--_g) 0 0, var(--_g) 100% 0, var(--_g) 100% 100%, var(--_g) 0 100%;
+  background-size: 40% 40%;
+  -webkit-animation: l38 2s infinite;
+          animation: l38 2s infinite;
+}
+@-webkit-keyframes l38 {
+  100% {
+    background-position: 100% 0, 100% 100%, 0 100%, 0 0;
+  }
+}
+@keyframes l38 {
+  100% {
+    background-position: 100% 0, 100% 100%, 0 100%, 0 0;
+  }
+}
+.page .scaler {
   -webkit-transform-origin: top left;
           transform-origin: top left;
   position: absolute;
@@ -1265,13 +1317,12 @@ input:checked + .button svg {
       -ms-flex-pack: center;
           justify-content: center;
   overflow: hidden;
+  -webkit-transition: opacity 0.2s, -webkit-transform 0s 0s;
+  transition: opacity 0.2s, -webkit-transform 0s 0s;
+  transition: opacity 0.2s, transform 0s 0s;
+  transition: opacity 0.2s, transform 0s 0s, -webkit-transform 0s 0s;
 }
-.page--carton .scaler.rendering {
-  -webkit-transform: scale(1) !important;
-          transform: scale(1) !important;
-  opacity: 0;
-}
-.page--carton .scaler canvas {
+.page .scaler canvas {
   position: absolute;
   width: 100% !important;
   height: auto !important;
