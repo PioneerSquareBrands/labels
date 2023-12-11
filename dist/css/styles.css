@@ -936,22 +936,6 @@ body > main {
           align-items: center;
   gap: 8px;
 }
-.preview__controls .download__name {
-  font-size: 10px;
-  font-weight: 500;
-  font-style: italic;
-  color: #9197A5;
-  opacity: 0.8;
-}
-.preview__controls .download__name--animate {
-  -webkit-animation: fadeInOut 2s linear forwards;
-          animation: fadeInOut 2s linear forwards;
-}
-@media (max-width: 1000px) {
-  .preview__controls .download__name {
-    display: none;
-  }
-}
 @-webkit-keyframes fadeInOut {
   0% {
     opacity: 0;
@@ -1683,6 +1667,12 @@ body.canvas-animating .preview__content {
 }
 .shipping-mark__source {
   text-transform: capitalize;
+}
+.shipping-mark__length::after, .shipping-mark__width::after, .shipping-mark__height::after {
+  content: " in.";
+}
+.shipping-mark__nweight::after, .shipping-mark__gweight::after {
+  content: " lbs.";
 }
 .shipping-mark__upc, .shipping-mark__tihi {
   border: 2px dashed rgba(0, 0, 0, 0.3);

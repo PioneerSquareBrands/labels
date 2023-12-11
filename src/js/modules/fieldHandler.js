@@ -22,7 +22,7 @@ const triggerEventListeners = () => {
   tihiOnload();
 };
 
-export const labelInit = () => {
+export const fieldInit = () => {
   el.brand.addEventListener('change', brandUpdate);
   el.itemMaster.addEventListener('input', itemMasterUpdate);
   el.sku.addEventListener('input', skuUpdate);

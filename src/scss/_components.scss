@@ -551,6 +551,17 @@
     text-transform: capitalize;
   }
 
+  &__length::after,
+  &__width::after,
+  &__height::after {
+    content: ' in.';
+  }
+
+  &__nweight::after,
+  &__gweight::after {
+    content: ' lbs.';
+  }
+
   &__upc, 
   &__tihi {
     border: 2px dashed rgba(0, 0, 0, 0.3);
