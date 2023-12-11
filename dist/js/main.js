@@ -587,15 +587,15 @@ const dataMatrixUpdate = () => {
 }
 
 const contentUpdate = () => {
-  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printPolybagQty, _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].pbContent.value || 'Qty: 1');
-  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printMasterQty, _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].mcContent.value || 'Qty: 1');
-  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printInnerQty, _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].icContent.value || 'Qty: 1');
+  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printPolybagQty, _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].pbContent.value || '1');
+  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printMasterQty, _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].mcContent.value || '20');
+  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printInnerQty, _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].icContent.value || '5');
 }
 
 const dimUpdate = () => {
-  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printDimLengths, `${_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].dimLength.value || 18.3}"`);
-  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printDimWidths, `${_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].dimWidth.value || 11.2}"`);
-  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printDimHeights, `${_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].dimHeight.value || 13.4}"`);
+  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printDimLengths, `${_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].dimLength.value || 18.3}`);
+  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printDimWidths, `${_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].dimWidth.value || 11.2}`);
+  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printDimHeights, `${_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].dimHeight.value || 13.4}`);
 }
 
 const qtyUpdate = () => {
@@ -603,8 +603,8 @@ const qtyUpdate = () => {
 }
 
 const weightUpdate = () => {
-  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printGrossWgt, `${_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].gWeight.value || '21.17'} lbs.`);
-  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printNetWgt, `${_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].nWeight.value || '20.06'} lbs.`);
+  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printGrossWgt, `${_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].gWeight.value || '21.17'}`);
+  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printNetWgt, `${_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].nWeight.value || '20.06'}`);
 }
 
 const poUpdate = () => {

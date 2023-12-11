@@ -397,6 +397,11 @@
     display: flex;
     height: 16px;
     align-items: center;
+
+    &::before {
+      content: 'Qty:';
+      margin-right: 2px;
+    }
   }
 
   &__install {
@@ -554,7 +559,7 @@
   &__length::after,
   &__width::after,
   &__height::after {
-    content: ' in.';
+    content: '\"';
   }
 
   &__nweight::after,

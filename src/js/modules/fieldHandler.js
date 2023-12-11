@@ -235,15 +235,15 @@ const dataMatrixUpdate = () => {
 }
 
 const contentUpdate = () => {
-  updateTextContent(el.printPolybagQty, el.pbContent.value || 'Qty: 1');
-  updateTextContent(el.printMasterQty, el.mcContent.value || 'Qty: 1');
-  updateTextContent(el.printInnerQty, el.icContent.value || 'Qty: 1');
+  updateTextContent(el.printPolybagQty, el.pbContent.value || '1');
+  updateTextContent(el.printMasterQty, el.mcContent.value || '20');
+  updateTextContent(el.printInnerQty, el.icContent.value || '5');
 }
 
 const dimUpdate = () => {
-  updateTextContent(el.printDimLengths, `${el.dimLength.value || 18.3}"`);
-  updateTextContent(el.printDimWidths, `${el.dimWidth.value || 11.2}"`);
-  updateTextContent(el.printDimHeights, `${el.dimHeight.value || 13.4}"`);
+  updateTextContent(el.printDimLengths, `${el.dimLength.value || 18.3}`);
+  updateTextContent(el.printDimWidths, `${el.dimWidth.value || 11.2}`);
+  updateTextContent(el.printDimHeights, `${el.dimHeight.value || 13.4}`);
 }
 
 const qtyUpdate = () => {
@@ -251,8 +251,8 @@ const qtyUpdate = () => {
 }
 
 const weightUpdate = () => {
-  updateTextContent(el.printGrossWgt, `${el.gWeight.value || '21.17'} lbs.`);
-  updateTextContent(el.printNetWgt, `${el.nWeight.value || '20.06'} lbs.`);
+  updateTextContent(el.printGrossWgt, `${el.gWeight.value || '21.17'}`);
+  updateTextContent(el.printNetWgt, `${el.nWeight.value || '20.06'}`);
 }
 
 const poUpdate = () => {
