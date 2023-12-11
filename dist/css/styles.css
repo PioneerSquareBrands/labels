@@ -1501,6 +1501,10 @@ body.canvas-animating .preview__content {
       -ms-flex-align: center;
           align-items: center;
 }
+.label__quantity::before {
+  content: "Qty:";
+  margin-right: 2px;
+}
 .label__install {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1669,7 +1673,7 @@ body.canvas-animating .preview__content {
   text-transform: capitalize;
 }
 .shipping-mark__length::after, .shipping-mark__width::after, .shipping-mark__height::after {
-  content: " in.";
+  content: '"';
 }
 .shipping-mark__nweight::after, .shipping-mark__gweight::after {
   content: " lbs.";
