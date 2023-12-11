@@ -95,8 +95,8 @@ export const namer = (type) => {
   brand = brand.replace(/gumdrop/g, 'GD');
   brand = brand.replace(/vault/g, 'VT');
 
-  const packagingName = `${brand} ${sku} ${packagingLabelTypes} Label.pdf`;
-  const shippingName = `${brand} ${sku} ${shippingLabelTypes} Label.pdf`;
+  const packagingName = `${brand}.${sku} ${packagingLabelTypes} Label.pdf`;
+  const shippingName = `${brand}.${sku} ${shippingLabelTypes} Label.pdf`;
 
   if (type === 'packaging') {
     return packagingName;
@@ -105,4 +105,15 @@ export const namer = (type) => {
   }
 
   return null;
+}
+
+export const pixelToInch = (pixels) => {
+  const dpi = 96; // Assuming a standard DPI of 96
+  return parseFloat((pixels / dpi).toFixed(2));
+}
+
+export const pixelToMm = (pixels) => {
+  const dpi = 96; // Assuming a standard DPI of 96
+  const mmPerInch = 25.4; // Millimeters per inch
+  return parseFloat(((pixels / dpi) * mmPerInch).toFixed(2));
 }

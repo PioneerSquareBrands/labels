@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23141518' stroke='%23ffffff' stroke-width='8' /%3E%3C/svg%3E" type="image/svg+xml">
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23141518' stroke='%23ffffff' stroke-width='8' /%3E%3C/svg%3E"
+    type="image/svg+xml">
   <meta name="robots" content="noindex">
   <title>PSB Label Generator</title>
   <link rel="stylesheet" href="dist/css/styles.css">
 </head>
-<body>
+
+<body class="canvas-animating">
   <main class="root">
     <div class="template">
       <div class="sidebar">
@@ -19,17 +23,33 @@
           <div class="sidebar__logo-title">
             Pioneer Square Brands
           </div>
-        </div> 
+        </div>
         <div class="sidebar__fields">
           <h1 id="upc_title" class="sidebar__title sidebar__title--active">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-text"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 8h8"/><path d="M7 12h10"/><path d="M7 16h6"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-scan-text">
+              <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+              <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+              <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+              <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+              <path d="M7 8h8" />
+              <path d="M7 12h10" />
+              <path d="M7 16h6" />
+            </svg>
             UPC Label
           </h1>
           <form id="upc_form" class="sidebar__form sidebar__form--active labelinator">
             <fieldset>
-              <div class="field" data-highlight=".print-header, .label__brand, .print-install-base, .label__qr, .qrlink__base, .download__name">
+              <div class="field"
+                data-highlight=".print-header, .label__brand, .print-install-base, .label__qr, .qrlink__base">
                 <label class="field__label" for="brand">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-hexagon">
+                    <path
+                      d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                  </svg>
                   Brand
                 </label>
                 <select name="brand" id="brand">
@@ -40,17 +60,33 @@
               </div>
 
               <div class="field__group">
-                <div class="field" data-highlight=".label__item-master, .label__install-sku, .label__qr, #qr_path, .shipping-mark__item-master">
+                <div class="field"
+                  data-highlight=".label__item-master, .label__install-sku, .label__qr, #qr_path, .shipping-mark__item-master">
                   <label class="field__label" for="item_master">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-barcode"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M8 7v10"/><path d="M12 7v10"/><path d="M17 7v10"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="lucide lucide-scan-barcode">
+                      <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+                      <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+                      <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+                      <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+                      <path d="M8 7v10" />
+                      <path d="M12 7v10" />
+                      <path d="M17 7v10" />
+                    </svg>
                     Item Master
                   </label>
                   <input type="text" id="item_master" placeholder="1050">
                 </div>
-            
-                <div class="field" data-highlight=".label__item-sku, .label__datamatrix, .download__name">
+
+                <div class="field" data-highlight=".label__item-sku, .label__datamatrix">
                   <label class="field__label" for="sku">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="lucide lucide-tag">
+                      <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z" />
+                      <path d="M7 7h.01" />
+                    </svg>
                     SKU
                   </label>
                   <input type="text" id="sku" placeholder="1050001">
@@ -59,15 +95,29 @@
 
               <div class="field" data-highlight=".label__upc">
                 <label class="field__label" for="item_upc">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-barcode"><path d="M3 5v14"/><path d="M8 5v14"/><path d="M12 5v14"/><path d="M17 5v14"/><path d="M21 5v14"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-barcode">
+                    <path d="M3 5v14" />
+                    <path d="M8 5v14" />
+                    <path d="M12 5v14" />
+                    <path d="M17 5v14" />
+                    <path d="M21 5v14" />
+                  </svg>
                   Item UPC
                 </label>
                 <input type="text" id="item_upc" placeholder="730791105003">
               </div>
-          
+
               <div class="field" data-highlight=".label__description, .shipping-mark__description">
                 <label class="field__label" for="description">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-text"><path d="M17 6.1H3"/><path d="M21 12.1H3"/><path d="M15.1 18H3"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-text">
+                    <path d="M17 6.1H3" />
+                    <path d="M21 12.1H3" />
+                    <path d="M15.1 18H3" />
+                  </svg>
                   Description
                 </label>
                 <textarea id="description" rows="5" placeholder="Edge Smart Connect Keyboard"></textarea>
@@ -75,7 +125,13 @@
 
               <div class="field" data-highlight=".label__country, .shipping-mark__source">
                 <label class="field__label" for="source">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plane-takeoff"><path d="M2 22h20"/><path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-plane-takeoff">
+                    <path d="M2 22h20" />
+                    <path
+                      d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z" />
+                  </svg>
                   Source
                 </label>
                 <select name="brand" id="source">
@@ -86,25 +142,51 @@
 
               <div class="field">
                 <label class="field__label" for="pb_content">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-package">
+                    <path d="m7.5 4.27 9 5.15" />
+                    <path
+                      d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+                    <path d="m3.3 7 8.7 5 8.7-5" />
+                    <path d="M12 22V12" />
+                  </svg>
                   Content
                 </label>
                 <div class="quantity field__group">
                   <span data-tooltip="Polybag" data-tooltip-location="bottom">
-                    <input type="text" id="pb_content" placeholder="Qty: 1" data-highlight="[data-type='polybag'] .label__quantity">
+                    <input type="text" id="pb_content" placeholder="Qty: 1"
+                      data-highlight="[data-type='polybag'] .label__quantity">
                   </span>
                   <span data-tooltip="Master Carton" data-tooltip-location="bottom">
-                    <input type="text" id="mc_content" placeholder="Qty: 1" data-highlight="[data-type='master'] .label__quantity">
+                    <input type="text" id="mc_content" placeholder="Qty: 1"
+                      data-highlight="[data-type='master'] .label__quantity">
                   </span>
                   <span data-tooltip="Inner Carton" data-tooltip-location="bottom">
-                    <input type="text" id="ic_content" placeholder="Qty: 1" data-highlight="[data-type='inner'] .label__quantity">
+                    <input type="text" id="ic_content" placeholder="Qty: 1"
+                      data-highlight="[data-type='inner'] .label__quantity">
                   </span>
                 </div>
               </div>
-          
+
               <div class="field" data-highlight=".label__qr, .label__install-link">
                 <label class="field__label" for="qr_path">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-qr-code"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-qr-code">
+                    <rect width="5" height="5" x="3" y="3" rx="1" />
+                    <rect width="5" height="5" x="16" y="3" rx="1" />
+                    <rect width="5" height="5" x="3" y="16" rx="1" />
+                    <path d="M21 16h-3a2 2 0 0 0-2 2v3" />
+                    <path d="M21 21v.01" />
+                    <path d="M12 7v3a2 2 0 0 1-2 2H7" />
+                    <path d="M3 12h.01" />
+                    <path d="M12 3h.01" />
+                    <path d="M12 16v.01" />
+                    <path d="M16 12h1" />
+                    <path d="M21 12v.01" />
+                    <path d="M12 21v-1" />
+                  </svg>
                   QR Link
                 </label>
                 <div class="qrlink">
@@ -113,14 +195,35 @@
                 </div>
                 <input type="text" id="qr_link" placeholder="https://brenthaven.com/1050">
                 <button class="qr__toggle field__button" data-tooltip="Customize QR Link" data-tooltip-location="left">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock-keyhole"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-unlock-keyhole"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 9.33-2.5"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-lock-keyhole">
+                    <circle cx="12" cy="16" r="1" />
+                    <rect x="3" y="10" width="18" height="12" rx="2" />
+                    <path d="M7 10V7a5 5 0 0 1 10 0v3" />
+                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-unlock-keyhole">
+                    <circle cx="12" cy="16" r="1" />
+                    <rect x="3" y="10" width="18" height="12" rx="2" />
+                    <path d="M7 10V7a5 5 0 0 1 9.33-2.5" />
+                  </svg>
                 </button>
               </div>
 
               <div class="field" data-highlight=".label__internal">
                 <label class="field__label" for="color">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-palette"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-palette">
+                    <circle cx="13.5" cy="6.5" r=".5" />
+                    <circle cx="17.5" cy="10.5" r=".5" />
+                    <circle cx="8.5" cy="7.5" r=".5" />
+                    <circle cx="6.5" cy="12.5" r=".5" />
+                    <path
+                      d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+                  </svg>
                   Color
                 </label>
                 <div class="color-control">
@@ -128,40 +231,82 @@
                   <div class="color-current"></div>
                 </div>
                 <button class="color-reset field__button" data-tooltip="Reset Color" data-tooltip-location="left">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-rotate-ccw">
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                    <path d="M3 3v5h5" />
+                  </svg>
                 </button>
                 <div class="color-picker"></div>
               </div>
             </fieldset>
           </form>
           <h1 id="shipping_title" class="sidebar__title">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-truck"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"/><circle cx="7" cy="18" r="2"/><path d="M15 18H9"/><circle cx="17" cy="18" r="2"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-truck">
+              <path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11" />
+              <path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2" />
+              <circle cx="7" cy="18" r="2" />
+              <path d="M15 18H9" />
+              <circle cx="17" cy="18" r="2" />
+            </svg>
             Shipping Marks
           </h1>
           <form id="shipping_form" class="sidebar__form shippinator">
             <fieldset>
               <div class="field">
                 <label class="field__label" for="shipping_width">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-box"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-box">
+                    <path
+                      d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+                    <path d="m3.3 7 8.7 5 8.7-5" />
+                    <path d="M12 22V12" />
+                  </svg>
                   Box Size
                 </label>
                 <div class="field__group">
-                  <input type="number" min="11" max="30" id="shipping_length" placeholder="Length" data-highlight=".print-dim-length">
+                  <input type="number" min="11" max="30" id="shipping_length" placeholder="Length"
+                    data-highlight=".print-dim-length">
                   <span class="field__insert">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="lucide lucide-x">
+                      <path d="M18 6 6 18" />
+                      <path d="m6 6 12 12" />
+                    </svg>
                   </span>
-                  <input type="number" min="11" max="30" id="shipping_width" placeholder="Width" data-highlight=".print-dim-width">
+                  <input type="number" min="11" max="30" id="shipping_width" placeholder="Width"
+                    data-highlight=".print-dim-width">
                   <span class="field__insert">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="lucide lucide-x">
+                      <path d="M18 6 6 18" />
+                      <path d="m6 6 12 12" />
+                    </svg>
                   </span>
-                  <input type="number" min="9" max="30" id="shipping_height" placeholder="Height" data-highlight=".print-dim-height">
+                  <input type="number" min="9" max="30" id="shipping_height" placeholder="Height"
+                    data-highlight=".print-dim-height">
                   <span class="field__insert">in.</span>
                 </div>
               </div>
-          
+
               <div class="field" data-highlight=".print-box-qty">
                 <label class="field__label" for="shipping_quantity">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-container"><path d="M22 7.7c0-.6-.4-1.2-.8-1.5l-6.3-3.9a1.72 1.72 0 0 0-1.7 0l-10.3 6c-.5.2-.9.8-.9 1.4v6.6c0 .5.4 1.2.8 1.5l6.3 3.9a1.72 1.72 0 0 0 1.7 0l10.3-6c.5-.3.9-1 .9-1.5Z"/><path d="M10 21.9V14L2.1 9.1"/><path d="m10 14 11.9-6.9"/><path d="M14 19.8v-8.1"/><path d="M18 17.5V9.4"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-container">
+                    <path
+                      d="M22 7.7c0-.6-.4-1.2-.8-1.5l-6.3-3.9a1.72 1.72 0 0 0-1.7 0l-10.3 6c-.5.2-.9.8-.9 1.4v6.6c0 .5.4 1.2.8 1.5l6.3 3.9a1.72 1.72 0 0 0 1.7 0l10.3-6c.5-.3.9-1 .9-1.5Z" />
+                    <path d="M10 21.9V14L2.1 9.1" />
+                    <path d="m10 14 11.9-6.9" />
+                    <path d="M14 19.8v-8.1" />
+                    <path d="M18 17.5V9.4" />
+                  </svg>
                   Qty per carton
                 </label>
                 <div class="field__group">
@@ -172,20 +317,35 @@
 
               <div class="field">
                 <label class="field__label" for="shipping_gross">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-weight"><circle cx="12" cy="5" r="3"/><path d="M6.5 8a2 2 0 0 0-1.905 1.46L2.1 18.5A2 2 0 0 0 4 21h16a2 2 0 0 0 1.925-2.54L19.4 9.5A2 2 0 0 0 17.48 8Z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-weight">
+                    <circle cx="12" cy="5" r="3" />
+                    <path
+                      d="M6.5 8a2 2 0 0 0-1.905 1.46L2.1 18.5A2 2 0 0 0 4 21h16a2 2 0 0 0 1.925-2.54L19.4 9.5A2 2 0 0 0 17.48 8Z" />
+                  </svg>
                   Weight
                 </label>
                 <div class="field__group">
-                  <input type="number" min="0" max="100" id="shipping_gross" placeholder="Gross" data-highlight=".print-gross-weight">
+                  <input type="number" min="0" max="100" id="shipping_gross" placeholder="Gross"
+                    data-highlight=".print-gross-weight">
                   <span class="field__insert">lbs.</span>
-                  <input type="number" min="0" max="100" id="shipping_net" placeholder="Net" data-highlight=".print-net-weight">
+                  <input type="number" min="0" max="100" id="shipping_net" placeholder="Net"
+                    data-highlight=".print-net-weight">
                   <span class="field__insert">lbs.</span>
                 </div>
               </div>
 
               <div class="field" data-highlight=".shipping-mark__po">
                 <label class="field__label" for="shipping_po">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-dollar-sign"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-badge-dollar-sign">
+                    <path
+                      d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                    <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+                    <path d="M12 18V6" />
+                  </svg>
                   Purchase Order #
                 </label>
                 <input type="text" id="shipping_po" placeholder="123456">
@@ -195,12 +355,38 @@
                 <input type="file" id="shipping_tihi" class="file__input" accept=".png,.jpg,.jpeg,.gif">
                 <label for="shipping_tihi" id="shipping_tihi_label" class="file__label">
                   <div class="field__label">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-boxes"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="lucide lucide-boxes">
+                      <path
+                        d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z" />
+                      <path d="m7 16.5-4.74-2.85" />
+                      <path d="m7 16.5 5-3" />
+                      <path d="M7 16.5v5.17" />
+                      <path
+                        d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z" />
+                      <path d="m17 16.5-5-3" />
+                      <path d="m17 16.5 4.74-2.85" />
+                      <path d="M17 16.5v5.17" />
+                      <path
+                        d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z" />
+                      <path d="M12 8 7.26 5.15" />
+                      <path d="m12 8 4.74-2.85" />
+                      <path d="M12 13.5V8" />
+                    </svg>
                     Ti-Hi
                   </div>
                   <div class="file__visual">
                     <div class="file__text">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-plus"><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"/><line x1="16" x2="22" y1="5" y2="5"/><line x1="19" x2="19" y1="2" y2="8"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-image-plus">
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7" />
+                        <line x1="16" x2="22" y1="5" y2="5" />
+                        <line x1="19" x2="19" y1="2" y2="8" />
+                        <circle cx="9" cy="9" r="2" />
+                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                      </svg>
                       Upload Ti-Hi image
                       <span>Accepted files: .PNG, .JPG, .JPEG, .GIF</span>
                     </div>
@@ -218,9 +404,19 @@
           <form class="layout__form">
             <fieldset class="preview__layout layout">
               <legend class="visually-hidden">Layout Options</legend>
-              <input type="checkbox" id="expanded" class="checkbox-container visually-hidden"  aria-labelledby="label-expanded">
-              <label for="expanded" id="label-expanded" class="layout__expanded button" data-tooltip="Expand View" data-tooltip-location="bottom">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-fullscreen"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect width="10" height="8" x="7" y="8" rx="1"/></svg>
+              <input type="checkbox" id="expanded" class="checkbox-container visually-hidden"
+                aria-labelledby="label-expanded">
+              <label for="expanded" id="label-expanded" class="layout__expanded button" data-tooltip="Expand View"
+                data-tooltip-location="bottom">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-fullscreen">
+                  <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+                  <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+                  <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+                  <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+                  <rect width="10" height="8" x="7" y="8" rx="1" />
+                </svg>
                 <span class="visually-hidden">Expand</span>
               </label>
             </fieldset>
@@ -229,53 +425,120 @@
           <form class="visibility__form">
             <fieldset class="preview__visibility visibility visibility--upc button-group">
               <legend class="visually-hidden">UPC Label Visibility</legend>
-              
-              <input type="checkbox" id="polybag" class="checkbox-container visually-hidden"  aria-labelledby="label-polybag" checked>
-              <label for="polybag" id="label-polybag" class="visibility__polybag button" data-tooltip="Polybag UPC Label" data-tooltip-location="bottom">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              <button class="select-all" id="upc-select-all" data-tooltip="All" data-tooltip-location="bottom">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-eye"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M5 12s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5"/></svg>
+              </button>
+
+              <input type="checkbox" id="polybag" class="checkbox-container visually-hidden"
+                aria-labelledby="label-polybag" checked>
+              <label for="polybag" id="label-polybag" class="visibility__polybag button"
+                data-tooltip="Polybag UPC Label" data-tooltip-location="bottom">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-shopping-bag">
+                  <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                  <path d="M3 6h18" />
+                  <path d="M16 10a4 4 0 0 1-8 0" />
+                </svg>
                 <span class="visually-hidden">Show Polybag</span>
               </label>
-            
-              <input type="checkbox" id="master" class="checkbox-container visually-hidden"  aria-labelledby="label-master" checked>
-              <label for="master" id="label-master" class="visibility__master button" data-tooltip="Master Carton UPC Label" data-tooltip-location="bottom">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-open"><path d="M20.91 8.84 8.56 2.23a1.93 1.93 0 0 0-1.81 0L3.1 4.13a2.12 2.12 0 0 0-.05 3.69l12.22 6.93a2 2 0 0 0 1.94 0L21 12.51a2.12 2.12 0 0 0-.09-3.67Z"/><path d="m3.09 8.84 12.35-6.61a1.93 1.93 0 0 1 1.81 0l3.65 1.9a2.12 2.12 0 0 1 .1 3.69L8.73 14.75a2 2 0 0 1-1.94 0L3 12.51a2.12 2.12 0 0 1 .09-3.67Z"/><line x1="12" x2="12" y1="22" y2="13"/><path d="M20 13.5v3.37a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13.5"/></svg>
+
+              <input type="checkbox" id="master" class="checkbox-container visually-hidden"
+                aria-labelledby="label-master" checked>
+              <label for="master" id="label-master" class="visibility__master button"
+                data-tooltip="Master Carton UPC Label" data-tooltip-location="bottom">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-package-open">
+                  <path
+                    d="M20.91 8.84 8.56 2.23a1.93 1.93 0 0 0-1.81 0L3.1 4.13a2.12 2.12 0 0 0-.05 3.69l12.22 6.93a2 2 0 0 0 1.94 0L21 12.51a2.12 2.12 0 0 0-.09-3.67Z" />
+                  <path
+                    d="m3.09 8.84 12.35-6.61a1.93 1.93 0 0 1 1.81 0l3.65 1.9a2.12 2.12 0 0 1 .1 3.69L8.73 14.75a2 2 0 0 1-1.94 0L3 12.51a2.12 2.12 0 0 1 .09-3.67Z" />
+                  <line x1="12" x2="12" y1="22" y2="13" />
+                  <path
+                    d="M20 13.5v3.37a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13.5" />
+                </svg>
                 <span class="visually-hidden">Show Master Carton</span>
               </label>
-            
-              <input type="checkbox" id="inner" class="checkbox-container visually-hidden"  aria-labelledby="label-inner" checked>
-              <label for="inner" id="label-inner" class="visibility__inner button" data-tooltip="Inner Carton UPC Label" data-tooltip-location="bottom">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+
+              <input type="checkbox" id="inner" class="checkbox-container visually-hidden" aria-labelledby="label-inner"
+                checked>
+              <label for="inner" id="label-inner" class="visibility__inner button" data-tooltip="Inner Carton UPC Label"
+                data-tooltip-location="bottom">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-package">
+                  <path d="m7.5 4.27 9 5.15" />
+                  <path
+                    d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+                  <path d="m3.3 7 8.7 5 8.7-5" />
+                  <path d="M12 22V12" />
+                </svg>
                 <span class="visually-hidden">Show Inner Carton</span>
               </label>
             </fieldset>
 
             <fieldset class="preview__visibility visibility visibility--shipping button-group">
               <legend class="visually-hidden">Shipping Mark Visibility</legend>
-              
-              <input type="checkbox" id="shipping_mark_front" class="checkbox-container visually-hidden"  aria-labelledby="label-polybag">
-              <label for="shipping_mark_front" id="label-shipping-mark-front" class="visibility__shipping-front button" data-tooltip="Front Shipping Mark" data-tooltip-location="bottom">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-panel-top-inactive"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M14 9h1"/><path d="M19 9h2"/><path d="M3 9h2"/><path d="M9 9h1"/></svg>
+
+              <button class="select-all" id="shipping-select-all" data-tooltip="All" data-tooltip-location="bottom">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-eye"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M5 12s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5"/></svg>
+              </button>
+
+              <input type="checkbox" id="shipping_mark_front" class="checkbox-container visually-hidden"
+                aria-labelledby="label-polybag">
+              <label for="shipping_mark_front" id="label-shipping-mark-front" class="visibility__shipping-front button"
+                data-tooltip="Front Shipping Mark" data-tooltip-location="bottom">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-panel-top-inactive">
+                  <rect width="18" height="18" x="3" y="3" rx="2" />
+                  <path d="M14 9h1" />
+                  <path d="M19 9h2" />
+                  <path d="M3 9h2" />
+                  <path d="M9 9h1" />
+                </svg>
                 <span class="visually-hidden">Show Front Shipping Mark</span>
               </label>
 
-              <input type="checkbox" id="shipping_mark_side" class="checkbox-container visually-hidden"  aria-labelledby="label-polybag">
-              <label for="shipping_mark_side" id="label-shipping-mark-side" class="visibility__shipping-side button" data-tooltip="Side Shipping Mark" data-tooltip-location="bottom">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-panel-left-inactive"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 14v1"/><path d="M9 19v2"/><path d="M9 3v2"/><path d="M9 9v1"/></svg>
+              <input type="checkbox" id="shipping_mark_side" class="checkbox-container visually-hidden"
+                aria-labelledby="label-polybag">
+              <label for="shipping_mark_side" id="label-shipping-mark-side" class="visibility__shipping-side button"
+                data-tooltip="Side Shipping Mark" data-tooltip-location="bottom">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-panel-left-inactive">
+                  <rect width="18" height="18" x="3" y="3" rx="2" />
+                  <path d="M9 14v1" />
+                  <path d="M9 19v2" />
+                  <path d="M9 3v2" />
+                  <path d="M9 9v1" />
+                </svg>
                 <span class="visually-hidden">Show Side Shipping Mark</span>
               </label>
             </fieldset>
           </form>
 
           <div class="download">
-            <div class="download__name">
-              BH.1050001 PB.MC.IC Label.pdf
-            </div>
             <button class="button download__button download__button--shipping">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down-square"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 8v8"/><path d="m8 12 4 4 4-4"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-arrow-down-square">
+                <rect width="18" height="18" x="3" y="3" rx="2" />
+                <path d="M12 8v8" />
+                <path d="m8 12 4 4 4-4" />
+              </svg>
               Download Shipping Marks
             </button>
             <button class="button download__button download__button--upc">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-down"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-file-down">
+                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                <polyline points="14 2 14 8 20 8" />
+                <path d="M12 18v-6" />
+                <path d="m9 15 3 3 3-3" />
+              </svg>
               Download UPC Labels
             </button>
           </div>
@@ -299,16 +562,16 @@
                 <div class="label__brand">
                   <img class="label__logo print-logo" src="dist/img/brenthaven_min.png">
                 </div>
-                
+
                 <div class="label__description print-description">
                   Edge Smart Connect Keyboard
                 </div>
-                
+
                 <div class="label__upc">
                   <svg class="barcode">
                   </svg>
                 </div>
-                
+
                 <div class="label__source">
                   Made in <span class="label__country print-country">China</span>
                 </div>
@@ -324,13 +587,20 @@
                 <div class="label__install">
                   <span class="label__install-img">
                     <span class="label__install-svg">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wrench"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-wrench">
+                        <path
+                          d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                      </svg>
                     </span>
                   </span>
                   <div class="label__install-text">
                     <div class="label__install-header">Installation Instructions</div>
                     <div>Scan the QR code, or visit:</div>
-                    <div class="label__install-link"><span class="label__install-site print-install-base">brenthaven.com</span>/<span class="label__install-sku print-install-path">1050</span></div>
+                    <div class="label__install-link"><span
+                        class="label__install-site print-install-base">brenthaven.com</span>/<span
+                        class="label__install-sku print-install-path">1050</span></div>
                     <div>Thanks for helping reduce paper waste</div>
                   </div>
                   <div class="label__qr">QR</div>
@@ -344,7 +614,7 @@
 
             </div>
           </div>
-          
+
           <div class="page page--a4" data-type="master">
             <div class="page__content print">
 
@@ -361,16 +631,16 @@
                 <div class="label__brand">
                   <img class="label__logo print-logo" src="dist/img/brenthaven_min.png">
                 </div>
-                
+
                 <div class="label__description print-description">
                   Edge Smart Connect Keyboard
                 </div>
-                
+
                 <div class="label__upc">
                   <svg class="barcode">
                   </svg>
                 </div>
-                
+
                 <div class="label__source">
                   Made in <span class="label__country print-country">China</span>
                 </div>
@@ -386,13 +656,20 @@
                 <div class="label__install">
                   <span class="label__install-img">
                     <span class="label__install-svg">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wrench"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-wrench">
+                        <path
+                          d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                      </svg>
                     </span>
                   </span>
                   <div class="label__install-text">
                     <div class="label__install-header">Installation Instructions</div>
                     <div>Scan the QR code, or visit:</div>
-                    <div class="label__install-link"><span class="label__install-site print-install-base">brenthaven.com</span>/<span class="label__install-sku print-install-path">1050</span></div>
+                    <div class="label__install-link"><span
+                        class="label__install-site print-install-base">brenthaven.com</span>/<span
+                        class="label__install-sku print-install-path">1050</span></div>
                     <div>Thanks for helping reduce paper waste</div>
                   </div>
                   <div class="label__qr">QR</div>
@@ -423,16 +700,16 @@
                 <div class="label__brand">
                   <img class="label__logo print-logo" src="dist/img/brenthaven_min.png">
                 </div>
-                
+
                 <div class="label__description print-description">
                   Edge Smart Connect Keyboard
                 </div>
-                
+
                 <div class="label__upc">
                   <svg class="barcode">
                   </svg>
                 </div>
-                
+
                 <div class="label__source">
                   Made in <span class="label__country print-country">China</span>
                 </div>
@@ -448,13 +725,20 @@
                 <div class="label__install">
                   <span class="label__install-img">
                     <span class="label__install-svg">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wrench"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-wrench">
+                        <path
+                          d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                      </svg>
                     </span>
                   </span>
                   <div class="label__install-text">
                     <div class="label__install-header">Installation Instructions</div>
                     <div>Scan the QR code, or visit:</div>
-                    <div class="label__install-link"><span class="label__install-site print-install-base">brenthaven.com</span>/<span class="label__install-sku print-install-path">1050</span></div>
+                    <div class="label__install-link"><span
+                        class="label__install-site print-install-base">brenthaven.com</span>/<span
+                        class="label__install-sku print-install-path">1050</span></div>
                     <div>Thanks for helping reduce paper waste</div>
                   </div>
                   <div class="label__qr">QR</div>
@@ -527,7 +811,25 @@
                       UPC LABEL
                     </div>
                     <div class="shipping-mark__tihi print-tihi tihi-active">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-boxes"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-boxes">
+                        <path
+                          d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z" />
+                        <path d="m7 16.5-4.74-2.85" />
+                        <path d="m7 16.5 5-3" />
+                        <path d="M7 16.5v5.17" />
+                        <path
+                          d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z" />
+                        <path d="m17 16.5-5-3" />
+                        <path d="m17 16.5 4.74-2.85" />
+                        <path d="M17 16.5v5.17" />
+                        <path
+                          d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z" />
+                        <path d="M12 8 7.26 5.15" />
+                        <path d="m12 8 4.74-2.85" />
+                        <path d="M12 13.5V8" />
+                      </svg>
                       <img src="dist/img/default-tihi.jpg" />
                     </div>
                   </main>
@@ -591,7 +893,12 @@
                       </div>
                     </div>
                     <div class="shipping-mark__recycling">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-leaf"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-leaf">
+                        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+                        <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+                      </svg>
                       This carton is<br />
                       made with <br />
                       recycled content
@@ -606,8 +913,9 @@
       </div>
     </div>
   </main>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <script src="dist/js/vendors.js"></script>
   <script type="module" src="dist/js/main.js"></script>
 </body>
+
 </html>

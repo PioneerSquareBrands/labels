@@ -1,3 +1,4 @@
+import JsBarcode from 'jsbarcode';
 import { default as el } from './domElements.js';
 import { brandDefaults } from './brandDefaults.js';
 import { canvasUpdate } from './canvasUpdate.js';
@@ -21,7 +22,7 @@ const triggerEventListeners = () => {
   tihiOnload();
 };
 
-export const labelInit = () => {
+export const fieldInit = () => {
   el.brand.addEventListener('change', brandUpdate);
   el.itemMaster.addEventListener('input', itemMasterUpdate);
   el.sku.addEventListener('input', skuUpdate);
