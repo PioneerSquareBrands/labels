@@ -187,7 +187,10 @@ const generatePDF = async (elements) => {
   for (const page of pages) {
     if (page.closest('.scaler-wrapper')) page.closest('.scaler-wrapper').classList.add('rendering');
 
-    await htmlToImage.toPng(page)
+    await htmlToImage.toPng(page, {
+      quality: 1,
+      pixelRatio: 4,
+    })
       .then(function (dataUrl) {
         var img = new Image();
         img.src = dataUrl;

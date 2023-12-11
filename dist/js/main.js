@@ -6613,7 +6613,10 @@ const generatePDF = async (elements) => {
   for (const page of pages) {
     if (page.closest('.scaler-wrapper')) page.closest('.scaler-wrapper').classList.add('rendering');
 
-    await html_to_image__WEBPACK_IMPORTED_MODULE_1__.toPng(page)
+    await html_to_image__WEBPACK_IMPORTED_MODULE_1__.toPng(page, {
+      quality: 1,
+      pixelRatio: 4,
+    })
       .then(function (dataUrl) {
         var img = new Image();
         img.src = dataUrl;
