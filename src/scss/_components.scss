@@ -602,6 +602,8 @@
     overflow: hidden;
 
     img {
+      object-fit: contain;
+      height: 100%;
       cursor: pointer;
     }
   }

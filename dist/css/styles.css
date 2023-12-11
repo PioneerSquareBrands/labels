@@ -1714,6 +1714,9 @@ body.canvas-animating .preview__content {
   overflow: hidden;
 }
 .shipping-mark__tihi img {
+  -o-object-fit: contain;
+     object-fit: contain;
+  height: 100%;
   cursor: pointer;
 }
 .shipping-mark .tihi-active {
