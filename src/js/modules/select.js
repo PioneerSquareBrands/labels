@@ -166,3 +166,15 @@ const keyboardNavigation = (select) => (event) => {
       break;
   }
 };
+
+export const selectChoose = (select, value) => {
+  let targetSelect = document.querySelector(`${select} + .selectinator .selectinator-options .selectinator-option[data-value="${value}"]`);
+    
+  let event = new MouseEvent('mousedown', {
+    bubbles: true,
+    cancelable: true,
+    view: window
+  });
+
+  targetSelect.dispatchEvent(event);
+}
