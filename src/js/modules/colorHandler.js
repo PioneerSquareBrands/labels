@@ -1,4 +1,5 @@
 import iro from '@jaames/iro';
+import { selectChoose } from './select';
 let colorPicker;
 
 export const colorInit = () => {
@@ -11,7 +12,7 @@ export const colorInit = () => {
 
   const currentIndicator = document.querySelector('.color-current');
 
-  document.querySelector('#color').addEventListener('input', function() {
+  document.querySelector('#color').addEventListener('change', function() {
     colorPicker.color.set(this.value);
     currentIndicator.style.backgroundColor = this.value;
     colorChanger();
@@ -25,6 +26,8 @@ export const colorInit = () => {
 
   document.querySelector('.color-reset').addEventListener('click', function() {
     colorPicker.reset();
+
+    selectChoose('#color', '#ffffff');
   });
 
   colorToggle();

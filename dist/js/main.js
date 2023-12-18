@@ -37,6 +37,7 @@ const SideBar = () => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   selectChoose: function() { return /* binding */ selectChoose; },
 /* harmony export */   selectInit: function() { return /* binding */ selectInit; }
 /* harmony export */ });
 
@@ -208,6 +209,18 @@ const keyboardNavigation = (select) => (event) => {
   }
 };
 
+const selectChoose = (select, value) => {
+  let targetSelect = document.querySelector(`${select} + .selectinator .selectinator-options .selectinator-option[data-value="${value}"]`);
+    
+  let event = new MouseEvent('mousedown', {
+    bubbles: true,
+    cancelable: true,
+    view: window
+  });
+
+  targetSelect.dispatchEvent(event);
+}
+
 /***/ }),
 /* 3 */
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -350,6 +363,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _domElements_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 /* harmony import */ var _brandDefaults_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(56);
 /* harmony import */ var _canvasUpdate_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(57);
+/* harmony import */ var _select_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(2);
+
 
 
 
@@ -485,6 +500,26 @@ const skuUpdate = () => {
 const descriptionUpdate = () => {
   const defaults = (0,_brandDefaults_js__WEBPACK_IMPORTED_MODULE_2__.brandDefaults)();
   updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printDescriptions, _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].description.value || defaults.description);
+
+  const nameHas = {
+    'droptech': '#1f75ff',
+    'slimtech': '#ff1c1c',
+    'foamtech': '#ffff14',
+    'bumptech': '#00ff04',
+    'ipad': '#123456' // replace '#123456' with the actual color for 'ipad'
+  };
+
+  const descriptionLower = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].description.value.toLowerCase();
+  let color = '#ffffff'; // default color
+
+  for (let name in nameHas) {
+    if (descriptionLower.includes(name)) {
+      color = nameHas[name];
+      break;
+    }
+  }
+
+  (0,_select_js__WEBPACK_IMPORTED_MODULE_4__.selectChoose)('#color', color);
 }
 
 const upcUpdate = () => {
@@ -4420,6 +4455,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   colorInit: function() { return /* binding */ colorInit; }
 /* harmony export */ });
 /* harmony import */ var _jaames_iro__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(59);
+/* harmony import */ var _select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+
 
 let colorPicker;
 
@@ -4433,7 +4470,7 @@ const colorInit = () => {
 
   const currentIndicator = document.querySelector('.color-current');
 
-  document.querySelector('#color').addEventListener('input', function() {
+  document.querySelector('#color').addEventListener('change', function() {
     colorPicker.color.set(this.value);
     currentIndicator.style.backgroundColor = this.value;
     colorChanger();
@@ -4447,6 +4484,8 @@ const colorInit = () => {
 
   document.querySelector('.color-reset').addEventListener('click', function() {
     colorPicker.reset();
+
+    (0,_select__WEBPACK_IMPORTED_MODULE_1__.selectChoose)('#color', '#ffffff');
   });
 
   colorToggle();

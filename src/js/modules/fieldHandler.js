@@ -2,6 +2,7 @@ import JsBarcode from 'jsbarcode';
 import { default as el } from './domElements.js';
 import { brandDefaults } from './brandDefaults.js';
 import { canvasUpdate } from './canvasUpdate.js';
+import { selectChoose } from './select.js';
 
 let dragCounter = 0;
 let iconSize = 60;
@@ -133,6 +134,26 @@ const skuUpdate = () => {
 const descriptionUpdate = () => {
   const defaults = brandDefaults();
   updateTextContent(el.printDescriptions, el.description.value || defaults.description);
+
+  const nameHas = {
+    'droptech': '#1f75ff',
+    'slimtech': '#ff1c1c',
+    'foamtech': '#ffff14',
+    'bumptech': '#00ff04',
+    'ipad': '#123456' // replace '#123456' with the actual color for 'ipad'
+  };
+
+  const descriptionLower = el.description.value.toLowerCase();
+  let color = '#ffffff'; // default color
+
+  for (let name in nameHas) {
+    if (descriptionLower.includes(name)) {
+      color = nameHas[name];
+      break;
+    }
+  }
+
+  selectChoose('#color', color);
 }
 
 const upcUpdate = () => {

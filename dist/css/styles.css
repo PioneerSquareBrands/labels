@@ -1645,6 +1645,7 @@ body.canvas-animating .preview__content {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+  margin: 2% 0 auto;
 }
 .page[data-type=shipping-front] .shipping-mark__sku {
   -webkit-box-align: center;
@@ -1659,9 +1660,15 @@ body.canvas-animating .preview__content {
 .shipping-mark__sku .sku__part:last-child {
   border-right-width: 2px;
 }
+.shipping-mark__middle {
+  margin-bottom: auto;
+}
 .shipping-mark__middle, .shipping-mark__bottom {
-  font-size: 50%;
+  font-size: 40%;
   font-weight: 400;
+}
+.shipping-mark__logo-img {
+  height: 100px;
 }
 .shipping-mark__meta {
   line-height: 170%;

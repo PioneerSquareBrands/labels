@@ -42,7 +42,7 @@
           <form id="upc_form" class="sidebar__form sidebar__form--active labelinator">
             <fieldset>
               <div class="field"
-                data-highlight=".print-header, .label__brand, .print-install-base, .label__qr, .qrlink__base">
+                data-highlight=".print-header, .label__brand, .print-install-base, .label__qr, .qrlink__base, .shipping-mark__logo-img">
                 <label class="field__label" for="brand">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -228,7 +228,13 @@
                   Color
                 </label>
                 <div class="color-control">
-                  <input type="text" id="color" placeholder="#ffffff">
+                  <select name="color" id="color">
+                    <option value="#ffffff">Default</option>
+                    <option value="#1f75ff">DropTech (#1f75ff)</option>
+                    <option value="#ff1c1c">SlimTech (#ff1c1c)</option>
+                    <option value="#ffff14">FoamTech (#ffff14)</option>
+                    <option value="#00ff04">BumpTech (#00ff04)</option>
+                  </select>
                   <div class="color-current"></div>
                 </div>
                 <button class="color-reset field__button" data-tooltip="Reset Color" data-tooltip-location="left">
@@ -760,6 +766,9 @@
                 <div class="page__content print">
                   <main class="print__content shipping-mark">
                     <div class="shipping-mark__content">
+                      <div class="shipping-mark__logo">
+                        <img class="shipping-mark__logo-img print-logo" src="dist/img/brenthaven_min.png">
+                      </div>
                       <div class="shipping-mark__top shipping-mark__sku print-box-sku">
                         <span class="sku__part">01D</span>
                         <span class="sku__part">015</span>
@@ -831,7 +840,7 @@
                         <path d="m12 8 4.74-2.85" />
                         <path d="M12 13.5V8" />
                       </svg>
-                      <img src="dist/img/tihi.png" />
+                      <img src="dist/img/new-tihi.JPG" />
                     </div>
                   </main>
                 </div>
@@ -845,6 +854,9 @@
                 <div class="page__content print">
                   <main class="print__content shipping-mark">
                     <div class="shipping-mark__content">
+                      <div class="shipping-mark__logo">
+                        <img class="shipping-mark__logo-img print-logo" src="dist/img/brenthaven_min.png">
+                      </div>
                       <div class="shipping-mark__top shipping-mark__sku print-box-sku">
                         <span class="sku__part">01D</span>
                         <span class="sku__part">015</span>

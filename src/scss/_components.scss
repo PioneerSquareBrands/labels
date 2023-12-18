@@ -527,6 +527,7 @@
     font-weight: 700;
     display: flex;
     align-items: flex-end;
+    margin: 2% 0 auto;
 
     .page[data-type="shipping-front"] & {
       align-items: center;
@@ -541,9 +542,17 @@
     .sku__part:last-child { border-right-width: 2px; }
   }
 
+  &__middle {
+    margin-bottom: auto;
+  }
+
   &__middle, &__bottom {
-    font-size: 50%;
+    font-size: 40%;
     font-weight: 400;
+  }
+
+  &__logo-img {
+    height: 100px;
   }
 
   &__meta {
