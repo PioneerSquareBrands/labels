@@ -1672,9 +1672,11 @@ body.canvas-animating .preview__content {
 }
 .shipping-mark__meta {
   line-height: 170%;
+  text-transform: uppercase;
 }
 .shipping-mark__description {
   font-weight: 700;
+  text-transform: none;
 }
 .shipping-mark__source {
   text-transform: capitalize;

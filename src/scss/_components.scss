@@ -557,9 +557,13 @@
 
   &__meta {
     line-height: 170%;
+    text-transform: uppercase;
   }
 
-  &__description { font-weight: 700; }
+  &__description { 
+    font-weight: 700; 
+    text-transform: none;
+  }
 
   &__source {
     text-transform: capitalize;
