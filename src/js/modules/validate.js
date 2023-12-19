@@ -47,6 +47,19 @@ export const validateNumbers = () => {
   });
 }
 
+export const validateUPC = (input) => {
+  input = sidebar.querySelector('#item_upc');
+  input.addEventListener('input', () => {
+    let value = input.value;
+
+    if (value.length < 12 && value.length > 5) {
+      validateInput(input, false, 'UPC must be 12 digits');
+    } else {
+      validateInput(input, true);
+    }
+  });
+}
+
 const validateInput = (input, isValid, message) => {
   input.classList.toggle('input--error', !isValid);
   const field = input.closest('.field');

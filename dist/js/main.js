@@ -21,9 +21,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 const SideBar = () => {
   (0,_select_js__WEBPACK_IMPORTED_MODULE_0__.selectInit)();
   (0,_validate_js__WEBPACK_IMPORTED_MODULE_1__.validateNumbers)();
+  (0,_validate_js__WEBPACK_IMPORTED_MODULE_1__.validateUPC)();
   (0,_fieldHandler_js__WEBPACK_IMPORTED_MODULE_2__.fieldInit)();
   (0,_colorHandler_js__WEBPACK_IMPORTED_MODULE_3__.colorInit)();
   (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.qrToggle)();
@@ -227,7 +229,8 @@ const selectChoose = (select, value) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   validateNumbers: function() { return /* binding */ validateNumbers; }
+/* harmony export */   validateNumbers: function() { return /* binding */ validateNumbers; },
+/* harmony export */   validateUPC: function() { return /* binding */ validateUPC; }
 /* harmony export */ });
 /* harmony import */ var _domElements_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 
@@ -276,6 +279,19 @@ const validateNumbers = () => {
         input.value = numericValue.toString();
       }
     });
+  });
+}
+
+const validateUPC = (input) => {
+  input = sidebar.querySelector('#item_upc');
+  input.addEventListener('input', () => {
+    let value = input.value;
+
+    if (value.length < 12 && value.length > 5) {
+      validateInput(input, false, 'UPC must be 12 digits');
+    } else {
+      validateInput(input, true);
+    }
   });
 }
 
@@ -525,11 +541,12 @@ const descriptionUpdate = () => {
 const upcUpdate = () => {
   const defaults = (0,_brandDefaults_js__WEBPACK_IMPORTED_MODULE_2__.brandDefaults)();
   const barcodes = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].preview.querySelectorAll('.label__upc svg');
-  const upcField = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].upc.value || defaults.upc;
+  _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].upc.value = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].upc.value.replace(' ', '');
+  let upcField = (_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].upc.value || defaults.upc).replace(' ', '');
 
   if (upcField.length == 12) {
     barcodes.forEach(barcode => {
-      jsbarcode__WEBPACK_IMPORTED_MODULE_0___default()(barcode, upcField, {
+      jsbarcode__WEBPACK_IMPORTED_MODULE_0___default()(barcode, upcField.replace(/\s/g, ''), {
         format: 'upc',
         height: 50,
         font: 'OCRB'

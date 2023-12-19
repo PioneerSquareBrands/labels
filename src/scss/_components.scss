@@ -128,6 +128,7 @@
   transition: padding 0.3s, margin 0.3s, opacity 0.2s;
   //transition: all 5s;
   background-color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
 
   &::before {
     content: '';
@@ -440,7 +441,7 @@
     }
 
     &__install-text {
-      font-size: 10px;
+      font-size: 9px;
       
       & > div {
         line-height: 12px;

@@ -159,11 +159,12 @@ const descriptionUpdate = () => {
 const upcUpdate = () => {
   const defaults = brandDefaults();
   const barcodes = el.preview.querySelectorAll('.label__upc svg');
-  const upcField = el.upc.value || defaults.upc;
+  el.upc.value = el.upc.value.replace(' ', '');
+  let upcField = (el.upc.value || defaults.upc).replace(' ', '');
 
   if (upcField.length == 12) {
     barcodes.forEach(barcode => {
-      JsBarcode(barcode, upcField, {
+      JsBarcode(barcode, upcField.replace(/\s/g, ''), {
         format: 'upc',
         height: 50,
         font: 'OCRB'
