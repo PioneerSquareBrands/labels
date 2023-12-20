@@ -207,7 +207,12 @@ const generatePDF = async (elements) => {
             const orientation = imgWidth > imgHeight ? 'landscape' : 'portrait';
             pageType = 'shipping';
 
+            const backgroundColor = [255, 255, 255]; // White color
+            const transparency = 0; // Fully transparent
+
             pdf.addPage([imgWidth, imgHeight], orientation);
+            pdf.setFillColor.apply(null, [...backgroundColor, transparency]);
+            pdf.rect(0, 0, pdf.internal.pageSize.width, pdf.internal.pageSize.height, 'F');
             pdf.addImage(imgData, 'png', 0, 0, imgWidth, imgHeight);
             
             if (page === pages[pages.length - 1]) {
