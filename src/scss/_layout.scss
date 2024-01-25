@@ -169,7 +169,8 @@ body > main {
   }
 
   .qrlink {
-    display: flex;
+    display: grid;
+    grid-template-columns: 180px 1fr;
     align-items: stretch;
     border-radius: $border-radius;
     box-shadow: $inputs;

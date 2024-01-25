@@ -66,7 +66,7 @@ const outlineHighlight = (field, action) => {
   }
 };
 
-export const namer = (type) => {
+export const namer = (type, filetype) => {
   const defaults = brandDefaults();
 
   let brand = el.brand.value;
@@ -95,8 +95,8 @@ export const namer = (type) => {
   brand = brand.replace(/gumdrop/g, 'GD');
   brand = brand.replace(/vault/g, 'VT');
 
-  const packagingName = `${brand}.${sku} ${packagingLabelTypes} Label.pdf`;
-  const shippingName = `${brand}.${sku} ${shippingLabelTypes} Label.pdf`;
+  const packagingName = `${brand}.${sku} ${packagingLabelTypes} Label.${filetype}`;
+  const shippingName = `${brand}.${sku} ${shippingLabelTypes} Label.${filetype}`;
 
   if (type === 'packaging') {
     return packagingName;

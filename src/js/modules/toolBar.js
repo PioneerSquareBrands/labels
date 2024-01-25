@@ -1,4 +1,5 @@
 import { jsPDF } from 'jspdf';
+import { brandDefaults } from './brandDefaults.js';
 import * as htmlToImage from 'html-to-image';
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 import { default as el } from './domElements.js';
@@ -29,6 +30,8 @@ export const controlInit = () => {
   toggleAll('#shipping-select-all', ['#shipping_mark_front', '#shipping_mark_side']);
 
   pdfButtons();
+
+  pageImgDownload();
 }
 
 const toggleAll = (buttonId, checkboxes) => {
@@ -64,7 +67,7 @@ const toggleAll = (buttonId, checkboxes) => {
   button.addEventListener('click', toggleCheckboxes);
 };
 
-const applyAnimation = (element, firstRect, wasHidden, isHiding) => {
+export const applyAnimation = (element, firstRect, wasHidden, isHiding) => {
   const last = element.getBoundingClientRect();
 
   const deltaX = firstRect.left - last.left;
@@ -246,13 +249,13 @@ const generatePDF = async (elements) => {
 
 const savePDF = async (elements) => {
   const { pdf, pageType } = await generatePDF(elements);
-  pdf.save(namer(pageType));
+  pdf.save(namer(pageType, 'pdf'));
 }
 
 const buttonBuilder = () => {
-  upcButton.setAttribute('data-tooltip', namer('packaging'));
+  upcButton.setAttribute('data-tooltip', namer('packaging', 'pdf'));
   upcButton.setAttribute('data-tooltip-location', 'bottom');
-  shippingButton.setAttribute('data-tooltip', namer('shipping'));
+  shippingButton.setAttribute('data-tooltip', namer('shipping', 'pdf'));
   shippingButton.setAttribute('data-tooltip-location', 'bottom');
 
   disableButtonIfAllUnchecked(upcToggles, upcButton);
@@ -262,4 +265,67 @@ const buttonBuilder = () => {
 const disableButtonIfAllUnchecked = (toggles, button) => {
   const allUnchecked = Array.from(toggles).every(toggle => !toggle.checked);
   button.disabled = allUnchecked;
+}
+
+const pageImgDownload = () => {
+  const pages = document.querySelectorAll('.page');
+  pages.forEach(page => {
+    const download = document.createElement('button');
+    download.classList.add('grab__button');
+    download.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-big-down-dash"><path d="M15 5H9"/><path d="M15 9v3h4l-7 7-7-7h4V9h6z"/></svg>';
+    page.appendChild(download);
+  });
+
+  document.querySelectorAll('.grab__button').forEach(button => {
+    button.addEventListener('click', () => {
+      const defaults = brandDefaults();
+
+      let brand = el.brand.value;
+      const sku = el.sku.value.toUpperCase() || defaults.sku;
+      const page = button.closest('.page');
+      let type = page.getAttribute('data-type');
+      let sapona = page.classList.contains('sapona') ? '-sapona' : '';
+
+      switch(brand) {
+        case 'brenthaven':
+          brand = 'BH';
+          break;
+        case 'gumdrop':
+          brand = 'GD';
+          break;
+        case 'vault':
+          brand = 'VT';
+          break;
+      }
+
+      switch(type) {
+        case 'polybag':
+          type = 'PB';
+          break;
+        case 'master':
+          type = 'MC';
+          break;
+        case 'inner':
+          type = 'IC';
+          break;
+        case 'shipping-front':
+          type = 'Shipping Marks - Front';
+          break;
+        case 'shipping-side':
+          type = 'Shipping Marks - Side';
+          break;
+      }
+
+      const print = page.querySelector('.print');
+      const filename = `${brand}.${sku}.${type}${sapona}.png`;
+      console.log(filename);
+      htmlToImage.toPng(print)
+        .then(function (dataUrl) {
+          const link = document.createElement('a');
+          link.download = filename;
+          link.href = dataUrl;
+          link.click();
+        });
+    });
+  });
 }

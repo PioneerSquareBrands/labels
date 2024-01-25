@@ -3,12 +3,14 @@ import { default as el } from './domElements.js';
 import { brandDefaults } from './brandDefaults.js';
 import { canvasUpdate } from './canvasUpdate.js';
 import { selectChoose } from './select.js';
+import { applyAnimation } from './toolBar.js';
 
 let dragCounter = 0;
 let iconSize = 60;
 
 const triggerEventListeners = () => {
   brandUpdate();
+  factoryUpdate();
   itemMasterUpdate();
   skuUpdate();
   descriptionUpdate();
@@ -25,6 +27,7 @@ const triggerEventListeners = () => {
 
 export const fieldInit = () => {
   el.brand.addEventListener('change', brandUpdate);
+  el.factory.addEventListener('change', factoryUpdate);
   el.itemMaster.addEventListener('input', itemMasterUpdate);
   el.sku.addEventListener('input', skuUpdate);
   el.description.addEventListener('input', descriptionUpdate);
@@ -92,6 +95,29 @@ const brandUpdate = () => {
   upcUpdate();
 }
 
+const factoryUpdate = () => {
+  const elements = document.querySelectorAll(`.preview__content .page`);
+
+  let firstRects = Array.from(elements).map(element => {
+    return {
+      rect: element.getBoundingClientRect(),
+      wasHidden: element.classList.contains('page--hidden')
+    };
+  });
+
+  if (el.factory.value === 'sapona') {
+    document.querySelector('.sapona').classList.remove("sapona--hidden");
+    document.querySelector('.page[data-type="master"]:not(.sapona)').classList.add("sapona--hidden");
+  } else {
+    document.querySelector('.sapona').classList.add("sapona--hidden");
+    document.querySelector('.page[data-type="master"]:not(.sapona)').classList.remove("sapona--hidden");
+  }
+
+  elements.forEach((element, index) => {
+    applyAnimation(element, firstRects[index].rect, firstRects[index].wasHidden);
+  });
+}
+
 const itemMasterUpdate = () => {
   const defaults = brandDefaults();
   const iTemMasterVal = el.itemMaster.value.toUpperCase()  || defaults.itemMaster;
@@ -124,9 +150,8 @@ const skuUpdate = () => {
     }
   }
 
-  el.printBoxSkus.forEach((printBoxSkus) => {
-    printBoxSkus.innerHTML = formattedSku;
-  });
+  el.printBoxSkus.forEach((printBoxSkus) => printBoxSkus.innerHTML = formattedSku );
+  el.printBoxSkusSapona.forEach((printBoxSkus) => printBoxSkus.innerHTML = formattedSku );
   updateTextContent(el.printSkus, skuValue);
   dataMatrixUpdate();
 }

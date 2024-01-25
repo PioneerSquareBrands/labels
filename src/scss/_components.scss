@@ -246,7 +246,6 @@
     position: absolute;
     overflow: hidden;
     z-index: -1;
-    //top: -100%;
   }
 }
 
@@ -660,6 +659,40 @@
   }
 }
 
+.grab {
+  opacity: 1;
+
+  &__button {
+    opacity: 0;
+    display: flex;
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background-color: rgb(0, 123, 255);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    top: 4px;
+    right: 4px;
+    border-radius: 3px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: opacity 0.2s;
+  }
+
+  .preview--brenthaven &__button {background-color: #1B3E5D}
+  .preview--vault &__button {background-color: #EE272F}
+  .preview--gumdrop &__button {background-color: #01A4C5}
+
+  &__button svg {
+    stroke: #ffffff;
+  }
+
+  .page:hover &__button {
+    opacity: 1;
+  }
+}
+
 // Brenthaven Specific Styles
 .preview--brenthaven {
   .label__item-master:before { content: "Item: "; }
@@ -698,7 +731,7 @@
   }
 }
 
-// Polybag Specific Styles
+// MC Specific Styles
 .page[data-type="master"] { 
   opacity: 1;
 
@@ -708,6 +741,13 @@
 
   &::before {
     content: 'Master Carton';
+  }
+}
+
+// Polybag Specific Styles
+.page.sapona[data-type="master"] { 
+  &::before {
+    content: 'Master Carton (Sapona)';
   }
 }
 

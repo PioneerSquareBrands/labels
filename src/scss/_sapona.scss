@@ -1,0 +1,119 @@
+.sapona {
+  z-index: 1;
+
+  .label {
+    width: 6in;
+    height: 4in;
+  }
+
+  .label__brand {
+    margin-bottom: auto;
+  }
+  .label__logo {
+    height: 48px;
+  }
+
+  &__content {
+    display: grid;
+    gap: 0;
+    margin-bottom: auto;
+    max-width: 4in;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+  }
+
+  &__label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-right: 8px;
+    text-transform: uppercase;
+  }
+
+  .label__item-master, 
+  .shipping-mark__sku,
+  .shipping-mark__sku::before {
+    height: auto;
+    font-size: 1rem !important;
+  }
+
+  .shipping-mark__sku{
+    margin-top: 0;
+
+    .sku__part{
+      border: 1px solid #000;
+      border-right-width: 0;
+      padding: 0 1%;
+    }
+
+    .sku__part:last-child{
+      border-right-width: 1px;
+    }
+
+    &::before{
+      margin-right: 2%;
+    }
+  }
+
+  .label__item-master {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .label__item-sku {
+    font-size: 0.8rem;
+    font-weight: 700;
+
+    &:before {
+      content: 'SKU: ';
+    }
+  }
+
+  .label__description {
+    font-weight: 400;
+    text-align: left;
+    margin: 0;
+  }
+
+  .shipping-mark__po {
+    border-bottom: 0;
+  }
+
+  .label__upc {
+    height: 100px;
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: 4px;
+
+    svg {
+      bottom: unset;
+      transform: translate(0,0) scale(1.2) !important;
+    }
+  }
+
+  .shipping-mark__source {
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-left: -2px;
+  }
+
+  &__value,
+  &__insert {
+    font-size: 0.8rem;
+  }
+
+  &__carton::after {
+    content: 'OF';
+    margin-left: 1in;
+  }
+
+  &--hidden {
+    opacity: 0 !important;
+    position: absolute;
+    overflow: hidden;
+    z-index: -1;
+  }
+}
