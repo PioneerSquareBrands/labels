@@ -590,8 +590,8 @@ body > main {
 .sidebar .qrlink {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 180px 1fr;
-  grid-template-columns: 180px 1fr;
+  -ms-grid-columns: 200px 1fr;
+  grid-template-columns: 200px 1fr;
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
@@ -1746,8 +1746,8 @@ body.canvas-animating .preview__content {
   width: 3.5in;
   bottom: 0.3in;
   right: 0.3in;
-  border-radius: 0.2in;
-  padding: 0.2in;
+  border-radius: 0.1in;
+  padding: 0.15in;
   font-size: 0.2in;
   font-weight: 700;
   text-align: right;
@@ -1766,6 +1766,46 @@ body.canvas-animating .preview__content {
 .shipping-mark__recycling svg {
   width: 0.8in;
   height: 0.8in;
+}
+.shipping-mark__prop65 {
+  position: absolute;
+  border: 4px solid #000000;
+  width: 3.5in;
+  bottom: 1.7in;
+  right: 0.3in;
+  border-radius: 0.1in;
+  padding: 0.15in;
+  font-size: 11px;
+}
+.shipping-mark__prop65-heading {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 0.1in;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 0.18in;
+  font-weight: 600;
+}
+.shipping-mark__prop65-heading svg {
+  width: 0.6in;
+  height: 0.6in;
+}
+.shipping-mark__prop65-california, .shipping-mark__prop65-warn {
+  display: block;
+  line-height: 0.29in;
+  text-align: center;
+}
+.shipping-mark__prop65-warn {
+  font-size: 0.3in;
+}
+.shipping-mark__prop65-text {
+  font-size: 0.14in;
+}
+.shipping-mark__prop65-text p {
+  text-align: center;
+  margin-top: 0.1in;
 }
 
 .grab {

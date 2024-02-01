@@ -639,8 +639,8 @@
     width: 3.5in;
     bottom: 0.3in;
     right: 0.3in;
-    border-radius: 0.2in;
-    padding: 0.2in;
+    border-radius: 0.1in;
+    padding: 0.15in;
 
     font-size: 0.2in;
     font-weight: 700;
@@ -656,6 +656,50 @@
       width: 0.8in;
       height: 0.8in;
     }
+  }
+
+  &__prop65 {
+    position: absolute;
+    border: 4px solid #000000;
+    width: 3.5in;
+    bottom: 1.7in;
+    right: 0.3in;
+    border-radius: 0.1in;
+    padding: 0.15in;
+    font-size: 11px;
+  }
+
+  &__prop65-heading {
+    display: flex;
+    gap: 0.1in;
+    align-items: center;
+    font-size: 0.18in;
+    font-weight: 600;
+  }
+
+  &__prop65-heading svg {
+    width: 0.6in;
+    height: 0.6in;
+  }
+
+  &__prop65-california,
+  &__prop65-warn {
+    display: block;
+    line-height: 0.29in;
+    text-align: center;
+  }
+
+  &__prop65-warn {
+    font-size: 0.3in;
+  }
+
+  &__prop65-text {
+    font-size: 0.14in;
+  }
+
+  &__prop65-text p {
+    text-align: center;
+    margin-top: 0.1in;
   }
 }
 
