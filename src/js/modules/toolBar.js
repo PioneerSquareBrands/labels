@@ -184,7 +184,7 @@ export const pdfButtons = () => {
 
 const generatePDF = async (elements) => {
   const pdf = new jsPDF('p', 'in', 'a4');
-  const pages = Array.from(document.querySelectorAll(`${elements}:not(.page--hidden) .print`));
+  const pages = Array.from(document.querySelectorAll(`${elements}:not(.page--hidden):not(.sapona--hidden) .print`));
   let pageType;
 
   for (const page of pages) {
