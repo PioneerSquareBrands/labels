@@ -4692,7 +4692,7 @@ const pdfButtons = () => {
 }
 
 const generatePDF = async (elements) => {
-  const pdf = new jspdf__WEBPACK_IMPORTED_MODULE_0__.jsPDF('p', 'in', 'a4');
+  const pdf = new jspdf__WEBPACK_IMPORTED_MODULE_0__.jsPDF('p', 'in', 'a4', true);
   const pages = Array.from(document.querySelectorAll(`${elements}:not(.page--hidden):not(.sapona--hidden) .print`));
   let pageType;
 
