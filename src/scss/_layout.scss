@@ -210,7 +210,13 @@ body > main {
     }
   }
 
-  .qr__toggle {
+  .qr__visibility {
+    right: 32px;
+    margin-top: 1px;
+  }
+
+  .qr__toggle,
+  .qr__visibility {
     svg:last-child { display: none; stroke:rgba(0, 123, 255, 0.5); }
     &--active svg:first-child { display: none; }
     &--active svg:last-child { display: block; }

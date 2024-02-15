@@ -3,7 +3,7 @@ import { validateNumbers } from './validate.js';
 import { validateUPC } from './validate.js';
 import { fieldInit } from './fieldHandler.js';
 import { colorInit } from './colorHandler.js';
-import { qrToggle, sidebarAccordion, outline } from './misc.js';
+import { qrToggle, qrVisibility, sidebarAccordion, outline } from './misc.js';
 
 
 export const SideBar = () => {
@@ -13,6 +13,7 @@ export const SideBar = () => {
   fieldInit();
   colorInit();
   qrToggle();
+  qrVisibility();
   outline();
   sidebarAccordion();
 }

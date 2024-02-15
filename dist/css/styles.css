@@ -636,14 +636,21 @@ body > main {
   margin-top: 4px;
   display: none;
 }
-.sidebar .qr__toggle svg:last-child {
+.sidebar .qr__visibility {
+  right: 32px;
+  margin-top: 1px;
+}
+.sidebar .qr__toggle svg:last-child,
+.sidebar .qr__visibility svg:last-child {
   display: none;
   stroke: rgba(0, 123, 255, 0.5);
 }
-.sidebar .qr__toggle--active svg:first-child {
+.sidebar .qr__toggle--active svg:first-child,
+.sidebar .qr__visibility--active svg:first-child {
   display: none;
 }
-.sidebar .qr__toggle--active svg:last-child {
+.sidebar .qr__toggle--active svg:last-child,
+.sidebar .qr__visibility--active svg:last-child {
   display: block;
 }
 .sidebar .quantity {
@@ -1431,7 +1438,6 @@ body.canvas-animating .preview__content {
 }
 .label__upc {
   width: 100%;
-  height: 100px;
   overflow: hidden;
   position: relative;
   height: 72px;
@@ -1522,6 +1528,12 @@ body.canvas-animating .preview__content {
   border: 1px solid #000000;
   padding: 2px;
   margin-bottom: 4px;
+  display: none;
+}
+.label__install--active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 .label__install-img {
   width: 24px;
@@ -1669,6 +1681,10 @@ body.canvas-animating .preview__content {
   font-size: 40%;
   font-weight: 400;
 }
+.shipping-mark__bottom {
+  width: 35%;
+  font-size: 30%;
+}
 .shipping-mark__logo-img {
   height: 100px;
 }
@@ -1743,12 +1759,12 @@ body.canvas-animating .preview__content {
 .shipping-mark__recycling {
   position: absolute;
   border: 4px solid #000000;
-  width: 3.5in;
-  bottom: 0.3in;
-  right: 4in;
+  width: 2.8in;
+  bottom: 0.1in;
+  right: 3.5in;
   border-radius: 0.1in;
-  padding: 0.15in;
-  font-size: 0.2in;
+  padding: 0.1in;
+  font-size: 0.15in;
   font-weight: 700;
   text-align: right;
   text-transform: uppercase;
@@ -1764,17 +1780,17 @@ body.canvas-animating .preview__content {
   gap: 0.1in;
 }
 .shipping-mark__recycling svg {
-  width: 0.8in;
-  height: 0.8in;
+  width: 0.6in;
+  height: 0.6in;
 }
 .shipping-mark__prop65 {
   position: absolute;
   border: 4px solid #000000;
-  width: 3.5in;
-  bottom: 0.3in;
-  right: 0.3in;
+  width: 3.35in;
+  bottom: 0.1in;
+  right: 0.1in;
   border-radius: 0.1in;
-  padding: 0.15in;
+  padding: 0.1in;
   font-size: 11px;
 }
 .shipping-mark__prop65-heading {
@@ -1881,15 +1897,25 @@ body.canvas-animating .preview__content {
 .preview--gumdrop .page[data-type=polybag] .label__info {
   margin-bottom: 4px;
 }
+.preview--gumdrop .label__upc {
+  height: 60px;
+}
 
 .preview--vault .download__button {
   background-color: #EE272F;
+}
+.preview--vault .label__info {
+  margin-top: auto;
+}
+.preview--vault .label__item {
+  display: -ms-grid;
+  display: grid;
 }
 .preview--vault .label__item-master::before {
   content: "Item: ";
 }
 .preview--vault .label__item-sku::before {
-  content: "/ SKU: ";
+  content: "SKU: ";
 }
 
 .page[data-type=polybag] {

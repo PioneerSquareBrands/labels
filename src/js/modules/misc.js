@@ -23,6 +23,24 @@ export const qrToggle = () => {
   });
 }
 
+export const qrVisibility = () => {
+  const qrVisibilityToggle = document.querySelector('.qr__visibility');
+  const qrDivToHide = document.querySelector('.label__install');
+
+  // Load the initial state from localStorage or default to true if not found
+  const initialState = localStorage.getItem('qrVisibilityShown') !== 'false';
+  qrDivToHide.classList.toggle('label__install--active', !initialState);
+  qrVisibilityToggle.classList.toggle('qr__visibility--active', !initialState);
+
+  qrVisibilityToggle.addEventListener('click', () => {
+    qrDivToHide.classList.toggle('label__install--active');
+    qrVisibilityToggle.classList.toggle('qr__visibility--active', qrDivToHide.classList.contains('label__install--active'));
+
+    // Save the current state to localStorage
+    localStorage.setItem('qrVisibilityShown', !qrDivToHide.classList.contains('label__install--active').toString());
+  });
+}
+
 export const sidebarAccordion = () => {
   const accordionToggle = document.querySelectorAll('.sidebar__title');
   

@@ -59,16 +59,20 @@ export const fieldInit = () => {
   window.addEventListener('load', triggerEventListeners);
 }
 
-  const updateTextContent = (nodeList, value) => {
-    nodeList.forEach((node) => node.textContent = value);
-  };
+const updateTextContent = (nodeList, value) => {
+  nodeList.forEach((node) => node.textContent = value);
+};
 
 const brandUpdate = () => {
   const defaults = brandDefaults();
   // Update Preview class
-  const classesToRemove = ['preview--brenthaven', 'preview--gumdrop', 'preview--vault'];
-  classesToRemove.forEach((className) => el.preview.classList.remove(className));
+  const previewClassesToRemove = ['preview--brenthaven', 'preview--gumdrop', 'preview--vault'];
+  previewClassesToRemove.forEach((className) => el.preview.classList.remove(className));
   el.preview.classList.add(`preview--${defaults.brandField}`);
+
+  const sidebarClassesToRemove = ['sidebar--brenthaven', 'sidebar--gumdrop', 'sidebar--vault'];
+  sidebarClassesToRemove.forEach((className) => el.sidebar.classList.remove(className));
+  el.sidebar.classList.add(`sidebar--${defaults.brandField}`);
 
   el.labels.forEach(label => label.classList.add(`label--${defaults.brandField}`));
   el.printHeaders.forEach(printHeader => {
@@ -122,11 +126,12 @@ const itemMasterUpdate = () => {
   const defaults = brandDefaults();
   const iTemMasterVal = el.itemMaster.value.toUpperCase()  || defaults.itemMaster;
 
-  el.qrPath.placeholder = iTemMasterVal;
   updateTextContent(el.printItemMasters, iTemMasterVal);
-  updateTextContent(el.printInstallPaths, iTemMasterVal);
-
-  qrURL();
+  if (defaults.brandField !== 'vault') {
+    updateTextContent(el.printInstallPaths, iTemMasterVal)
+    el.qrPath.placeholder = iTemMasterVal;
+    qrURL();
+  }
 }
 
 const skuUpdate = () => {
@@ -152,8 +157,15 @@ const skuUpdate = () => {
 
   el.printBoxSkus.forEach((printBoxSkus) => printBoxSkus.innerHTML = formattedSku );
   el.printBoxSkusSapona.forEach((printBoxSkus) => printBoxSkus.innerHTML = formattedSku );
+  
   updateTextContent(el.printSkus, skuValue);
   dataMatrixUpdate();
+
+  if (defaults.brandField === 'vault') {
+    updateTextContent(el.printInstallPaths, skuValue);
+    el.qrPath.placeholder = skuValue;
+    qrURL();
+  }
 }
 
 const descriptionUpdate = () => {
@@ -215,6 +227,7 @@ const sourceUpdate = () => {
 const qrURL = () => {
   const defaults = brandDefaults();
   const itemMasterField = el.itemMaster.value.toUpperCase() || defaults.itemMaster;
+  const skuField = el.sku.value.toUpperCase() || defaults.sku;
 
   const brandUrls = {
     'brenthaven': 'https://brenthaven.com/',
@@ -223,10 +236,12 @@ const qrURL = () => {
   };
 
   const brandUrl = brandUrls[defaults.brandField] || brandUrls.default;
-  const qrURL = `${brandUrl}${itemMasterField}`;
-
+  const qrPathValue = defaults.brandField !== 'vault' ? itemMasterField : skuField;
   el.qrBase.textContent = brandUrl; // Update QR Link Base div
-  el.qrPath.value = `${itemMasterField}`; // Update Hidden QR Path
+  
+  const qrURL = `${brandUrl}${qrPathValue}`;
+  el.qrPath.value = `${qrPathValue}`; // Update Hidden QR Path
+  
   el.qrLink.value = qrURL; // Update Hidden QR Link
 
   qrCodeUpdate();
@@ -234,7 +249,12 @@ const qrURL = () => {
 
 const qrCustomUpdate = () => {
   const defaults = brandDefaults();
-  const qrPathValue = el.qrPath.value.toUpperCase() || el.itemMaster.value.toUpperCase() || defaults.itemMaster;
+  const itemMasterField = el.itemMaster.value.toUpperCase() || defaults.itemMaster;
+  const skuField = el.sku.value.toUpperCase() || defaults.sku;
+  const qrPathValue = el.qrPath.value.toUpperCase() || defaults.brandField !== 'vault' ? itemMasterField : skuField;
+  //const qrPathValue = el.qrPath.value.toUpperCase() || el.itemMaster.value.toUpperCase() || defaults.itemMaster;
+
+  console.log(defaults.brandField);
   
   updateTextContent(el.printInstallPaths, qrPathValue);
   el.qrLink.value = el.qrBase.textContent + qrPathValue; // Update Hidden QR Link

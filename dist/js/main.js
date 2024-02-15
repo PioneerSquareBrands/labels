@@ -29,6 +29,7 @@ const SideBar = () => {
   (0,_fieldHandler_js__WEBPACK_IMPORTED_MODULE_2__.fieldInit)();
   (0,_colorHandler_js__WEBPACK_IMPORTED_MODULE_3__.colorInit)();
   (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.qrToggle)();
+  (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.qrVisibility)();
   (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.outline)();
   (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.sidebarAccordion)();
 }
@@ -444,16 +445,20 @@ const fieldInit = () => {
   window.addEventListener('load', triggerEventListeners);
 }
 
-  const updateTextContent = (nodeList, value) => {
-    nodeList.forEach((node) => node.textContent = value);
-  };
+const updateTextContent = (nodeList, value) => {
+  nodeList.forEach((node) => node.textContent = value);
+};
 
 const brandUpdate = () => {
   const defaults = (0,_brandDefaults_js__WEBPACK_IMPORTED_MODULE_2__.brandDefaults)();
   // Update Preview class
-  const classesToRemove = ['preview--brenthaven', 'preview--gumdrop', 'preview--vault'];
-  classesToRemove.forEach((className) => _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].preview.classList.remove(className));
+  const previewClassesToRemove = ['preview--brenthaven', 'preview--gumdrop', 'preview--vault'];
+  previewClassesToRemove.forEach((className) => _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].preview.classList.remove(className));
   _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].preview.classList.add(`preview--${defaults.brandField}`);
+
+  const sidebarClassesToRemove = ['sidebar--brenthaven', 'sidebar--gumdrop', 'sidebar--vault'];
+  sidebarClassesToRemove.forEach((className) => _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].sidebar.classList.remove(className));
+  _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].sidebar.classList.add(`sidebar--${defaults.brandField}`);
 
   _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].labels.forEach(label => label.classList.add(`label--${defaults.brandField}`));
   _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printHeaders.forEach(printHeader => {
@@ -507,11 +512,12 @@ const itemMasterUpdate = () => {
   const defaults = (0,_brandDefaults_js__WEBPACK_IMPORTED_MODULE_2__.brandDefaults)();
   const iTemMasterVal = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].itemMaster.value.toUpperCase()  || defaults.itemMaster;
 
-  _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrPath.placeholder = iTemMasterVal;
   updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printItemMasters, iTemMasterVal);
-  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printInstallPaths, iTemMasterVal);
-
-  qrURL();
+  if (defaults.brandField !== 'vault') {
+    updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printInstallPaths, iTemMasterVal)
+    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrPath.placeholder = iTemMasterVal;
+    qrURL();
+  }
 }
 
 const skuUpdate = () => {
@@ -537,8 +543,15 @@ const skuUpdate = () => {
 
   _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printBoxSkus.forEach((printBoxSkus) => printBoxSkus.innerHTML = formattedSku );
   _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printBoxSkusSapona.forEach((printBoxSkus) => printBoxSkus.innerHTML = formattedSku );
+  
   updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printSkus, skuValue);
   dataMatrixUpdate();
+
+  if (defaults.brandField === 'vault') {
+    updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printInstallPaths, skuValue);
+    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrPath.placeholder = skuValue;
+    qrURL();
+  }
 }
 
 const descriptionUpdate = () => {
@@ -600,6 +613,7 @@ const sourceUpdate = () => {
 const qrURL = () => {
   const defaults = (0,_brandDefaults_js__WEBPACK_IMPORTED_MODULE_2__.brandDefaults)();
   const itemMasterField = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].itemMaster.value.toUpperCase() || defaults.itemMaster;
+  const skuField = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].sku.value.toUpperCase() || defaults.sku;
 
   const brandUrls = {
     'brenthaven': 'https://brenthaven.com/',
@@ -608,10 +622,12 @@ const qrURL = () => {
   };
 
   const brandUrl = brandUrls[defaults.brandField] || brandUrls.default;
-  const qrURL = `${brandUrl}${itemMasterField}`;
-
+  const qrPathValue = defaults.brandField !== 'vault' ? itemMasterField : skuField;
   _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrBase.textContent = brandUrl; // Update QR Link Base div
-  _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrPath.value = `${itemMasterField}`; // Update Hidden QR Path
+  
+  const qrURL = `${brandUrl}${qrPathValue}`;
+  _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrPath.value = `${qrPathValue}`; // Update Hidden QR Path
+  
   _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrLink.value = qrURL; // Update Hidden QR Link
 
   qrCodeUpdate();
@@ -619,7 +635,12 @@ const qrURL = () => {
 
 const qrCustomUpdate = () => {
   const defaults = (0,_brandDefaults_js__WEBPACK_IMPORTED_MODULE_2__.brandDefaults)();
-  const qrPathValue = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrPath.value.toUpperCase() || _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].itemMaster.value.toUpperCase() || defaults.itemMaster;
+  const itemMasterField = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].itemMaster.value.toUpperCase() || defaults.itemMaster;
+  const skuField = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].sku.value.toUpperCase() || defaults.sku;
+  const qrPathValue = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrPath.value.toUpperCase() || defaults.brandField !== 'vault' ? itemMasterField : skuField;
+  //const qrPathValue = el.qrPath.value.toUpperCase() || el.itemMaster.value.toUpperCase() || defaults.itemMaster;
+
+  console.log(defaults.brandField);
   
   updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printInstallPaths, qrPathValue);
   _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrLink.value = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrBase.textContent + qrPathValue; // Update Hidden QR Link
@@ -8090,6 +8111,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   pixelToInch: function() { return /* binding */ pixelToInch; },
 /* harmony export */   pixelToMm: function() { return /* binding */ pixelToMm; },
 /* harmony export */   qrToggle: function() { return /* binding */ qrToggle; },
+/* harmony export */   qrVisibility: function() { return /* binding */ qrVisibility; },
 /* harmony export */   sidebarAccordion: function() { return /* binding */ sidebarAccordion; }
 /* harmony export */ });
 /* harmony import */ var _domElements_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
@@ -8116,6 +8138,24 @@ const qrToggle = () => {
     if (!qrPath.disabled) {
       qrPath.focus();
     }
+  });
+}
+
+const qrVisibility = () => {
+  const qrVisibilityToggle = document.querySelector('.qr__visibility');
+  const qrDivToHide = document.querySelector('.label__install');
+
+  // Load the initial state from localStorage or default to true if not found
+  const initialState = localStorage.getItem('qrVisibilityShown') !== 'false';
+  qrDivToHide.classList.toggle('label__install--active', !initialState);
+  qrVisibilityToggle.classList.toggle('qr__visibility--active', !initialState);
+
+  qrVisibilityToggle.addEventListener('click', () => {
+    qrDivToHide.classList.toggle('label__install--active');
+    qrVisibilityToggle.classList.toggle('qr__visibility--active', qrDivToHide.classList.contains('label__install--active'));
+
+    // Save the current state to localStorage
+    localStorage.setItem('qrVisibilityShown', !qrDivToHide.classList.contains('label__install--active').toString());
   });
 }
 
