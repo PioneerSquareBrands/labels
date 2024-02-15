@@ -1,4 +1,2 @@
-# Daedalus
-A quick and dirty-ish boilerplate for simple static websites that probably doesn't need a full-blown framework. Uses prepros to compile scss.
-
-![Daedalus Preview](preview.png)
+# PSB Labels - UPC Label & Shipping Mark Generator
+This is a simple tool to generate UPC labels and shipping marks for PSB. 
