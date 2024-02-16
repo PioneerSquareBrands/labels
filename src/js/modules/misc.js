@@ -6,7 +6,7 @@ export const qrToggle = () => {
   const qrPath = document.querySelector('#qr_path');
 
   // Load the initial state from localStorage
-  const initialState = localStorage.getItem('qrPathDisabled') === 'true';
+  const initialState = (localStorage.getItem('qrPathDisabled') ?? 'true') === 'true';
   qrPath.disabled = initialState;
   qrToggle.classList.toggle('qr__toggle--active', !initialState);
 
@@ -17,9 +17,7 @@ export const qrToggle = () => {
     // Save the current state to localStorage
     localStorage.setItem('qrPathDisabled', qrPath.disabled.toString());
 
-    if (!qrPath.disabled) {
-      qrPath.focus();
-    }
+    if (!qrPath.disabled) { qrPath.focus() }
   });
 }
 
@@ -28,16 +26,18 @@ export const qrVisibility = () => {
   const qrDivToHide = document.querySelector('.label__install');
 
   // Load the initial state from localStorage or default to true if not found
-  const initialState = localStorage.getItem('qrVisibilityShown') !== 'false';
-  qrDivToHide.classList.toggle('label__install--active', !initialState);
-  qrVisibilityToggle.classList.toggle('qr__visibility--active', !initialState);
+  const initialState = (localStorage.getItem('qrVisibilityShown') ?? 'true') === 'true';
+  console.log(initialState);
+  qrDivToHide.classList.toggle('label__install--active', initialState);
+  qrVisibilityToggle.classList.toggle('qr__visibility--active', initialState);
 
   qrVisibilityToggle.addEventListener('click', () => {
     qrDivToHide.classList.toggle('label__install--active');
     qrVisibilityToggle.classList.toggle('qr__visibility--active', qrDivToHide.classList.contains('label__install--active'));
 
     // Save the current state to localStorage
-    localStorage.setItem('qrVisibilityShown', !qrDivToHide.classList.contains('label__install--active').toString());
+    localStorage.setItem('qrVisibilityShown', qrDivToHide.classList.contains('label__install--active').toString());
+    console.log(qrDivToHide.classList.contains('label__install--active').toString());
   });
 }
 
