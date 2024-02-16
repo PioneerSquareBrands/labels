@@ -636,6 +636,14 @@ body > main {
   margin-top: 4px;
   display: none;
 }
+.sidebar--brenthaven .qrlink {
+  -ms-grid-columns: 152px 1fr;
+  grid-template-columns: 152px 1fr;
+}
+.sidebar--vault .qrlink {
+  -ms-grid-columns: 140px 1fr;
+  grid-template-columns: 140px 1fr;
+}
 .sidebar .qr__visibility {
   right: 32px;
   margin-top: 1px;

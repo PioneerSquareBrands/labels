@@ -210,6 +210,9 @@ body > main {
     }
   }
 
+  &--brenthaven .qrlink { grid-template-columns: 152px 1fr; }
+  &--vault .qrlink { grid-template-columns: 140px 1fr; }
+
   .qr__visibility {
     right: 32px;
     margin-top: 1px;
