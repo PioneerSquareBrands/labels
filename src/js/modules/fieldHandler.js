@@ -138,8 +138,10 @@ const skuUpdate = () => {
   const defaults = brandDefaults();
   const skuValue = el.sku.value.toUpperCase() || defaults.sku;
 
+  let skuLength = skuValue.length;
+
   let formattedSku = '';
-  let isNumericThirdChar = skuValue.length > 2 && /[0-9]/.test(skuValue[2]);
+  let isNumericThirdChar = skuLength > 2 && /[0-9]/.test(skuValue[2]);
   let section = '';
 
   for (let i = 0; i < skuValue.length; i++) {
@@ -155,8 +157,20 @@ const skuUpdate = () => {
     }
   }
 
-  el.printBoxSkus.forEach((printBoxSkus) => printBoxSkus.innerHTML = formattedSku );
+  el.printBoxSkus.forEach((printBoxSkus) => {
+    printBoxSkus.innerHTML = formattedSku;
+    
+    if (skuLength <= 12) {
+      printBoxSkus.style.fontSize = '80%'; 
+    } else if (skuLength <= 22) {
+      printBoxSkus.style.fontSize = '60%'; 
+    } else {
+      printBoxSkus.style.fontSize = '40%'; 
+    }
+  });
   el.printBoxSkusSapona.forEach((printBoxSkus) => printBoxSkus.innerHTML = formattedSku );
+
+
   
   updateTextContent(el.printSkus, skuValue);
   dataMatrixUpdate();

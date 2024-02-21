@@ -30,6 +30,7 @@ const SideBar = () => {
   (0,_colorHandler_js__WEBPACK_IMPORTED_MODULE_3__.colorInit)();
   (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.qrToggle)();
   (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.qrVisibility)();
+  (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.skuBox)();
   (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.outline)();
   (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.sidebarAccordion)();
 }
@@ -524,8 +525,10 @@ const skuUpdate = () => {
   const defaults = (0,_brandDefaults_js__WEBPACK_IMPORTED_MODULE_2__.brandDefaults)();
   const skuValue = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].sku.value.toUpperCase() || defaults.sku;
 
+  let skuLength = skuValue.length;
+
   let formattedSku = '';
-  let isNumericThirdChar = skuValue.length > 2 && /[0-9]/.test(skuValue[2]);
+  let isNumericThirdChar = skuLength > 2 && /[0-9]/.test(skuValue[2]);
   let section = '';
 
   for (let i = 0; i < skuValue.length; i++) {
@@ -541,8 +544,20 @@ const skuUpdate = () => {
     }
   }
 
-  _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printBoxSkus.forEach((printBoxSkus) => printBoxSkus.innerHTML = formattedSku );
+  _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printBoxSkus.forEach((printBoxSkus) => {
+    printBoxSkus.innerHTML = formattedSku;
+    
+    if (skuLength <= 12) {
+      printBoxSkus.style.fontSize = '80%'; 
+    } else if (skuLength <= 22) {
+      printBoxSkus.style.fontSize = '60%'; 
+    } else {
+      printBoxSkus.style.fontSize = '40%'; 
+    }
+  });
   _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printBoxSkusSapona.forEach((printBoxSkus) => printBoxSkus.innerHTML = formattedSku );
+
+
   
   updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printSkus, skuValue);
   dataMatrixUpdate();
@@ -8112,7 +8127,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   pixelToMm: function() { return /* binding */ pixelToMm; },
 /* harmony export */   qrToggle: function() { return /* binding */ qrToggle; },
 /* harmony export */   qrVisibility: function() { return /* binding */ qrVisibility; },
-/* harmony export */   sidebarAccordion: function() { return /* binding */ sidebarAccordion; }
+/* harmony export */   sidebarAccordion: function() { return /* binding */ sidebarAccordion; },
+/* harmony export */   skuBox: function() { return /* binding */ skuBox; }
 /* harmony export */ });
 /* harmony import */ var _domElements_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 /* harmony import */ var _brandDefaults_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(56);
@@ -8145,7 +8161,6 @@ const qrVisibility = () => {
 
   // Load the initial state from localStorage or default to true if not found
   const initialState = (localStorage.getItem('qrVisibilityShown') ?? 'true') === 'true';
-  console.log(initialState);
   qrDivToHide.classList.toggle('label__install--active', initialState);
   qrVisibilityToggle.classList.toggle('qr__visibility--active', initialState);
 
@@ -8155,7 +8170,24 @@ const qrVisibility = () => {
 
     // Save the current state to localStorage
     localStorage.setItem('qrVisibilityShown', qrDivToHide.classList.contains('label__install--active').toString());
-    console.log(qrDivToHide.classList.contains('label__install--active').toString());
+  });
+}
+
+const skuBox = () => {
+  const skuBoxToggle = document.querySelector('.box__toggle');
+  const preview = document.querySelector('.preview__content');
+
+  // Load the initial state from localStorage or default to true if not found
+  const initialState = (localStorage.getItem('boxSkuShown') ?? 'true') === 'true';
+  skuBoxToggle.classList.toggle('box__toggle--active', initialState);
+  preview.classList.toggle('preview--has-box', initialState);
+
+  skuBoxToggle.addEventListener('click', () => {
+    preview.classList.toggle('preview--has-box');
+    skuBoxToggle.classList.toggle('box__toggle--active', preview.classList.contains('preview--has-box'));
+
+    // Save the current state to localStorage
+    localStorage.setItem('boxSkuShown', preview.classList.contains('preview--has-box').toString());
   });
 }
 

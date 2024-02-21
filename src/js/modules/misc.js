@@ -27,7 +27,6 @@ export const qrVisibility = () => {
 
   // Load the initial state from localStorage or default to true if not found
   const initialState = (localStorage.getItem('qrVisibilityShown') ?? 'true') === 'true';
-  console.log(initialState);
   qrDivToHide.classList.toggle('label__install--active', initialState);
   qrVisibilityToggle.classList.toggle('qr__visibility--active', initialState);
 
@@ -37,7 +36,24 @@ export const qrVisibility = () => {
 
     // Save the current state to localStorage
     localStorage.setItem('qrVisibilityShown', qrDivToHide.classList.contains('label__install--active').toString());
-    console.log(qrDivToHide.classList.contains('label__install--active').toString());
+  });
+}
+
+export const skuBox = () => {
+  const skuBoxToggle = document.querySelector('.box__toggle');
+  const preview = document.querySelector('.preview__content');
+
+  // Load the initial state from localStorage or default to true if not found
+  const initialState = (localStorage.getItem('boxSkuShown') ?? 'true') === 'true';
+  skuBoxToggle.classList.toggle('box__toggle--active', initialState);
+  preview.classList.toggle('preview--has-box', initialState);
+
+  skuBoxToggle.addEventListener('click', () => {
+    preview.classList.toggle('preview--has-box');
+    skuBoxToggle.classList.toggle('box__toggle--active', preview.classList.contains('preview--has-box'));
+
+    // Save the current state to localStorage
+    localStorage.setItem('boxSkuShown', preview.classList.contains('preview--has-box').toString());
   });
 }
 

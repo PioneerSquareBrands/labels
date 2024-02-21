@@ -528,7 +528,7 @@
     font-size: 80%;
     font-weight: 700;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     margin: 2% 0 auto;
 
     .page[data-type="shipping-front"] & {
@@ -536,12 +536,17 @@
     }
 
     .sku__part {
+      padding: 1% 0;
+      border: 2px solid transparent;
+    }
+
+    .preview--has-box & .sku__part {
       border: 2px solid #000000;
       border-right-width: 0;
       padding: 1%;
+  
+      &:last-child { border-right-width: 2px; }
     }
-
-    .sku__part:last-child { border-right-width: 2px; }
   }
 
   &__middle {
