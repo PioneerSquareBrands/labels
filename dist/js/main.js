@@ -8343,7 +8343,7 @@ const colorChanger = () => {
     element.classList.remove('label__internal--dark');
     element.classList.remove('label__internal--light');
 
-    if (luminance > 0.5) {
+    if (luminance > 0.2) {
       element.classList.add('label__internal--dark');
     } else {
       element.classList.add('label__internal--light');
