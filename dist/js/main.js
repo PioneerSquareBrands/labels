@@ -653,9 +653,7 @@ const qrCustomUpdate = () => {
   const itemMasterField = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].itemMaster.value.toUpperCase() || defaults.itemMaster;
   const skuField = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].sku.value.toUpperCase() || defaults.sku;
   const qrPathValue = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrPath.value || (defaults.brandField !== 'vault' ? itemMasterField.toUpperCase() : 'assembly/');
-  //const qrPathValue = el.qrPath.value.toUpperCase() || el.itemMaster.value.toUpperCase() || defaults.itemMaster;
   
-  console.log(defaults.brandField, qrPathValue);
   updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printInstallPaths, qrPathValue);
   _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrLink.value = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrBase.textContent + qrPathValue; // Update Hidden QR Link
 

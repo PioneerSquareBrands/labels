@@ -266,9 +266,7 @@ const qrCustomUpdate = () => {
   const itemMasterField = el.itemMaster.value.toUpperCase() || defaults.itemMaster;
   const skuField = el.sku.value.toUpperCase() || defaults.sku;
   const qrPathValue = el.qrPath.value || (defaults.brandField !== 'vault' ? itemMasterField.toUpperCase() : 'assembly/');
-  //const qrPathValue = el.qrPath.value.toUpperCase() || el.itemMaster.value.toUpperCase() || defaults.itemMaster;
   
-  console.log(defaults.brandField, qrPathValue);
   updateTextContent(el.printInstallPaths, qrPathValue);
   el.qrLink.value = el.qrBase.textContent + qrPathValue; // Update Hidden QR Link
 
