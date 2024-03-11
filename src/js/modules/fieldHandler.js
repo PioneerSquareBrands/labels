@@ -128,7 +128,7 @@ const itemMasterUpdate = () => {
 
   updateTextContent(el.printItemMasters, iTemMasterVal);
   if (defaults.brandField !== 'vault') {
-    updateTextContent(el.printInstallPaths, iTemMasterVal)
+    updateTextContent(el.printInstallPaths, iTemMasterVal);
     el.qrPath.placeholder = iTemMasterVal;
     qrURL();
   }
@@ -176,8 +176,8 @@ const skuUpdate = () => {
   dataMatrixUpdate();
 
   if (defaults.brandField === 'vault') {
-    updateTextContent(el.printInstallPaths, skuValue);
-    el.qrPath.placeholder = skuValue;
+    updateTextContent(el.printInstallPaths, 'assembly/');
+    el.qrPath.placeholder = 'assembly/';
     qrURL();
   }
 }
@@ -250,7 +250,7 @@ const qrURL = () => {
   };
 
   const brandUrl = brandUrls[defaults.brandField] || brandUrls.default;
-  const qrPathValue = defaults.brandField !== 'vault' ? itemMasterField : skuField;
+  const qrPathValue = defaults.brandField !== 'vault' ? itemMasterField : 'assembly/';
   el.qrBase.textContent = brandUrl; // Update QR Link Base div
   
   const qrURL = `${brandUrl}${qrPathValue}`;
@@ -265,11 +265,10 @@ const qrCustomUpdate = () => {
   const defaults = brandDefaults();
   const itemMasterField = el.itemMaster.value.toUpperCase() || defaults.itemMaster;
   const skuField = el.sku.value.toUpperCase() || defaults.sku;
-  const qrPathValue = el.qrPath.value.toUpperCase() || defaults.brandField !== 'vault' ? itemMasterField : skuField;
+  const qrPathValue = el.qrPath.value || (defaults.brandField !== 'vault' ? itemMasterField.toUpperCase() : 'assembly/');
   //const qrPathValue = el.qrPath.value.toUpperCase() || el.itemMaster.value.toUpperCase() || defaults.itemMaster;
-
-  console.log(defaults.brandField);
   
+  console.log(defaults.brandField, qrPathValue);
   updateTextContent(el.printInstallPaths, qrPathValue);
   el.qrLink.value = el.qrBase.textContent + qrPathValue; // Update Hidden QR Link
 

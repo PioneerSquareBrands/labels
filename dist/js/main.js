@@ -515,7 +515,7 @@ const itemMasterUpdate = () => {
 
   updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printItemMasters, iTemMasterVal);
   if (defaults.brandField !== 'vault') {
-    updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printInstallPaths, iTemMasterVal)
+    updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printInstallPaths, iTemMasterVal);
     _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrPath.placeholder = iTemMasterVal;
     qrURL();
   }
@@ -563,8 +563,8 @@ const skuUpdate = () => {
   dataMatrixUpdate();
 
   if (defaults.brandField === 'vault') {
-    updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printInstallPaths, skuValue);
-    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrPath.placeholder = skuValue;
+    updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printInstallPaths, 'assembly/');
+    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrPath.placeholder = 'assembly/';
     qrURL();
   }
 }
@@ -637,7 +637,7 @@ const qrURL = () => {
   };
 
   const brandUrl = brandUrls[defaults.brandField] || brandUrls.default;
-  const qrPathValue = defaults.brandField !== 'vault' ? itemMasterField : skuField;
+  const qrPathValue = defaults.brandField !== 'vault' ? itemMasterField : 'assembly/';
   _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrBase.textContent = brandUrl; // Update QR Link Base div
   
   const qrURL = `${brandUrl}${qrPathValue}`;
@@ -652,11 +652,10 @@ const qrCustomUpdate = () => {
   const defaults = (0,_brandDefaults_js__WEBPACK_IMPORTED_MODULE_2__.brandDefaults)();
   const itemMasterField = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].itemMaster.value.toUpperCase() || defaults.itemMaster;
   const skuField = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].sku.value.toUpperCase() || defaults.sku;
-  const qrPathValue = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrPath.value.toUpperCase() || defaults.brandField !== 'vault' ? itemMasterField : skuField;
+  const qrPathValue = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrPath.value || (defaults.brandField !== 'vault' ? itemMasterField.toUpperCase() : 'assembly/');
   //const qrPathValue = el.qrPath.value.toUpperCase() || el.itemMaster.value.toUpperCase() || defaults.itemMaster;
-
-  console.log(defaults.brandField);
   
+  console.log(defaults.brandField, qrPathValue);
   updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printInstallPaths, qrPathValue);
   _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrLink.value = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].qrBase.textContent + qrPathValue; // Update Hidden QR Link
 
@@ -8343,7 +8342,7 @@ const colorChanger = () => {
     element.classList.remove('label__internal--dark');
     element.classList.remove('label__internal--light');
 
-    if (luminance > 0.2) {
+    if (luminance > 0.5) {
       element.classList.add('label__internal--dark');
     } else {
       element.classList.add('label__internal--light');
