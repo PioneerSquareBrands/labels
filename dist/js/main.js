@@ -4861,7 +4861,7 @@ const pageImgDownload = () => {
       const print = page.querySelector('.print');
       const filename = `${brand}.${sku}.${type}${sapona}.png`;
       console.log(filename);
-      html_to_image__WEBPACK_IMPORTED_MODULE_2__.toPng(print)
+      html_to_image__WEBPACK_IMPORTED_MODULE_2__.toPng(print, { quality: 1, pixelRatio: 4 })
         .then(function (dataUrl) {
           const link = document.createElement('a');
           link.download = filename;
