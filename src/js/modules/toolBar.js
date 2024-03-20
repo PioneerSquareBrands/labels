@@ -149,18 +149,27 @@ const pageVisibility = () => {
 };
 
 const pageLayout = () => {
-  let checkbox = document.querySelector('.preview__layout #expanded');
+  let expand = document.querySelector('.preview__layout #expanded');
+  let header = document.querySelector('.preview__layout #header-visibility');
   let pagePreview = document.querySelector('.preview__content');
 
   const firstRect = pagePreview.getBoundingClientRect();
   const wasHidden = pagePreview.classList.contains('preview__content--hidden');
 
-  if (checkbox && checkbox.checked) {
+  if (expand && expand.checked) {
     pagePreview.classList.remove('preview__content--condensed');
     pagePreview.classList.add('preview__content--expanded');
   } else {
     pagePreview.classList.remove('preview__content--expanded');
     pagePreview.classList.add('preview__content--condensed');
+  }
+
+  if (header && header.checked) {
+    pagePreview.classList.remove('preview__content--header-hidden');
+    pagePreview.classList.add('preview__content--header-visible');
+  } else {
+    pagePreview.classList.remove('preview__content--header-visible');
+    pagePreview.classList.add('preview__content--header-hidden');
   }
 
   applyAnimation(pagePreview, firstRect, wasHidden);
