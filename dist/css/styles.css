@@ -1291,10 +1291,13 @@ body.canvas-animating .preview__content {
   height: 0;
 }
 .preview__content--header-hidden .page {
-  padding: 2px;
+  padding: 0;
 }
 .preview__content--header-hidden .page .print__header {
   display: none;
+}
+.preview__content--header-hidden .page .label {
+  border: 0 solid transparent;
 }
 .page .scaler-wrapper {
   position: absolute;

@@ -178,10 +178,14 @@
   }
 
   .preview__content--header-hidden & {
-    padding: 2px;
+    padding: 0;
 
     .print__header {
       display: none;
+    }
+
+    .label {
+      border: 0 solid transparent;
     }
   }
 
