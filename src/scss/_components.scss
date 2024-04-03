@@ -109,6 +109,12 @@
     cursor: pointer;
   }
 
+  &-option--disabled {
+    color: #cccccc;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
   &-option:hover,
   &-option.highlighted {
     background-color: rgb(0, 123, 255);

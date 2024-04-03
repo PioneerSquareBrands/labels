@@ -67,6 +67,7 @@
                 <select name="factory" id="factory">
                   <option value="default">Default</option>
                   <option value="sapona">Sapona</option>
+                  <option value="others">Others</option>
                 </select>
               </div>
 
@@ -660,7 +661,7 @@
             </div>
           </div>
 
-          <div class="page page--a4 sapona sapona--hidden" data-type="master">
+          <div class="page page--a4 sapona factory--hidden" data-type="master">
             <div class="page__content print">
 
               <header class="print__header">
@@ -726,6 +727,83 @@
                 <div class="label__upc">
                   <svg class="barcode">
                   </svg>
+                </div>
+              </main>
+
+            </div>
+          </div>
+
+          <div class="page page--a4 custom-factory factory--hidden" data-type="master">
+            <div class="page__content print">
+
+              <header class="print__header">
+                <h1 class="print-header">
+                  <img src="dist/img/brenthaven_min.png">
+                </h1>
+                <h2>Master Carton UPC Label</h2>
+                <h3>Label size 100mm tall x 75mm wide</h3>
+                <span class="print__magenta">Magenta die line represents die cut of label &amp; does not print</span>
+              </header>
+
+              <main class="print__content label">
+                <div class="label__brand">
+                  <img class="label__logo print-logo" src="dist/img/brenthaven_min.png">
+                </div>
+
+                <div class="sapona__content">
+                  <div class="sapona__meta">
+                    <span class="label__item-master print-item-master">1050</span>
+                  </div>
+                  <div class="sapona__meta shipping-mark__sku print-box-sku">
+                    <span class="sku__part">1050</span>
+                    <span class="sku__part">001</span>
+                  </div>
+                  <div class="sapona__meta custom-factory__description">
+                    <span class="sapona__label">Description: </span>
+                    <div class="sapona__value label__description print-description">Edge Smart Connect Keyboard</div>
+                  </div>
+                  <div class="sapona__meta">
+                    <span class="sapona__label">Qty per carton: </span>
+                    <span class="sapona__value shipping-mark__quantity print-box-qty" data-field="#sku">20</span>
+                    <span class="sapona__insert">pcs</span>
+                  </div>
+                  <div class="sapona__meta">
+                    <span class="sapona__label">Carton Dims (LxWxH in): </span>
+                    <span class="sapona__value shipping-mark__length print-dim-length">18.3"</span>
+                    <span class="sapona__insert shipping_mark__insert">x</span>
+                    <span class="sapona__value shipping-mark__width print-dim-width">11.2"</span>
+                    <span class="sapona__insert shipping_mark__insert">x</span>
+                    <span class="sapona__value shipping-mark__height print-dim-height">13.4</span>
+                  </div>
+                  <div class="sapona__meta">
+                    <span class="sapona__label">Gross Weight: </span>
+                    <span class="sapona__value shipping-mark__gweight print-gross-weight">21.17 lbs</span>
+                  </div>
+                  <div class="sapona__meta">
+                    <span class="sapona__label">Net Weight: </span>
+                    <span class="sapona__value shipping-mark__nweight print-net-weight">20.06 lbs</span>
+                  </div>
+                  <div class="sapona__meta">
+                    <span class="sapona__label">PO#: </span>
+                    <span class="shipping-mark__po print-purchase-order">123456</span>
+                  </div>
+                  <div class="sapona__meta">
+                    <span class="sapona__label sapona__carton">Carton#: </span>
+                  </div>
+                  <div class="sapona__meta">
+                    <span class="sapona__label">Made in</span>
+                    <span class="sapona__value shipping-mark__source">The USA</span>
+                  </div>
+                </div>
+
+                <div class="label__upc">
+                  <svg class="barcode">
+                  </svg>
+                </div>
+
+                <div class="label__internal">
+                  <div class="label__datamatrix">Data Matrix</div>
+                  <div class="label__internal-text">For PSB internal use only</div>
                 </div>
               </main>
 

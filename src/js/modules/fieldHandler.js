@@ -94,6 +94,19 @@ const brandUpdate = () => {
   el.upc.placeholder = defaults.upc;
   el.description.placeholder = defaults.description;
 
+  // Disable/Enable factory options based on brand
+  if (defaults.brandField === 'brenthaven' || defaults.brandField === 'gumdrop') {
+    el.factory.querySelector('option[value="others"]').disabled = true;
+    el.factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="others"]').classList.add('selectinator-option--disabled');
+    // Changes the factory option to default when clicking on BH or GD
+    if (el.factory.value === 'others') {
+      el.factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="default"]').dispatchEvent(new Event('mousedown'));
+    }
+  } else {
+    el.factory.querySelector('option[value="others"]').disabled = false;
+    el.factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="others"]').classList.remove('selectinator-option--disabled');
+  }
+
   skuUpdate();
   qrURL();
   upcUpdate();
@@ -110,11 +123,15 @@ const factoryUpdate = () => {
   });
 
   if (el.factory.value === 'sapona') {
-    document.querySelector('.sapona').classList.remove("sapona--hidden");
-    document.querySelector('.page[data-type="master"]:not(.sapona)').classList.add("sapona--hidden");
+    document.querySelector('.sapona').classList.remove("factory--hidden");
+    document.querySelectorAll('.page[data-type="master"]:not(.sapona)').forEach(page => page.classList.add("factory--hidden"));
+  } else if (el.factory.value === 'others' && el.brand.value === 'vault') {
+    document.querySelector('.custom-factory').classList.remove("factory--hidden");
+    document.querySelectorAll('.page[data-type="master"]:not(.custom-factory)').forEach(page => page.classList.add("factory--hidden"));
   } else {
-    document.querySelector('.sapona').classList.add("sapona--hidden");
-    document.querySelector('.page[data-type="master"]:not(.sapona)').classList.remove("sapona--hidden");
+    document.querySelector('.sapona').classList.add("factory--hidden");
+    document.querySelector('.custom-factory').classList.add("factory--hidden");
+    document.querySelectorAll('.page[data-type="master"]:not(.sapona):not(.custom-factory)').forEach(page => page.classList.remove("factory--hidden"));
   }
 
   elements.forEach((element, index) => {

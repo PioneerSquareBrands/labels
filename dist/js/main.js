@@ -481,6 +481,19 @@ const brandUpdate = () => {
   _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].upc.placeholder = defaults.upc;
   _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].description.placeholder = defaults.description;
 
+  // Disable/Enable factory options based on brand
+  if (defaults.brandField === 'brenthaven' || defaults.brandField === 'gumdrop') {
+    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.querySelector('option[value="others"]').disabled = true;
+    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="others"]').classList.add('selectinator-option--disabled');
+    // Changes the factory option to default when clicking on BH or GD
+    if (_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.value === 'others') {
+      _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="default"]').dispatchEvent(new Event('mousedown'));
+    }
+  } else {
+    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.querySelector('option[value="others"]').disabled = false;
+    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="others"]').classList.remove('selectinator-option--disabled');
+  }
+
   skuUpdate();
   qrURL();
   upcUpdate();
@@ -497,11 +510,15 @@ const factoryUpdate = () => {
   });
 
   if (_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.value === 'sapona') {
-    document.querySelector('.sapona').classList.remove("sapona--hidden");
-    document.querySelector('.page[data-type="master"]:not(.sapona)').classList.add("sapona--hidden");
+    document.querySelector('.sapona').classList.remove("factory--hidden");
+    document.querySelectorAll('.page[data-type="master"]:not(.sapona)').forEach(page => page.classList.add("factory--hidden"));
+  } else if (_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.value === 'others' && _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].brand.value === 'vault') {
+    document.querySelector('.custom-factory').classList.remove("factory--hidden");
+    document.querySelectorAll('.page[data-type="master"]:not(.custom-factory)').forEach(page => page.classList.add("factory--hidden"));
   } else {
-    document.querySelector('.sapona').classList.add("sapona--hidden");
-    document.querySelector('.page[data-type="master"]:not(.sapona)').classList.remove("sapona--hidden");
+    document.querySelector('.sapona').classList.add("factory--hidden");
+    document.querySelector('.custom-factory').classList.add("factory--hidden");
+    document.querySelectorAll('.page[data-type="master"]:not(.sapona):not(.custom-factory)').forEach(page => page.classList.remove("factory--hidden"));
   }
 
   elements.forEach((element, index) => {

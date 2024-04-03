@@ -1215,6 +1215,11 @@ body.canvas-animating .preview__content {
   padding: 4px 12px;
   cursor: pointer;
 }
+.selectinator-option--disabled {
+  color: #cccccc;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 .selectinator-option:hover, .selectinator-option.highlighted {
   background-color: rgb(0, 123, 255);
   color: #ffffff;
@@ -2213,27 +2218,40 @@ body.canvas-animating .preview__content {
   clear: both;
 }
 
-.sapona {
+.sapona,
+.custom-factory,
+.factory {
   z-index: 1;
 }
-.sapona .label {
+.sapona .label,
+.custom-factory .label,
+.factory .label {
   width: 6in;
   height: 4in;
 }
-.sapona .label__brand {
+.sapona .label__brand,
+.custom-factory .label__brand,
+.factory .label__brand {
   margin-bottom: auto;
 }
-.sapona .label__logo {
+.sapona .label__logo,
+.custom-factory .label__logo,
+.factory .label__logo {
   height: 48px;
 }
-.sapona__content {
+.sapona__content,
+.custom-factory__content,
+.factory__content {
   display: -ms-grid;
   display: grid;
   gap: 0;
   margin-bottom: auto;
   max-width: 4in;
+  width: 100%;
 }
-.sapona__meta {
+.sapona__meta,
+.custom-factory__meta,
+.factory__meta {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2241,7 +2259,9 @@ body.canvas-animating .preview__content {
       -ms-flex-align: center;
           align-items: center;
 }
-.sapona__label {
+.sapona__label,
+.custom-factory__label,
+.factory__label {
   font-size: 0.8rem;
   font-weight: 700;
   margin-right: 8px;
@@ -2249,70 +2269,165 @@ body.canvas-animating .preview__content {
 }
 .sapona .label__item-master,
 .sapona .shipping-mark__sku,
-.sapona .shipping-mark__sku::before {
+.sapona .shipping-mark__sku::before,
+.custom-factory .label__item-master,
+.custom-factory .shipping-mark__sku,
+.custom-factory .shipping-mark__sku::before,
+.factory .label__item-master,
+.factory .shipping-mark__sku,
+.factory .shipping-mark__sku::before {
   height: auto;
   font-size: 1rem !important;
 }
-.sapona .shipping-mark__sku {
+.sapona .shipping-mark__sku,
+.custom-factory .shipping-mark__sku,
+.factory .shipping-mark__sku {
   margin-top: 0;
 }
-.sapona .shipping-mark__sku .sku__part {
+.sapona .shipping-mark__sku .sku__part,
+.custom-factory .shipping-mark__sku .sku__part,
+.factory .shipping-mark__sku .sku__part {
   border: 1px solid #000;
   border-right-width: 0;
   padding: 0 1%;
 }
-.sapona .shipping-mark__sku .sku__part:last-child {
+.sapona .shipping-mark__sku .sku__part:last-child,
+.custom-factory .shipping-mark__sku .sku__part:last-child,
+.factory .shipping-mark__sku .sku__part:last-child {
   border-right-width: 1px;
 }
-.sapona .shipping-mark__sku::before {
+.sapona .shipping-mark__sku::before,
+.custom-factory .shipping-mark__sku::before,
+.factory .shipping-mark__sku::before {
   margin-right: 2%;
 }
-.sapona .label__item-master {
+.sapona .label__item-master,
+.custom-factory .label__item-master,
+.factory .label__item-master {
   text-transform: uppercase;
   font-size: 0.8rem;
   font-weight: 700;
 }
-.sapona .label__item-sku {
+.sapona .label__item-sku,
+.custom-factory .label__item-sku,
+.factory .label__item-sku {
   font-size: 0.8rem;
   font-weight: 700;
 }
-.sapona .label__item-sku:before {
+.sapona .label__item-sku:before,
+.custom-factory .label__item-sku:before,
+.factory .label__item-sku:before {
   content: "SKU: ";
 }
-.sapona .label__description {
+.sapona .label__description,
+.custom-factory .label__description,
+.factory .label__description {
   font-weight: 400;
   text-align: left;
   margin: 0;
 }
-.sapona .shipping-mark__po {
+.sapona .shipping-mark__po,
+.custom-factory .shipping-mark__po,
+.factory .shipping-mark__po {
   border-bottom: 0;
 }
-.sapona .label__upc {
+.sapona .label__upc,
+.custom-factory .label__upc,
+.factory .label__upc {
   height: 100px;
   width: 100%;
   margin-top: auto;
   margin-bottom: 4px;
 }
-.sapona .label__upc svg {
+.sapona .label__upc svg,
+.custom-factory .label__upc svg,
+.factory .label__upc svg {
   bottom: unset;
   -webkit-transform: translate(0, 0) scale(1.2) !important;
           transform: translate(0, 0) scale(1.2) !important;
 }
-.sapona .shipping-mark__source {
+.sapona .shipping-mark__source,
+.custom-factory .shipping-mark__source,
+.factory .shipping-mark__source {
   font-weight: 700;
   text-transform: uppercase;
   margin-left: -2px;
 }
-.sapona__value, .sapona__insert {
+.sapona__value, .sapona__insert,
+.custom-factory__value,
+.custom-factory__insert,
+.factory__value,
+.factory__insert {
   font-size: 0.8rem;
 }
-.sapona__carton::after {
+.sapona__carton::after,
+.custom-factory__carton::after,
+.factory__carton::after {
   content: "OF";
   margin-left: 1in;
 }
-.sapona--hidden {
+.sapona--hidden,
+.custom-factory--hidden,
+.factory--hidden {
   opacity: 0 !important;
   position: absolute;
   overflow: hidden;
   z-index: -1;
+}
+
+.custom-factory .label {
+  width: 3.937007874in;
+  height: 2.9527559055in;
+}
+.custom-factory .label__item-master::before {
+  content: "Item:";
+}
+.custom-factory .label__item-sku::before {
+  content: "SKU:";
+}
+.custom-factory .label__brand {
+  height: 28px;
+  margin-bottom: 0;
+}
+.custom-factory .label__brand .print-logo {
+  height: 28px;
+}
+.custom-factory .sapona__meta,
+.custom-factory .sapona__label,
+.custom-factory .sapona__value,
+.custom-factory .sapona__insert,
+.custom-factory *::after,
+.custom-factory *::before {
+  font-size: 0.75rem !important;
+  line-height: 1rem !important;
+}
+.custom-factory .label__item-master,
+.custom-factory .shipping-mark__sku,
+.custom-factory .shipping-mark__sku::before {
+  font-size: 0.8rem !important;
+}
+.custom-factory .label__upc {
+  position: absolute;
+  bottom: 36px;
+  right: 0;
+  width: 50%;
+}
+.custom-factory .label__upc svg {
+  width: 100%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) scale(1) !important;
+          transform: translateX(-50%) scale(1) !important;
+}
+.custom-factory .custom-factory__description {
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+.custom-factory .label__datamatrix,
+.custom-factory .label__datamatrix > svg {
+  width: 50px;
+  height: 50px;
+}
+.custom-factory .sapona__carton::after, .custom-factory .custom-factory__carton::after {
+  margin-left: 0.5in;
 }
