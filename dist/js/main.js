@@ -30,6 +30,7 @@ const SideBar = () => {
   (0,_colorHandler_js__WEBPACK_IMPORTED_MODULE_3__.colorInit)();
   (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.qrToggle)();
   (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.qrVisibility)();
+  (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.sizeVisibility)();
   (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.skuBox)();
   (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.outline)();
   (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.sidebarAccordion)();
@@ -4752,7 +4753,7 @@ const pdfButtons = () => {
 
 const generatePDF = async (elements) => {
   const pdf = new jspdf__WEBPACK_IMPORTED_MODULE_0__.jsPDF('p', 'in', 'a4', true);
-  const pages = Array.from(document.querySelectorAll(`${elements}:not(.page--hidden):not(.sapona--hidden) .print`));
+  const pages = Array.from(document.querySelectorAll(`${elements}:not(.page--hidden):not(.factory--hidden) .print`));
   let pageType;
 
   for (const page of pages) {
@@ -8151,6 +8152,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   qrToggle: function() { return /* binding */ qrToggle; },
 /* harmony export */   qrVisibility: function() { return /* binding */ qrVisibility; },
 /* harmony export */   sidebarAccordion: function() { return /* binding */ sidebarAccordion; },
+/* harmony export */   sizeVisibility: function() { return /* binding */ sizeVisibility; },
 /* harmony export */   skuBox: function() { return /* binding */ skuBox; }
 /* harmony export */ });
 /* harmony import */ var _domElements_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
@@ -8193,6 +8195,25 @@ const qrVisibility = () => {
 
     // Save the current state to localStorage
     localStorage.setItem('qrVisibilityShown', qrDivToHide.classList.contains('label__install--active').toString());
+  });
+}
+
+const sizeVisibility = () => {
+  const qrVisibilityToggle = document.querySelector('.size__visibility');
+  const sizeDivToHide = document.querySelectorAll('.shipping-mark__dims');
+
+  // Load the initial state from localStorage or default to true if not found
+  const initialState = (localStorage.getItem('sizeVisibilityShown') ?? 'true') === 'true';
+  sizeDivToHide.forEach(div => div.classList.toggle('shipping-mark__dims--active', initialState));
+
+  qrVisibilityToggle.classList.toggle('size__visibility--active', initialState);
+
+  qrVisibilityToggle.addEventListener('click', () => {
+    sizeDivToHide.forEach(div => div.classList.toggle('shipping-mark__dims--active'));
+    qrVisibilityToggle.classList.toggle('size__visibility--active', sizeDivToHide[0].classList.contains('shipping-mark__dims--active'));
+
+    // Save the current state to localStorage
+    localStorage.setItem('sizeVisibilityShown', sizeDivToHide[0].classList.contains('shipping-mark__dims--active').toString());
   });
 }
 

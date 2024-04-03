@@ -39,6 +39,25 @@ export const qrVisibility = () => {
   });
 }
 
+export const sizeVisibility = () => {
+  const qrVisibilityToggle = document.querySelector('.size__visibility');
+  const sizeDivToHide = document.querySelectorAll('.shipping-mark__dims');
+
+  // Load the initial state from localStorage or default to true if not found
+  const initialState = (localStorage.getItem('sizeVisibilityShown') ?? 'true') === 'true';
+  sizeDivToHide.forEach(div => div.classList.toggle('shipping-mark__dims--active', initialState));
+
+  qrVisibilityToggle.classList.toggle('size__visibility--active', initialState);
+
+  qrVisibilityToggle.addEventListener('click', () => {
+    sizeDivToHide.forEach(div => div.classList.toggle('shipping-mark__dims--active'));
+    qrVisibilityToggle.classList.toggle('size__visibility--active', sizeDivToHide[0].classList.contains('shipping-mark__dims--active'));
+
+    // Save the current state to localStorage
+    localStorage.setItem('sizeVisibilityShown', sizeDivToHide[0].classList.contains('shipping-mark__dims--active').toString());
+  });
+}
+
 export const skuBox = () => {
   const skuBoxToggle = document.querySelector('.box__toggle');
   const preview = document.querySelector('.preview__content');

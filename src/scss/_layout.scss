@@ -218,9 +218,14 @@ body > main {
     margin-top: 1px;
   }
 
+  .size__visibility {
+    right: -2px;
+  }
+
   .box__toggle,
   .qr__toggle,
-  .qr__visibility {
+  .qr__visibility,
+  .size__visibility {
     svg:last-child { display: none; stroke:rgba(0, 123, 255, 0.5); }
     &--active svg:first-child { display: none; }
     &--active svg:last-child { display: block; }

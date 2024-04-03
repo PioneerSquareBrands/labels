@@ -648,20 +648,26 @@ body > main {
   right: 32px;
   margin-top: 1px;
 }
+.sidebar .size__visibility {
+  right: -2px;
+}
 .sidebar .box__toggle svg:last-child,
 .sidebar .qr__toggle svg:last-child,
-.sidebar .qr__visibility svg:last-child {
+.sidebar .qr__visibility svg:last-child,
+.sidebar .size__visibility svg:last-child {
   display: none;
   stroke: rgba(0, 123, 255, 0.5);
 }
 .sidebar .box__toggle--active svg:first-child,
 .sidebar .qr__toggle--active svg:first-child,
-.sidebar .qr__visibility--active svg:first-child {
+.sidebar .qr__visibility--active svg:first-child,
+.sidebar .size__visibility--active svg:first-child {
   display: none;
 }
 .sidebar .box__toggle--active svg:last-child,
 .sidebar .qr__toggle--active svg:last-child,
-.sidebar .qr__visibility--active svg:last-child {
+.sidebar .qr__visibility--active svg:last-child,
+.sidebar .size__visibility--active svg:last-child {
   display: block;
 }
 .sidebar .quantity {
@@ -1426,6 +1432,18 @@ body.canvas-animating .preview__content {
   color: magenta;
   margin: 2px 0 8px;
 }
+.print .sku__part {
+  padding: 1% 0;
+  border: 2px solid transparent;
+}
+.preview--has-box .print .sku__part {
+  border: 2px solid #000000;
+  border-right-width: 0;
+  padding: 1%;
+}
+.preview--has-box .print .sku__part:last-child {
+  border-right-width: 2px;
+}
 
 .label {
   width: 3.2in;
@@ -1703,18 +1721,6 @@ body.canvas-animating .preview__content {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-.shipping-mark__sku .sku__part {
-  padding: 1% 0;
-  border: 2px solid transparent;
-}
-.preview--has-box .shipping-mark__sku .sku__part {
-  border: 2px solid #000000;
-  border-right-width: 0;
-  padding: 1%;
-}
-.preview--has-box .shipping-mark__sku .sku__part:last-child {
-  border-right-width: 2px;
 }
 .shipping-mark__middle {
   margin-bottom: auto;
@@ -2008,6 +2014,13 @@ body.canvas-animating .preview__content {
   z-index: 10;
 }
 
+.shipping-mark__dims {
+  opacity: 0;
+}
+.shipping-mark__dims--active {
+  opacity: 1;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -2287,9 +2300,10 @@ body.canvas-animating .preview__content {
 .sapona .shipping-mark__sku .sku__part,
 .custom-factory .shipping-mark__sku .sku__part,
 .factory .shipping-mark__sku .sku__part {
-  border: 1px solid #000;
+  border-width: 1px;
   border-right-width: 0;
-  padding: 0 1%;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .sapona .shipping-mark__sku .sku__part:last-child,
 .custom-factory .shipping-mark__sku .sku__part:last-child,
