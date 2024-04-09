@@ -346,8 +346,19 @@ const qtyUpdate = () => {
 }
 
 const weightUpdate = () => {
-  updateTextContent(el.printGrossWgt, `${el.gWeight.value || '21.17'}`);
-  updateTextContent(el.printNetWgt, `${el.nWeight.value || '20.06'}`);
+  if (el.gWeight.value === '0') {
+    el.printGrossWgt.forEach(el => el.classList.add('print-weight--empty'));
+  } else {
+    el.printGrossWgt.forEach(el => el.classList.remove('print-weight--empty'));
+    updateTextContent(el.printGrossWgt, `${el.gWeight.value || '21.17'}`);
+  }
+
+  if (el.nWeight.value === '0') {
+    el.printNetWgt.forEach(el => el.classList.add('print-weight--empty'));
+  } else {
+    el.printNetWgt.forEach(el => el.classList.remove('print-weight--empty'));
+    updateTextContent(el.printNetWgt, `${el.nWeight.value || '20.06'}`);
+  }
 }
 
 const poUpdate = () => {

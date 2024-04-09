@@ -2021,6 +2021,11 @@ body.canvas-animating .preview__content {
   opacity: 1;
 }
 
+.print-weight--empty,
+.print-weight--empty::After {
+  opacity: 0;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

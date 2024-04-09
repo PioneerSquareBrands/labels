@@ -734,8 +734,19 @@ const qtyUpdate = () => {
 }
 
 const weightUpdate = () => {
-  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printGrossWgt, `${_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].gWeight.value || '21.17'}`);
-  updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printNetWgt, `${_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].nWeight.value || '20.06'}`);
+  if (_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].gWeight.value === '0') {
+    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printGrossWgt.forEach(el => el.classList.add('print-weight--empty'));
+  } else {
+    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printGrossWgt.forEach(el => el.classList.remove('print-weight--empty'));
+    updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printGrossWgt, `${_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].gWeight.value || '21.17'}`);
+  }
+
+  if (_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].nWeight.value === '0') {
+    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printNetWgt.forEach(el => el.classList.add('print-weight--empty'));
+  } else {
+    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printNetWgt.forEach(el => el.classList.remove('print-weight--empty'));
+    updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printNetWgt, `${_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].nWeight.value || '20.06'}`);
+  }
 }
 
 const poUpdate = () => {

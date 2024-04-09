@@ -872,3 +872,8 @@
     opacity: 1;
   }
 }
+
+.print-weight--empty,
+.print-weight--empty::After {
+  opacity: 0;
+}
