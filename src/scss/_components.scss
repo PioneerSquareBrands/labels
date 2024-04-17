@@ -515,7 +515,7 @@
       margin: 0 auto;
     }
 
-    &__internal--light { color: #ffffff; }
+    //&__internal--light { color: #ffffff; }
     &__internal--dark {color: #000000; }
     &__internal svg { fill: currentColor; transition: fill 0.2s; }
 
@@ -874,6 +874,6 @@
 }
 
 .print-weight--empty,
-.print-weight--empty::After {
+.print-weight--empty::after {
   opacity: 0;
 }

@@ -1653,9 +1653,6 @@ body.canvas-animating .preview__content {
   text-align: center;
   margin: 0 auto;
 }
-.label__internal--light {
-  color: #ffffff;
-}
 .label__internal--dark {
   color: #000000;
 }
@@ -2022,7 +2019,7 @@ body.canvas-animating .preview__content {
 }
 
 .print-weight--empty,
-.print-weight--empty::After {
+.print-weight--empty::after {
   opacity: 0;
 }
 
