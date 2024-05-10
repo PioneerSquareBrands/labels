@@ -651,7 +651,7 @@ const qrURL = () => {
   const brandUrls = {
     'brenthaven': 'https://brenthaven.com/',
     'gumdrop': 'https://www.gumdropcases.com/',
-    'default': 'https://byvault.com/'
+    'default': 'https://vaultproducts.com/'
   };
 
   const brandUrl = brandUrls[defaults.brandField] || brandUrls.default;
@@ -732,7 +732,7 @@ const dimUpdate = () => {
 const qtyUpdate = () => {
   updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printBoxQty, _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].boxQty.value || '20');
 }
-
+               
 const weightUpdate = () => {
   if (_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].gWeight.value === '0') {
     _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printGrossWgt.forEach(el => el.classList.add('print-weight--empty'));
@@ -4419,7 +4419,7 @@ const brandDefaults = () => {
     default:
       logoSrc = 'dist/img/vault_min.png';
       headerText = 'Vault';
-      linkText = 'https://byvault.com';
+      linkText = 'https://vaultproducts.com';
       itemMaster =  '12A001';
       sku = '12A001E01-20';
       upc = '818090025960';

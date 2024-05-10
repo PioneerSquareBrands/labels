@@ -263,7 +263,7 @@ const qrURL = () => {
   const brandUrls = {
     'brenthaven': 'https://brenthaven.com/',
     'gumdrop': 'https://www.gumdropcases.com/',
-    'default': 'https://byvault.com/'
+    'default': 'https://vaultproducts.com/'
   };
 
   const brandUrl = brandUrls[defaults.brandField] || brandUrls.default;
@@ -344,7 +344,7 @@ const dimUpdate = () => {
 const qtyUpdate = () => {
   updateTextContent(el.printBoxQty, el.boxQty.value || '20');
 }
-
+               
 const weightUpdate = () => {
   if (el.gWeight.value === '0') {
     el.printGrossWgt.forEach(el => el.classList.add('print-weight--empty'));

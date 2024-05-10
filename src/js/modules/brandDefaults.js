@@ -24,7 +24,7 @@ export const brandDefaults = () => {
     default:
       logoSrc = 'dist/img/vault_min.png';
       headerText = 'Vault';
-      linkText = 'https://byvault.com';
+      linkText = 'https://vaultproducts.com';
       itemMaster =  '12A001';
       sku = '12A001E01-20';
       upc = '818090025960';
