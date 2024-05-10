@@ -641,8 +641,8 @@ body > main {
   grid-template-columns: 152px 1fr;
 }
 .sidebar--vault .qrlink {
-  -ms-grid-columns: 140px 1fr;
-  grid-template-columns: 140px 1fr;
+  -ms-grid-columns: 160px 1fr;
+  grid-template-columns: 160px 1fr;
 }
 .sidebar .qr__visibility {
   right: 32px;
