@@ -413,6 +413,10 @@ body > main {
   }
 }
 
+#shipping_form .field.field--error:first-child::before {
+  right: 24px
+}
+
 .preview {
   display: block;
   overflow: hidden;
