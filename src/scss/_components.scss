@@ -565,6 +565,9 @@
     .page[data-type="shipping-front"] & {
       align-items: center;
     }
+
+    .preview__content[data-height^="8"] & { font-size: 70% !important; }
+    .preview__content[data-height^="7"] & { font-size: 65% !important; }
   }
 
   &__middle {
@@ -583,6 +586,9 @@
 
   &__logo-img {
     height: 100px;
+
+    .preview__content[data-height^="8"] & { height: 80px; }
+    .preview__content[data-height^="7"] & { height: 60px; }
   }
 
   &__meta {
@@ -636,6 +642,9 @@
   &__upc {
     height: 3.8in;
     margin-top: -3.9in;
+
+    .preview__content[data-height^="8"] & { margin-top: -3.5in; }
+    .preview__content[data-height^="7"] & { margin-top: -3in; }
   }
 
   &__po {
@@ -648,6 +657,9 @@
     height: 3.2in;
     margin-top: 0.6in;
     overflow: hidden;
+
+    .preview__content[data-height^="8"] & { height: 3in; }
+    .preview__content[data-height^="7"] & { height: 2.2in; margin-top: 1in; }
 
     img {
       object-fit: contain;

@@ -16,6 +16,12 @@ const setFontSize = (element, fontSize) => {
   });
 };
 
+const setDataHeight = (element, height) => {
+  element.querySelectorAll('.shipping-mark').forEach((content) => {
+    element.dataset.height = height;
+  });
+}
+
 export const canvasUpdate = () => {
   let previewContent = el.preview.querySelector('.preview__content');
   let cartonFront = el.preview.querySelector('.page--carton-front');
@@ -31,7 +37,7 @@ export const canvasUpdate = () => {
   let width = el.dimWidth.value || 11.2;
   let height = el.dimHeight.value || 13.4;
 
-  const minFontSize = 0.8; // Minimum font size in inches
+  const minFontSize = 0.6; // Minimum font size in inches
   const maxFontSize = 1.2; // Maximum font size in inches
   const area = Math.min(length * width, height * height);
   let fontSize = defaultFontSize * Math.sqrt(area / defaultArea);
@@ -72,6 +78,7 @@ export const canvasUpdate = () => {
   setDimensions(cartonFront, length, height);
   setDimensions(cartonSide, width, height);
   setFontSize(previewContent, fontSize);
+  setDataHeight(previewContent, height);
 }
 
 export const scaler = () => {

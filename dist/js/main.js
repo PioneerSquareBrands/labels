@@ -4457,6 +4457,12 @@ const setFontSize = (element, fontSize) => {
   });
 };
 
+const setDataHeight = (element, height) => {
+  element.querySelectorAll('.shipping-mark').forEach((content) => {
+    element.dataset.height = height;
+  });
+}
+
 const canvasUpdate = () => {
   let previewContent = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].preview.querySelector('.preview__content');
   let cartonFront = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].preview.querySelector('.page--carton-front');
@@ -4472,7 +4478,7 @@ const canvasUpdate = () => {
   let width = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].dimWidth.value || 11.2;
   let height = _domElements_js__WEBPACK_IMPORTED_MODULE_0__["default"].dimHeight.value || 13.4;
 
-  const minFontSize = 0.8; // Minimum font size in inches
+  const minFontSize = 0.6; // Minimum font size in inches
   const maxFontSize = 1.2; // Maximum font size in inches
   const area = Math.min(length * width, height * height);
   let fontSize = defaultFontSize * Math.sqrt(area / defaultArea);
@@ -4513,6 +4519,7 @@ const canvasUpdate = () => {
   setDimensions(cartonFront, length, height);
   setDimensions(cartonSide, width, height);
   setFontSize(previewContent, fontSize);
+  setDataHeight(previewContent, height);
 }
 
 const scaler = () => {

@@ -1719,6 +1719,12 @@ body.canvas-animating .preview__content {
       -ms-flex-align: center;
           align-items: center;
 }
+.preview__content[data-height^="8"] .shipping-mark__sku {
+  font-size: 70% !important;
+}
+.preview__content[data-height^="7"] .shipping-mark__sku {
+  font-size: 65% !important;
+}
 .shipping-mark__middle {
   margin-bottom: auto;
 }
@@ -1732,6 +1738,12 @@ body.canvas-animating .preview__content {
 }
 .shipping-mark__logo-img {
   height: 100px;
+}
+.preview__content[data-height^="8"] .shipping-mark__logo-img {
+  height: 80px;
+}
+.preview__content[data-height^="7"] .shipping-mark__logo-img {
+  height: 60px;
 }
 .shipping-mark__meta {
   line-height: 170%;
@@ -1779,6 +1791,12 @@ body.canvas-animating .preview__content {
   height: 3.8in;
   margin-top: -3.9in;
 }
+.preview__content[data-height^="8"] .shipping-mark__upc {
+  margin-top: -3.5in;
+}
+.preview__content[data-height^="7"] .shipping-mark__upc {
+  margin-top: -3in;
+}
 .shipping-mark__po {
   display: inline-block;
   border-bottom: 0.04in solid #000000;
@@ -1788,6 +1806,13 @@ body.canvas-animating .preview__content {
   height: 3.2in;
   margin-top: 0.6in;
   overflow: hidden;
+}
+.preview__content[data-height^="8"] .shipping-mark__tihi {
+  height: 3in;
+}
+.preview__content[data-height^="7"] .shipping-mark__tihi {
+  height: 2.2in;
+  margin-top: 1in;
 }
 .shipping-mark__tihi img {
   -o-object-fit: contain;
