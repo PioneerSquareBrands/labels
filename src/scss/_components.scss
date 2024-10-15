@@ -889,3 +889,24 @@
 .print-weight--empty::after {
   opacity: 0;
 }
+
+// Height Specific Styles
+.preview__content[data-height="5"],
+.preview__content[data-height="6"] {
+  .shipping-mark__logo-img { height: 40px; }
+  .shipping-mark__sku { 
+    font-size: 0.2in !important; 
+    margin-top: 0.1in !important;
+    margin-bottom: 0.1in;
+  }
+  .shipping-mark__meta { font-size: 0.15in; }
+  
+  .shipping-mark__upc,
+  .shipping-mark__tihi  {
+    top: auto;
+    bottom: 0.25in;
+    margin-top: 0;
+  }
+  .shipping-mark__upc { right: 0.3in; }
+  .shipping-mark__tihi { right: 3.5in; }
+}
