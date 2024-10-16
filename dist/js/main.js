@@ -4489,23 +4489,23 @@ const canvasUpdate = () => {
   let computedSideWidth = widthPercentage * (width/height);
 
   if (computedFrontWidth > 90 || computedSideWidth > 90) {
-    console.log(computedFrontWidth, computedSideWidth);
+    console.log('computedFrontWidth: ', computedFrontWidth, 'computedSideWidth: ',  computedSideWidth);
 
     if (computedFrontWidth > computedSideWidth) {
       cartonFront.style.width = `90%`;
       cartonSide.style.width = `${(width/length) * 90}%`;
-      cartonFront.style.paddingBottom = `${(90*50)/computedFrontWidth}%`;
-      cartonSide.style.paddingBottom = `${(90*50)/computedFrontWidth}%`;
+      cartonFront.style.paddingBottom = `${(90*30)/computedFrontWidth}%`;
+      cartonSide.style.paddingBottom = `${(90*30)/computedFrontWidth}%`;
     } else if (computedFrontWidth < computedSideWidth) {
       cartonFront.style.width = `${(length/width) * 90}%`;
       cartonSide.style.width = `90%`;
-      cartonFront.style.paddingBottom = `${(90*50)/computedSideWidth}%`;
-      cartonSide.style.paddingBottom = `${(90*50)/computedSideWidth}%`;
+      cartonFront.style.paddingBottom = `${(90*30)/computedSideWidth}%`;
+      cartonSide.style.paddingBottom = `${(90*30)/computedSideWidth}%`;
     } else { // when computedFrontWidth and computedSideWidth are equal
       cartonFront.style.width = `90%`;
       cartonSide.style.width = `90%`;
-      cartonFront.style.paddingBottom = `${(90*50)/computedFrontWidth}%`;
-      cartonSide.style.paddingBottom = `${(90*50)/computedFrontWidth}%`;
+      cartonFront.style.paddingBottom = `${(90*30)/computedFrontWidth}%`;
+      cartonSide.style.paddingBottom = `${(90*30)/computedFrontWidth}%`;
     }
   } else {
     cartonFront.style.width = `${widthPercentage * (length/height)}%`;
