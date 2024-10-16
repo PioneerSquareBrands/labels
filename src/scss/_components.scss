@@ -892,7 +892,9 @@
 
 // Height Specific Styles
 .preview__content[data-height="5"],
-.preview__content[data-height="6"] {
+.preview__content[data-height^="5."],
+.preview__content[data-height="6"]
+.preview__content[data-height^="6."] {
   .shipping-mark__logo-img { height: 40px; }
   .shipping-mark__sku { 
     font-size: 0.2in !important; 
