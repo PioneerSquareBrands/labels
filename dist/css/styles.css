@@ -2054,39 +2054,46 @@ body.canvas-animating .preview__content {
 
 .preview__content[data-height="5"] .shipping-mark__logo-img,
 .preview__content[data-height^="5."] .shipping-mark__logo-img,
-.preview__content[data-height="6"] .preview__content[data-height^="6."] .shipping-mark__logo-img {
+.preview__content[data-height="6"] .shipping-mark__logo-img,
+.preview__content[data-height^="6."] .shipping-mark__logo-img {
   height: 40px;
 }
 .preview__content[data-height="5"] .shipping-mark__sku,
 .preview__content[data-height^="5."] .shipping-mark__sku,
-.preview__content[data-height="6"] .preview__content[data-height^="6."] .shipping-mark__sku {
+.preview__content[data-height="6"] .shipping-mark__sku,
+.preview__content[data-height^="6."] .shipping-mark__sku {
   font-size: 0.2in !important;
   margin-top: 0.1in !important;
   margin-bottom: 0.1in;
 }
 .preview__content[data-height="5"] .shipping-mark__meta,
 .preview__content[data-height^="5."] .shipping-mark__meta,
-.preview__content[data-height="6"] .preview__content[data-height^="6."] .shipping-mark__meta {
+.preview__content[data-height="6"] .shipping-mark__meta,
+.preview__content[data-height^="6."] .shipping-mark__meta {
   font-size: 0.15in;
 }
 .preview__content[data-height="5"] .shipping-mark__upc,
 .preview__content[data-height="5"] .shipping-mark__tihi,
 .preview__content[data-height^="5."] .shipping-mark__upc,
 .preview__content[data-height^="5."] .shipping-mark__tihi,
-.preview__content[data-height="6"] .preview__content[data-height^="6."] .shipping-mark__upc,
-.preview__content[data-height="6"] .preview__content[data-height^="6."] .shipping-mark__tihi {
+.preview__content[data-height="6"] .shipping-mark__upc,
+.preview__content[data-height="6"] .shipping-mark__tihi,
+.preview__content[data-height^="6."] .shipping-mark__upc,
+.preview__content[data-height^="6."] .shipping-mark__tihi {
   top: auto;
   bottom: 0.25in;
   margin-top: 0;
 }
 .preview__content[data-height="5"] .shipping-mark__upc,
 .preview__content[data-height^="5."] .shipping-mark__upc,
-.preview__content[data-height="6"] .preview__content[data-height^="6."] .shipping-mark__upc {
+.preview__content[data-height="6"] .shipping-mark__upc,
+.preview__content[data-height^="6."] .shipping-mark__upc {
   right: 0.3in;
 }
 .preview__content[data-height="5"] .shipping-mark__tihi,
 .preview__content[data-height^="5."] .shipping-mark__tihi,
-.preview__content[data-height="6"] .preview__content[data-height^="6."] .shipping-mark__tihi {
+.preview__content[data-height="6"] .shipping-mark__tihi,
+.preview__content[data-height^="6."] .shipping-mark__tihi {
   right: 3.5in;
 }
 
