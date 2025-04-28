@@ -2101,6 +2101,17 @@ body.canvas-animating .preview__content {
   display: none;
 }
 
+#custom_source {
+  margin-top: 12px;
+}
+
+.instructions {
+  font-size: 90%;
+  margin-top: 8px;
+  opacity: 0.5;
+  font-style: italic;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
