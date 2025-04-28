@@ -253,6 +253,21 @@ const upcUpdate = () => {
 
 const sourceUpdate = () => {
   updateTextContent(el.printCountries, el.source.value || 'China');
+
+  const sourceValue = el.source.value;
+  console.log(sourceValue);
+  const customSourceInput = document.getElementById('custom_source');
+
+  if (sourceValue === 'others') {
+    customSourceInput.classList.remove('hidden');
+    updateTextContent(el.printCountries, customSourceInput.value || 'Custom Country');
+    customSourceInput.addEventListener('input', () => {
+      updateTextContent(el.printCountries, customSourceInput.value || 'Custom Country');
+    });
+  } else {
+    customSourceInput.classList.add('hidden');
+    updateTextContent(el.printCountries, sourceValue || 'China');
+  }
 }
 
 const qrURL = () => {

@@ -2097,6 +2097,10 @@ body.canvas-animating .preview__content {
   right: 3.5in;
 }
 
+.hidden {
+  display: none;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

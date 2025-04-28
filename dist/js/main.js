@@ -641,6 +641,21 @@ const upcUpdate = () => {
 
 const sourceUpdate = () => {
   updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printCountries, _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].source.value || 'China');
+
+  const sourceValue = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].source.value;
+  console.log(sourceValue);
+  const customSourceInput = document.getElementById('custom_source');
+
+  if (sourceValue === 'others') {
+    customSourceInput.classList.remove('hidden');
+    updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printCountries, customSourceInput.value || 'Custom Country');
+    customSourceInput.addEventListener('input', () => {
+      updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printCountries, customSourceInput.value || 'Custom Country');
+    });
+  } else {
+    customSourceInput.classList.add('hidden');
+    updateTextContent(_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].printCountries, sourceValue || 'China');
+  }
 }
 
 const qrURL = () => {
