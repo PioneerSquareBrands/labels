@@ -584,6 +584,11 @@
     font-size: 30%;
   }
 
+  .scaler[style*="width: 7"] &__bottom,
+  .scaler[style*="width: 8"] &__bottom {
+    margin-bottom: 1in;
+  }
+
   &__logo-img {
     height: 100px;
 

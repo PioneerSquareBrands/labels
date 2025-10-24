@@ -1740,6 +1740,9 @@ body.canvas-animating .preview__content {
   width: 35%;
   font-size: 30%;
 }
+.scaler[style*="width: 7"] .shipping-mark__bottom, .scaler[style*="width: 8"] .shipping-mark__bottom {
+  margin-bottom: 1in;
+}
 .shipping-mark__logo-img {
   height: 100px;
 }
