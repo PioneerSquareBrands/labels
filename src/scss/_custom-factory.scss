@@ -185,3 +185,18 @@
     margin-left: 0.5in;
   }
 }
+
+.legacy {
+  opacity: 1;
+
+  &[data-type="polybag"] .label,
+  &[data-type="master"] .label,
+  &[data-type="inner"] .label {
+    width: 3.5in;
+    height: 3.5in;
+  }
+
+  .label__upc {
+    height: 58px;
+  }
+}

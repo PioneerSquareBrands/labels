@@ -96,15 +96,15 @@ const brandUpdate = () => {
 
   // Disable/Enable factory options based on brand
   if (defaults.brandField === 'brenthaven' || defaults.brandField === 'gumdrop') {
-    el.factory.querySelector('option[value="others"]').disabled = true;
-    el.factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="others"]').classList.add('selectinator-option--disabled');
+    el.factory.querySelector('option[value="custom-factory"]').disabled = true;
+    el.factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="custom-factory"]').classList.add('selectinator-option--disabled');
     // Changes the factory option to default when clicking on BH or GD
-    if (el.factory.value === 'others') {
+    if (el.factory.value === 'custom-factory') {
       el.factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="default"]').dispatchEvent(new Event('mousedown'));
     }
   } else {
-    el.factory.querySelector('option[value="others"]').disabled = false;
-    el.factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="others"]').classList.remove('selectinator-option--disabled');
+    el.factory.querySelector('option[value="custom-factory"]').disabled = false;
+    el.factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="custom-factory"]').classList.remove('selectinator-option--disabled');
   }
 
   skuUpdate();
@@ -122,17 +122,41 @@ const factoryUpdate = () => {
     };
   });
 
-  if (el.factory.value === 'sapona') {
-    document.querySelector('.sapona').classList.remove("factory--hidden");
-    document.querySelectorAll('.page[data-type="master"]:not(.sapona)').forEach(page => page.classList.add("factory--hidden"));
-  } else if (el.factory.value === 'others' && el.brand.value === 'vault') {
-    document.querySelector('.custom-factory').classList.remove("factory--hidden");
-    document.querySelectorAll('.page[data-type="master"]:not(.custom-factory)').forEach(page => page.classList.add("factory--hidden"));
-  } else {
-    document.querySelector('.sapona').classList.add("factory--hidden");
-    document.querySelector('.custom-factory').classList.add("factory--hidden");
-    document.querySelectorAll('.page[data-type="master"]:not(.sapona):not(.custom-factory)').forEach(page => page.classList.remove("factory--hidden"));
-  }
+  let factory = el.factory.value;
+  let types = ['polybag', 'master', 'inner'];
+
+  types.forEach(type => {
+    // hide EVERYTHING for this type (default + any factory)
+    document
+      .querySelectorAll(`.page[data-type="${type}"]`)
+      .forEach(el => el.classList.add('factory--hidden'));
+
+    // pick factory-specific first, otherwise default
+    const chosen =
+      document.querySelector(`.page.${factory}[data-type="${type}"]`) ||
+      document.querySelector(`.page.default[data-type="${type}"]`);
+
+    if (chosen) chosen.classList.remove('factory--hidden');
+  });
+
+
+
+
+  // if (el.factory.value === 'sapona') {
+  //   document.querySelector('.sapona').classList.remove("factory--hidden");
+  //   document.querySelectorAll('.page[data-type="master"]:not(.sapona)').forEach(page => page.classList.add("factory--hidden"));
+  // } else if (el.factory.value === 'legacy') {
+  //   document.querySelectorAll('.legacy').forEach(page => page.classList.remove("factory--hidden"));
+  //   document.querySelectorAll('.page[data-type="master"]:not(.legacy)').forEach(page => page.classList.add("factory--hidden"));
+  // } else if (el.factory.value === 'custom-factory' && el.brand.value === 'vault') {
+  //   document.querySelector('.custom-factory').classList.remove("factory--hidden");
+  //   document.querySelectorAll('.page[data-type="master"]:not(.custom-factory)').forEach(page => page.classList.add("factory--hidden"));
+  // } else {
+  //   document.querySelector('.sapona').classList.add("factory--hidden");
+  //   document.querySelector('.legacy').classList.add("factory--hidden");
+  //   document.querySelector('.custom-factory').classList.add("factory--hidden");
+  //   document.querySelectorAll('.page[data-type="master"]:not(.sapona):not(.custom-factory):not(.legacy)').forEach(page => page.classList.remove("factory--hidden"));
+  // }
 
   elements.forEach((element, index) => {
     applyAnimation(element, firstRects[index].rect, firstRects[index].wasHidden);

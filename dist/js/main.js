@@ -484,15 +484,15 @@ const brandUpdate = () => {
 
   // Disable/Enable factory options based on brand
   if (defaults.brandField === 'brenthaven' || defaults.brandField === 'gumdrop') {
-    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.querySelector('option[value="others"]').disabled = true;
-    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="others"]').classList.add('selectinator-option--disabled');
+    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.querySelector('option[value="custom-factory"]').disabled = true;
+    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="custom-factory"]').classList.add('selectinator-option--disabled');
     // Changes the factory option to default when clicking on BH or GD
-    if (_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.value === 'others') {
+    if (_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.value === 'custom-factory') {
       _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="default"]').dispatchEvent(new Event('mousedown'));
     }
   } else {
-    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.querySelector('option[value="others"]').disabled = false;
-    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="others"]').classList.remove('selectinator-option--disabled');
+    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.querySelector('option[value="custom-factory"]').disabled = false;
+    _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="custom-factory"]').classList.remove('selectinator-option--disabled');
   }
 
   skuUpdate();
@@ -510,17 +510,41 @@ const factoryUpdate = () => {
     };
   });
 
-  if (_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.value === 'sapona') {
-    document.querySelector('.sapona').classList.remove("factory--hidden");
-    document.querySelectorAll('.page[data-type="master"]:not(.sapona)').forEach(page => page.classList.add("factory--hidden"));
-  } else if (_domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.value === 'others' && _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].brand.value === 'vault') {
-    document.querySelector('.custom-factory').classList.remove("factory--hidden");
-    document.querySelectorAll('.page[data-type="master"]:not(.custom-factory)').forEach(page => page.classList.add("factory--hidden"));
-  } else {
-    document.querySelector('.sapona').classList.add("factory--hidden");
-    document.querySelector('.custom-factory').classList.add("factory--hidden");
-    document.querySelectorAll('.page[data-type="master"]:not(.sapona):not(.custom-factory)').forEach(page => page.classList.remove("factory--hidden"));
-  }
+  let factory = _domElements_js__WEBPACK_IMPORTED_MODULE_1__["default"].factory.value;
+  let types = ['polybag', 'master', 'inner'];
+
+  types.forEach(type => {
+    // hide EVERYTHING for this type (default + any factory)
+    document
+      .querySelectorAll(`.page[data-type="${type}"]`)
+      .forEach(el => el.classList.add('factory--hidden'));
+
+    // pick factory-specific first, otherwise default
+    const chosen =
+      document.querySelector(`.page.${factory}[data-type="${type}"]`) ||
+      document.querySelector(`.page.default[data-type="${type}"]`);
+
+    if (chosen) chosen.classList.remove('factory--hidden');
+  });
+
+
+
+
+  // if (el.factory.value === 'sapona') {
+  //   document.querySelector('.sapona').classList.remove("factory--hidden");
+  //   document.querySelectorAll('.page[data-type="master"]:not(.sapona)').forEach(page => page.classList.add("factory--hidden"));
+  // } else if (el.factory.value === 'legacy') {
+  //   document.querySelectorAll('.legacy').forEach(page => page.classList.remove("factory--hidden"));
+  //   document.querySelectorAll('.page[data-type="master"]:not(.legacy)').forEach(page => page.classList.add("factory--hidden"));
+  // } else if (el.factory.value === 'custom-factory' && el.brand.value === 'vault') {
+  //   document.querySelector('.custom-factory').classList.remove("factory--hidden");
+  //   document.querySelectorAll('.page[data-type="master"]:not(.custom-factory)').forEach(page => page.classList.add("factory--hidden"));
+  // } else {
+  //   document.querySelector('.sapona').classList.add("factory--hidden");
+  //   document.querySelector('.legacy').classList.add("factory--hidden");
+  //   document.querySelector('.custom-factory').classList.add("factory--hidden");
+  //   document.querySelectorAll('.page[data-type="master"]:not(.sapona):not(.custom-factory):not(.legacy)').forEach(page => page.classList.remove("factory--hidden"));
+  // }
 
   elements.forEach((element, index) => {
     (0,_toolBar_js__WEBPACK_IMPORTED_MODULE_5__.applyAnimation)(element, firstRects[index].rect, firstRects[index].wasHidden);
@@ -4504,7 +4528,7 @@ const canvasUpdate = () => {
   let computedSideWidth = widthPercentage * (width/height);
 
   if (computedFrontWidth > 90 || computedSideWidth > 90) {
-    console.log('computedFrontWidth: ', computedFrontWidth, 'computedSideWidth: ',  computedSideWidth);
+    //console.log('computedFrontWidth: ', computedFrontWidth, 'computedSideWidth: ',  computedSideWidth);
 
     if (computedFrontWidth > computedSideWidth) {
       cartonFront.style.width = `90%`;

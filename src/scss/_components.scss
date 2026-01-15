@@ -366,7 +366,7 @@
     width: 100%;
     overflow: hidden;
     position: relative;
-    height: 72px;
+    height: 58px;
 
     svg {
       width: 100%;
@@ -803,10 +803,6 @@
   .label__item-sku:before { content: "SKU: "; }
   .label__quantity { margin-top: auto; }
   .page[data-type="polybag"] .label__info { margin-bottom: 4px; } 
-
-  .label__upc {
-    height: 60px;
-  }
 }
 
 // Vault Specific Styles
@@ -819,60 +815,29 @@
   .label__item-sku::before { content: "SKU: "; }
 }
 
-// Polybag Specific Styles
-.page[data-type="polybag"] { 
-  opacity: 1;
 
-  &::before {
-    content: 'Polybag';
-  }
-}
+// Page Labels
+.page.default[data-type="polybag"]::before { content: 'Polybag (Default)'; }
+.page.legacy[data-type="polybag"]::before { content: 'Polybag (Legacy)'; }
+
+.page.default[data-type="master"]::before { content: 'Master Carton (Default)'; }
+.page.legacy[data-type="master"]::before { content: 'Master Carton (Legacy)'; }
+.page.sapona[data-type="master"]::before { content: 'Master Carton (Sapona)'; }
+.page.custom-factory[data-type="master"]::before { content: 'Master Carton (Others)'; }
+
+.page.default[data-type="inner"]::before { content: 'Inner Carton (Default)'; }
+.page.legacy[data-type="inner"]::before { content: 'Inner Carton (Legacy)'; }
 
 // MC Specific Styles
-.page[data-type="master"] { 
-  opacity: 1;
-
-  .label__install {
-    display: none;
-  }
-
-  &::before {
-    content: 'Master Carton';
-  }
-}
-
-// Polybag Specific Styles
-.page.sapona[data-type="master"] { 
-  &::before {
-    content: 'Master Carton (Sapona)';
-  }
-}
-
+.page[data-type="master"] .label__install {display: none; }
 // Inner Specific Styles
-.page[data-type="inner"] { 
-  opacity: 1;
-  
-  .label__install {
-    display: none;
-  }
-
-  &::before {
-    content: 'Inner Carton';
-  }
-}
+.page[data-type="inner"] .label__install { display: none; }
 
 // Shipping Mark (Front) Specific Styles
-.page[data-type="shipping-front"] {
-  &::before { content: 'Shipping Mark (Front) – Scaled'; }
-
-  //&.canvas-scaled::before { content: 'Shipping Mark (Front) – Scaled'; }
-  //&.canvas-full::before { content: 'Shipping Mark (Front) – Full Size'; }
-}
+.page[data-type="shipping-front"]::before { content: 'Shipping Mark (Front) – Scaled'; }
 
 // Shipping Mark (Side) Specific Styles
-.page[data-type="shipping-side"] {
-  &::before { content: 'Shipping Mark (Side) - Scaled'; }
-}
+.page[data-type="shipping-side"]::before { content: 'Shipping Mark (Side) - Scaled'; }
 
 .outlininator {
   outline: 4px solid rgba(0, 242, 255, 0.5);

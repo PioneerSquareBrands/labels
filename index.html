@@ -66,8 +66,9 @@
                 </label>
                 <select name="factory" id="factory">
                   <option value="default">Default</option>
+                  <option value="legacy">Legacy</option>
                   <option value="sapona">Sapona</option>
-                  <option value="others">Others</option>
+                  <option value="custom-factory">Others</option>
                 </select>
               </div>
 
@@ -601,7 +602,8 @@
 
         <div class="preview__content preview__content--expanded">
 
-          <div class="page page--a4" data-type="polybag">
+          <!-- Polybags -->
+          <div class="page page--a4 default" data-type="polybag">
             <div class="page__content print">
 
               <header class="print__header">
@@ -654,6 +656,214 @@
                     <div class="label__install-header">Installation Instructions</div>
                     <div>Scan the QR code to view the installation instructions.</div>
                     <div class="label__install-link" style="display: none;"><span
+                        class="label__install-site print-install-base">brenthaven.com</span>/<span
+                        class="label__install-sku print-install-path">1050</span></div>
+                    <div>Thanks for helping reduce paper waste</div>
+                  </div>
+                  <div class="label__qr">QR</div>
+                </div>
+
+                <div class="label__internal">
+                  <div class="label__datamatrix">Data Matrix</div>
+                  <div class="label__internal-text">For PSB internal use only</div>
+                </div>
+              </main>
+
+            </div>
+          </div>
+
+          <div class="page page--a4 legacy factory--hidden" data-type="polybag">
+            <div class="page__content print">
+
+              <header class="print__header">
+                <h1 class="print-header">
+                  <img src="dist/img/brenthaven_min.png">
+                </h1>
+                <h2>Polybag UPC Label</h2>
+                <h3>Label size 3.5" tall x 3.5" wide</h3>
+                <span class="print__magenta">Magenta die line represents die cut of label &amp; does not print</span>
+              </header>
+
+              <main class="print__content label">
+                <div class="label__brand">
+                  <img class="label__logo print-logo" src="dist/img/brenthaven_min.png">
+                </div>
+
+                <div class="label__description print-description">
+                  Edge Smart Connect Keyboard
+                </div>
+
+                <div class="label__upc">
+                  <svg class="barcode">
+                  </svg>
+                </div>
+
+                <div class="label__source">
+                  Made in <span class="label__country print-country">China</span>
+                </div>
+
+                <div class="label__info">
+                  <span class="label__item">
+                    <span class="label__item-master print-item-master">1050</span>
+                    <span class="label__item-sku print-sku">1050001</span>
+                  </span>
+                  <span class="label__quantity">Qty: 1</span>
+                </div>
+
+                <div class="label__install label__install--active">
+                  <span class="label__install-img">
+                    <span class="label__install-svg">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-wrench">
+                        <path
+                          d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                      </svg>
+                    </span>
+                  </span>
+                  <div class="label__install-text">
+                    <div class="label__install-header">Installation Instructions</div>
+                    <div>Scan the QR code to view the installation instructions.</div>
+                    <div class="label__install-link" style="display: none;"><span
+                        class="label__install-site print-install-base">brenthaven.com</span>/<span
+                        class="label__install-sku print-install-path">1050</span></div>
+                    <div>Thanks for helping reduce paper waste</div>
+                  </div>
+                  <div class="label__qr">QR</div>
+                </div>
+
+                <div class="label__internal">
+                  <div class="label__datamatrix">Data Matrix</div>
+                  <div class="label__internal-text">For PSB internal use only</div>
+                </div>
+              </main>
+
+            </div>
+          </div>
+
+          <!-- Master Cartons -->
+          <div class="page page--a4 default" data-type="master">
+            <div class="page__content print">
+
+              <header class="print__header">
+                <h1 class="print-header">
+                  <img src="dist/img/brenthaven_min.png">
+                </h1>
+                <h2>Master Carton UPC Label</h2>
+                <h3>Label size 3.8" tall x 3.2" wide</h3>
+                <span class="print__magenta">Magenta die line represents die cut of label &amp; does not print</span>
+              </header>
+
+              <main class="print__content label">
+                <div class="label__brand">
+                  <img class="label__logo print-logo" src="dist/img/brenthaven_min.png">
+                </div>
+
+                <div class="label__description print-description">
+                  Edge Smart Connect Keyboard
+                </div>
+
+                <div class="label__upc">
+                  <svg class="barcode">
+                  </svg>
+                </div>
+
+                <div class="label__source">
+                  Made in <span class="label__country print-country">China</span>
+                </div>
+
+                <div class="label__info">
+                  <span class="label__item">
+                    <span class="label__item-master print-item-master">1050</span>
+                    <span class="label__item-sku print-sku">1050001</span>
+                  </span>
+                  <span class="label__quantity">Qty: 1</span>
+                </div>
+
+                <div class="label__install">
+                  <span class="label__install-img">
+                    <span class="label__install-svg">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-wrench">
+                        <path
+                          d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                      </svg>
+                    </span>
+                  </span>
+                  <div class="label__install-text">
+                    <div class="label__install-header">Installation Instructions</div>
+                    <div>Scan the QR code, or visit:</div>
+                    <div class="label__install-link"><span
+                        class="label__install-site print-install-base">brenthaven.com</span>/<span
+                        class="label__install-sku print-install-path">1050</span></div>
+                    <div>Thanks for helping reduce paper waste</div>
+                  </div>
+                  <div class="label__qr">QR</div>
+                </div>
+
+                <div class="label__internal">
+                  <div class="label__datamatrix">Data Matrix</div>
+                  <div class="label__internal-text">For PSB internal use only</div>
+                </div>
+              </main>
+
+            </div>
+          </div>
+
+          <div class="page page--a4 legacy factory--hidden" data-type="master">
+            <div class="page__content print">
+
+              <header class="print__header">
+                <h1 class="print-header">
+                  <img src="dist/img/brenthaven_min.png">
+                </h1>
+                <h2>Master Carton UPC Label</h2>
+                <h3>Label size 3.5" tall x 3.5" wide</h3>
+                <span class="print__magenta">Magenta die line represents die cut of label &amp; does not print</span>
+              </header>
+
+              <main class="print__content label">
+                <div class="label__brand">
+                  <img class="label__logo print-logo" src="dist/img/brenthaven_min.png">
+                </div>
+
+                <div class="label__description print-description">
+                  Edge Smart Connect Keyboard
+                </div>
+
+                <div class="label__upc">
+                  <svg class="barcode">
+                  </svg>
+                </div>
+
+                <div class="label__source">
+                  Made in <span class="label__country print-country">China</span>
+                </div>
+
+                <div class="label__info">
+                  <span class="label__item">
+                    <span class="label__item-master print-item-master">1050</span>
+                    <span class="label__item-sku print-sku">1050001</span>
+                  </span>
+                  <span class="label__quantity">Qty: 1</span>
+                </div>
+
+                <div class="label__install">
+                  <span class="label__install-img">
+                    <span class="label__install-svg">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-wrench">
+                        <path
+                          d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                      </svg>
+                    </span>
+                  </span>
+                  <div class="label__install-text">
+                    <div class="label__install-header">Installation Instructions</div>
+                    <div>Scan the QR code, or visit:</div>
+                    <div class="label__install-link"><span
                         class="label__install-site print-install-base">brenthaven.com</span>/<span
                         class="label__install-sku print-install-path">1050</span></div>
                     <div>Thanks for helping reduce paper waste</div>
@@ -823,76 +1033,8 @@
             </div>
           </div>
 
-          <div class="page page--a4" data-type="master">
-            <div class="page__content print">
-
-              <header class="print__header">
-                <h1 class="print-header">
-                  <img src="dist/img/brenthaven_min.png">
-                </h1>
-                <h2>Master Carton UPC Label</h2>
-                <h3>Label size 3.8" tall x 3.2" wide</h3>
-                <span class="print__magenta">Magenta die line represents die cut of label &amp; does not print</span>
-              </header>
-
-              <main class="print__content label">
-                <div class="label__brand">
-                  <img class="label__logo print-logo" src="dist/img/brenthaven_min.png">
-                </div>
-
-                <div class="label__description print-description">
-                  Edge Smart Connect Keyboard
-                </div>
-
-                <div class="label__upc">
-                  <svg class="barcode">
-                  </svg>
-                </div>
-
-                <div class="label__source">
-                  Made in <span class="label__country print-country">China</span>
-                </div>
-
-                <div class="label__info">
-                  <span class="label__item">
-                    <span class="label__item-master print-item-master">1050</span>
-                    <span class="label__item-sku print-sku">1050001</span>
-                  </span>
-                  <span class="label__quantity">Qty: 1</span>
-                </div>
-
-                <div class="label__install">
-                  <span class="label__install-img">
-                    <span class="label__install-svg">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="lucide lucide-wrench">
-                        <path
-                          d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-                      </svg>
-                    </span>
-                  </span>
-                  <div class="label__install-text">
-                    <div class="label__install-header">Installation Instructions</div>
-                    <div>Scan the QR code, or visit:</div>
-                    <div class="label__install-link"><span
-                        class="label__install-site print-install-base">brenthaven.com</span>/<span
-                        class="label__install-sku print-install-path">1050</span></div>
-                    <div>Thanks for helping reduce paper waste</div>
-                  </div>
-                  <div class="label__qr">QR</div>
-                </div>
-
-                <div class="label__internal">
-                  <div class="label__datamatrix">Data Matrix</div>
-                  <div class="label__internal-text">For PSB internal use only</div>
-                </div>
-              </main>
-
-            </div>
-          </div>
-
-          <div class="page page--a4" data-type="inner">
+          <!-- Inner Cartons -->
+          <div class="page page--a4 default" data-type="inner">
             <div class="page__content print">
 
               <header class="print__header">
@@ -961,6 +1103,76 @@
             </div>
           </div>
 
+          <div class="page page--a4 legacy factory--hidden" data-type="inner">
+            <div class="page__content print">
+
+              <header class="print__header">
+                <h1 class="print-header">
+                  <img src="dist/img/brenthaven_min.png">
+                </h1>
+                <h2>Inner Carton UPC Label</h2>
+                <h3>Label size 3.5" tall x 3.5" wide</h3>
+                <span class="print__magenta">Magenta die line represents die cut of label &amp; does not print</span>
+              </header>
+
+              <main class="print__content label">
+                <div class="label__brand">
+                  <img class="label__logo print-logo" src="dist/img/brenthaven_min.png">
+                </div>
+
+                <div class="label__description print-description">
+                  Edge Smart Connect Keyboard
+                </div>
+
+                <div class="label__upc">
+                  <svg class="barcode">
+                  </svg>
+                </div>
+
+                <div class="label__source">
+                  Made in <span class="label__country print-country">China</span>
+                </div>
+
+                <div class="label__info">
+                  <span class="label__item">
+                    <span class="label__item-master print-item-master">1050</span>
+                    <span class="label__item-sku print-sku">1050001</span>
+                  </span>
+                  <span class="label__quantity">Qty: 1</span>
+                </div>
+
+                <div class="label__install">
+                  <span class="label__install-img">
+                    <span class="label__install-svg">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-wrench">
+                        <path
+                          d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                      </svg>
+                    </span>
+                  </span>
+                  <div class="label__install-text">
+                    <div class="label__install-header">Installation Instructions</div>
+                    <div>Scan the QR code, or visit:</div>
+                    <div class="label__install-link"><span
+                        class="label__install-site print-install-base">brenthaven.com</span>/<span
+                        class="label__install-sku print-install-path">1050</span></div>
+                    <div>Thanks for helping reduce paper waste</div>
+                  </div>
+                  <div class="label__qr">QR</div>
+                </div>
+
+                <div class="label__internal">
+                  <div class="label__datamatrix">Data Matrix</div>
+                  <div class="label__internal-text">For PSB internal use only</div>
+                </div>
+              </main>
+
+            </div>
+          </div>
+
+          <!-- Shipping Marks -->
           <div class="page page--carton page--carton-front page--hidden" data-type="shipping-front">
             <div class="scaler-wrapper">
               <div class="scaler">

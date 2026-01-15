@@ -1500,7 +1500,7 @@ body.canvas-animating .preview__content {
   width: 100%;
   overflow: hidden;
   position: relative;
-  height: 72px;
+  height: 58px;
 }
 .label__upc svg {
   width: 100%;
@@ -1974,9 +1974,6 @@ body.canvas-animating .preview__content {
 .preview--gumdrop .page[data-type=polybag] .label__info {
   margin-bottom: 4px;
 }
-.preview--gumdrop .label__upc {
-  height: 60px;
-}
 
 .preview--vault .download__button {
   background-color: #EE272F;
@@ -1995,35 +1992,44 @@ body.canvas-animating .preview__content {
   content: "SKU: ";
 }
 
-.page[data-type=polybag] {
-  opacity: 1;
-}
-.page[data-type=polybag]::before {
-  content: "Polybag";
+.page.default[data-type=polybag]::before {
+  content: "Polybag (Default)";
 }
 
-.page[data-type=master] {
-  opacity: 1;
+.page.legacy[data-type=polybag]::before {
+  content: "Polybag (Legacy)";
 }
-.page[data-type=master] .label__install {
-  display: none;
+
+.page.default[data-type=master]::before {
+  content: "Master Carton (Default)";
 }
-.page[data-type=master]::before {
-  content: "Master Carton";
+
+.page.legacy[data-type=master]::before {
+  content: "Master Carton (Legacy)";
 }
 
 .page.sapona[data-type=master]::before {
   content: "Master Carton (Sapona)";
 }
 
-.page[data-type=inner] {
-  opacity: 1;
+.page.custom-factory[data-type=master]::before {
+  content: "Master Carton (Others)";
 }
-.page[data-type=inner] .label__install {
+
+.page.default[data-type=inner]::before {
+  content: "Inner Carton (Default)";
+}
+
+.page.legacy[data-type=inner]::before {
+  content: "Inner Carton (Legacy)";
+}
+
+.page[data-type=master] .label__install {
   display: none;
 }
-.page[data-type=inner]::before {
-  content: "Inner Carton";
+
+.page[data-type=inner] .label__install {
+  display: none;
 }
 
 .page[data-type=shipping-front]::before {
@@ -2538,4 +2544,15 @@ body.canvas-animating .preview__content {
 }
 .custom-factory .sapona__carton::after, .custom-factory .custom-factory__carton::after {
   margin-left: 0.5in;
+}
+
+.legacy {
+  opacity: 1;
+}
+.legacy[data-type=polybag] .label, .legacy[data-type=master] .label, .legacy[data-type=inner] .label {
+  width: 3.5in;
+  height: 3.5in;
+}
+.legacy .label__upc {
+  height: 58px;
 }

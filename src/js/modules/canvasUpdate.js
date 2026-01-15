@@ -48,7 +48,7 @@ export const canvasUpdate = () => {
   let computedSideWidth = widthPercentage * (width/height);
 
   if (computedFrontWidth > 90 || computedSideWidth > 90) {
-    console.log('computedFrontWidth: ', computedFrontWidth, 'computedSideWidth: ',  computedSideWidth);
+    //console.log('computedFrontWidth: ', computedFrontWidth, 'computedSideWidth: ',  computedSideWidth);
 
     if (computedFrontWidth > computedSideWidth) {
       cartonFront.style.width = `90%`;
