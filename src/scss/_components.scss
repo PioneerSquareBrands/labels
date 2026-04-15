@@ -827,6 +827,7 @@
 
 .page.default[data-type="inner"]::before { content: 'Inner Carton (Default)'; }
 .page.legacy[data-type="inner"]::before { content: 'Inner Carton (Legacy)'; }
+.page.custom-factory[data-type="inner"]::before { content: 'Inner Carton (Others)'; }
 
 // MC Specific Styles
 .page[data-type="master"] .label__install {display: none; }

@@ -149,7 +149,6 @@ svg {
   position: relative;
   z-index: 9;
   /* Positioning and visibility settings of the tooltip */
-  /* The actual tooltip with a dynamic width */
 }
 [data-tooltip]::before, [data-tooltip]::after {
   position: absolute;
@@ -161,6 +160,9 @@ svg {
   -webkit-transition: 0.1s;
   transition: 0.1s;
   will-change: transform;
+}
+[data-tooltip] {
+  /* The actual tooltip with a dynamic width */
 }
 [data-tooltip]::before {
   content: attr(data-tooltip);
@@ -237,13 +239,14 @@ svg {
 
 [data-tooltip-location=left] {
   opacity: 1;
-  /* Tooltip */
-  /* Arrow */
 }
 [data-tooltip-location=left]::before, [data-tooltip-location=left]::after {
   left: auto;
   bottom: 50%;
   right: calc(100% + 5px);
+}
+[data-tooltip-location=left] {
+  /* Tooltip */
 }
 [data-tooltip-location=left]::before {
   -webkit-transform: translate(-5px, 50%) scale(0.5);
@@ -258,6 +261,9 @@ svg {
 [data-tooltip-location=left].tooltip-open::before {
   -webkit-transform: translate(-5px, 50%) scale(1);
           transform: translate(-5px, 50%) scale(1);
+}
+[data-tooltip-location=left] {
+  /* Arrow */
 }
 [data-tooltip-location=left]::after {
   border-width: 5px 0 5px 5px;
@@ -2024,6 +2030,10 @@ body.canvas-animating .preview__content {
   content: "Inner Carton (Legacy)";
 }
 
+.page.custom-factory[data-type=inner]::before {
+  content: "Inner Carton (Others)";
+}
+
 .page[data-type=master] .label__install {
   display: none;
 }
@@ -2520,13 +2530,13 @@ body.canvas-animating .preview__content {
 .custom-factory .shipping-mark__sku::before {
   font-size: 0.8rem !important;
 }
-.custom-factory .label__upc {
+.custom-factory[data-type=master] .label__upc {
   position: absolute;
   bottom: 36px;
   right: 0;
   width: 50%;
 }
-.custom-factory .label__upc svg {
+.custom-factory[data-type=master] .label__upc svg {
   width: 100%;
   left: 50%;
   -webkit-transform: translateX(-50%) scale(1) !important;
@@ -2544,6 +2554,59 @@ body.canvas-animating .preview__content {
 }
 .custom-factory .sapona__carton::after, .custom-factory .custom-factory__carton::after {
   margin-left: 0.5in;
+}
+.custom-factory[data-type=inner] .label {
+  width: 2in;
+  height: 2in;
+  padding: 1px;
+}
+.custom-factory[data-type=inner] .label__brand .print-logo {
+  height: 22px;
+}
+.custom-factory[data-type=inner] .label__description {
+  font-size: 12px;
+}
+.custom-factory[data-type=inner] .label__source {
+  font-size: 8px;
+}
+.custom-factory[data-type=inner] .label__internal-text {
+  padding: 8px;
+  font-size: 8px;
+}
+.custom-factory[data-type=inner] .label__internal {
+  padding: 1px;
+}
+.custom-factory[data-type=inner] .label__datamatrix,
+.custom-factory[data-type=inner] .label__datamatrix > svg {
+  height: 28px;
+  width: 28px;
+}
+.custom-factory[data-type=inner] .label__upc {
+  height: 54px;
+  margin: 0 0 -10px;
+}
+.custom-factory[data-type=inner] .label__upc > svg {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin: auto;
+  left: 50%;
+  -webkit-transform: translateX(-50%) !important;
+          transform: translateX(-50%) !important;
+}
+.custom-factory[data-type=inner] .label__info {
+  margin: 2px;
+}
+.custom-factory[data-type=inner] .label__item {
+  gap: 0;
+}
+.custom-factory[data-type=inner] .label__item-master,
+.custom-factory[data-type=inner] .label__item-master::before,
+.custom-factory[data-type=inner] .label__item-sku,
+.custom-factory[data-type=inner] .label__item-sku::before,
+.custom-factory[data-type=inner] .label__quantity,
+.custom-factory[data-type=inner] .label__quantity::before {
+  font-size: 11px !important;
 }
 
 .legacy {

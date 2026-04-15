@@ -124,11 +124,12 @@
 }
 
 .custom-factory {
-  
+
   .label {
     width: 3.937007874in;
     height: 2.9527559055in;
   }
+
   .label__item-master::before { content: 'Item:'; }
   .label__item-sku::before { content: 'SKU:'; }
 
@@ -158,7 +159,7 @@
     font-size: 0.8rem !important;
   }
 
-  .label__upc {
+  &[data-type="master"] .label__upc {
     position: absolute;
     bottom: 36px;
     right: 0;
@@ -184,6 +185,61 @@
   .sapona__carton::after, .custom-factory__carton::after {
     margin-left: 0.5in;
   }
+
+  &[data-type="inner"] {
+    .label {
+        width: 2in;
+        height: 2in;
+        padding: 1px;
+    }
+    .label__brand .print-logo {
+        height: 22px;
+    }
+    .label__description {
+        font-size: 12px;
+    }
+    .label__source {
+        font-size: 8px;
+    }
+    .label__internal-text {
+        padding: 8px;
+        font-size: 8px;
+    }
+    .label__internal {
+        padding: 1px;
+    }
+    .label__datamatrix,
+    .label__datamatrix > svg {
+        height: 28px;
+        width: 28px;
+    }
+    .label__upc {
+        height: 54px;
+        margin: 0 0 -10px;
+    }
+    .label__upc > svg {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        margin: auto;
+        left: 50%;
+        transform: translateX(-50%) !important;
+    }
+    .label__info {
+        margin: 2px;
+    }
+    .label__item {
+        gap: 0;
+    }
+    .label__item-master,
+    .label__item-master::before,
+    .label__item-sku,
+    .label__item-sku::before,
+    .label__quantity,
+    .label__quantity::before {
+        font-size: 11px !important;
+    }
+  } 
 }
 
 .legacy {
