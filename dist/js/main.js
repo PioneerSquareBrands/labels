@@ -4830,8 +4830,9 @@ const generatePDF = async (elements) => {
 
           const imgWidth = (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.pixelToInch)(originalWidth);
           const imgHeight = (0,_misc_js__WEBPACK_IMPORTED_MODULE_4__.pixelToInch)(originalHeight);
+          const isShippingMark = page.closest('.page--carton') ? true : false;
           
-          if (imgWidth > 8.3 || imgHeight > 11.7) { // When the image is larger than A4
+          if (isShippingMark || imgWidth > 8.3 || imgHeight > 11.7) { // When shipping mark OR image is larger than A4
             const imgData = dataUrl;
             const orientation = imgWidth > imgHeight ? 'landscape' : 'portrait';
             pageType = 'shipping';
@@ -4847,7 +4848,7 @@ const generatePDF = async (elements) => {
             if (page === pages[pages.length - 1]) {
               pdf.deletePage(1);
             }
-          } else { // When the image is smaller than A4
+          } else { // When the image is smaller than A4 (UPC labels)
             const x = (8.3 - imgWidth) / 2;
             const y = (11.7 - imgHeight) / 2;
             pageType = 'packaging';

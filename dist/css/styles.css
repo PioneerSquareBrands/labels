@@ -1746,9 +1746,6 @@ body.canvas-animating .preview__content {
   width: 35%;
   font-size: 30%;
 }
-.scaler[style*="width: 7"] .shipping-mark__bottom, .scaler[style*="width: 8"] .shipping-mark__bottom {
-  margin-bottom: 1in;
-}
 .shipping-mark__logo-img {
   height: 100px;
 }
@@ -2129,6 +2126,26 @@ body.canvas-animating .preview__content {
   margin-top: 8px;
   opacity: 0.5;
   font-style: italic;
+}
+
+.scaler[style*="width: 7"] .shipping-mark__sku,
+.scaler[style*="width: 8"] .shipping-mark__sku,
+.scaler[style*="width: 9"] .shipping-mark__sku {
+  font-size: 60% !important;
+}
+.page--carton-side .scaler[style*="width: 7"] .shipping-mark__middle, .page--carton-side .scaler[style*="width: 7"] .shipping-mark__middle, .page--carton-side .scaler[style*="width: 7"] .shipping-mark__middle,
+.page--carton-side .scaler[style*="width: 8"] .shipping-mark__middle,
+.page--carton-side .scaler[style*="width: 8"] .shipping-mark__middle,
+.page--carton-side .scaler[style*="width: 8"] .shipping-mark__middle,
+.page--carton-side .scaler[style*="width: 9"] .shipping-mark__middle,
+.page--carton-side .scaler[style*="width: 9"] .shipping-mark__middle,
+.page--carton-side .scaler[style*="width: 9"] .shipping-mark__middle {
+  font-size: 30% !important;
+}
+.scaler[style*="width: 7"] .shipping-mark__bottom,
+.scaler[style*="width: 8"] .shipping-mark__bottom,
+.scaler[style*="width: 9"] .shipping-mark__bottom {
+  margin-bottom: 1in;
 }
 
 .visually-hidden {

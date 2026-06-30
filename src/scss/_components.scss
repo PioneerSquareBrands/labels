@@ -584,11 +584,6 @@
     font-size: 30%;
   }
 
-  .scaler[style*="width: 7"] &__bottom,
-  .scaler[style*="width: 8"] &__bottom {
-    margin-bottom: 1in;
-  }
-
   &__logo-img {
     height: 100px;
 
@@ -897,4 +892,22 @@
   margin-top: 8px;
   opacity: 0.5;
   font-style: italic;
+}
+
+.scaler[style*="width: 7"],
+.scaler[style*="width: 8"],
+.scaler[style*="width: 9"] {
+    .shipping-mark__sku {
+        font-size: 60% !important;
+    }
+    
+    .page--carton-side & .shipping-mark__middle,
+    .page--carton-side & .shipping-mark__middle,
+    .page--carton-side & .shipping-mark__middle {
+        font-size: 30% !important;
+    }
+
+    .shipping-mark__bottom {
+        margin-bottom: 1in;
+    }
 }
