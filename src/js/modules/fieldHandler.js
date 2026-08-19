@@ -203,7 +203,7 @@ const skuUpdate = () => {
     
     if (skuLength <= 12) {
       printBoxSkus.style.fontSize = '80%'; 
-    } else if (skuLength <= 20) {
+    } else if (skuLength <= 16) {
       printBoxSkus.style.fontSize = '60%'; 
     } else {
       printBoxSkus.style.fontSize = '40%'; 
