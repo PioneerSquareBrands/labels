@@ -1732,9 +1732,6 @@ body.canvas-animating .preview__content {
 .preview__content[data-height^="8"] .shipping-mark__sku {
   font-size: 70% !important;
 }
-.preview__content[data-height^="7"] .shipping-mark__sku {
-  font-size: 65% !important;
-}
 .shipping-mark__middle {
   margin-bottom: auto;
 }
