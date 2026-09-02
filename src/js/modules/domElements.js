@@ -33,6 +33,7 @@ const domElements = {
   printLogos: document.querySelectorAll('.print-logo'),
   printItemMasters: document.querySelectorAll('.print-item-master'),
   printBoxSkus: document.querySelectorAll('.print-box-sku'),
+  printBoxSkusShipping: document.querySelectorAll('.page--carton .print-box-sku'),
   printBoxSkusSapona: document.querySelectorAll('.sapona .print-box-sku'),
   printSkus: document.querySelectorAll('.print-sku'),
   printCountries: document.querySelectorAll('.print-country'),

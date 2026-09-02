@@ -2,10 +2,26 @@
   "name": "upc-label-generator",
   "version": "1.0.0",
   "description": "Just a simple UPC and Shipping Mark label generator",
+  "scripts": {
+    "build:js": "esbuild src/js/main.js --bundle --format=esm --outfile=dist/js/main.js",
+    "build:css": "sass src/scss/styles.scss dist/css/styles.css --no-source-map",
+    "build:vendors": "cp src/js/vendors.js dist/js/vendors.js",
+    "build": "npm run build:js && npm run build:css && npm run build:vendors",
+    "watch:js": "npm run build:js -- --watch",
+    "watch:css": "npm run build:css -- --watch",
+    "dev": "npm run build && concurrently -n js,css,serve -c blue,magenta,green \"npm:watch:js\" \"npm:watch:css\" \"npm:serve\"",
+    "serve": "browser-sync start --server --startPath index.html --files \"index.html\" \"dist/css/*.css\" \"dist/js/*.js\" --no-notify --no-open"
+  },
   "dependencies": {
     "@jaames/iro": "5.5.2",
     "html-to-image": "1.11.11",
     "jsbarcode": "3.11.6",
     "jspdf": "2.5.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.4",
+    "concurrently": "^10.0.5",
+    "esbuild": "^0.28.2",
+    "sass": "^1.103.1"
   }
 }

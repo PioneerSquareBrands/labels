@@ -291,7 +291,7 @@ const pageImgDownload = () => {
       const defaults = brandDefaults();
 
       let brand = el.brand.value;
-      const sku = el.sku.value.toUpperCase() || defaults.sku;
+      const sku = (el.sku.value.toUpperCase() || defaults.sku).trim();
       const page = button.closest('.page');
       let type = page.getAttribute('data-type');
       let sapona = page.classList.contains('sapona') ? '-sapona' : '';

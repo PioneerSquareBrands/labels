@@ -123,7 +123,7 @@ export const namer = (type, filetype) => {
   const defaults = brandDefaults();
 
   let brand = el.brand.value;
-  const sku = el.sku.value.toUpperCase() || defaults.sku;
+  const sku = (el.sku.value.toUpperCase() || defaults.sku).trim();
   const visiblePages = document.querySelectorAll('.page:not(.page--hidden)');
   let labelTypes = Array.from(visiblePages).map(page => page.getAttribute('data-type'));
 

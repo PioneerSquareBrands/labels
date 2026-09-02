@@ -83,7 +83,7 @@ const brandUpdate = () => {
   //updateTextContent(el.printHeaders, defaults.headerText);
   updateTextContent(el.printDescriptions, el.description.value ||  defaults.description);
   updateTextContent(el.printItemMasters, el.itemMaster.value.toUpperCase() || defaults.itemMaster);
-  updateTextContent(el.printSkus, el.sku.value.toUpperCase() || defaults.sku);
+  updateTextContent(el.printSkus, (el.sku.value.toUpperCase() || defaults.sku).trim());
   updateTextContent(el.printInstallBases, defaults.linkText);
   updateTextContent(el.printInstallPaths, el.itemMaster.value.toUpperCase() || defaults.itemMaster);
 
@@ -177,12 +177,16 @@ const itemMasterUpdate = () => {
 
 const skuUpdate = () => {
   const defaults = brandDefaults();
-  const skuValue = el.sku.value.toUpperCase() || defaults.sku;
+  // Trailing spaces in the SKU field are a manual font-size lever for the shipping
+  // marks. They must never reach the DataMatrix, the label text or the filenames,
+  // so skuRaw is only ever read for its length, below.
+  const skuRaw = el.sku.value.toUpperCase() || defaults.sku;
+  const skuValue = skuRaw.trim();
 
-  let skuLength = skuValue.length;
+  let skuLength = skuRaw.length;
 
   let formattedSku = '';
-  let isNumericThirdChar = skuLength > 2 && /[0-9]/.test(skuValue[2]);
+  let isNumericThirdChar = skuValue.length > 2 && /[0-9]/.test(skuValue[2]);
   let section = '';
 
   for (let i = 0; i < skuValue.length; i++) {
@@ -200,7 +204,9 @@ const skuUpdate = () => {
 
   el.printBoxSkus.forEach((printBoxSkus) => {
     printBoxSkus.innerHTML = formattedSku;
-    
+  });
+
+  el.printBoxSkusShipping.forEach((printBoxSkus) => {
     if (skuLength <= 12) {
       printBoxSkus.style.fontSize = '80%'; 
     } else if (skuLength <= 16) {
@@ -297,7 +303,7 @@ const sourceUpdate = () => {
 const qrURL = () => {
   const defaults = brandDefaults();
   const itemMasterField = el.itemMaster.value.toUpperCase() || defaults.itemMaster;
-  const skuField = el.sku.value.toUpperCase() || defaults.sku;
+  const skuField = (el.sku.value.toUpperCase() || defaults.sku).trim();
 
   const brandUrls = {
     'brenthaven': 'https://brenthaven.com/',
@@ -320,7 +326,7 @@ const qrURL = () => {
 const qrCustomUpdate = () => {
   const defaults = brandDefaults();
   const itemMasterField = el.itemMaster.value.toUpperCase() || defaults.itemMaster;
-  const skuField = el.sku.value.toUpperCase() || defaults.sku;
+  const skuField = (el.sku.value.toUpperCase() || defaults.sku).trim();
   const qrPathValue = el.qrPath.value || (defaults.brandField !== 'vault' ? itemMasterField.toUpperCase() : 'a/');
   
   updateTextContent(el.printInstallPaths, qrPathValue);
@@ -350,7 +356,7 @@ const qrCodeUpdate = () => {
 
 const dataMatrixUpdate = () => {
   const defaults = brandDefaults();
-  const itemMasterValue = el.sku.value.toUpperCase() || defaults.sku;
+  const itemMasterValue = (el.sku.value.toUpperCase() || defaults.sku).trim();
   const dataMatrixContainers = el.preview.querySelectorAll('.label__datamatrix');
 
   dataMatrixContainers.forEach(dm => {
