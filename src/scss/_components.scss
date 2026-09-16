@@ -581,6 +581,12 @@
   &__bottom {
     width: 35%;
     font-size: 30%;
+    white-space: nowrap;
+
+    // Lift the item line above the recycling / Prop 65 badges so long item numbers don't run into them
+    .page[data-type="shipping-side"] & {
+      margin-bottom: 1in;
+    }
   }
 
   &__logo-img {
