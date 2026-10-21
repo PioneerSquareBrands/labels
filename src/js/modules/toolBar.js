@@ -198,10 +198,11 @@ const generatePDF = async (elements) => {
 
   for (const page of pages) {
     if (page.closest('.scaler-wrapper')) page.closest('.scaler-wrapper').classList.add('rendering');
+    const scale = printScale(page);
 
     await htmlToImage.toPng(page, {
       quality: 1,
-      pixelRatio: 4,
+      pixelRatio: 4 / scale,
     })
       .then(function (dataUrl) {
         var img = new Image();
@@ -211,8 +212,8 @@ const generatePDF = async (elements) => {
           const originalWidth = page.offsetWidth;
           const originalHeight = page.offsetHeight;
 
-          const imgWidth = pixelToInch(originalWidth);
-          const imgHeight = pixelToInch(originalHeight);
+          const imgWidth = pixelToInch(originalWidth / scale);
+          const imgHeight = pixelToInch(originalHeight / scale);
           const isShippingMark = page.closest('.page--carton') ? true : false;
           
           if (isShippingMark || imgWidth > 8.3 || imgHeight > 11.7) { // When shipping mark OR image is larger than A4
@@ -256,6 +257,9 @@ const generatePDF = async (elements) => {
 
   if (!DEBUG) return { pdf, pageType };
 }
+
+// Shipping marks smaller than their layout allows are drawn larger and scaled down by this factor
+const printScale = (print) => parseFloat(print.closest('.page')?.dataset.scale) || 1;
 
 const savePDF = async (elements) => {
   const { pdf, pageType } = await generatePDF(elements);
@@ -329,7 +333,7 @@ const pageImgDownload = () => {
       const print = page.querySelector('.print');
       const filename = `${brand}.${sku}.${type}${sapona}.png`;
       console.log(filename);
-      htmlToImage.toPng(print, { quality: 1, pixelRatio: 4 })
+      htmlToImage.toPng(print, { quality: 1, pixelRatio: 4 / printScale(print) })
         .then(function (dataUrl) {
           const link = document.createElement('a');
           link.download = filename;

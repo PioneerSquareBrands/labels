@@ -312,7 +312,7 @@
                   Box Size
                 </label>
                 <div class="field__group">
-                  <input type="number" min="11" max="40" id="shipping_length" placeholder="Length"
+                  <input type="number" min="1" max="40" id="shipping_length" placeholder="Length"
                     data-highlight=".print-dim-length">
                   <span class="field__insert">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -322,7 +322,7 @@
                       <path d="m6 6 12 12" />
                     </svg>
                   </span>
-                  <input type="number" min="7" max="40" id="shipping_width" placeholder="Width"
+                  <input type="number" min="1" max="40" id="shipping_width" placeholder="Width"
                     data-highlight=".print-dim-width">
                   <span class="field__insert">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -332,7 +332,7 @@
                       <path d="m6 6 12 12" />
                     </svg>
                   </span>
-                  <input type="number" min="5" max="40" id="shipping_height" placeholder="Height"
+                  <input type="number" min="1" max="40" id="shipping_height" placeholder="Height"
                     data-highlight=".print-dim-height">
                   <span class="field__insert">in.</span>
                 </div>
@@ -611,7 +611,7 @@
                   <img src="dist/img/brenthaven_min.png">
                 </h1>
                 <h2>Polybag UPC Label</h2>
-                <h3>Label size 3.8" tall x 3.2" wide</h3>
+                <h3>Label size 3.94" tall x 3.35" wide (10 x 8.5 cm)</h3>
                 <span class="print__magenta">Magenta die line represents die cut of label &amp; does not print</span>
               </header>
 
@@ -750,7 +750,7 @@
                   <img src="dist/img/brenthaven_min.png">
                 </h1>
                 <h2>Master Carton UPC Label</h2>
-                <h3>Label size 3.8" tall x 3.2" wide</h3>
+                <h3>Label size 3.94" tall x 3.35" wide (10 x 8.5 cm)</h3>
                 <span class="print__magenta">Magenta die line represents die cut of label &amp; does not print</span>
               </header>
 
@@ -1042,7 +1042,7 @@
                   <img src="dist/img/brenthaven_min.png">
                 </h1>
                 <h2>Inner Carton UPC Label</h2>
-                <h3>Label size 3.8" tall x 3.2" wide</h3>
+                <h3>Label size 3.94" tall x 3.35" wide (10 x 8.5 cm)</h3>
                 <span class="print__magenta">Magenta die line represents die cut of label &amp; does not print</span>
               </header>
 
@@ -1279,30 +1279,32 @@
                         </div>
                       </div>
                     </div>
-                    <div class="shipping-mark__upc">
-                      UPC LABEL
-                    </div>
-                    <div class="shipping-mark__tihi print-tihi tihi-active">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"
-                        class="lucide lucide-boxes">
-                        <path
-                          d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z" />
-                        <path d="m7 16.5-4.74-2.85" />
-                        <path d="m7 16.5 5-3" />
-                        <path d="M7 16.5v5.17" />
-                        <path
-                          d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z" />
-                        <path d="m17 16.5-5-3" />
-                        <path d="m17 16.5 4.74-2.85" />
-                        <path d="M17 16.5v5.17" />
-                        <path
-                          d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z" />
-                        <path d="M12 8 7.26 5.15" />
-                        <path d="m12 8 4.74-2.85" />
-                        <path d="M12 13.5V8" />
-                      </svg>
-                      <img src="dist/img/new-tihi.JPG" />
+                    <div class="shipping-mark__aside">
+                      <div class="shipping-mark__upc">
+                        UPC LABEL
+                      </div>
+                      <div class="shipping-mark__tihi print-tihi tihi-active">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"
+                          class="lucide lucide-boxes">
+                          <path
+                            d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z" />
+                          <path d="m7 16.5-4.74-2.85" />
+                          <path d="m7 16.5 5-3" />
+                          <path d="M7 16.5v5.17" />
+                          <path
+                            d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z" />
+                          <path d="m17 16.5-5-3" />
+                          <path d="m17 16.5 4.74-2.85" />
+                          <path d="M17 16.5v5.17" />
+                          <path
+                            d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z" />
+                          <path d="M12 8 7.26 5.15" />
+                          <path d="m12 8 4.74-2.85" />
+                          <path d="M12 13.5V8" />
+                        </svg>
+                        <img src="dist/img/new-tihi.JPG" />
+                      </div>
                     </div>
                   </main>
                 </div>
@@ -1362,39 +1364,43 @@
                           <span class="shipping-mark__po print-purchase-order">123456</span>
                         </div>
                       </div>
+                    </div>
+                    <div class="shipping-mark__footer">
                       <div class="shipping-mark__bottom">
                         <div class="shipping-mark__meta">
                           <span class="shipping-mark__label">Item: </span>
                           <span class="shipping-mark__item-master print-item-master">01D015</span>
                         </div>
                       </div>
-                    </div>
-                    <div class="shipping-mark__prop65">
-                      <div class="shipping-mark__prop65-heading">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-triangle"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
-                        <div class="shipping-mark__prop65-warning">
-                          <span class="shipping-mark__prop65-california">California Proposition 65</span>
-                          <span class="shipping-mark__prop65-warn">Warning</span>
+                      <div class="shipping-mark__badges">
+                        <div class="shipping-mark__recycling">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-leaf">
+                            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+                            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+                          </svg>
+                          This carton is<br />
+                          made with <br />
+                          recycled content
+                        </div>
+                        <div class="shipping-mark__prop65">
+                          <div class="shipping-mark__prop65-heading">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-triangle"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                            <div class="shipping-mark__prop65-warning">
+                              <span class="shipping-mark__prop65-california">California Proposition 65</span>
+                              <span class="shipping-mark__prop65-warn">Warning</span>
+                            </div>
+                          </div>
+                          <div class="shipping-mark__prop65-text">
+                            <p>This product can expose you to chemicals <br />
+                            which are known to the State of California <br />
+                            to cause cancer, birth defects or other reproductive harm.</p>
+                        
+                            <p>For more information go to www.P65Warnings.ca.gov</p>
+                          </div>
                         </div>
                       </div>
-                      <div class="shipping-mark__prop65-text">
-                        <p>This product can expose you to chemicals <br />
-                        which are known to the State of California <br />
-                        to cause cancer, birth defects or other reproductive harm.</p>
-                        
-                        <p>For more information go to www.P65Warnings.ca.gov</p>
-                      </div>
-                    </div>
-                    <div class="shipping-mark__recycling">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="lucide lucide-leaf">
-                        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
-                        <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
-                      </svg>
-                      This carton is<br />
-                      made with <br />
-                      recycled content
                     </div>
                   </main>
                 </div>

@@ -41,9 +41,9 @@ export const fieldInit = () => {
   el.dimWidth.addEventListener('input', dimUpdate);
   el.dimLength.addEventListener('input', dimUpdate);
   el.dimHeight.addEventListener('input', dimUpdate);
-  el.dimWidth.addEventListener('change', canvasUpdate);
-  el.dimLength.addEventListener('change', canvasUpdate);
-  el.dimHeight.addEventListener('change', canvasUpdate);
+  el.dimWidth.addEventListener('input', canvasUpdate);
+  el.dimLength.addEventListener('input', canvasUpdate);
+  el.dimHeight.addEventListener('input', canvasUpdate);
   el.boxQty.addEventListener('input', qtyUpdate);
   el.gWeight.addEventListener('input', weightUpdate);
   el.nWeight.addEventListener('input', weightUpdate);

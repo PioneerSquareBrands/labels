@@ -13951,7 +13951,7 @@ var require_microtask = __commonJS({
     var IS_IOS_PEBBLE = require_engine_is_ios_pebble();
     var IS_WEBOS_WEBKIT = require_engine_is_webos_webkit();
     var IS_NODE = require_engine_is_node();
-    var MutationObserver = global2.MutationObserver || global2.WebKitMutationObserver;
+    var MutationObserver2 = global2.MutationObserver || global2.WebKitMutationObserver;
     var document2 = global2.document;
     var process2 = global2.process;
     var Promise2 = global2.Promise;
@@ -13975,10 +13975,10 @@ var require_microtask = __commonJS({
         }
         if (parent) parent.enter();
       };
-      if (!IS_IOS && !IS_NODE && !IS_WEBOS_WEBKIT && MutationObserver && document2) {
+      if (!IS_IOS && !IS_NODE && !IS_WEBOS_WEBKIT && MutationObserver2 && document2) {
         toggle = true;
         node2 = document2.createTextNode("");
-        new MutationObserver(flush).observe(node2, { characterData: true });
+        new MutationObserver2(flush).observe(node2, { characterData: true });
         notify = function() {
           node2.data = toggle = !toggle;
         };
@@ -23103,19 +23103,100 @@ var brandDefaults = () => {
 var SCALER = ".scaler";
 var CANVAS_SCALED = "canvas-scaled";
 var CANVAS_FULL = "canvas-full";
-var setDimensions = (element, width, height) => {
-  const scaler2 = element.querySelector(SCALER);
-  scaler2.style.width = `${width}in`;
-  scaler2.style.height = `${height}in`;
+var DEFAULT_LENGTH = 18.3;
+var DEFAULT_WIDTH = 11.2;
+var DEFAULT_HEIGHT = 13.4;
+var MIN_FONT = 0.4;
+var MIN_CEILING_FONT = 0.6;
+var MAX_FONT = 1.2;
+var MAX_SCALE = 64;
+var STACK_MIN_HEIGHT = 7.5;
+var readDims = () => ({
+  length: parseFloat(domElements_default.dimLength.value) || DEFAULT_LENGTH,
+  width: parseFloat(domElements_default.dimWidth.value) || DEFAULT_WIDTH,
+  height: parseFloat(domElements_default.dimHeight.value) || DEFAULT_HEIGHT
+});
+var fontCeiling = ({ length, width, height }, scale) => {
+  const area = Math.min(length * width, height * height) * scale * scale;
+  const fontSize = 1.4 * Math.sqrt(area / (DEFAULT_HEIGHT * DEFAULT_LENGTH));
+  return Math.max(MIN_CEILING_FONT, Math.min(fontSize, MAX_FONT));
 };
-var setFontSize = (element, fontSize) => {
-  element.querySelectorAll(".shipping-mark").forEach((content) => {
-    content.style.fontSize = `${fontSize}in`;
-  });
+var getFaces = () => {
+  const dims = readDims();
+  return [
+    { page: domElements_default.preview.querySelector(".page--carton-front"), width: dims.length, front: true },
+    { page: domElements_default.preview.querySelector(".page--carton-side"), width: dims.width, front: false }
+  ].map((face) => ({
+    ...face,
+    dims,
+    height: dims.height,
+    scaler: face.page.querySelector(SCALER),
+    mark: face.page.querySelector(".shipping-mark")
+  }));
 };
-var setDataHeight = (element, height) => {
-  element.querySelectorAll(".shipping-mark").forEach((content) => {
-    element.dataset.height = height;
+var applyLayout = (face, scale, fontSize) => {
+  const height = face.height * scale;
+  face.scaler.style.width = `${face.width * scale}in`;
+  face.scaler.style.height = `${height}in`;
+  face.mark.style.setProperty("--f", `${fontSize}in`);
+  face.mark.classList.toggle("shipping-mark--row", face.front && height < STACK_MIN_HEIGHT);
+};
+var overflows = (node2) => node2.scrollHeight > node2.clientHeight + 1 || node2.scrollWidth > node2.clientWidth + 1;
+var escapes = (node2, box, tolerance) => {
+  const rect = node2.getBoundingClientRect();
+  return rect.top < box.top - tolerance || rect.left < box.left - tolerance || rect.bottom > box.bottom + tolerance || rect.right > box.right + tolerance;
+};
+var fits = (face) => {
+  const parts = face.mark.querySelectorAll(".shipping-mark__content, .shipping-mark__aside, .shipping-mark__footer");
+  const boxes = face.mark.querySelectorAll(".shipping-mark__upc, .shipping-mark__tihi, .shipping-mark__recycling, .shipping-mark__prop65");
+  const markBox = face.mark.getBoundingClientRect();
+  const tolerance = markBox.width / face.mark.offsetWidth;
+  return !overflows(face.mark) && !Array.from(parts).some(overflows) && !Array.from(boxes).some((node2) => escapes(node2, markBox, tolerance));
+};
+var tryLayout = (face, scale, fontSize) => {
+  applyLayout(face, scale, fontSize);
+  return fits(face);
+};
+var fitFace = (face) => {
+  let scale = 1;
+  if (!tryLayout(face, 1, MIN_FONT)) {
+    let low2 = 1;
+    let high2 = 2;
+    while (high2 < MAX_SCALE && !tryLayout(face, high2, MIN_FONT)) {
+      low2 = high2;
+      high2 *= 2;
+    }
+    for (let i5 = 0; i5 < 8; i5++) {
+      const mid = (low2 + high2) / 2;
+      if (tryLayout(face, mid, MIN_FONT)) high2 = mid;
+      else low2 = mid;
+    }
+    scale = high2;
+  }
+  let low = MIN_FONT;
+  let high = fontCeiling(face.dims, scale);
+  if (!tryLayout(face, scale, high)) {
+    for (let i5 = 0; i5 < 8; i5++) {
+      const mid = (low + high) / 2;
+      if (tryLayout(face, scale, mid)) low = mid;
+      else high = mid;
+    }
+    high = low;
+  }
+  return { scale, fontSize: high };
+};
+var fitShippingMarks = () => {
+  const faces = getFaces();
+  if (faces.some((face) => !face.mark.clientHeight)) return;
+  const results = faces.map(fitFace);
+  if (results.every((result) => result.scale === 1)) {
+    const fontSize = Math.min(...results.map((result) => result.fontSize));
+    results.forEach((result) => result.fontSize = fontSize);
+  }
+  faces.forEach((face, i5) => {
+    applyLayout(face, results[i5].scale, results[i5].fontSize);
+    face.page.dataset.scale = results[i5].scale;
+    rescale(face.page);
   });
 };
 var canvasUpdate = () => {
@@ -23124,16 +23205,7 @@ var canvasUpdate = () => {
   let cartonSide = domElements_default.preview.querySelector(".page--carton-side");
   let condensed = 30;
   let expanded = 50;
-  const defaultFontSize = 1.4;
-  const defaultArea = 13.4 * 18.3;
-  let length = domElements_default.dimLength.value || 18.3;
-  let width = domElements_default.dimWidth.value || 11.2;
-  let height = domElements_default.dimHeight.value || 13.4;
-  const minFontSize = 0.6;
-  const maxFontSize = 1.2;
-  const area = Math.min(length * width, height * height);
-  let fontSize = defaultFontSize * Math.sqrt(area / defaultArea);
-  fontSize = Math.max(minFontSize, Math.min(fontSize, maxFontSize));
+  const { length, width, height } = readDims();
   const widthPercentage = previewContent.classList.contains("preview__content--condensed") ? condensed : expanded;
   let computedFrontWidth = widthPercentage * (length / height);
   let computedSideWidth = widthPercentage * (width / height);
@@ -23160,41 +23232,47 @@ var canvasUpdate = () => {
     cartonFront.style.paddingBottom = `${widthPercentage}%`;
     cartonSide.style.paddingBottom = `${widthPercentage}%`;
   }
-  scaler();
-  setDimensions(cartonFront, length, height);
-  setDimensions(cartonSide, width, height);
-  setFontSize(previewContent, fontSize);
-  setDataHeight(previewContent, height);
+  fitShippingMarks();
+};
+var transitioning = /* @__PURE__ */ new WeakSet();
+var rescale = (page) => {
+  const print = page.querySelector(SCALER);
+  if (!print || transitioning.has(page)) return;
+  const scale = page.clientWidth / print.offsetWidth;
+  print.style.transform = `scale(${scale})`;
+  page.classList.toggle(CANVAS_SCALED, scale < 1);
+  page.classList.toggle(CANVAS_FULL, scale >= 1);
+};
+var fitQueued = false;
+var queueFit = () => {
+  if (fitQueued) return;
+  fitQueued = true;
+  queueMicrotask(() => {
+    fitQueued = false;
+    fitShippingMarks();
+  });
 };
 var scaler = () => {
-  const parentDivs = document.querySelectorAll(".page");
-  parentDivs.forEach((parentDiv) => {
-    if (parentDiv.querySelector(SCALER)) {
-      const print = parentDiv.querySelector(SCALER);
-      const originalTransition = print.style.transition;
-      let isTransitioning = false;
-      const resizeObserver = new ResizeObserver((entries) => {
-        if (isTransitioning) return;
-        for (let entry of entries) {
-          const parentDivWidth = entry.contentRect.width;
-          const printWidth = print.offsetWidth;
-          const scale = parentDivWidth / printWidth;
-          print.style.transform = `scale(${scale})`;
-          parentDiv.classList.toggle(CANVAS_SCALED, scale < 1);
-          parentDiv.classList.toggle(CANVAS_FULL, scale >= 1);
-        }
-      });
-      print.addEventListener("transitionstart", () => {
-        isTransitioning = true;
-        resizeObserver.disconnect();
-      });
-      print.addEventListener("transitionend", () => {
-        isTransitioning = false;
-        resizeObserver.observe(parentDiv);
-      });
-      resizeObserver.observe(parentDiv);
-    }
+  const resizeObserver = new ResizeObserver((entries) => entries.forEach((entry) => rescale(entry.target)));
+  document.querySelectorAll(".page").forEach((page) => {
+    const print = page.querySelector(SCALER);
+    if (!print) return;
+    print.addEventListener("transitionstart", () => transitioning.add(page));
+    print.addEventListener("transitionend", () => {
+      transitioning.delete(page);
+      rescale(page);
+    });
+    resizeObserver.observe(page);
   });
+  const marks = document.querySelectorAll(".page--carton .shipping-mark");
+  const mutationObserver = new MutationObserver((mutations) => {
+    if (mutations.some((mutation) => !mutation.target.classList?.contains("shipping-mark"))) queueFit();
+  });
+  marks.forEach((mark) => {
+    mutationObserver.observe(mark, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ["src", "style", "class"] });
+    mark.addEventListener("load", queueFit, true);
+  });
+  document.fonts?.ready.then(queueFit);
 };
 
 // node_modules/jspdf/dist/jspdf.es.min.js
@@ -32337,17 +32415,18 @@ var generatePDF = async (elements2) => {
   let pageType;
   for (const page of pages) {
     if (page.closest(".scaler-wrapper")) page.closest(".scaler-wrapper").classList.add("rendering");
+    const scale = printScale(page);
     await toPng(page, {
       quality: 1,
-      pixelRatio: 4
+      pixelRatio: 4 / scale
     }).then(function(dataUrl) {
       var img = new Image();
       img.src = dataUrl;
       if (!DEBUG) {
         const originalWidth = page.offsetWidth;
         const originalHeight = page.offsetHeight;
-        const imgWidth = pixelToInch(originalWidth);
-        const imgHeight = pixelToInch(originalHeight);
+        const imgWidth = pixelToInch(originalWidth / scale);
+        const imgHeight = pixelToInch(originalHeight / scale);
         const isShippingMark = page.closest(".page--carton") ? true : false;
         if (isShippingMark || imgWidth > 8.3 || imgHeight > 11.7) {
           const imgData = dataUrl;
@@ -32381,6 +32460,7 @@ var generatePDF = async (elements2) => {
   }
   if (!DEBUG) return { pdf, pageType };
 };
+var printScale = (print) => parseFloat(print.closest(".page")?.dataset.scale) || 1;
 var savePDF = async (elements2) => {
   const { pdf, pageType } = await generatePDF(elements2);
   pdf.save(namer(pageType, "pdf"));
@@ -32444,7 +32524,7 @@ var pageImgDownload = () => {
       const print = page.querySelector(".print");
       const filename = `${brand}.${sku}.${type}${sapona}.png`;
       console.log(filename);
-      toPng(print, { quality: 1, pixelRatio: 4 }).then(function(dataUrl) {
+      toPng(print, { quality: 1, pixelRatio: 4 / printScale(print) }).then(function(dataUrl) {
         const link = document.createElement("a");
         link.download = filename;
         link.href = dataUrl;
@@ -32488,9 +32568,9 @@ var fieldInit = () => {
   domElements_default.dimWidth.addEventListener("input", dimUpdate);
   domElements_default.dimLength.addEventListener("input", dimUpdate);
   domElements_default.dimHeight.addEventListener("input", dimUpdate);
-  domElements_default.dimWidth.addEventListener("change", canvasUpdate);
-  domElements_default.dimLength.addEventListener("change", canvasUpdate);
-  domElements_default.dimHeight.addEventListener("change", canvasUpdate);
+  domElements_default.dimWidth.addEventListener("input", canvasUpdate);
+  domElements_default.dimLength.addEventListener("input", canvasUpdate);
+  domElements_default.dimHeight.addEventListener("input", canvasUpdate);
   domElements_default.boxQty.addEventListener("input", qtyUpdate);
   domElements_default.gWeight.addEventListener("input", weightUpdate);
   domElements_default.nWeight.addEventListener("input", weightUpdate);
