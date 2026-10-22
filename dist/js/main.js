@@ -22955,6 +22955,9 @@ var domElements = {
   preview: document.querySelector(".preview"),
   brand: document.querySelector("#brand"),
   factory: document.querySelector("#factory"),
+  labelSize: document.querySelector(".label-size"),
+  labelHeight: document.querySelector("#label_height"),
+  labelWidth: document.querySelector("#label_width"),
   itemMaster: document.querySelector("#item_master"),
   sku: document.querySelector("#sku"),
   source: document.querySelector("#source"),
@@ -32534,6 +32537,92 @@ var pageImgDownload = () => {
   });
 };
 
+// src/js/modules/labelSize.js
+var PRESETS = {
+  default: { name: "Default", height: 3.8, width: 3.2 },
+  legacy: { name: "Legacy", height: 3.5, width: 3.5 },
+  "gumdrop-large": { name: "10 x 8.5 cm", height: 3.94, width: 3.35, metric: "10 x 8.5 cm" }
+};
+var BASE = PRESETS.default;
+var MIN_UNIT = 0.5;
+var TITLES = { polybag: "Polybag", master: "Master Carton", inner: "Inner Carton" };
+var activeSize = () => {
+  if (domElements_default.factory.value !== "custom-size") return PRESETS[domElements_default.factory.value] || BASE;
+  return {
+    name: "Custom",
+    height: parseFloat(domElements_default.labelHeight.value) || BASE.height,
+    width: parseFloat(domElements_default.labelWidth.value) || BASE.width
+  };
+};
+var inches = (value) => `${+value.toFixed(2)}"`;
+var contentSpan = (row) => {
+  const rects = [row, ...row.querySelectorAll("*")].filter((node2) => !node2.closest("svg") || node2.matches(".label__qr svg, .label__datamatrix svg, .label__install-svg svg")).flatMap((node2) => Array.from(node2.getClientRects())).filter((rect) => rect.height > 0);
+  return { top: Math.min(...rects.map((rect) => rect.top)), bottom: Math.max(...rects.map((rect) => rect.bottom)) };
+};
+var fits2 = (label) => {
+  const box = label.getBoundingClientRect();
+  const tolerance = box.width / label.offsetWidth;
+  const rows = Array.from(label.children).filter((row) => row.getClientRects().length);
+  const spans = rows.map(contentSpan);
+  return label.scrollHeight <= label.clientHeight + 1 && !rows.some((row) => escapes(row, box, tolerance)) && !spans.some((span, i5) => i5 > 0 && spans[i5 - 1].bottom > span.top + tolerance);
+};
+var fitLabel = (label, size) => {
+  const ceiling = Math.max(1, Math.min(size.width / BASE.width, size.height / BASE.height));
+  const tryUnit = (unit) => {
+    label.style.setProperty("--u", `${unit}px`);
+    return fits2(label);
+  };
+  if (tryUnit(ceiling)) return;
+  let low = MIN_UNIT;
+  let high = ceiling;
+  for (let i5 = 0; i5 < 8; i5++) {
+    const mid = (low + high) / 2;
+    if (tryUnit(mid)) low = mid;
+    else high = mid;
+  }
+  tryUnit(low);
+};
+var fitLabels = () => {
+  const size = activeSize();
+  document.querySelectorAll(".page--a4.default .label").forEach((label) => fitLabel(label, size));
+};
+var labelSizeUpdate = () => {
+  const size = activeSize();
+  domElements_default.labelSize.classList.toggle("hidden", domElements_default.factory.value !== "custom-size");
+  document.querySelectorAll(".page--a4.default").forEach((page) => {
+    const label = page.querySelector(".label");
+    label.style.setProperty("--label-w", `${size.width}in`);
+    label.style.setProperty("--label-h", `${size.height}in`);
+    const metric = size.metric ? ` (${size.metric})` : "";
+    page.querySelector(".print-size").textContent = `Label size ${inches(size.height)} tall x ${inches(size.width)} wide${metric}`;
+    page.dataset.title = `${TITLES[page.dataset.type]} (${size.name})`;
+  });
+  fitLabels();
+  const master = document.querySelector('.page--a4[data-type="master"]:not(.factory--hidden) .label');
+  if (master) {
+    domElements_default.preview.style.setProperty("--upc-w", `${master.offsetWidth}px`);
+    domElements_default.preview.style.setProperty("--upc-h", `${master.offsetHeight}px`);
+    fitShippingMarks();
+  }
+};
+var fitQueued2 = false;
+var labelSizeInit = () => {
+  domElements_default.labelHeight.addEventListener("input", labelSizeUpdate);
+  domElements_default.labelWidth.addEventListener("input", labelSizeUpdate);
+  const observer = new MutationObserver((mutations) => {
+    if (fitQueued2 || !mutations.some((mutation) => !mutation.target.classList?.contains("label"))) return;
+    fitQueued2 = true;
+    queueMicrotask(() => {
+      fitQueued2 = false;
+      fitLabels();
+    });
+  });
+  document.querySelectorAll(".page--a4.default .label").forEach((label) => {
+    observer.observe(label, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ["src", "style", "class"] });
+    label.addEventListener("load", fitLabels, true);
+  });
+};
+
 // src/js/modules/fieldHandler.js
 var dragCounter = 0;
 var iconSize = 60;
@@ -32556,6 +32645,7 @@ var triggerEventListeners = () => {
 var fieldInit = () => {
   domElements_default.brand.addEventListener("change", brandUpdate);
   domElements_default.factory.addEventListener("change", factoryUpdate);
+  labelSizeInit();
   domElements_default.itemMaster.addEventListener("input", itemMasterUpdate);
   domElements_default.sku.addEventListener("input", skuUpdate);
   domElements_default.description.addEventListener("input", descriptionUpdate);
@@ -32608,16 +32698,15 @@ var brandUpdate = () => {
   domElements_default.sku.placeholder = defaults.sku;
   domElements_default.upc.placeholder = defaults.upc;
   domElements_default.description.placeholder = defaults.description;
-  if (defaults.brandField === "brenthaven" || defaults.brandField === "gumdrop") {
-    domElements_default.factory.querySelector('option[value="custom-factory"]').disabled = true;
-    domElements_default.factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="custom-factory"]').classList.add("selectinator-option--disabled");
-    if (domElements_default.factory.value === "custom-factory") {
-      domElements_default.factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="default"]').dispatchEvent(new Event("mousedown"));
+  domElements_default.factory.querySelectorAll("option[data-brands]").forEach((option) => {
+    const allowed = option.dataset.brands.split(" ").includes(defaults.brandField);
+    const selectinatorOptions = domElements_default.factory.nextElementSibling.querySelector(".selectinator-options");
+    option.disabled = !allowed;
+    selectinatorOptions.querySelector(`[data-value="${option.value}"]`).classList.toggle("selectinator-option--disabled", !allowed);
+    if (!allowed && domElements_default.factory.value === option.value) {
+      selectinatorOptions.querySelector('[data-value="default"]').dispatchEvent(new Event("mousedown"));
     }
-  } else {
-    domElements_default.factory.querySelector('option[value="custom-factory"]').disabled = false;
-    domElements_default.factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="custom-factory"]').classList.remove("selectinator-option--disabled");
-  }
+  });
   skuUpdate();
   qrURL();
   upcUpdate();
@@ -32637,6 +32726,7 @@ var factoryUpdate = () => {
     const chosen = document.querySelector(`.page.${factory}[data-type="${type}"]`) || document.querySelector(`.page.default[data-type="${type}"]`);
     if (chosen) chosen.classList.remove("factory--hidden");
   });
+  labelSizeUpdate();
   elements2.forEach((element, index2) => {
     applyAnimation(element, firstRects[index2].rect, firstRects[index2].wasHidden);
   });

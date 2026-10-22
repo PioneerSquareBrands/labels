@@ -58,7 +58,7 @@ const overflows = (node) => node.scrollHeight > node.clientHeight + 1 || node.sc
 
 // Centered and end-aligned boxes overflow toward the top or left, which scrollHeight and scrollWidth miss.
 // The rects are in screen pixels, so the 1px tolerance is converted through the preview's current scale.
-const escapes = (node, box, tolerance) => {
+export const escapes = (node, box, tolerance) => {
   const rect = node.getBoundingClientRect();
   return rect.top < box.top - tolerance || rect.left < box.left - tolerance
     || rect.bottom > box.bottom + tolerance || rect.right > box.right + tolerance;

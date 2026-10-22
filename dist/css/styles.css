@@ -523,6 +523,9 @@ body > main {
       -ms-flex-align: center;
           align-items: center;
 }
+.sidebar .field__group.hidden {
+  display: none;
+}
 .sidebar .field__insert {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -533,6 +536,9 @@ body > main {
   font-weight: 600;
   font-size: 12px;
   color: #9197a5;
+}
+.sidebar .label-size {
+  margin-top: 8px;
 }
 .sidebar .field__label {
   display: -webkit-box;
@@ -1456,8 +1462,8 @@ body.canvas-animating .preview__content {
 }
 
 .label {
-  width: 85mm;
-  height: 100mm;
+  width: var(--label-w, 3.2in);
+  height: var(--label-h, 3.8in);
   border: 1px solid magenta;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -1473,14 +1479,14 @@ body.canvas-animating .preview__content {
       -ms-flex-direction: column;
           flex-direction: column;
   position: relative;
-  padding: 4px;
+  padding: calc(4 * var(--u, 1px));
   margin: 0 auto;
 }
 .label__brand {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 44px;
+  height: calc(44 * var(--u, 1px));
   text-align: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -1489,29 +1495,32 @@ body.canvas-animating .preview__content {
 .label__logo {
   display: inline-block;
   width: auto;
-  height: 48px;
+  height: calc(48 * var(--u, 1px));
 }
 .label__description {
-  font-size: 16px;
+  font-size: calc(16 * var(--u, 1px));
   font-weight: 700;
   text-align: center;
-  margin: 4px 0;
+  margin: calc(4 * var(--u, 1px)) 0;
   max-width: 100%;
-  max-height: 40px;
+  max-height: calc(40 * var(--u, 1px));
   word-break: break-word;
-  line-height: 18px;
+  line-height: calc(18 * var(--u, 1px));
   white-space: pre-wrap;
 }
 .label__upc {
   width: 100%;
   overflow: hidden;
   position: relative;
-  height: 58px;
+  height: calc(58 * var(--u, 1px));
 }
 .label__upc svg {
   width: 100%;
   position: absolute;
-  bottom: -8px;
+  bottom: calc(-8 * var(--u, 1px));
+}
+.label__upc svg {
+  height: calc(92 * var(--u, 1px));
 }
 .label__upc svg g:nth-of-type(3) text {
   font-size: 23px !important;
@@ -1525,18 +1534,18 @@ body.canvas-animating .preview__content {
 }
 .label__source {
   text-align: center;
-  font-size: 10px;
+  font-size: calc(10 * var(--u, 1px));
   text-transform: uppercase;
   margin: 0 0 auto;
   font-weight: 600;
-  line-height: 10px;
+  line-height: calc(10 * var(--u, 1px));
   z-index: 5;
 }
 .label__info {
   width: 100%;
-  font-size: 12px;
-  line-height: 16px;
-  height: 20px;
+  font-size: calc(12 * var(--u, 1px));
+  line-height: calc(16 * var(--u, 1px));
+  height: calc(20 * var(--u, 1px));
   margin: 0 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1551,49 +1560,49 @@ body.canvas-animating .preview__content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 4px;
+  gap: calc(4 * var(--u, 1px));
   font-weight: 600;
 }
 .label__item-master, .label__item-sku {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 16px;
+  height: calc(16 * var(--u, 1px));
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 .label__item-master::before, .label__item-sku::before {
-  margin-right: 4px;
+  margin-right: calc(4 * var(--u, 1px));
 }
 .label__quantity {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 16px;
+  height: calc(16 * var(--u, 1px));
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 .label__quantity::before {
   content: "Qty:";
-  margin-right: 2px;
+  margin-right: calc(2 * var(--u, 1px));
 }
 .label__install {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-grid-columns: 24px 4px 1fr 4px 60px;
-  grid-template-columns: 24px 1fr 60px;
-  gap: 4px;
-  font-size: 10px;
+  -ms-grid-columns: 24px calc(4 * var(--u, 1px)) 1fr calc(4 * var(--u, 1px)) calc(60 * var(--u, 1px));
+  grid-template-columns: 24px 1fr calc(60 * var(--u, 1px));
+  gap: calc(4 * var(--u, 1px));
+  font-size: calc(10 * var(--u, 1px));
   width: 100%;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   border: 1px solid #000000;
-  padding: 2px;
-  margin-bottom: 4px;
+  padding: calc(2 * var(--u, 1px));
+  margin-bottom: calc(4 * var(--u, 1px));
   display: none;
 }
 .label__install--active {
@@ -1602,13 +1611,18 @@ body.canvas-animating .preview__content {
   display: flex;
 }
 .label__install-img {
-  width: 24px;
-  height: 24px;
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  width: calc(24 * var(--u, 1px));
+  height: calc(24 * var(--u, 1px));
   display: inline-block;
   border-radius: 100%;
   position: relative;
 }
 .label__install-img svg {
+  width: 100%;
+  height: 100%;
   border-radius: 100%;
   stroke: #ffffff;
   background: #000000;
@@ -1616,30 +1630,30 @@ body.canvas-animating .preview__content {
   fill: #000000;
 }
 .label__install-header {
-  font-size: 12px;
-  margin: 4px 0;
+  font-size: calc(12 * var(--u, 1px));
+  margin: calc(4 * var(--u, 1px)) 0;
   text-transform: uppercase;
   font-weight: 700;
 }
 .label__install-text {
-  font-size: 9px;
+  font-size: calc(9 * var(--u, 1px));
 }
 .label__install-text > div {
-  line-height: 12px;
+  line-height: calc(12 * var(--u, 1px));
 }
 .label__install-link {
   display: inline-block;
 }
 .label__qr {
-  width: 60px;
-  height: 60px;
+  width: calc(60 * var(--u, 1px));
+  height: calc(60 * var(--u, 1px));
   background-color: #000000;
   margin-left: auto;
 }
 .label__internal {
   position: relative;
   border: 1px solid #000000;
-  padding: 2px;
+  padding: calc(2 * var(--u, 1px));
   width: 100%;
   -webkit-transition: color 0.2s;
   transition: color 0.2s;
@@ -1652,13 +1666,13 @@ body.canvas-animating .preview__content {
   color: #000000;
 }
 .label__datamatrix {
-  width: 60px;
-  height: 60px;
+  width: calc(60 * var(--u, 1px));
+  height: calc(60 * var(--u, 1px));
   background-color: #000000;
 }
 .label__internal-text {
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: calc(14 * var(--u, 1px));
   font-weight: 700;
   text-align: center;
   margin: 0 auto;
@@ -1670,6 +1684,15 @@ body.canvas-animating .preview__content {
   fill: currentColor;
   -webkit-transition: fill 0.2s;
   transition: fill 0.2s;
+}
+.label__qr, .label__datamatrix {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+}
+.label__qr svg, .label__datamatrix svg {
+  width: 100%;
+  height: 100%;
 }
 .label__qr--active, .label__datamatrix--active {
   background-color: transparent;
@@ -1805,7 +1828,7 @@ body.canvas-animating .preview__content {
       -ms-flex-pack: center;
           justify-content: center;
   gap: 0.7in;
-  width: 85mm;
+  width: var(--upc-w, 3.2in);
   margin: -0.3in 0.2in -0.3in 0.5in;
 }
 .shipping-mark--row .shipping-mark__aside {
@@ -1848,8 +1871,8 @@ body.canvas-animating .preview__content {
   -webkit-box-flex: 0;
       -ms-flex: none;
           flex: none;
-  width: 85mm;
-  height: 100mm;
+  width: var(--upc-w, 3.2in);
+  height: var(--upc-h, 3.8in);
 }
 .shipping-mark__po {
   display: inline-block;
@@ -2081,16 +2104,8 @@ body.canvas-animating .preview__content {
   content: "Polybag (Default)";
 }
 
-.page.legacy[data-type=polybag]::before {
-  content: "Polybag (Legacy)";
-}
-
 .page.default[data-type=master]::before {
   content: "Master Carton (Default)";
-}
-
-.page.legacy[data-type=master]::before {
-  content: "Master Carton (Legacy)";
 }
 
 .page.sapona[data-type=master]::before {
@@ -2105,12 +2120,17 @@ body.canvas-animating .preview__content {
   content: "Inner Carton (Default)";
 }
 
-.page.legacy[data-type=inner]::before {
-  content: "Inner Carton (Legacy)";
-}
-
 .page.custom-factory[data-type=inner]::before {
   content: "Inner Carton (Others)";
+}
+
+.page.default .label > * {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+
+.page.default[data-title]::before {
+  content: attr(data-title);
 }
 
 .page[data-type=master] .label__install {
@@ -2641,15 +2661,4 @@ body.canvas-animating .preview__content {
 .custom-factory[data-type=inner] .label__quantity,
 .custom-factory[data-type=inner] .label__quantity::before {
   font-size: 11px !important;
-}
-
-.legacy {
-  opacity: 1;
-}
-.legacy[data-type=polybag] .label, .legacy[data-type=master] .label, .legacy[data-type=inner] .label {
-  width: 3.5in;
-  height: 3.5in;
-}
-.legacy .label__upc {
-  height: 58px;
 }

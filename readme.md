@@ -39,3 +39,17 @@ at 43%. The scale is stored in the page's `data-scale`, and the PDF and PNG expo
 by it so the files keep the real carton size.
 
 Front faces shorter than 7.5in place the UPC label and the TIHI side by side.
+
+## UPC label sizes
+
+The Label Size field sets the size of the standard polybag, master carton and inner carton
+labels. Presets live in `PRESETS` in `src/js/modules/labelSize.js`. Custom takes any height
+and width from 2in to 5in.
+
+An option with `data-brands` in `index.html` is only offered for those brands. Sapona and
+Others also have their own page templates, which `factoryUpdate()` shows in place of the
+standard page for that label type.
+
+Sizes inside a standard label use the `u()` function in `_variables.scss`. `labelSize.js`
+sets `--u` to fit the content: the presets render at their designed size, larger labels
+grow up to their size ratio, and smaller labels shrink until nothing overflows.

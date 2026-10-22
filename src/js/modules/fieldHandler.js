@@ -4,6 +4,7 @@ import { brandDefaults } from './brandDefaults.js';
 import { canvasUpdate } from './canvasUpdate.js';
 import { selectChoose } from './select.js';
 import { applyAnimation } from './toolBar.js';
+import { labelSizeInit, labelSizeUpdate } from './labelSize.js';
 
 let dragCounter = 0;
 let iconSize = 60;
@@ -28,6 +29,7 @@ const triggerEventListeners = () => {
 export const fieldInit = () => {
   el.brand.addEventListener('change', brandUpdate);
   el.factory.addEventListener('change', factoryUpdate);
+  labelSizeInit();
   el.itemMaster.addEventListener('input', itemMasterUpdate);
   el.sku.addEventListener('input', skuUpdate);
   el.description.addEventListener('input', descriptionUpdate);
@@ -94,18 +96,18 @@ const brandUpdate = () => {
   el.upc.placeholder = defaults.upc;
   el.description.placeholder = defaults.description;
 
-  // Disable/Enable factory options based on brand
-  if (defaults.brandField === 'brenthaven' || defaults.brandField === 'gumdrop') {
-    el.factory.querySelector('option[value="custom-factory"]').disabled = true;
-    el.factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="custom-factory"]').classList.add('selectinator-option--disabled');
-    // Changes the factory option to default when clicking on BH or GD
-    if (el.factory.value === 'custom-factory') {
-      el.factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="default"]').dispatchEvent(new Event('mousedown'));
+  // Options with data-brands are only offered for those brands. Leaving one switches back to Default.
+  el.factory.querySelectorAll('option[data-brands]').forEach((option) => {
+    const allowed = option.dataset.brands.split(' ').includes(defaults.brandField);
+    const selectinatorOptions = el.factory.nextElementSibling.querySelector('.selectinator-options');
+
+    option.disabled = !allowed;
+    selectinatorOptions.querySelector(`[data-value="${option.value}"]`).classList.toggle('selectinator-option--disabled', !allowed);
+
+    if (!allowed && el.factory.value === option.value) {
+      selectinatorOptions.querySelector('[data-value="default"]').dispatchEvent(new Event('mousedown'));
     }
-  } else {
-    el.factory.querySelector('option[value="custom-factory"]').disabled = false;
-    el.factory.nextElementSibling.querySelector('.selectinator-options .selectinator-option[data-value="custom-factory"]').classList.remove('selectinator-option--disabled');
-  }
+  });
 
   skuUpdate();
   qrURL();
@@ -138,6 +140,8 @@ const factoryUpdate = () => {
 
     if (chosen) chosen.classList.remove('factory--hidden');
   });
+
+  labelSizeUpdate();
 
 
 

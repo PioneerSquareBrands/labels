@@ -105,6 +105,10 @@ body > main {
       align-items: center;
     }
 
+    &__group.hidden {
+      display: none;
+    }
+
     &__insert {
       display: flex;
       align-items: center;
@@ -112,6 +116,10 @@ body > main {
       font-size: 12px;
       color: $icons;
     }
+  }
+
+  .label-size {
+    margin-top: 8px;
   }
 
   .field__label {

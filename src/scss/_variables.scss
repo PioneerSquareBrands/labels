@@ -17,5 +17,8 @@ $error: rgba(220, 0, 0, 0.5);
 // Label
 $code-size: 60px;
 $install-badge: 24px;
-$upc-label-width: 85mm;
-$upc-label-height: 100mm;
+
+// Sizes inside a UPC label scale with --u, which canvasUpdate.js sets to fit the label
+@function u($n) {
+  @return calc(#{$n} * var(--u, 1px));
+}
