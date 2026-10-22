@@ -32571,7 +32571,8 @@ var fits2 = (label) => {
   return label.scrollHeight <= label.clientHeight + 1 && !rows.some((row) => escapes(row, box, tolerance)) && !spans.some((span, i5) => i5 > 0 && spans[i5 - 1].bottom > span.top + tolerance);
 };
 var fitLabel = (label, size) => {
-  const ceiling = Math.max(1, Math.min(size.width / BASE.width, size.height / BASE.height));
+  const widthRatio = size.width / BASE.width;
+  const ceiling = Math.min(widthRatio, Math.max(1, Math.min(widthRatio, size.height / BASE.height)));
   const tryUnit = (unit) => {
     label.style.setProperty("--u", `${unit}px`);
     return fits2(label);

@@ -52,9 +52,11 @@ const fits = (label) => {
     && !spans.some((span, i) => i > 0 && spans[i - 1].bottom > span.top + tolerance);
 };
 
-// Content keeps its designed size on labels up to the default size and grows with larger ones, shrinking only when it does not fit
+// Content keeps its designed size on the default label and grows with larger ones. Labels narrower than the default
+// scale it by their width so text does not wrap, and any label shrinks it further when it still does not fit.
 const fitLabel = (label, size) => {
-  const ceiling = Math.max(1, Math.min(size.width / BASE.width, size.height / BASE.height));
+  const widthRatio = size.width / BASE.width;
+  const ceiling = Math.min(widthRatio, Math.max(1, Math.min(widthRatio, size.height / BASE.height)));
   const tryUnit = (unit) => {
     label.style.setProperty('--u', `${unit}px`);
     return fits(label);
