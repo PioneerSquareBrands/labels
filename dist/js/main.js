@@ -32546,12 +32546,16 @@ var PRESETS = {
 var BASE = PRESETS.default;
 var MIN_UNIT = 0.5;
 var TITLES = { polybag: "Polybag", master: "Master Carton", inner: "Inner Carton" };
+var customInches = (input, fallback) => {
+  const value = parseFloat(input.value) || fallback;
+  return Math.min(parseFloat(input.max), Math.max(parseFloat(input.min), value));
+};
 var activeSize = () => {
   if (domElements_default.factory.value !== "custom-size") return PRESETS[domElements_default.factory.value] || BASE;
   return {
     name: "Custom",
-    height: parseFloat(domElements_default.labelHeight.value) || BASE.height,
-    width: parseFloat(domElements_default.labelWidth.value) || BASE.width
+    height: customInches(domElements_default.labelHeight, BASE.height),
+    width: customInches(domElements_default.labelWidth, BASE.width)
   };
 };
 var inches = (value) => `${+value.toFixed(2)}"`;

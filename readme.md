@@ -44,7 +44,7 @@ Front faces shorter than 7.5in place the UPC label and the TIHI side by side.
 
 The Label Size field sets the size of the standard polybag, master carton and inner carton
 labels. Presets live in `PRESETS` in `src/js/modules/labelSize.js`. Custom takes any height
-and width from 2in to 5in.
+and width from 3in to 5in.
 
 An option with `data-brands` in `index.html` is only offered for those brands. Sapona and
 Others also have their own page templates, which `factoryUpdate()` shows in place of the

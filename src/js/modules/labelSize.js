@@ -12,13 +12,19 @@ const BASE = PRESETS.default;
 const MIN_UNIT = 0.5;
 const TITLES = { polybag: 'Polybag', master: 'Master Carton', inner: 'Inner Carton' };
 
+// Custom sizes stay within the min and max of their inputs, even while a value is half typed
+const customInches = (input, fallback) => {
+  const value = parseFloat(input.value) || fallback;
+  return Math.min(parseFloat(input.max), Math.max(parseFloat(input.min), value));
+};
+
 const activeSize = () => {
   if (el.factory.value !== 'custom-size') return PRESETS[el.factory.value] || BASE;
 
   return {
     name: 'Custom',
-    height: parseFloat(el.labelHeight.value) || BASE.height,
-    width: parseFloat(el.labelWidth.value) || BASE.width,
+    height: customInches(el.labelHeight, BASE.height),
+    width: customInches(el.labelWidth, BASE.width),
   };
 };
 
