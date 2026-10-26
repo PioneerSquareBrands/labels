@@ -6,6 +6,7 @@ import { default as el } from './domElements.js';
 import { namer } from './misc.js';
 import { canvasUpdate } from './canvasUpdate.js';
 import { pixelToInch } from './misc.js';
+import { hideAdjustUI } from './adjust.js';
 
 let DEBUG = false;
 const upcToggles = el.controls.querySelectorAll('.visibility--upc input[type="checkbox"]');
@@ -262,7 +263,8 @@ const generatePDF = async (elements) => {
 const printScale = (print) => parseFloat(print.closest('.page')?.dataset.scale) || 1;
 
 const savePDF = async (elements) => {
-  const { pdf, pageType } = await generatePDF(elements);
+  hideAdjustUI(true);
+  const { pdf, pageType } = await generatePDF(elements).finally(() => hideAdjustUI(false));
   pdf.save(namer(pageType, 'pdf'));
 }
 
@@ -333,7 +335,9 @@ const pageImgDownload = () => {
       const print = page.querySelector('.print');
       const filename = `${brand}.${sku}.${type}${sapona}.png`;
       console.log(filename);
+      hideAdjustUI(true);
       htmlToImage.toPng(print, { quality: 1, pixelRatio: 4 / printScale(print) })
+        .finally(() => hideAdjustUI(false))
         .then(function (dataUrl) {
           const link = document.createElement('a');
           link.download = filename;

@@ -5,6 +5,7 @@ import { canvasUpdate } from './canvasUpdate.js';
 import { selectChoose } from './select.js';
 import { applyAnimation } from './toolBar.js';
 import { labelSizeInit, labelSizeUpdate } from './labelSize.js';
+import { adjustInit } from './adjust.js';
 
 let dragCounter = 0;
 let iconSize = 60;
@@ -30,6 +31,7 @@ export const fieldInit = () => {
   el.brand.addEventListener('change', brandUpdate);
   el.factory.addEventListener('change', factoryUpdate);
   labelSizeInit();
+  adjustInit();
   el.itemMaster.addEventListener('input', itemMasterUpdate);
   el.sku.addEventListener('input', skuUpdate);
   el.description.addEventListener('input', descriptionUpdate);

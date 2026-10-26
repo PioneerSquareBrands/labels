@@ -2185,6 +2185,88 @@ body.canvas-animating .preview__content {
   font-style: italic;
 }
 
+body:not(.adjust-hidden) .page :is(.label__brand, .label__description, .label__upc, .label__source, .label__info, .label__install, .label__internal, .shipping-mark__logo, .shipping-mark__sku, .shipping-mark__description, .shipping-mark__middle, .shipping-mark__bottom) {
+  cursor: pointer;
+}
+body:not(.adjust-hidden) .page :is(.label__brand, .label__description, .label__upc, .label__source, .label__info, .label__install, .label__internal, .shipping-mark__logo, .shipping-mark__sku, .shipping-mark__description, .shipping-mark__middle, .shipping-mark__bottom):hover {
+  outline: 1px solid rgba(0, 123, 255, 0.35);
+  outline-offset: 1px;
+}
+body:not(.adjust-hidden) .page .adjusted {
+  outline: 1px dashed rgba(0, 123, 255, 0.6);
+  outline-offset: 1px;
+}
+body:not(.adjust-hidden) .page .adjust--selected {
+  outline: 2px solid rgb(0, 123, 255);
+  outline-offset: 1px;
+}
+
+.adjust {
+  position: fixed;
+  z-index: 100;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 4px;
+  padding: 4px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  -webkit-box-shadow: rgb(255, 255, 255) 0px 0px 0px 0px, rgba(51, 65, 85, 0.1) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 0px 20px 25px -5px, rgba(0, 0, 0, 0.05) 0px 8px 10px -6px;
+          box-shadow: rgb(255, 255, 255) 0px 0px 0px 0px, rgba(51, 65, 85, 0.1) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 0px 20px 25px -5px, rgba(0, 0, 0, 0.05) 0px 8px 10px -6px;
+  font-size: 12px;
+  color: #656e81;
+  white-space: nowrap;
+}
+.adjust[hidden] {
+  display: none;
+}
+.adjust__name {
+  font-weight: 600;
+  padding: 0 6px;
+}
+.adjust__value {
+  min-width: 40px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  color: #292A2F;
+}
+.adjust__button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 28px;
+  min-width: 28px;
+  padding: 0 6px;
+  border: 1px solid rgba(51, 65, 85, 0.2);
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #292A2F;
+  cursor: pointer;
+}
+.adjust__button svg {
+  stroke: currentColor;
+}
+.adjust__button:hover:not(:disabled) {
+  border-color: rgba(0, 123, 255, 0.6);
+  color: rgb(0, 123, 255);
+}
+.adjust__button:disabled {
+  color: #C4C7CE;
+  cursor: default;
+}
+.adjust__button--text {
+  font-size: 12px;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

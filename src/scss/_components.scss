@@ -942,3 +942,90 @@
   opacity: 0.5;
   font-style: italic;
 }
+
+// Click-to-resize in the preview (adjust.js). body.adjust-hidden hides the outlines while an export runs.
+$adjust-parts: '.label__brand, .label__description, .label__upc, .label__source, .label__info, .label__install, .label__internal, .shipping-mark__logo, .shipping-mark__sku, .shipping-mark__description, .shipping-mark__middle, .shipping-mark__bottom';
+
+body:not(.adjust-hidden) {
+  .page :is(#{$adjust-parts}) {
+    cursor: pointer;
+  }
+
+  .page :is(#{$adjust-parts}):hover {
+    outline: 1px solid rgba(0, 123, 255, 0.35);
+    outline-offset: 1px;
+  }
+
+  .page .adjusted {
+    outline: 1px dashed rgba(0, 123, 255, 0.6);
+    outline-offset: 1px;
+  }
+
+  .page .adjust--selected {
+    outline: 2px solid rgb(0, 123, 255);
+    outline-offset: 1px;
+  }
+}
+
+.adjust {
+  position: fixed;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  background-color: #ffffff;
+  border-radius: $border-radius;
+  box-shadow: $paper;
+  font-size: 12px;
+  color: $text;
+  white-space: nowrap;
+
+  &[hidden] {
+    display: none;
+  }
+
+  &__name {
+    font-weight: 600;
+    padding: 0 6px;
+  }
+
+  &__value {
+    min-width: 40px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    color: #292A2F;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    min-width: 28px;
+    padding: 0 6px;
+    border: 1px solid rgba(51, 65, 85, 0.2);
+    border-radius: $border-radius;
+    background-color: #ffffff;
+    color: #292A2F;
+    cursor: pointer;
+
+    svg {
+      stroke: currentColor;
+    }
+
+    &:hover:not(:disabled) {
+      border-color: rgba(0, 123, 255, 0.6);
+      color: rgb(0, 123, 255);
+    }
+
+    &:disabled {
+      color: #C4C7CE;
+      cursor: default;
+    }
+  }
+
+  &__button--text {
+    font-size: 12px;
+  }
+}

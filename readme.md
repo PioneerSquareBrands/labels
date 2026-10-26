@@ -53,3 +53,13 @@ standard page for that label type.
 Sizes inside a standard label use the `u()` function in `_variables.scss`. `labelSize.js`
 sets `--u` to fit the content: the presets render at their designed size, larger labels
 grow up to their size ratio, and smaller labels shrink until nothing overflows.
+
+## Resizing parts of a label
+
+Clicking a part of a label in the preview, such as the description or the SKU, opens a toolbar
+that resizes it in 5% steps from 50% to 200%. The change applies to that part on every label in
+its group: the standard UPC labels, the Sapona label, the Others labels or the shipping marks.
+
+`adjust.js` applies the size with CSS `zoom`, so the automatic fitting sees it and fits the rest
+of the label around it. Adjustments are saved in the browser per brand and SKU, and exports hide
+the selection outlines.

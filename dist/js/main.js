@@ -5697,7 +5697,7 @@ var require_html2canvas = __commonJS({
         var type = 1;
         var shape = 0;
         var size = 3;
-        var position2 = [];
+        var position3 = [];
         parseFunctionArgs(tokens).forEach(function(arg, i6) {
           var firstToken = arg[0];
           if (i6 === 0) {
@@ -5735,7 +5735,7 @@ var require_html2canvas = __commonJS({
           angle: (angle2 + deg(180)) % deg(360),
           stops,
           type
-        } : { size, shape, stops, position: position2, type };
+        } : { size, shape, stops, position: position3, type };
       };
       var CLOSEST_SIDE = "closest-side";
       var FARTHEST_SIDE = "farthest-side";
@@ -5749,7 +5749,7 @@ var require_html2canvas = __commonJS({
         var shape = 0;
         var size = 3;
         var stops = [];
-        var position2 = [];
+        var position3 = [];
         parseFunctionArgs(tokens).forEach(function(arg, i6) {
           var isColorStop = true;
           if (i6 === 0) {
@@ -5759,19 +5759,19 @@ var require_html2canvas = __commonJS({
                 if (isIdentToken(token)) {
                   switch (token.value) {
                     case "center":
-                      position2.push(FIFTY_PERCENT);
+                      position3.push(FIFTY_PERCENT);
                       return acc;
                     case "top":
                     case "left":
-                      position2.push(ZERO_LENGTH);
+                      position3.push(ZERO_LENGTH);
                       return acc;
                     case "right":
                     case "bottom":
-                      position2.push(HUNDRED_PERCENT);
+                      position3.push(HUNDRED_PERCENT);
                       return acc;
                   }
                 } else if (isLengthPercentage(token) || isLength(token)) {
-                  position2.push(token);
+                  position3.push(token);
                 }
               } else if (isIdentToken(token)) {
                 switch (token.value) {
@@ -5818,7 +5818,7 @@ var require_html2canvas = __commonJS({
           size,
           shape,
           stops,
-          position: position2,
+          position: position3,
           type: 2
           /* RADIAL_GRADIENT */
         };
@@ -5827,7 +5827,7 @@ var require_html2canvas = __commonJS({
         var shape = 0;
         var size = 3;
         var stops = [];
-        var position2 = [];
+        var position3 = [];
         parseFunctionArgs(tokens).forEach(function(arg, i6) {
           var isColorStop = true;
           if (i6 === 0) {
@@ -5835,19 +5835,19 @@ var require_html2canvas = __commonJS({
               if (isIdentToken(token)) {
                 switch (token.value) {
                   case "center":
-                    position2.push(FIFTY_PERCENT);
+                    position3.push(FIFTY_PERCENT);
                     return false;
                   case "top":
                   case "left":
-                    position2.push(ZERO_LENGTH);
+                    position3.push(ZERO_LENGTH);
                     return false;
                   case "right":
                   case "bottom":
-                    position2.push(HUNDRED_PERCENT);
+                    position3.push(HUNDRED_PERCENT);
                     return false;
                 }
               } else if (isLengthPercentage(token) || isLength(token)) {
-                position2.push(token);
+                position3.push(token);
                 return false;
               }
               return acc;
@@ -5896,7 +5896,7 @@ var require_html2canvas = __commonJS({
           size,
           shape,
           stops,
-          position: position2,
+          position: position3,
           type: 2
           /* RADIAL_GRADIENT */
         };
@@ -6308,8 +6308,8 @@ var require_html2canvas = __commonJS({
         initialValue: "outside",
         prefix: false,
         type: 2,
-        parse: function(_context, position2) {
-          switch (position2) {
+        parse: function(_context, position3) {
+          switch (position3) {
             case "inside":
               return 0;
             case "outside":
@@ -6519,13 +6519,13 @@ var require_html2canvas = __commonJS({
           }
         }
       };
-      var position = {
+      var position2 = {
         name: "position",
         initialValue: "static",
         prefix: false,
         type: 2,
-        parse: function(_context, position2) {
-          switch (position2) {
+        parse: function(_context, position3) {
+          switch (position3) {
             case "relative":
               return 1;
             case "absolute":
@@ -7137,7 +7137,7 @@ var require_html2canvas = __commonJS({
             this.paddingBottom = parse(context, paddingBottom, declaration.paddingBottom);
             this.paddingLeft = parse(context, paddingLeft, declaration.paddingLeft);
             this.paintOrder = parse(context, paintOrder, declaration.paintOrder);
-            this.position = parse(context, position, declaration.position);
+            this.position = parse(context, position2, declaration.position);
             this.textAlign = parse(context, textAlign, declaration.textAlign);
             this.textDecorationColor = parse(context, textDecorationColor, (_a2 = declaration.textDecorationColor) !== null && _a2 !== void 0 ? _a2 : declaration.color);
             this.textDecorationLine = parse(context, textDecorationLine, (_b2 = declaration.textDecorationLine) !== null && _b2 !== void 0 ? _b2 : declaration.textDecoration);
@@ -9469,13 +9469,13 @@ var require_html2canvas = __commonJS({
         CORNER2[CORNER2["BOTTOM_RIGHT"] = 2] = "BOTTOM_RIGHT";
         CORNER2[CORNER2["BOTTOM_LEFT"] = 3] = "BOTTOM_LEFT";
       })(CORNER || (CORNER = {}));
-      var getCurvePoints = function(x4, y4, r1, r22, position2) {
+      var getCurvePoints = function(x4, y4, r1, r22, position3) {
         var kappa = 4 * ((Math.sqrt(2) - 1) / 3);
         var ox = r1 * kappa;
         var oy = r22 * kappa;
         var xm = x4 + r1;
         var ym = y4 + r22;
-        switch (position2) {
+        switch (position3) {
           case CORNER.TOP_LEFT:
             return new BezierCurve(new Vector(x4, ym), new Vector(x4, ym - oy), new Vector(xm - ox, y4), new Vector(xm, y4));
           case CORNER.TOP_RIGHT:
@@ -9900,10 +9900,10 @@ var require_html2canvas = __commonJS({
         var backgroundPaintingArea = calculateBackgroundPaintingArea(getBackgroundValueForIndex(container.styles.backgroundClip, index2), container);
         var backgroundImageSize = calculateBackgroundSize(getBackgroundValueForIndex(container.styles.backgroundSize, index2), intrinsicSize, backgroundPositioningArea);
         var sizeWidth = backgroundImageSize[0], sizeHeight = backgroundImageSize[1];
-        var position2 = getAbsoluteValueForTuple(getBackgroundValueForIndex(container.styles.backgroundPosition, index2), backgroundPositioningArea.width - sizeWidth, backgroundPositioningArea.height - sizeHeight);
-        var path = calculateBackgroundRepeatPath(getBackgroundValueForIndex(container.styles.backgroundRepeat, index2), position2, backgroundImageSize, backgroundPositioningArea, backgroundPaintingArea);
-        var offsetX = Math.round(backgroundPositioningArea.left + position2[0]);
-        var offsetY = Math.round(backgroundPositioningArea.top + position2[1]);
+        var position3 = getAbsoluteValueForTuple(getBackgroundValueForIndex(container.styles.backgroundPosition, index2), backgroundPositioningArea.width - sizeWidth, backgroundPositioningArea.height - sizeHeight);
+        var path = calculateBackgroundRepeatPath(getBackgroundValueForIndex(container.styles.backgroundRepeat, index2), position3, backgroundImageSize, backgroundPositioningArea, backgroundPaintingArea);
+        var offsetX = Math.round(backgroundPositioningArea.left + position3[0]);
+        var offsetY = Math.round(backgroundPositioningArea.top + position3[1]);
         return [path, offsetX, offsetY, sizeWidth, sizeHeight];
       };
       var isAuto = function(token) {
@@ -10648,7 +10648,7 @@ var require_html2canvas = __commonJS({
                   case 0:
                     index2 = container.styles.backgroundImage.length - 1;
                     _loop_1 = function(backgroundImage3) {
-                      var image2, url, _c, path, x4, y4, width, height, pattern, _d, path, x4, y4, width, height, _e, lineLength, x0, x1, y0, y1, canvas, ctx, gradient_1, pattern, _f, path, left, top_1, width, height, position2, x4, y4, _g, rx, ry, radialGradient_1, midX, midY, f5, invF;
+                      var image2, url, _c, path, x4, y4, width, height, pattern, _d, path, x4, y4, width, height, _e, lineLength, x0, x1, y0, y1, canvas, ctx, gradient_1, pattern, _f, path, left, top_1, width, height, position3, x4, y4, _g, rx, ry, radialGradient_1, midX, midY, f5, invF;
                       return __generator(this, function(_h) {
                         switch (_h.label) {
                           case 0:
@@ -10701,9 +10701,9 @@ var require_html2canvas = __commonJS({
                                 null,
                                 null
                               ]), path = _f[0], left = _f[1], top_1 = _f[2], width = _f[3], height = _f[4];
-                              position2 = backgroundImage3.position.length === 0 ? [FIFTY_PERCENT] : backgroundImage3.position;
-                              x4 = getAbsoluteValue(position2[0], width);
-                              y4 = getAbsoluteValue(position2[position2.length - 1], height);
+                              position3 = backgroundImage3.position.length === 0 ? [FIFTY_PERCENT] : backgroundImage3.position;
+                              x4 = getAbsoluteValue(position3[0], width);
+                              y4 = getAbsoluteValue(position3[position3.length - 1], height);
                               _g = calculateRadius(backgroundImage3, x4, y4, width, height), rx = _g[0], ry = _g[1];
                               if (rx > 0 && ry > 0) {
                                 radialGradient_1 = this_1.ctx.createRadialGradient(left + x4, top_1 + y4, 0, left + x4, top_1 + y4, rx);
@@ -11394,9 +11394,9 @@ var require_purify = __commonJS({
       }
       var hasOwnProperty = Object.hasOwnProperty, setPrototypeOf = Object.setPrototypeOf, isFrozen = Object.isFrozen, getPrototypeOf = Object.getPrototypeOf, getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
       var freeze = Object.freeze, seal = Object.seal, create = Object.create;
-      var _ref = typeof Reflect !== "undefined" && Reflect, apply = _ref.apply, construct = _ref.construct;
-      if (!apply) {
-        apply = function apply2(fun, thisValue, args) {
+      var _ref = typeof Reflect !== "undefined" && Reflect, apply2 = _ref.apply, construct = _ref.construct;
+      if (!apply2) {
+        apply2 = function apply3(fun, thisValue, args) {
           return fun.apply(thisValue, args);
         };
       }
@@ -11431,7 +11431,7 @@ var require_purify = __commonJS({
           for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
             args[_key - 1] = arguments[_key];
           }
-          return apply(func, thisArg, args);
+          return apply2(func, thisArg, args);
         };
       }
       function unconstruct(func) {
@@ -11468,7 +11468,7 @@ var require_purify = __commonJS({
         var newObject = create(null);
         var property;
         for (property in object) {
-          if (apply(hasOwnProperty, object, [property]) === true) {
+          if (apply2(hasOwnProperty, object, [property]) === true) {
             newObject[property] = object[property];
           }
         }
@@ -13714,10 +13714,10 @@ var require_function_apply = __commonJS({
     "use strict";
     var NATIVE_BIND = require_function_bind_native();
     var FunctionPrototype = Function.prototype;
-    var apply = FunctionPrototype.apply;
+    var apply2 = FunctionPrototype.apply;
     var call = FunctionPrototype.call;
-    module.exports = typeof Reflect == "object" && Reflect.apply || (NATIVE_BIND ? call.bind(apply) : function() {
-      return call.apply(apply, arguments);
+    module.exports = typeof Reflect == "object" && Reflect.apply || (NATIVE_BIND ? call.bind(apply2) : function() {
+      return call.apply(apply2, arguments);
     });
   }
 });
@@ -13795,7 +13795,7 @@ var require_task = __commonJS({
   "node_modules/core-js/internals/task.js"(exports, module) {
     "use strict";
     var global2 = require_global();
-    var apply = require_function_apply();
+    var apply2 = require_function_apply();
     var bind = require_function_bind_context();
     var isCallable = require_is_callable();
     var hasOwn = require_has_own_property();
@@ -13847,7 +13847,7 @@ var require_task = __commonJS({
         var fn = isCallable(handler) ? handler : Function2(handler);
         var args = arraySlice(arguments, 1);
         queue[++counter] = function() {
-          apply(fn, void 0, args);
+          apply2(fn, void 0, args);
         };
         defer(counter);
         return counter;
@@ -15195,12 +15195,12 @@ var require_string_multibyte = __commonJS({
     var createMethod = function(CONVERT_TO_STRING) {
       return function($this, pos) {
         var S2 = toString(requireObjectCoercible($this));
-        var position = toIntegerOrInfinity(pos);
+        var position2 = toIntegerOrInfinity(pos);
         var size = S2.length;
         var first, second;
-        if (position < 0 || position >= size) return CONVERT_TO_STRING ? "" : void 0;
-        first = charCodeAt(S2, position);
-        return first < 55296 || first > 56319 || position + 1 === size || (second = charCodeAt(S2, position + 1)) < 56320 || second > 57343 ? CONVERT_TO_STRING ? charAt(S2, position) : first : CONVERT_TO_STRING ? stringSlice(S2, position, position + 2) : (first - 55296 << 10) + (second - 56320) + 65536;
+        if (position2 < 0 || position2 >= size) return CONVERT_TO_STRING ? "" : void 0;
+        first = charCodeAt(S2, position2);
+        return first < 55296 || first > 56319 || position2 + 1 === size || (second = charCodeAt(S2, position2 + 1)) < 56320 || second > 57343 ? CONVERT_TO_STRING ? charAt(S2, position2) : first : CONVERT_TO_STRING ? stringSlice(S2, position2, position2 + 2) : (first - 55296 << 10) + (second - 56320) + 65536;
       };
     };
     module.exports = {
@@ -15309,8 +15309,8 @@ var require_get_substitution = __commonJS({
     var stringSlice = uncurryThis("".slice);
     var SUBSTITUTION_SYMBOLS = /\$([$&'`]|\d{1,2}|<[^>]*>)/g;
     var SUBSTITUTION_SYMBOLS_NO_NAMED = /\$([$&'`]|\d{1,2})/g;
-    module.exports = function(matched, str, position, captures, namedCaptures, replacement) {
-      var tailPos = position + matched.length;
+    module.exports = function(matched, str, position2, captures, namedCaptures, replacement) {
+      var tailPos = position2 + matched.length;
       var m5 = captures.length;
       var symbols = SUBSTITUTION_SYMBOLS_NO_NAMED;
       if (namedCaptures !== void 0) {
@@ -15325,7 +15325,7 @@ var require_get_substitution = __commonJS({
           case "&":
             return matched;
           case "`":
-            return stringSlice(str, 0, position);
+            return stringSlice(str, 0, position2);
           case "'":
             return stringSlice(str, tailPos);
           case "<":
@@ -15352,7 +15352,7 @@ var require_get_substitution = __commonJS({
 var require_es_string_replace = __commonJS({
   "node_modules/core-js/modules/es.string.replace.js"() {
     "use strict";
-    var apply = require_function_apply();
+    var apply2 = require_function_apply();
     var call = require_function_call();
     var uncurryThis = require_function_uncurry_this();
     var fixRegExpWellKnownSymbolLogic = require_fix_regexp_well_known_symbol_logic();
@@ -15439,21 +15439,21 @@ var require_es_string_replace = __commonJS({
           for (var i5 = 0; i5 < results.length; i5++) {
             result = results[i5];
             var matched = toString(result[0]);
-            var position = max2(min(toIntegerOrInfinity(result.index), S2.length), 0);
+            var position2 = max2(min(toIntegerOrInfinity(result.index), S2.length), 0);
             var captures = [];
             var replacement;
             for (var j3 = 1; j3 < result.length; j3++) push(captures, maybeToString(result[j3]));
             var namedCaptures = result.groups;
             if (functionalReplace) {
-              var replacerArgs = concat([matched], captures, position, S2);
+              var replacerArgs = concat([matched], captures, position2, S2);
               if (namedCaptures !== void 0) push(replacerArgs, namedCaptures);
-              replacement = toString(apply(replaceValue, void 0, replacerArgs));
+              replacement = toString(apply2(replaceValue, void 0, replacerArgs));
             } else {
-              replacement = getSubstitution(matched, S2, position, captures, namedCaptures, replaceValue);
+              replacement = getSubstitution(matched, S2, position2, captures, namedCaptures, replaceValue);
             }
-            if (position >= nextSourcePosition) {
-              accumulatedResult += stringSlice(S2, nextSourcePosition, position) + replacement;
-              nextSourcePosition = position + matched.length;
+            if (position2 >= nextSourcePosition) {
+              accumulatedResult += stringSlice(S2, nextSourcePosition, position2) + replacement;
+              nextSourcePosition = position2 + matched.length;
             }
           }
           return accumulatedResult + stringSlice(S2, nextSourcePosition);
@@ -16136,7 +16136,7 @@ var require_array_slice_simple = __commonJS({
 var require_es_string_split = __commonJS({
   "node_modules/core-js/modules/es.string.split.js"() {
     "use strict";
-    var apply = require_function_apply();
+    var apply2 = require_function_apply();
     var call = require_function_call();
     var uncurryThis = require_function_uncurry_this();
     var fixRegExpWellKnownSymbolLogic = require_fix_regexp_well_known_symbol_logic();
@@ -16192,7 +16192,7 @@ var require_es_string_split = __commonJS({
             lastIndex = separatorCopy.lastIndex;
             if (lastIndex > lastLastIndex) {
               push(output, stringSlice(string, lastLastIndex, match.index));
-              if (match.length > 1 && match.index < string.length) apply($push, output, arraySlice(match, 1));
+              if (match.length > 1 && match.index < string.length) apply2($push, output, arraySlice(match, 1));
               lastLength = match[0].length;
               lastLastIndex = lastIndex;
               if (output.length >= lim) break;
@@ -22789,7 +22789,7 @@ var init_index_es = __esm({
 
 // src/js/modules/select.js
 var selectInit = () => {
-  document.querySelectorAll("select").forEach((select, index2) => {
+  document.querySelectorAll("select").forEach((select2, index2) => {
     const selectinatorDiv = document.createElement("div");
     selectinatorDiv.className = "selectinator";
     selectinatorDiv.id = `selectinator-${index2 + 1}`;
@@ -22797,15 +22797,15 @@ var selectInit = () => {
       <input class="selectinator-input" type="text" id="selectinator_input_${index2 + 1}">
       <button class="selectinator-button" aria-hidden="true" tabindex="-1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-up-down"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg></button>
       <div class="selectinator-options"></div>`;
-    select.after(selectinatorDiv);
-    const selectinatorLabelSibling = select.previousElementSibling;
+    select2.after(selectinatorDiv);
+    const selectinatorLabelSibling = select2.previousElementSibling;
     if (selectinatorLabelSibling && selectinatorLabelSibling.tagName === "LABEL") {
       selectinatorLabelSibling.setAttribute("for", `selectinator_input_${index2 + 1}`);
     }
     const selectinatorInput = selectinatorDiv.querySelector(".selectinator-input");
     const selectinatorButton = selectinatorDiv.querySelector(".selectinator-button");
     const optionsDiv = selectinatorDiv.querySelector(".selectinator-options");
-    Array.from(select.options).forEach((option, optionIndex) => {
+    Array.from(select2.options).forEach((option, optionIndex) => {
       const optionDiv = document.createElement("div");
       optionDiv.className = "selectinator-option";
       optionDiv.textContent = option.text;
@@ -22813,18 +22813,18 @@ var selectInit = () => {
       optionsDiv.appendChild(optionDiv);
       optionDiv.addEventListener("mousedown", () => {
         selectinatorInput.value = option.text;
-        select.value = option.value;
+        select2.value = option.value;
         optionsDiv.querySelectorAll(".selectinator-option").forEach((o4) => {
           o4.classList.remove("highlighted");
         });
         optionDiv.classList.add("highlighted");
-        select.dispatchEvent(new Event("change", { bubbles: false }));
+        select2.dispatchEvent(new Event("change", { bubbles: false }));
       });
-      if (select.selectedIndex === optionIndex) {
+      if (select2.selectedIndex === optionIndex) {
         optionDiv.classList.add("highlighted");
       }
     });
-    const selectedOption = select.options[select.selectedIndex];
+    const selectedOption = select2.options[select2.selectedIndex];
     selectinatorInput.value = selectedOption.textContent;
     selectinatorButton.addEventListener("mousedown", toggleOptions);
     selectinatorInput.addEventListener("focus", openOptions);
@@ -22832,8 +22832,8 @@ var selectInit = () => {
     selectinatorInput.addEventListener("blur", hideOptions);
     document.addEventListener("mousedown", closeAllOptions);
     selectinatorInput.addEventListener("input", filterOptions);
-    selectinatorInput.addEventListener("keydown", keyboardNavigation(select));
-    select.style.display = "none";
+    selectinatorInput.addEventListener("keydown", keyboardNavigation(select2));
+    select2.style.display = "none";
   });
 };
 var openOptions = (event) => {
@@ -22882,7 +22882,7 @@ var filterOptions = (event) => {
     }
   });
 };
-var keyboardNavigation = (select) => (event) => {
+var keyboardNavigation = (select2) => (event) => {
   const parentSelectinator = event.target.closest(".selectinator");
   const selectinatorInput = parentSelectinator.querySelector(".selectinator-input");
   const optionsDiv = parentSelectinator.querySelector(".selectinator-options");
@@ -22918,15 +22918,15 @@ var keyboardNavigation = (select) => (event) => {
       if (currentIndex !== -1) {
         const selectedOption2 = options[currentIndex];
         selectinatorInput.value = selectedOption2.textContent;
-        select.value = selectedOption2.dataset.value;
+        select2.value = selectedOption2.dataset.value;
         parentSelectinator.classList.remove("active");
-        select.dispatchEvent(new Event("change", { bubbles: true }));
+        select2.dispatchEvent(new Event("change", { bubbles: true }));
       }
       break;
     case "Escape":
       parentSelectinator.classList.remove("active");
       selectinatorInput.blur();
-      const selectedOption = select.options[select.selectedIndex];
+      const selectedOption = select2.options[select2.selectedIndex];
       selectinatorInput.value = selectedOption ? selectedOption.textContent : "";
       options.forEach((o4) => {
         o4.classList.remove("highlighted");
@@ -22935,8 +22935,8 @@ var keyboardNavigation = (select) => (event) => {
       break;
   }
 };
-var selectChoose = (select, value) => {
-  let targetSelect = document.querySelector(`${select} + .selectinator .selectinator-options .selectinator-option[data-value="${value}"]`);
+var selectChoose = (select2, value) => {
+  let targetSelect = document.querySelector(`${select2} + .selectinator .selectinator-options .selectinator-option[data-value="${value}"]`);
   let event = new MouseEvent("mousedown", {
     bubbles: true,
     cancelable: true,
@@ -32262,6 +32262,145 @@ var pixelToInch = (pixels) => {
   return parseFloat((pixels / dpi).toFixed(2));
 };
 
+// src/js/modules/adjust.js
+var PARTS = {
+  label__brand: "Logo",
+  label__description: "Description",
+  label__upc: "Barcode",
+  label__source: "Made in",
+  label__info: "Item and SKU",
+  label__install: "Instructions",
+  label__internal: "Internal use",
+  "shipping-mark__logo": "Logo",
+  "shipping-mark__sku": "SKU",
+  "shipping-mark__description": "Description",
+  "shipping-mark__middle": "Details",
+  "shipping-mark__bottom": "Item"
+};
+var GROUP_NAMES = { upc: "UPC labels", sapona: "Sapona label", others: "Others labels", shipping: "Shipping marks" };
+var STEP = 0.05;
+var MIN_SCALE = 0.5;
+var MAX_SCALE2 = 2;
+var PART_SELECTOR = Object.keys(PARTS).map((part) => `.page .${part}`).join(", ");
+var adjustments = {};
+var selected = null;
+var toolbar;
+var groupOf = (page) => {
+  if (page.classList.contains("page--carton")) return "shipping";
+  if (page.classList.contains("sapona")) return "sapona";
+  if (page.classList.contains("custom-factory")) return "others";
+  return "upc";
+};
+var partOf = (node2) => Object.keys(PARTS).find((part) => node2.classList.contains(part));
+var keyOf = (node2) => `${groupOf(node2.closest(".page"))}:${partOf(node2)}`;
+var storageKey = () => {
+  const defaults = brandDefaults();
+  const sku = (domElements_default.sku.value.toUpperCase() || defaults.sku).trim();
+  return `adjust:${defaults.brandField}:${sku}`;
+};
+var save = () => {
+  try {
+    if (Object.keys(adjustments).length) localStorage.setItem(storageKey(), JSON.stringify(adjustments));
+    else localStorage.removeItem(storageKey());
+  } catch (error) {
+  }
+};
+var load = () => {
+  try {
+    adjustments = JSON.parse(localStorage.getItem(storageKey())) || {};
+  } catch (error) {
+    adjustments = {};
+  }
+};
+var apply = () => {
+  document.querySelectorAll(PART_SELECTOR).forEach((node2) => {
+    const scale = adjustments[keyOf(node2)];
+    node2.style.zoom = scale ? `${scale}` : "";
+    node2.classList.toggle("adjusted", Boolean(scale));
+  });
+  domElements_default.preview.dataset.adjustments = Object.keys(adjustments).length;
+};
+var renderToolbar = () => {
+  if (!selected) {
+    toolbar.hidden = true;
+    return;
+  }
+  const key = keyOf(selected);
+  const scale = adjustments[key] || 1;
+  const [group, part] = key.split(":");
+  const count = Object.keys(adjustments).length;
+  toolbar.querySelector(".adjust__name").textContent = `${PARTS[part]} \xB7 ${GROUP_NAMES[group]}`;
+  toolbar.querySelector(".adjust__value").textContent = `${Math.round(scale * 100)}%`;
+  toolbar.querySelector('[data-action="smaller"]').disabled = scale <= MIN_SCALE + 1e-3;
+  toolbar.querySelector('[data-action="larger"]').disabled = scale >= MAX_SCALE2 - 1e-3;
+  toolbar.querySelector('[data-action="reset"]').disabled = scale === 1;
+  toolbar.querySelector('[data-action="reset-all"]').disabled = count === 0;
+  toolbar.querySelector('[data-action="reset-all"] span').textContent = count ? `Reset all (${count})` : "Reset all";
+  toolbar.hidden = false;
+  position();
+};
+var position = () => {
+  if (!selected || toolbar.hidden) return;
+  const rect = selected.getBoundingClientRect();
+  const width = toolbar.offsetWidth;
+  const left = Math.min(Math.max(8, rect.left + rect.width / 2 - width / 2), window.innerWidth - width - 8);
+  const above = rect.top - toolbar.offsetHeight - 8;
+  toolbar.style.left = `${left}px`;
+  toolbar.style.top = `${above > 8 ? above : rect.bottom + 8}px`;
+};
+var select = (node2) => {
+  selected?.classList.remove("adjust--selected");
+  selected = node2;
+  selected?.classList.add("adjust--selected");
+  renderToolbar();
+};
+var hideAdjustUI = (hidden) => {
+  if (hidden) select(null);
+  document.body.classList.toggle("adjust-hidden", hidden);
+};
+var change = (action) => {
+  const key = keyOf(selected);
+  const scale = adjustments[key] || 1;
+  if (action === "reset-all") {
+    adjustments = {};
+  } else {
+    const next = action === "reset" ? 1 : Math.round((scale + (action === "larger" ? STEP : -STEP)) * 100) / 100;
+    const clamped = Math.min(MAX_SCALE2, Math.max(MIN_SCALE, next));
+    if (clamped === 1) delete adjustments[key];
+    else adjustments[key] = clamped;
+  }
+  save();
+  apply();
+  renderToolbar();
+};
+var reload = () => {
+  load();
+  apply();
+  renderToolbar();
+};
+var adjustInit = () => {
+  toolbar = document.querySelector(".adjust");
+  toolbar.addEventListener("mousedown", (event) => event.preventDefault());
+  toolbar.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-action]");
+    if (button && selected) change(button.dataset.action);
+  });
+  document.addEventListener("click", (event) => {
+    if (toolbar.contains(event.target)) return;
+    const part = event.target.closest(PART_SELECTOR);
+    const ignored = event.target.closest(".grab__button, .shipping-mark__tihi");
+    select(part && !ignored ? part : null);
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") select(null);
+  });
+  domElements_default.preview.querySelector(".preview__content").addEventListener("scroll", position);
+  window.addEventListener("resize", position);
+  domElements_default.sku.addEventListener("input", reload);
+  domElements_default.brand.addEventListener("change", reload);
+  window.addEventListener("load", reload);
+};
+
 // src/js/modules/toolBar.js
 var DEBUG = false;
 var upcToggles = domElements_default.controls.querySelectorAll('.visibility--upc input[type="checkbox"]');
@@ -32465,7 +32604,8 @@ var generatePDF = async (elements2) => {
 };
 var printScale = (print) => parseFloat(print.closest(".page")?.dataset.scale) || 1;
 var savePDF = async (elements2) => {
-  const { pdf, pageType } = await generatePDF(elements2);
+  hideAdjustUI(true);
+  const { pdf, pageType } = await generatePDF(elements2).finally(() => hideAdjustUI(false));
   pdf.save(namer(pageType, "pdf"));
 };
 var buttonBuilder = () => {
@@ -32527,7 +32667,8 @@ var pageImgDownload = () => {
       const print = page.querySelector(".print");
       const filename = `${brand}.${sku}.${type}${sapona}.png`;
       console.log(filename);
-      toPng(print, { quality: 1, pixelRatio: 4 / printScale(print) }).then(function(dataUrl) {
+      hideAdjustUI(true);
+      toPng(print, { quality: 1, pixelRatio: 4 / printScale(print) }).finally(() => hideAdjustUI(false)).then(function(dataUrl) {
         const link = document.createElement("a");
         link.download = filename;
         link.href = dataUrl;
@@ -32651,6 +32792,7 @@ var fieldInit = () => {
   domElements_default.brand.addEventListener("change", brandUpdate);
   domElements_default.factory.addEventListener("change", factoryUpdate);
   labelSizeInit();
+  adjustInit();
   domElements_default.itemMaster.addEventListener("input", itemMasterUpdate);
   domElements_default.sku.addEventListener("input", skuUpdate);
   domElements_default.description.addEventListener("input", descriptionUpdate);
