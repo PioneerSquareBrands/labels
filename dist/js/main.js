@@ -32728,9 +32728,20 @@ var fitLabel = (label, size) => {
   }
   tryUnit(low);
 };
+var snapCodes = () => {
+  document.querySelectorAll(".label__qr svg, .label__datamatrix svg").forEach((code) => {
+    const modules = parseFloat(code.getAttribute("viewBox")?.split(" ")[2]);
+    const box = code.parentElement.clientWidth;
+    if (!modules || !box) return;
+    const size = `${Math.max(1, Math.floor(box / modules)) * modules}px`;
+    if (code.style.width !== size) code.style.width = size;
+    if (code.style.height !== size) code.style.height = size;
+  });
+};
 var fitLabels = () => {
   const size = activeSize();
   document.querySelectorAll(".page--a4.default .label").forEach((label) => fitLabel(label, size));
+  snapCodes();
 };
 var labelSizeUpdate = () => {
   const size = activeSize();
@@ -33026,6 +33037,7 @@ var qrCodeUpdate = () => {
     qr.innerHTML = "";
     qr.appendChild(qrCode);
   });
+  snapCodes();
 };
 var dataMatrixUpdate = () => {
   const defaults = brandDefaults();
@@ -33042,6 +33054,7 @@ var dataMatrixUpdate = () => {
     dm.innerHTML = "";
     dm.appendChild(dataMatrix);
   });
+  snapCodes();
 };
 var contentUpdate = () => {
   updateTextContent(domElements_default.printPolybagQty, domElements_default.pbContent.value || "1");

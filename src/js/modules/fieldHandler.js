@@ -4,7 +4,7 @@ import { brandDefaults } from './brandDefaults.js';
 import { canvasUpdate } from './canvasUpdate.js';
 import { selectChoose } from './select.js';
 import { applyAnimation } from './toolBar.js';
-import { labelSizeInit, labelSizeUpdate } from './labelSize.js';
+import { labelSizeInit, labelSizeUpdate, snapCodes } from './labelSize.js';
 import { adjustInit } from './adjust.js';
 
 let dragCounter = 0;
@@ -358,6 +358,8 @@ const qrCodeUpdate = () => {
 
     qr.appendChild(qrCode);
   });
+
+  snapCodes();
 }
 
 const dataMatrixUpdate = () => {
@@ -378,6 +380,8 @@ const dataMatrixUpdate = () => {
 
     dm.appendChild(dataMatrix);
   });
+
+  snapCodes();
 }
 
 const contentUpdate = () => {

@@ -529,12 +529,18 @@
   &__qr,
   &__datamatrix {
     flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
+  // labelSize.js sets the exact size so each module covers whole pixels
   &__qr svg,
   &__datamatrix svg {
+    flex: none;
     width: 100%;
     height: 100%;
+    shape-rendering: crispEdges;
   }
 
   &__qr--active,

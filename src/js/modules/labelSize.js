@@ -73,9 +73,24 @@ const fitLabel = (label, size) => {
   tryUnit(low);
 };
 
+// QR codes and DataMatrix codes get a whole number of pixels per module, the largest that fits their box,
+// so the modules stay sharp instead of blurring. Only changed sizes are written, since the observer below watches styles.
+export const snapCodes = () => {
+  document.querySelectorAll('.label__qr svg, .label__datamatrix svg').forEach((code) => {
+    const modules = parseFloat(code.getAttribute('viewBox')?.split(' ')[2]);
+    const box = code.parentElement.clientWidth;
+    if (!modules || !box) return;
+
+    const size = `${Math.max(1, Math.floor(box / modules)) * modules}px`;
+    if (code.style.width !== size) code.style.width = size;
+    if (code.style.height !== size) code.style.height = size;
+  });
+};
+
 const fitLabels = () => {
   const size = activeSize();
   document.querySelectorAll('.page--a4.default .label').forEach((label) => fitLabel(label, size));
+  snapCodes();
 };
 
 export const labelSizeUpdate = () => {
