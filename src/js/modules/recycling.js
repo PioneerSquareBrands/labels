@@ -5,7 +5,7 @@ import { selectChoose } from './select.js';
 // Approved wording for each badge, one entry per printed line. The choice is saved per brand and SKU.
 const BADGES = {
   recycled: ['This carton is', 'made with', 'recycled content'],
-  recyclable: ['This carton is', 'recyclable'],
+  recyclable: ['This carton is', 'made with', 'recyclable', 'material'],
   none: null,
 };
 

@@ -32818,7 +32818,7 @@ var labelSizeInit = () => {
 // src/js/modules/recycling.js
 var BADGES = {
   recycled: ["This carton is", "made with", "recycled content"],
-  recyclable: ["This carton is", "recyclable"],
+  recyclable: ["This carton is", "made with", "recyclable", "material"],
   none: null
 };
 var DEFAULT_BADGE = "recycled";
