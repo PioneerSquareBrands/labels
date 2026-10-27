@@ -73,15 +73,22 @@ const fitLabel = (label, size) => {
   tryUnit(low);
 };
 
-// QR codes and DataMatrix codes get a whole number of pixels per module, the largest that fits their box,
-// so the modules stay sharp instead of blurring. Only changed sizes are written, since the observer below watches styles.
+// Exports render at 4x, so a quarter pixel on screen is a whole pixel in the printed file
+const EXPORT_RATIO = 4;
+const MIN_SCREEN_FILL = 0.9;
+
+// QR codes and DataMatrix codes are sized so each module covers whole pixels, which keeps them sharp. Whole screen
+// pixels are used when that still fills 90% of the box, and whole export pixels otherwise, so dense codes never shrink
+// much. Only changed sizes are written, since the observer below watches styles.
 export const snapCodes = () => {
   document.querySelectorAll('.label__qr svg, .label__datamatrix svg').forEach((code) => {
     const modules = parseFloat(code.getAttribute('viewBox')?.split(' ')[2]);
     const box = code.parentElement.clientWidth;
     if (!modules || !box) return;
 
-    const size = `${Math.max(1, Math.floor(box / modules)) * modules}px`;
+    const screenSize = Math.floor(box / modules) * modules;
+    const exportSize = Math.max(1, Math.floor((box * EXPORT_RATIO) / modules)) * modules / EXPORT_RATIO;
+    const size = `${screenSize >= box * MIN_SCREEN_FILL ? screenSize : exportSize}px`;
     if (code.style.width !== size) code.style.width = size;
     if (code.style.height !== size) code.style.height = size;
   });

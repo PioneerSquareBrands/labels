@@ -32728,12 +32728,16 @@ var fitLabel = (label, size) => {
   }
   tryUnit(low);
 };
+var EXPORT_RATIO = 4;
+var MIN_SCREEN_FILL = 0.9;
 var snapCodes = () => {
   document.querySelectorAll(".label__qr svg, .label__datamatrix svg").forEach((code) => {
     const modules = parseFloat(code.getAttribute("viewBox")?.split(" ")[2]);
     const box = code.parentElement.clientWidth;
     if (!modules || !box) return;
-    const size = `${Math.max(1, Math.floor(box / modules)) * modules}px`;
+    const screenSize = Math.floor(box / modules) * modules;
+    const exportSize = Math.max(1, Math.floor(box * EXPORT_RATIO / modules)) * modules / EXPORT_RATIO;
+    const size = `${screenSize >= box * MIN_SCREEN_FILL ? screenSize : exportSize}px`;
     if (code.style.width !== size) code.style.width = size;
     if (code.style.height !== size) code.style.height = size;
   });
