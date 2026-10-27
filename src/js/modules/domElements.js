@@ -28,6 +28,7 @@ const domElements = {
   gWeight: document.querySelector('#shipping_gross'),
   nWeight: document.querySelector('#shipping_net'),
   purchaseOrder: document.querySelector('#shipping_po'),
+  recycling: document.querySelector('#recycling'),
   tihi: document.querySelector('#shipping_tihi'),
   tihiLabel: document.querySelector('#shipping_tihi_label'),
   controls: document.querySelector('.preview__controls'),

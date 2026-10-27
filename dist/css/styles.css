@@ -1929,14 +1929,21 @@ body.canvas-animating .preview__content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
   gap: 0.1in;
   margin: 0.2in -0.2in -0.2in 0;
   font-size: 90%;
+}
+.shipping-mark--footer-stacked .shipping-mark__footer {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 .shipping-mark__footer .shipping-mark__bottom {
   -webkit-box-flex: 1;
@@ -1945,12 +1952,18 @@ body.canvas-animating .preview__content {
   width: auto;
   margin-bottom: 0.2in;
 }
+.shipping-mark--footer-stacked .shipping-mark__footer .shipping-mark__bottom {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+}
 .shipping-mark__badges {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
@@ -1959,6 +1972,12 @@ body.canvas-animating .preview__content {
           align-items: flex-end;
   gap: 0.05in;
   margin-left: auto;
+}
+.shipping-mark--badges-stacked .shipping-mark__badges {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 .shipping-mark__recycling {
   border: 4px solid #000000;
@@ -1983,6 +2002,9 @@ body.canvas-animating .preview__content {
 .shipping-mark__recycling svg {
   width: 0.6in;
   height: 0.6in;
+}
+.shipping-mark__recycling[hidden] {
+  display: none;
 }
 .shipping-mark__prop65 {
   border: 4px solid #000000;

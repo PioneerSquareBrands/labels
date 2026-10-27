@@ -2696,14 +2696,14 @@ var require_shared = __commonJS({
     function getEncodingHeight(encoding, options) {
       return options.height + (options.displayValue && encoding.text.length > 0 ? options.fontSize + options.textMargin : 0) + options.marginTop + options.marginBottom;
     }
-    function getBarcodePadding(textWidth, barcodeWidth, options) {
-      if (options.displayValue && barcodeWidth < textWidth) {
+    function getBarcodePadding(textWidth2, barcodeWidth, options) {
+      if (options.displayValue && barcodeWidth < textWidth2) {
         if (options.textAlign == "center") {
-          return Math.floor((textWidth - barcodeWidth) / 2);
+          return Math.floor((textWidth2 - barcodeWidth) / 2);
         } else if (options.textAlign == "left") {
           return 0;
         } else if (options.textAlign == "right") {
-          return Math.floor(textWidth - barcodeWidth);
+          return Math.floor(textWidth2 - barcodeWidth);
         }
       }
       return 0;
@@ -2712,16 +2712,16 @@ var require_shared = __commonJS({
       for (var i5 = 0; i5 < encodings.length; i5++) {
         var encoding = encodings[i5];
         var options = (0, _merge2.default)(barcodeOptions, encoding.options);
-        var textWidth;
+        var textWidth2;
         if (options.displayValue) {
-          textWidth = messureText(encoding.text, options, context);
+          textWidth2 = messureText(encoding.text, options, context);
         } else {
-          textWidth = 0;
+          textWidth2 = 0;
         }
         var barcodeWidth = encoding.data.length * options.width;
-        encoding.width = Math.ceil(Math.max(textWidth, barcodeWidth));
+        encoding.width = Math.ceil(Math.max(textWidth2, barcodeWidth));
         encoding.height = getEncodingHeight(encoding, options);
-        encoding.barcodePadding = getBarcodePadding(textWidth, barcodeWidth, options);
+        encoding.barcodePadding = getBarcodePadding(textWidth2, barcodeWidth, options);
       }
     }
     function getTotalWidthOfEncodings(encodings) {
@@ -2808,7 +2808,7 @@ var require_canvas = __commonJS({
       }
       _createClass2(CanvasRenderer2, [{
         key: "render",
-        value: function render() {
+        value: function render2() {
           if (!this.canvas.getContext) {
             throw new Error("The browser does not support canvas.");
           }
@@ -2949,7 +2949,7 @@ var require_svg = __commonJS({
       }
       _createClass2(SVGRenderer2, [{
         key: "render",
-        value: function render() {
+        value: function render2() {
           var currentX = this.options.marginLeft;
           this.prepareSVG();
           for (var i5 = 0; i5 < this.encodings.length; i5++) {
@@ -3111,7 +3111,7 @@ var require_object = __commonJS({
       }
       _createClass2(ObjectRenderer2, [{
         key: "render",
-        value: function render() {
+        value: function render2() {
           this.object.encodings = this.encodings;
         }
       }]);
@@ -3471,7 +3471,7 @@ var require_JsBarcode = __commonJS({
           var text = options.value;
           var Encoder = _barcodes2.default[options.format.toUpperCase()];
           var encoded = encode(text, Encoder, options);
-          render(renderProperty, encoded, options);
+          render2(renderProperty, encoded, options);
         });
       }
     };
@@ -3481,15 +3481,15 @@ var require_JsBarcode = __commonJS({
       }
       if (Array.isArray(this._renderProperties)) {
         for (var i5 = 0; i5 < this._renderProperties.length; i5++) {
-          render(this._renderProperties[i5], this._encodings, this._options);
+          render2(this._renderProperties[i5], this._encodings, this._options);
         }
       } else {
-        render(this._renderProperties, this._encodings, this._options);
+        render2(this._renderProperties, this._encodings, this._options);
       }
       return this;
     };
     API.prototype._defaults = _defaults2.default;
-    function render(renderProperties, encodings, options) {
+    function render2(renderProperties, encodings, options) {
       encodings = (0, _linearizeEncodings2.default)(encodings);
       for (var i5 = 0; i5 < encodings.length; i5++) {
         encodings[i5].options = (0, _merge2.default)(options, encodings[i5].options);
@@ -11559,7 +11559,7 @@ var require_purify = __commonJS({
         }
         var originalDocument = window2.document;
         var document2 = window2.document;
-        var DocumentFragment = window2.DocumentFragment, HTMLTemplateElement = window2.HTMLTemplateElement, Node2 = window2.Node, Element3 = window2.Element, NodeFilter = window2.NodeFilter, _window$NamedNodeMap = window2.NamedNodeMap, NamedNodeMap = _window$NamedNodeMap === void 0 ? window2.NamedNodeMap || window2.MozNamedAttrMap : _window$NamedNodeMap, HTMLFormElement = window2.HTMLFormElement, DOMParser2 = window2.DOMParser, trustedTypes = window2.trustedTypes;
+        var DocumentFragment = window2.DocumentFragment, HTMLTemplateElement = window2.HTMLTemplateElement, Node2 = window2.Node, Element3 = window2.Element, NodeFilter2 = window2.NodeFilter, _window$NamedNodeMap = window2.NamedNodeMap, NamedNodeMap = _window$NamedNodeMap === void 0 ? window2.NamedNodeMap || window2.MozNamedAttrMap : _window$NamedNodeMap, HTMLFormElement = window2.HTMLFormElement, DOMParser2 = window2.DOMParser, trustedTypes = window2.trustedTypes;
         var ElementPrototype = Element3.prototype;
         var cloneNode2 = lookupGetter(ElementPrototype, "cloneNode");
         var getNextSibling = lookupGetter(ElementPrototype, "nextSibling");
@@ -11908,7 +11908,7 @@ var require_purify = __commonJS({
             root.ownerDocument || root,
             root,
             // eslint-disable-next-line no-bitwise
-            NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_COMMENT | NodeFilter.SHOW_TEXT,
+            NodeFilter2.SHOW_ELEMENT | NodeFilter2.SHOW_COMMENT | NodeFilter2.SHOW_TEXT,
             null,
             false
           );
@@ -21557,9 +21557,9 @@ var init_index_es = __esm({
           letterSpacingCache.push(typeof dx[i5] !== "undefined" ? dx[i5] : letterSpacing);
         }
         var dxSum = letterSpacingCache.reduce((acc, cur, i6) => i6 === 0 ? 0 : acc + cur || 0, 0);
-        var textWidth = this.measureText(ctx);
-        var textFullWidth = Math.max(textWidth + dxSum, 0);
-        this.textWidth = textWidth;
+        var textWidth2 = this.measureText(ctx);
+        var textFullWidth = Math.max(textWidth2 + dxSum, 0);
+        this.textWidth = textWidth2;
         this.textHeight = this.getFontSize();
         this.glyphInfo = [];
         var fullPathWidth = this.getPathLength();
@@ -22976,6 +22976,7 @@ var domElements = {
   gWeight: document.querySelector("#shipping_gross"),
   nWeight: document.querySelector("#shipping_net"),
   purchaseOrder: document.querySelector("#shipping_po"),
+  recycling: document.querySelector("#recycling"),
   tihi: document.querySelector("#shipping_tihi"),
   tihiLabel: document.querySelector("#shipping_tihi_label"),
   controls: document.querySelector(".preview__controls"),
@@ -23137,12 +23138,42 @@ var getFaces = () => {
     mark: face.page.querySelector(".shipping-mark")
   }));
 };
+var FOOTER_STACKED = "shipping-mark--footer-stacked";
+var BADGES_STACKED = "shipping-mark--badges-stacked";
+var textWidth = (node2) => {
+  const range = document.createRange();
+  const walker = document.createTreeWalker(node2, NodeFilter.SHOW_TEXT);
+  let left = Infinity;
+  let right = -Infinity;
+  while (walker.nextNode()) {
+    if (!walker.currentNode.textContent.trim()) continue;
+    range.selectNodeContents(walker.currentNode);
+    const rect = range.getBoundingClientRect();
+    left = Math.min(left, rect.left);
+    right = Math.max(right, rect.right);
+  }
+  return right > left ? right - left : 0;
+};
+var layoutFooter = (mark) => {
+  mark.classList.remove(FOOTER_STACKED, BADGES_STACKED);
+  const footer = mark.querySelector(".shipping-mark__footer");
+  if (!footer) return;
+  const screenRatio = footer.offsetWidth / footer.getBoundingClientRect().width;
+  const itemWidth = textWidth(footer.querySelector(".shipping-mark__bottom")) * screenRatio;
+  const badges = Array.from(footer.querySelectorAll(".shipping-mark__badges > :not([hidden])"));
+  const badgeGap = parseFloat(getComputedStyle(footer.querySelector(".shipping-mark__badges")).columnGap) || 0;
+  const badgesWidth = badges.reduce((sum, badge) => sum + badge.offsetWidth, 0) + badgeGap * Math.max(0, badges.length - 1);
+  const footerGap = parseFloat(getComputedStyle(footer).columnGap) || 0;
+  if (itemWidth + footerGap + badgesWidth > footer.clientWidth) mark.classList.add(FOOTER_STACKED);
+  if (badgesWidth > footer.clientWidth) mark.classList.add(BADGES_STACKED);
+};
 var applyLayout = (face, scale, fontSize) => {
   const height = face.height * scale;
   face.scaler.style.width = `${face.width * scale}in`;
   face.scaler.style.height = `${height}in`;
   face.mark.style.setProperty("--f", `${fontSize}in`);
   face.mark.classList.toggle("shipping-mark--row", face.front && height < STACK_MIN_HEIGHT);
+  if (!face.front) layoutFooter(face.mark);
 };
 var overflows = (node2) => node2.scrollHeight > node2.clientHeight + 1 || node2.scrollWidth > node2.clientWidth + 1;
 var escapes = (node2, box, tolerance) => {
@@ -32784,6 +32815,53 @@ var labelSizeInit = () => {
   });
 };
 
+// src/js/modules/recycling.js
+var BADGES = {
+  recycled: ["This carton is", "made with", "recycled content"],
+  recyclable: ["This carton is", "recyclable"],
+  none: null
+};
+var DEFAULT_BADGE = "recycled";
+var storageKey2 = () => {
+  const defaults = brandDefaults();
+  const sku = (domElements_default.sku.value.toUpperCase() || defaults.sku).trim();
+  return `recycling:${defaults.brandField}:${sku}`;
+};
+var render = () => {
+  const lines = BADGES[domElements_default.recycling.value];
+  document.querySelectorAll(".shipping-mark__recycling").forEach((badge) => {
+    badge.hidden = !lines;
+    if (lines) badge.querySelector(".shipping-mark__recycling-text").innerHTML = lines.join("<br />");
+  });
+};
+var save2 = () => {
+  try {
+    if (domElements_default.recycling.value === DEFAULT_BADGE) localStorage.removeItem(storageKey2());
+    else localStorage.setItem(storageKey2(), domElements_default.recycling.value);
+  } catch (error) {
+  }
+};
+var load2 = () => {
+  let stored = null;
+  try {
+    stored = localStorage.getItem(storageKey2());
+  } catch (error) {
+    stored = null;
+  }
+  const value = stored in BADGES ? stored : DEFAULT_BADGE;
+  if (domElements_default.recycling.value !== value) selectChoose("#recycling", value);
+  render();
+};
+var recyclingInit = () => {
+  domElements_default.recycling.addEventListener("change", () => {
+    save2();
+    render();
+  });
+  domElements_default.sku.addEventListener("input", load2);
+  domElements_default.brand.addEventListener("change", load2);
+  window.addEventListener("load", load2);
+};
+
 // src/js/modules/fieldHandler.js
 var dragCounter = 0;
 var iconSize = 60;
@@ -32808,6 +32886,7 @@ var fieldInit = () => {
   domElements_default.factory.addEventListener("change", factoryUpdate);
   labelSizeInit();
   adjustInit();
+  recyclingInit();
   domElements_default.itemMaster.addEventListener("input", itemMasterUpdate);
   domElements_default.sku.addEventListener("input", skuUpdate);
   domElements_default.description.addEventListener("input", descriptionUpdate);
@@ -34336,7 +34415,7 @@ var IroComponentWrapper = /* @__PURE__ */ (function(Component) {
   if (Component) IroComponentWrapper2.__proto__ = Component;
   IroComponentWrapper2.prototype = Object.create(Component && Component.prototype);
   IroComponentWrapper2.prototype.constructor = IroComponentWrapper2;
-  IroComponentWrapper2.prototype.render = function render(props) {
+  IroComponentWrapper2.prototype.render = function render2(props) {
     var eventHandler = this.handleEvent.bind(this);
     var rootProps = {
       onMouseDown: eventHandler,
@@ -34811,7 +34890,7 @@ var IroColorPicker = /* @__PURE__ */ (function(Component) {
       this.emit("input:end", this.color, originId);
     }
   };
-  IroColorPicker2.prototype.render = function render(props, state) {
+  IroColorPicker2.prototype.render = function render2(props, state) {
     var this$1 = this;
     var layout = state.layout;
     if (!Array.isArray(layout)) {

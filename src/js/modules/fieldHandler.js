@@ -6,6 +6,7 @@ import { selectChoose } from './select.js';
 import { applyAnimation } from './toolBar.js';
 import { labelSizeInit, labelSizeUpdate, snapCodes } from './labelSize.js';
 import { adjustInit } from './adjust.js';
+import { recyclingInit } from './recycling.js';
 
 let dragCounter = 0;
 let iconSize = 60;
@@ -32,6 +33,7 @@ export const fieldInit = () => {
   el.factory.addEventListener('change', factoryUpdate);
   labelSizeInit();
   adjustInit();
+  recyclingInit();
   el.itemMaster.addEventListener('input', itemMasterUpdate);
   el.sku.addEventListener('input', skuUpdate);
   el.description.addEventListener('input', descriptionUpdate);

@@ -45,6 +45,47 @@ const getFaces = () => {
   }));
 };
 
+const FOOTER_STACKED = 'shipping-mark--footer-stacked';
+const BADGES_STACKED = 'shipping-mark--badges-stacked';
+
+// Width of the text inside a node, in screen pixels. Block children are skipped because they stretch to the flex row.
+const textWidth = (node) => {
+  const range = document.createRange();
+  const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+  let left = Infinity;
+  let right = -Infinity;
+
+  while (walker.nextNode()) {
+    if (!walker.currentNode.textContent.trim()) continue;
+    range.selectNodeContents(walker.currentNode);
+    const rect = range.getBoundingClientRect();
+    left = Math.min(left, rect.left);
+    right = Math.max(right, rect.right);
+  }
+
+  return right > left ? right - left : 0;
+};
+
+// The side footer puts the item line and the badges in one row, the item line above the badges, or every part on its
+// own line. The choice is made here instead of with flex-wrap because exports copy measured widths, which can tip a wrap.
+const layoutFooter = (mark) => {
+  mark.classList.remove(FOOTER_STACKED, BADGES_STACKED);
+
+  const footer = mark.querySelector('.shipping-mark__footer');
+  if (!footer) return;
+
+  const screenRatio = footer.offsetWidth / footer.getBoundingClientRect().width;
+  const itemWidth = textWidth(footer.querySelector('.shipping-mark__bottom')) * screenRatio;
+
+  const badges = Array.from(footer.querySelectorAll('.shipping-mark__badges > :not([hidden])'));
+  const badgeGap = parseFloat(getComputedStyle(footer.querySelector('.shipping-mark__badges')).columnGap) || 0;
+  const badgesWidth = badges.reduce((sum, badge) => sum + badge.offsetWidth, 0) + badgeGap * Math.max(0, badges.length - 1);
+  const footerGap = parseFloat(getComputedStyle(footer).columnGap) || 0;
+
+  if (itemWidth + footerGap + badgesWidth > footer.clientWidth) mark.classList.add(FOOTER_STACKED);
+  if (badgesWidth > footer.clientWidth) mark.classList.add(BADGES_STACKED);
+};
+
 const applyLayout = (face, scale, fontSize) => {
   const height = face.height * scale;
 
@@ -52,6 +93,7 @@ const applyLayout = (face, scale, fontSize) => {
   face.scaler.style.height = `${height}in`;
   face.mark.style.setProperty('--f', `${fontSize}in`);
   face.mark.classList.toggle('shipping-mark--row', face.front && height < STACK_MIN_HEIGHT);
+  if (!face.front) layoutFooter(face.mark);
 };
 
 const overflows = (node) => node.scrollHeight > node.clientHeight + 1 || node.scrollWidth > node.clientWidth + 1;

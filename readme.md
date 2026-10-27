@@ -63,3 +63,10 @@ its group: the standard UPC labels, the Sapona label, the Others labels or the s
 `adjust.js` applies the size with CSS `zoom`, so the automatic fitting sees it and fits the rest
 of the label around it. Adjustments are saved in the browser per brand and SKU, and exports hide
 the selection outlines.
+
+## Recycling badge
+
+The Recycling Badge field in the Shipping Marks section picks the badge on the side face:
+recycled content (the default), recyclable, or none. The wording lives in `BADGES` in
+`src/js/modules/recycling.js`. A choice other than the default is saved in the browser per
+brand and SKU.

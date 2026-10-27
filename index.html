@@ -413,6 +413,23 @@
                 <input type="text" id="shipping_po" placeholder="123456">
               </div>
 
+              <div class="field" data-highlight=".shipping-mark__recycling">
+                <label class="field__label" for="recycling">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-leaf">
+                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+                    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+                  </svg>
+                  Recycling Badge
+                </label>
+                <select name="recycling" id="recycling">
+                  <option value="recycled">Recycled content</option>
+                  <option value="recyclable">Recyclable</option>
+                  <option value="none">None</option>
+                </select>
+              </div>
+
               <div class="field">
                 <input type="file" id="shipping_tihi" class="file__input" accept=".png,.jpg,.jpeg,.gif">
                 <label for="shipping_tihi" id="shipping_tihi_label" class="file__label">
@@ -1188,9 +1205,7 @@
                             <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
                             <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
                           </svg>
-                          This carton is<br />
-                          made with <br />
-                          recycled content
+                          <span class="shipping-mark__recycling-text">This carton is<br />made with<br />recycled content</span>
                         </div>
                         <div class="shipping-mark__prop65">
                           <div class="shipping-mark__prop65-heading">

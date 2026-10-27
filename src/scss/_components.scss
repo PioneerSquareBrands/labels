@@ -731,14 +731,19 @@
     display: none;
   }
 
+  // canvasUpdate.js picks the footer layout and sets the --footer-stacked and --badges-stacked modifiers
   &__footer {
     flex: none;
     display: flex;
-    flex-wrap: wrap;
     align-items: flex-end;
     gap: 0.1in;
     margin: 0.2in -0.2in -0.2in 0;
     font-size: 90%;
+  }
+
+  &--footer-stacked &__footer {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   &__footer &__bottom {
@@ -747,13 +752,21 @@
     margin-bottom: 0.2in;
   }
 
+  &--footer-stacked &__footer &__bottom {
+    flex: none;
+  }
+
   &__badges {
+    flex: none;
     display: flex;
-    flex-wrap: wrap;
     justify-content: flex-end;
     align-items: flex-end;
     gap: 0.05in;
     margin-left: auto;
+  }
+
+  &--badges-stacked &__badges {
+    flex-direction: column;
   }
 
   &__recycling {
@@ -776,6 +789,10 @@
       width: 0.6in;
       height: 0.6in;
     }
+  }
+
+  &__recycling[hidden] {
+    display: none;
   }
 
   &__prop65 {
