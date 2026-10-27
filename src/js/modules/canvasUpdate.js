@@ -114,7 +114,7 @@ const fits = (face) => {
 
   return !overflows(face.mark)
     && !Array.from(parts).some(overflows)
-    && !Array.from(boxes).some((node) => escapes(node, markBox, tolerance));
+    && !Array.from(boxes).some((node) => node.getClientRects().length && escapes(node, markBox, tolerance));
 };
 
 const tryLayout = (face, scale, fontSize) => {
@@ -264,7 +264,7 @@ export const scaler = () => {
   });
 
   marks.forEach(mark => {
-    mutationObserver.observe(mark, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['src', 'style', 'class'] });
+    mutationObserver.observe(mark, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['src', 'style', 'class', 'hidden'] });
     mark.addEventListener('load', queueFit, true);
   });
 

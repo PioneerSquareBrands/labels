@@ -23185,7 +23185,7 @@ var fits = (face) => {
   const boxes = face.mark.querySelectorAll(".shipping-mark__upc, .shipping-mark__tihi, .shipping-mark__recycling, .shipping-mark__prop65");
   const markBox = face.mark.getBoundingClientRect();
   const tolerance = markBox.width / face.mark.offsetWidth;
-  return !overflows(face.mark) && !Array.from(parts).some(overflows) && !Array.from(boxes).some((node2) => escapes(node2, markBox, tolerance));
+  return !overflows(face.mark) && !Array.from(parts).some(overflows) && !Array.from(boxes).some((node2) => node2.getClientRects().length && escapes(node2, markBox, tolerance));
 };
 var tryLayout = (face, scale, fontSize) => {
   applyLayout(face, scale, fontSize);
@@ -23303,7 +23303,7 @@ var scaler = () => {
     if (mutations.some((mutation) => !mutation.target.classList?.contains("shipping-mark"))) queueFit();
   });
   marks.forEach((mark) => {
-    mutationObserver.observe(mark, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ["src", "style", "class"] });
+    mutationObserver.observe(mark, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ["src", "style", "class", "hidden"] });
     mark.addEventListener("load", queueFit, true);
   });
   document.fonts?.ready.then(queueFit);
